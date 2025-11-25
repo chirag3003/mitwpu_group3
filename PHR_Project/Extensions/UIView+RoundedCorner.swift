@@ -5,4 +5,10 @@ extension UIView{
         layer.cornerRadius = radius
         layer.masksToBounds = true
     }
+    
+    func addFullRoundedCorner(){
+        layer.cornerRadius = self.frame.height / 2
+        layer.masksToBounds = true
+        self.clipsToBounds = true
+    }
 }
