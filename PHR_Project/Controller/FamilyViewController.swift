@@ -35,6 +35,7 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     }
 
     private func setupCollectionView() {
+        collectionView.delaysContentTouches = false
         // 1. Register Code-based Views
         collectionView.register(
             FamilyMemberCell.self,
@@ -166,6 +167,37 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             return header
         }
         return UICollectionReusableView()
+    }
+
+    // Add this inside FamilyViewController
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        // 1. Deselect the item immediately (standard iOS behavior)
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        // 2. Get the specific member data
+        let selectedMember = familyData[indexPath.row]
+        print("Tapped on: \(selectedMember.name)")
+
+        // 3. Perform Action (e.g., Navigate to details)
+        // Example: Pushing a detail controller
+        /*
+        let detailVC = MemberDetailViewController()
+        detailVC.member = selectedMember
+        navigationController?.pushViewController(detailVC, animated: true)
+        */
+
+        // For testing now: Show an alert
+        let alert = UIAlertController(
+            title: "Selected",
+            message: "You clicked on \(selectedMember.name)",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     // MARK: - Actions
