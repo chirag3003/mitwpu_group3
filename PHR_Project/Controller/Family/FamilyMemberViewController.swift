@@ -11,10 +11,19 @@ class FamilyMemberViewController: UIViewController {
     
     var familyMember: FamilyMember?
 
+    @IBOutlet weak var pfpImage: UIImageView!
+    
+    @IBOutlet weak var memberName: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        pfpImage.addFullRoundedCorner()
+        
+        memberName.text = familyMember?.name ?? "No Name"
+        
     }
     
 
