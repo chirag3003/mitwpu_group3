@@ -181,7 +181,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="mfL-PQ-tQc">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="352.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="598.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Sxn-uZ-RsJ" userLabel="Profile Stack View">
                                                 <rect key="frame" x="16" y="16" width="361" height="100"/>
@@ -286,6 +286,40 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sRy-Rh-NKs" userLabel="Shared Stack View">
+                                                <rect key="frame" x="16" y="376.66666666666663" width="361" height="214"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shared With You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3TI-9V-KUZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="361" height="28.666666666666668"/>
+                                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tn9-yd-e34">
+                                                        <rect key="frame" x="0.0" y="40.666666666666742" width="361" height="34.333333333333343"/>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <buttonConfiguration key="configuration" style="gray" image="chevron.right" catalog="system" imagePlacement="trailing" title="Documents" cornerStyle="capsule"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rkf-yT-W2k">
+                                                        <rect key="frame" x="0.0" y="87" width="361" height="34.333333333333343"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" image="chevron.right" catalog="system" imagePlacement="trailing" title="Meal Logs">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1J-vw-79H">
+                                                        <rect key="frame" x="0.0" y="133.33333333333337" width="361" height="34.333333333333343"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" image="chevron.right" catalog="system" imagePlacement="trailing" title="Symptom Logs"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ws1-aN-h2M">
+                                                        <rect key="frame" x="0.0" y="179.66666666666674" width="361" height="34.333333333333343"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" image="chevron.right" catalog="system" imagePlacement="trailing" title="Trends"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="8" right="16"/>
                                     </stackView>
@@ -312,6 +346,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="G67-gE-zBD"/>
                     <connections>
+                        <outlet property="docButton" destination="Tn9-yd-e34" id="SC1-rE-FdS"/>
                         <outlet property="memberName" destination="Fe5-3H-opJ" id="jWS-7Q-f76"/>
                         <outlet property="pfpImage" destination="v5G-XC-ik0" id="Rfp-0y-ZvV"/>
                     </connections>
@@ -539,6 +574,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="person.2" catalog="system" width="128" height="87"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="profile" width="3178" height="3178"/>
