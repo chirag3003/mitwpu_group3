@@ -390,6 +390,9 @@
                                                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Turn On All"/>
+                                                        <connections>
+                                                            <action selector="onTurnOnAllButton:" destination="hMc-r0-99Q" eventType="touchUpInside" id="CEe-yy-DOO"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -483,6 +486,14 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="documentSwitch" destination="vfL-ht-dhY" id="ihS-Ik-15K"/>
+                        <outlet property="mealLogSwitch" destination="GLM-SB-FCH" id="nrI-4Q-JpB"/>
+                        <outlet property="readOnlySwitch" destination="VWg-OP-bU9" id="he9-iw-a43"/>
+                        <outlet property="readWriteSwitch" destination="gew-H6-ypv" id="rzc-1o-wBV"/>
+                        <outlet property="symptomLogSwitch" destination="9Fy-0k-Ayf" id="Yxf-or-jFP"/>
+                        <outlet property="trendSwitch" destination="uJe-EP-fBS" id="ys5-2p-I5M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GE2-KK-jUi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
