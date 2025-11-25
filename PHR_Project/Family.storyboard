@@ -56,6 +56,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="kke-Td-769" id="9yU-PQ-dGU"/>
+                        <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="FU1-d8-cXQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28z-t9-sWe" sceneMemberID="firstResponder"/>
@@ -167,6 +168,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7a-Dd-4yL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="693.89312977099235" y="-225.35211267605635"/>
+        </scene>
+        <!--Family Member View Controller-->
+        <scene sceneID="CoR-TS-Jdb">
+            <objects>
+                <viewController id="mTi-62-4AP" customClass="FamilyMemberViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9VF-fS-yrb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UKO-By-QsX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="G67-gE-zBD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jiR-zj-OjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-147" y="467"/>
         </scene>
         <!--Settings-->
         <scene sceneID="vcL-Qw-iYY">
