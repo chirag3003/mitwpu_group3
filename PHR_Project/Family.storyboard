@@ -314,8 +314,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="TMu-dW-VGN">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="lnm-BW-g34"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="K8b-rM-5w5"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="lnm-BW-g34">
+                            <connections>
+                                <action selector="onCancel:" destination="hMc-r0-99Q" id="6ip-Nq-4Tq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="K8b-rM-5w5">
+                            <connections>
+                                <action selector="onTick:" destination="hMc-r0-99Q" id="3TO-9M-aS7"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GE2-KK-jUi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
