@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		191FFB9C2ED578DF007E7BB7 /* MealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191FFB9B2ED578DF007E7BB7 /* MealViewController.swift */; };
 		192785BF2ED4771A00490930 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 192785BD2ED4771A00490930 /* Home.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		191FFB9B2ED578DF007E7BB7 /* MealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
 		192785BE2ED4771A00490930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PHR_Project/Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PHR_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -53,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				192785BD2ED4771A00490930 /* Home.storyboard */,
-				191FFB9B2ED578DF007E7BB7 /* MealViewController.swift */,
 				19E0D1842E8A8F9E00A6E73C /* PHR_Project */,
 				19E0D1832E8A8F9E00A6E73C /* Products */,
 			);
@@ -142,7 +139,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				191FFB9C2ED578DF007E7BB7 /* MealViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
