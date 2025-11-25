@@ -15,6 +15,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
     private var contacts: [Contact] = [
         Contact(name: "Chirag", image: "", phoneNum: "+91 7044521050"),
         Contact(name: "Sakshi", image: "", phoneNum: "+91 9970001033"),
+        Contact(name: "Ved", image: "", phoneNum: "+91 9284612186")
     ]
 
     override func viewDidLoad() {
