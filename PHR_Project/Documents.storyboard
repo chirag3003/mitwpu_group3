@@ -8,17 +8,80 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Documents-->
         <scene sceneID="N92-r6-JNb">
             <objects>
-                <viewController id="5LC-0O-m2i" sceneMemberID="viewController">
+                <viewController id="5LC-0O-m2i" customClass="DocumentsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aAf-bG-bqg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zuv-yf-uiD">
+                                <rect key="frame" x="16" y="182" width="361" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zaM-oJ-zzg"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Prescriptions"/>
+                                    <segment title="Reports"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" red="0.59215686274509804" green="0.79607843137254897" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mFz-fc-cL9">
+                                <rect key="frame" x="16" y="242" width="361" height="493"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Alz-6M-qN8">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Alz-6M-qN8" id="ATi-BF-pRk">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbH-Hr-F1u">
+                                                    <rect key="frame" x="16" y="0.0" width="329" height="51"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="GFB-vy-gem"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="gray" image="chevron.right" catalog="system" imagePlacement="trailing" title="Dr. Himani Kulkarni" buttonSize="mini"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Modified 06 Sept 2025 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkX-Gu-Qgt">
+                                                    <rect key="frame" x="28" y="35" width="105" height="11"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="EbH-Hr-F1u" firstAttribute="top" secondItem="ATi-BF-pRk" secondAttribute="top" id="45H-5G-SAV"/>
+                                                <constraint firstAttribute="bottom" secondItem="EbH-Hr-F1u" secondAttribute="bottom" id="Uyj-em-Y09"/>
+                                                <constraint firstAttribute="trailing" secondItem="EbH-Hr-F1u" secondAttribute="trailing" constant="16" id="ZaC-nh-XeD"/>
+                                                <constraint firstItem="xkX-Gu-Qgt" firstAttribute="top" secondItem="ATi-BF-pRk" secondAttribute="top" constant="34" id="cJ5-IS-obH"/>
+                                                <constraint firstItem="EbH-Hr-F1u" firstAttribute="leading" secondItem="ATi-BF-pRk" secondAttribute="leading" constant="16" id="eiX-eI-BRF"/>
+                                                <constraint firstItem="xkX-Gu-Qgt" firstAttribute="top" secondItem="ATi-BF-pRk" secondAttribute="top" constant="35" id="tdb-AP-mnw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cyb-lH-JbM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mFz-fc-cL9" firstAttribute="top" secondItem="Zuv-yf-uiD" secondAttribute="bottom" constant="20" id="2MD-Jc-ZrM"/>
+                            <constraint firstItem="cyb-lH-JbM" firstAttribute="trailing" secondItem="mFz-fc-cL9" secondAttribute="trailing" constant="16" id="7Nc-eM-Rve"/>
+                            <constraint firstItem="mFz-fc-cL9" firstAttribute="leading" secondItem="cyb-lH-JbM" secondAttribute="leading" constant="16" id="F0D-dP-eLE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="mFz-fc-cL9" secondAttribute="bottom" id="LrA-dw-Axb"/>
+                            <constraint firstItem="Zuv-yf-uiD" firstAttribute="top" secondItem="cyb-lH-JbM" secondAttribute="top" constant="10" id="Nyi-KA-EPX"/>
+                            <constraint firstItem="cyb-lH-JbM" firstAttribute="trailing" secondItem="Zuv-yf-uiD" secondAttribute="trailing" constant="16" id="Y3R-12-ZcK"/>
+                            <constraint firstItem="Zuv-yf-uiD" firstAttribute="leading" secondItem="cyb-lH-JbM" secondAttribute="leading" constant="16" id="sCy-rK-Iyf"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="hge-zJ-hdc"/>
+                    <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc"/>
+                    <connections>
+                        <outlet property="documentTableView" destination="mFz-fc-cL9" id="fDy-Fv-A2J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gd1-ds-Vt6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -46,6 +109,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="document.fill" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
