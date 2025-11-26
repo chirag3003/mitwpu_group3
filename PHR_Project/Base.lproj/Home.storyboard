@@ -570,18 +570,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZVR-aF-cpk">
+                                <rect key="frame" x="16" y="198" width="370" height="608"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meal_cell" id="CqB-MB-hU2">
+                                        <rect key="frame" x="0.0" y="50" width="370" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CqB-MB-hU2" id="E8H-iX-OAy">
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NwI-Px-a2x"/>
                         <color key="backgroundColor" red="0.69882574600250003" green="0.87551548482660635" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="QDR-QX-ZCe" firstAttribute="leading" secondItem="9hR-iu-uig" secondAttribute="leading" constant="130" id="ML4-0s-jm8"/>
+                            <constraint firstItem="ZVR-aF-cpk" firstAttribute="centerX" secondItem="9hR-iu-uig" secondAttribute="centerX" id="XDZ-S7-B2s"/>
+                            <constraint firstItem="ZVR-aF-cpk" firstAttribute="top" secondItem="NwI-Px-a2x" secondAttribute="top" constant="20" id="b2b-nn-mV4"/>
+                            <constraint firstItem="ZVR-aF-cpk" firstAttribute="bottom" secondItem="NwI-Px-a2x" secondAttribute="bottom" id="eub-mK-40B"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QDR-QX-ZCe" secondAttribute="trailing" symbolic="YES" id="n33-YE-tzV"/>
+                            <constraint firstItem="ZVR-aF-cpk" firstAttribute="leading" secondItem="NwI-Px-a2x" secondAttribute="leading" constant="16" id="ye9-WC-JBv"/>
                             <constraint firstItem="QDR-QX-ZCe" firstAttribute="top" secondItem="9hR-iu-uig" secondAttribute="top" constant="75" id="zdu-YI-GpN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OBq-gW-xzP"/>
                     <connections>
                         <outlet property="headerLabel" destination="QDR-QX-ZCe" id="RRB-gg-mGg"/>
+                        <outlet property="mealTableView" destination="ZVR-aF-cpk" id="ysX-5S-clP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQI-Vj-R0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
