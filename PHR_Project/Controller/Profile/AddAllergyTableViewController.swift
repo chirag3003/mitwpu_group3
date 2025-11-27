@@ -1,25 +1,20 @@
 //
-//  ProfileTableViewController.swift
+//  AddAllergyTableViewController.swift
 //  PHR_Project
 //
-//  Created by SDC_USER on 26/11/25.
+//  Created by SDC_USER on 27/11/25.
 //
 
 import UIKit
 
-class ProfileTableViewController: UITableViewController {
+class AddAllergyTableViewController: UITableViewController {
 
-    
-    @IBOutlet weak var profileImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        profileImage.addFullRoundedCorner()
-        
-        
-        
+
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
@@ -28,17 +23,14 @@ class ProfileTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return 0
     }
 
-    @IBAction func onDoneClick(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

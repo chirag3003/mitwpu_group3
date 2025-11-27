@@ -1,5 +1,7 @@
 import UIKit
 
-extension UITextView {
-    
+extension UILabel {
+    func setTitleFont() {
+        self.font = .systemFont(ofSize: 28, weight: .heavy)
+    }
 }

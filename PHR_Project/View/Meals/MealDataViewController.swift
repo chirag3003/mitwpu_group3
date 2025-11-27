@@ -11,36 +11,21 @@ import Foundation
 class MealDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
-    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var mealTableView: UITableView!
     
     private var mealData: [MealItem] = []
-    
-    private func fetchMealData(){
-        mealData = [
-            MealItem(id: UUID(), name: "Pancakes and Fruits"),
-            MealItem(id: UUID(), name: "Omelette and Toast"),
-            MealItem(id: UUID(), name: "Grilled Chicken and Vegetables"),
-            MealItem(id: UUID(), name: "Beef Stir Fry"),
-            MealItem(id: UUID(), name: "Spaghetti with Marinara Sauce")
-        ]
-    }
     
     
     override func viewDidLoad() {
         navigationItem.rightBarButtonItem = editButtonItem
         super.viewDidLoad()
         
-        fetchMealData()
+        mealData = MealDataStore.shared.getMealItem()
         
         //setting up table view
         mealTableView.dataSource = self
         mealTableView.delegate = self
         mealTableView.addRoundedCorner()
-        
-        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        
-    
         
         
     }
@@ -53,11 +38,18 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
         return mealData.count
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        mealTableView.setEditing(editing, animated: animated)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "meal_cell", for: indexPath)
         
         let meal = mealData[indexPath.row]
 //        cell.configure(with:meal)
+        
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
