@@ -108,6 +108,20 @@ class MealDataStore {
             Date(day: "T", number: "23"),
             Date(day: "F", number: "25"),
             Date(day: "S", number: "27"),
+            Date(day: "S", number: "28"),
+            Date(day: "M", number: "20"),
+            Date(day: "T", number: "21"),
+            Date(day: "W", number: "22"),
+            Date(day: "T", number: "23"),
+            Date(day: "F", number: "25"),
+            Date(day: "S", number: "27"),
+            Date(day: "S", number: "28"),
+            Date(day: "M", number: "20"),
+            Date(day: "T", number: "21"),
+            Date(day: "W", number: "22"),
+            Date(day: "T", number: "23"),
+            Date(day: "F", number: "25"),
+            Date(day: "S", number: "27"),
             Date(day: "S", number: "28")
         ]
 
