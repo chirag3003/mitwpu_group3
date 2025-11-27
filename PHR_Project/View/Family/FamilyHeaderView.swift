@@ -17,8 +17,8 @@ class FamilyHeaderView: UICollectionReusableView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Your Family"
-        label.font = .systemFont(ofSize: 28, weight: .heavy) // Matches design bold font
+        label.setTitleFont()
+        label.text = "Your Family"// Matches design bold font
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
