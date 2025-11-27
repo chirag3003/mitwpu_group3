@@ -12,11 +12,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 {
     @IBOutlet weak var tableView: UITableView!
     
-    private var contacts: [Contact] = [
-        Contact(name: "Chirag", image: "", phoneNum: "+91 7044521050"),
-        Contact(name: "Sakshi", image: "", phoneNum: "+91 9970001033"),
-        Contact(name: "Ved", image: "", phoneNum: "+91 9284612186")
-    ]
+    private var contacts: [Contact] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +20,8 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        contacts = getAllData().family.contacts
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)

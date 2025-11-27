@@ -24,14 +24,7 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
     private func setupData() {
         // Mock Data based on your screenshot
-        familyData = [
-            FamilyMember(name: "Dad", imageName: "person.fill", isMe: true),
-            FamilyMember(name: "Mom", imageName: "person.fill", isMe: false),
-            FamilyMember(name: "Ved", imageName: "person.fill", isMe: false),
-            FamilyMember(name: "Sushi", imageName: "person.fill", isMe: false),
-            FamilyMember(name: "Chintu", imageName: "person.fill", isMe: false),
-            FamilyMember(name: "Tosh", imageName: "person.fill", isMe: false),
-        ]
+        familyData = getAllData().family.members
     }
 
     private func setupCollectionView() {
