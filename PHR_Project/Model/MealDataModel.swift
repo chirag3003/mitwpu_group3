@@ -22,3 +22,4 @@ struct MealDetails {
     let addedBy: String
     let notes: String
 }
+
