@@ -15,3 +15,10 @@ struct documentsModel: Codable {
     let lastUpdatedAt: String
     
 }
+
+struct ReportModel {
+    let id: UUID
+    let title: String
+    let lastUpdatedAt: String
+    let fileSize: String
+}
