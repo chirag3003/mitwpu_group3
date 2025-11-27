@@ -185,6 +185,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tj-jR-vhr">
+                                <rect key="frame" x="103.00000000000001" y="664.66666666666663" width="187.33333333333337" height="50.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Generate Summary" cornerStyle="capsule" buttonSize="large"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cyb-lH-JbM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -192,13 +197,17 @@
                             <constraint firstItem="mFz-fc-cL9" firstAttribute="top" secondItem="Zuv-yf-uiD" secondAttribute="bottom" constant="20" id="2MD-Jc-ZrM"/>
                             <constraint firstItem="cyb-lH-JbM" firstAttribute="trailing" secondItem="mFz-fc-cL9" secondAttribute="trailing" constant="16" id="7Nc-eM-Rve"/>
                             <constraint firstItem="mFz-fc-cL9" firstAttribute="leading" secondItem="cyb-lH-JbM" secondAttribute="leading" constant="16" id="F0D-dP-eLE"/>
+                            <constraint firstItem="4tj-jR-vhr" firstAttribute="centerX" secondItem="cyb-lH-JbM" secondAttribute="centerX" id="KnP-OT-Evm"/>
                             <constraint firstAttribute="bottomMargin" secondItem="mFz-fc-cL9" secondAttribute="bottom" id="LrA-dw-Axb"/>
+                            <constraint firstItem="cyb-lH-JbM" firstAttribute="bottom" secondItem="4tj-jR-vhr" secondAttribute="bottom" constant="20" id="Mgy-xa-cU6"/>
                             <constraint firstItem="Zuv-yf-uiD" firstAttribute="top" secondItem="cyb-lH-JbM" secondAttribute="top" constant="10" id="Nyi-KA-EPX"/>
                             <constraint firstItem="cyb-lH-JbM" firstAttribute="trailing" secondItem="Zuv-yf-uiD" secondAttribute="trailing" constant="16" id="Y3R-12-ZcK"/>
                             <constraint firstItem="Zuv-yf-uiD" firstAttribute="leading" secondItem="cyb-lH-JbM" secondAttribute="leading" constant="16" id="sCy-rK-Iyf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc"/>
+                    <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WJd-Jj-YZl"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="dataSegment" destination="Zuv-yf-uiD" id="WLN-3l-Wok"/>
                         <outlet property="documentTableView" destination="mFz-fc-cL9" id="fDy-Fv-A2J"/>
