@@ -16,9 +16,20 @@ class MealDetailViewController: UIViewController {
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
     
+    @IBOutlet weak var carbsCardDetail: UILabel!
+    @IBOutlet weak var carbsCard: UIView!
     
+    @IBOutlet weak var proteinCardDetail: UILabel!
+    @IBOutlet weak var proteinCard: UIView!
+    
+    @IBOutlet weak var fiberCardDetail: UILabel!
+    @IBOutlet weak var fiberCard: UIView!
+    
+    @IBOutlet weak var notesText: UILabel!
     private var mealDetails: [MealDetails] = []
     
+    
+    @IBOutlet weak var notesView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +50,23 @@ class MealDetailViewController: UIViewController {
         
         mealDetailTableView.addRoundedCorner()
         
-        calorieCard.addRoundedCorner(radius: 30)
+        calorieCard.addRoundedCorner(radius: 10)
         calorieCardValue.text = "\(mealDetails[0].calories)kcal"
+        
+        carbsCard.addRoundedCorner(radius: 10)
+        carbsCardDetail.text = "\(mealDetails[0].carbs)g"
+        
+        proteinCard.addRoundedCorner(radius: 10)
+        proteinCardDetail.text = "\(mealDetails[0].protein)g"
+        
+        fiberCard.addRoundedCorner(radius: 10)
+        fiberCardDetail.text = "\(mealDetails[0].fiber)g"
+        
+        notesView.addRoundedCorner(radius: 20)
+        
+        notesText.addRoundedCorner(radius: 10)
+        notesText.text = mealDetails[0].notes
+        
         
         
     }
