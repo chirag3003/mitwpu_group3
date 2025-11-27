@@ -47,7 +47,7 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "meal_cell", for: indexPath)
         
         let meal = mealData[indexPath.row]
-        cell.textLabel?.text = meal.name
+//        cell.configure(with:meal)
         
         cell.accessoryType = .disclosureIndicator
         
