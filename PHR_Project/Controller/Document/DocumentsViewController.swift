@@ -17,49 +17,10 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
     private var reportsData: [ReportModel] = []
 
     private func fetchDocumentData() {
-        documentData = [
-            documentsModel(
-                id: UUID(),
-                title: "Dr. Abhishek Khare",
-                lastUpdatedAt: "15 Nov 2025"
-            ),
-            documentsModel(
-                id: UUID(),
-                title: "Dr. B",
-                lastUpdatedAt: "16 Nov 2025"
-            ),
-            documentsModel(
-                id: UUID(),
-                title: "Dr. C",
-                lastUpdatedAt: "18 Nov 2025"
-            ),
-            documentsModel(
-                id: UUID(),
-                title: "Dr. D",
-                lastUpdatedAt: "19 Nov 2025"
-            ),
-            documentsModel(
-                id: UUID(),
-                title: "Dr. E",
-                lastUpdatedAt: "20 Nov 2025"
-            ),
-        ]
+        documentData = getAllData().document.prescriptions
     }
     private func fetchReportsData() {
-        reportsData = [
-            ReportModel(
-                id: UUID(),
-                title: "H1ABC",
-                lastUpdatedAt: "15 Nov 2025",
-                fileSize: "3MB"
-            ),
-            ReportModel(
-                id: UUID(),
-                title: "Sugar",
-                lastUpdatedAt: "16 Nov 2025",
-                fileSize: "5MB"
-            ),
-        ]
+        reportsData = getAllData().document.reports
     }
 
     override func viewDidLoad() {
