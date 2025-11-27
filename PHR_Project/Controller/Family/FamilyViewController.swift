@@ -191,18 +191,27 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         */
 
         // For testing now: Show an alert
-        let alert = UIAlertController(
-            title: "Selected",
-            message: "You clicked on \(selectedMember.name)",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+//        let alert = UIAlertController(
+//            title: "Selected",
+//            message: "You clicked on \(selectedMember.name)",
+//            preferredStyle: .alert
+//        )
+//        alert.addAction(UIAlertAction(title: "OK", style: .default))
+//        present(alert, animated: true)
+
+        performSegue(withIdentifier: "goToMemberDetails", sender: selectedMember)
     }
 
-    // MARK: - Actions
-    @objc private func didTapAddMember() {
-        print("Add Member Tapped")
-        // Add your navigation code here
+   
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToMemberDetails" {
+            if let destinationVC = segue.destination
+                as? FamilyMemberViewController
+            {
+                let selectedMember = sender as? FamilyMember
+                destinationVC.familyMember = selectedMember
+            }
+        }
     }
 }
