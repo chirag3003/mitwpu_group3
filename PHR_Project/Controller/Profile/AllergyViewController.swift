@@ -9,15 +9,16 @@ import UIKit
 
 class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var allergies: [Allergy] = [Allergy(name: "Peanuts", severity: "High", notes: "Difficulty in Breathing"),
-                                 Allergy(name: "Dust", severity: "Medium", notes: "Causes sneezing, runny nose"),
-                                    Allergy(name: "Pollen", severity: "Low", notes: "Seasonal allergy during spring")]
+    var allergies: [Allergy] = []
     
     
     @IBOutlet weak var allergiesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //setting up data
+        allergies = getAllData().profile.allergies
 
         // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
