@@ -12,6 +12,7 @@ class MealDataStore {
     
     private var mealItem: [MealItem] = []
     private var mealDetails: [MealDetails] = []
+    private var days: [Date] = []
     
     func getMealItem() -> [MealItem] {
         return mealItem
@@ -19,6 +20,10 @@ class MealDataStore {
     
     func getMealDetails() -> [MealDetails] {
         return mealDetails
+    }
+    
+    func getDays() -> [Date] {
+        return days
     }
     
     private init() {
@@ -95,11 +100,22 @@ class MealDataStore {
                 notes: "High-calorie meal good for dinner."
             )
         ]
+        
+        let dayData: [Date] = [
+            Date(day: "M", number: "20"),
+            Date(day: "T", number: "21"),
+            Date(day: "W", number: "22"),
+            Date(day: "T", number: "23"),
+            Date(day: "F", number: "25"),
+            Date(day: "S", number: "27"),
+            Date(day: "S", number: "28")
+        ]
 
             
         
         self.mealItem = mealData
         self.mealDetails = mealDetailsData
+        self.days = dayData
     }
     
 }

@@ -9,9 +9,23 @@ import UIKit
 
 class MealViewController: UIViewController {
 
+    @IBOutlet weak var dateCollectionView: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
+}
+
+extension MealViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
+    
 }
