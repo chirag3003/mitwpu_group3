@@ -3,6 +3,7 @@ import UIKit
 extension UIView{
     func addRoundedCorner(radius: CGFloat = 30){
         layer.cornerRadius = radius
+        self.clipsToBounds = true
         layer.masksToBounds = true
     }
     
