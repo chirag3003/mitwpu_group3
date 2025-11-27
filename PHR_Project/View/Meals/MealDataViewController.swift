@@ -11,7 +11,6 @@ import Foundation
 class MealDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
-    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var mealTableView: UITableView!
     
     private var mealData: [MealItem] = []
@@ -27,10 +26,6 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
         mealTableView.dataSource = self
         mealTableView.delegate = self
         mealTableView.addRoundedCorner()
-        
-        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        
-    
         
         
     }

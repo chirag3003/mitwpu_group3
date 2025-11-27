@@ -8,8 +8,6 @@
 import UIKit
 
 class MealDetailViewController: UIViewController {
-    @IBOutlet weak var headerLabel: UILabel!
-    
    
     @IBOutlet weak var calorieCard: UIView!
    
@@ -29,9 +27,9 @@ class MealDetailViewController: UIViewController {
         
         mealDetailTableView.dataSource = self
         mealDetailTableView.delegate = self
-        
-        headerLabel.text = "Meal Details"
-        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+//        
+//        headerLabel.text = "Meal Details"
+//        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         
         let image = mealDetails[0].mealImage
         mealImage.image = UIImage(named: image)
