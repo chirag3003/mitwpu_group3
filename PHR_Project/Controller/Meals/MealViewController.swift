@@ -10,6 +10,9 @@ import UIKit
 class MealViewController: UIViewController {
 
     @IBOutlet weak var dateCollectionView: UICollectionView!
+    
+    
+    var dates: MealDataStore = MealDataStore.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,14 +21,14 @@ class MealViewController: UIViewController {
 
 }
 
-extension MealViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
-    
-}
+//extension MealViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        <#code#>
+//    }
+//    
+//    
+//}
