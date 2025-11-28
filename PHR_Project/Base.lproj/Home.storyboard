@@ -393,6 +393,9 @@
                                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <segue destination="pZA-83-9ol" kind="show" id="Abd-ET-C95"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -503,6 +506,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwE-3f-pnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2526" y="-156"/>
+        </scene>
+        <!--Symptoms-->
+        <scene sceneID="Fhi-ea-vQX">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Symptoms" storyboardName="Symptoms" id="pZA-83-9ol" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="NZK-86-dni"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MKV-eR-ZiX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2526" y="-66"/>
         </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
