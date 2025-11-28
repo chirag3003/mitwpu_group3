@@ -22,3 +22,8 @@ struct MealDetails {
     let addedBy: String
     let notes: String
 }
+
+struct Date {
+    let day: String
+    let number: String
+}
