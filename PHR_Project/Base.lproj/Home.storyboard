@@ -486,6 +486,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="mGK-iu-FPE"/>
                     <connections>
+                        <outlet property="greetingsLabel" destination="ic7-kk-Pje" id="ey0-DN-3Ba"/>
                         <outlet property="headerView" destination="vto-fR-G7q" id="yal-wq-wPB"/>
                         <outlet property="mainStack" destination="18m-S3-yQQ" id="YSU-aS-4bI"/>
                         <outlet property="mealLogCardView" destination="OXF-aa-G9R" id="GwS-CL-O7c"/>
