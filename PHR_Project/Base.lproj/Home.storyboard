@@ -814,7 +814,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Ejm-Og-VO8" kind="show" id="0q0-Il-G12"/>
+                                            <segue destination="Ejm-Og-VO8" kind="show" identifier="" id="0q0-Il-G12"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -965,7 +965,7 @@
                     <navigationItem key="navigationItem" id="bjG-9E-axq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="70X-Yz-LYH">
                             <connections>
-                                <segue destination="Dk7-wA-FBH" kind="show" id="IPJ-QJ-VVZ"/>
+                                <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

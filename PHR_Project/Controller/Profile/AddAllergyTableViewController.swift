@@ -7,12 +7,18 @@
 
 import UIKit
 
+protocol AddAllergyProtocol {
+    func addAllergy(allergy: Allergy)
+}
+
 class AddAllergyTableViewController: UITableViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var allergyIngredient: UITextField!
     @IBOutlet weak var allergyDetailReaction: UITextField!
     @IBOutlet weak var intensityButton: UIButton!
+    
+    var addDelegate: AddAllergyProtocol?
     
     // Keep reference to fields for keyboard management if needed
     var allTextFields: [UITextField] = []
@@ -79,8 +85,12 @@ class AddAllergyTableViewController: UITableViewController {
         print("Reaction: \(reaction)")
         print("Intensity: \(intensity)")
         
+        //Adding allergy
+        addDelegate?.addAllergy(allergy: Allergy(id: UUID(), name: name, severity: intensity, notes: reaction))
+       
         // 4. Go back to previous screen
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+//        dismiss(animated: true)
     }
     
     // These empty actions are just to satisfy connections if you made them in storyboard
