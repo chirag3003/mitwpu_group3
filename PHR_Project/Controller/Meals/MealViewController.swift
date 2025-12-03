@@ -27,13 +27,13 @@ class MealViewController: UIViewController {
             (sectionIndex, env) -> NSCollectionLayoutSection? in
             
             
-            let itemSize = NSCollectionLayoutItem(
+            let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0/7.0),
                     heightDimension: .fractionalHeight(1.0)
                 )
             )
-            itemSize.contentInsets = NSDirectionalEdgeInsets(
+            item.contentInsets = NSDirectionalEdgeInsets(
                 top: 8,
                 leading: 8,
                 bottom: 8,
@@ -49,12 +49,12 @@ class MealViewController: UIViewController {
             
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
-                subitems: [itemSize]
+                subitem: item,
+                count: 7 // This divides the screen width by 7 automatically
             )
-            
             // 3. Section
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+            section.orthogonalScrollingBehavior = .groupPaging
             
             return section
         }
