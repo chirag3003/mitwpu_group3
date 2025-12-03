@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController, ProfileServiceDelegate {
 
+    @IBOutlet weak var circularSummariesStack: UIStackView!
     @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
     @IBOutlet weak var stepsSummaryCard: CircularProgressView!
     @IBOutlet weak var greetingsLabel: UILabel!
@@ -33,6 +34,7 @@ class HomeViewController: UIViewController, ProfileServiceDelegate {
 
         //Adding custom spacing between stack items
         mainStack.setCustomSpacing(20, after: notificationView)
+        mainStack.setCustomSpacing(20, after: circularSummariesStack)
 
         // Do any additional setup after loading the view.
         headerView.layer.zPosition = 2
