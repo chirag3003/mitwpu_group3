@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddAllergyProtocol {
     
     var allergies: [Allergy] = []
     
@@ -18,7 +18,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         //setting up data
-        allergies = getAllData().profile.allergies
+        allergies = AllergyService.shared.fetchAllergies()
 
         // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
@@ -35,6 +35,12 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    func addAllergy(allergy: Allergy) {
+        AllergyService.shared.addAllergy(allergy)
+        allergies = AllergyService.shared.fetchAllergies()
+        allergiesTableView.reloadData()
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -45,5 +51,12 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is AddAllergyTableViewController {
+            let destinationVC = segue.destination as! AddAllergyTableViewController
+            destinationVC.addDelegate = self
+        }
+    }
 
 }
