@@ -27,7 +27,7 @@ class HomeViewController: UIViewController {
         //Adding Glass effect to components
         headerView.applyLiquidGlassEffect()
         
-        print("HI")
+        
         print(headerView.frame.size)
         //Adding custom spacing between stack items
         mainStack.setCustomSpacing(20, after: notificationView)
