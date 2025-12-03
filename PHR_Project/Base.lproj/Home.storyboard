@@ -162,7 +162,7 @@
                                                                         </subviews>
                                                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="0.0" right="16"/>
                                                                     </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="o66-Hr-2ZZ" customClass="Summar">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="o66-Hr-2ZZ">
                                                                         <rect key="frame" x="0.0" y="31.999999999999993" width="181" height="80.333333333333314"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="118" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNN-q9-xb2">
@@ -228,7 +228,7 @@
                                                                         </subviews>
                                                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="0.0" right="16"/>
                                                                     </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="s78-M4-wyn" customClass="Summar">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="s78-M4-wyn">
                                                                         <rect key="frame" x="0.0" y="31.999999999999993" width="181" height="80.333333333333314"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="UFh-08-VjS">
@@ -309,7 +309,7 @@
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="nXx-gR-vSJ" customClass="Summar">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="nXx-gR-vSJ">
                                                                         <rect key="frame" x="0.0" y="14.000000000000004" width="119.33333333333333" height="61.333333333333343"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5890" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjI-C1-hOT">
@@ -373,7 +373,7 @@
                                                                             </button>
                                                                         </subviews>
                                                                     </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="rkh-wY-EdT" customClass="Summar">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="rkh-wY-EdT">
                                                                         <rect key="frame" x="0.0" y="14.000000000000004" width="95.333333333333329" height="61.333333333333343"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="987" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ivq-rQ-FrN">
