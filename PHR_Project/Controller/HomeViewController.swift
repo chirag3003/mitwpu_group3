@@ -9,6 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController, ProfileServiceDelegate {
 
+    @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
+    @IBOutlet weak var stepsSummaryCard: CircularProgressView!
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var mainStack: UIStackView!
     @IBOutlet weak var notificationView: UIView!
@@ -41,6 +43,8 @@ class HomeViewController: UIViewController, ProfileServiceDelegate {
         // Setting up data
         greetingsLabel.text =
             "Good Morning, \(ProfileService.shared.getProfile().firstName)"
+        stepsSummaryCard.setProgress(to: 0.45)
+        caloriesSummaryCard.setProgress(to: 0.49)
     }
 
     override func viewWillAppear(_ animated: Bool) {
