@@ -8,13 +8,14 @@
 import Foundation
 
 // 1. Your Custom Date Struct (Based on your datasource usage)
-struct CustomDate {
+struct CustomDate:Codable {
     let day: String    // "Mon,"
     let number: String // "16th"
 }
 
 // 2. The Main Symptom Struct
-struct Symptom {
+struct Symptom: Codable {
+    var id: UUID?
     var symptomName: String
     var intensity: String
     var dateRecorded: CustomDate // Using the custom struct above
