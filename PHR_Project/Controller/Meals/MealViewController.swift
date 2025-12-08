@@ -7,8 +7,27 @@
 
 import UIKit
 
+class SectionBackground: UICollectionReusableView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.secondarySystemBackground
+        layer.cornerRadius = 16
+        clipsToBounds = true
+        
+    }
+    required init?(coder: NSCoder) { fatalError() }
+}
+
 class MealViewController: UIViewController {
 
+
+    @IBOutlet weak var insightOne: UIView!
+    
+    @IBOutlet weak var insightTwo: UIView!
+    @IBOutlet weak var fiberProgress: SemicircularProgressView!
+    @IBOutlet weak var proteinProgress: SemicircularProgressView!
+    @IBOutlet weak var carbsProgress: SemicircularProgressView!
+    @IBOutlet weak var calorieProgressView: CircularProgressView!
     @IBOutlet weak var mealCollectionView: MealItemCollectionView!
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
@@ -48,7 +67,14 @@ class MealViewController: UIViewController {
             )
         ],
 
-        [],  // Empty array for Dinner
+        [
+            Meal(
+                name: "Dal Rice",
+                detail: "1 plate",
+                time: "2:00 pm",
+                image: "dal"
+            )
+        ],  // Empty array for Dinner
     ]
 
     let sectionTitles = ["Breakfast", "Lunch", "Dinner"]
@@ -61,6 +87,27 @@ class MealViewController: UIViewController {
             createDateLayout(),
             animated: true
         )
+        
+        calorieProgressView.configure(progress: 0.49, thickness: 25.0)
+        
+        
+        carbsProgress.configure(progress: 0.81, thickness: 12.0)
+        carbsProgress.addRoundedCorner()
+        carbsProgress.addDropShadow()
+        
+        proteinProgress.configure(progress: 0.66, thickness: 12.0)
+        proteinProgress.addRoundedCorner()
+        proteinProgress.addDropShadow()
+        
+        fiberProgress.configure(progress: 0.71, thickness: 12.0)
+        fiberProgress.addRoundedCorner()
+        fiberProgress.addDropShadow()
+        
+        insightOne.addRoundedCorner(radius: 10)
+        insightTwo.addRoundedCorner(radius: 10)
+        
+        
+        
         setupMealCollectionView()
 
     }
@@ -123,15 +170,58 @@ class MealViewController: UIViewController {
     }
 
     private func createMealLayout() -> UICollectionViewLayout {
-        // This 'insetGrouped' appearance handles the "Card" look and rounded corners
-        var config = UICollectionLayoutListConfiguration(
-            appearance: .insetGrouped
-        )
-        config.headerMode = .supplementary
-        config.showsSeparators = true
-        config.backgroundColor =  .white
-        return UICollectionViewCompositionalLayout.list(using: config)
-    }
+            // 1. Use .sidebar or .plain to have more control over the width,
+            // or keep .insetGrouped but ensure background insets are set.
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.headerMode = .supplementary
+        config.headerTopPadding = 16
+            config.showsSeparators = true
+            // Set this to .clear so the yellow background shows through the list gaps
+            config.backgroundColor = .clear
+
+            let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
+                
+                let section = NSCollectionLayoutSection.list(
+                    using: config,
+                    layoutEnvironment: env
+                )
+
+                // 2. INTERNAL PADDING: Uncomment this to push the text/cells inside
+                // away from the edges of the yellow box.
+                section.contentInsets = NSDirectionalEdgeInsets(
+                    top: 10,
+                    leading: 0,
+                    bottom: 10,
+                    trailing: 0
+                )
+
+                // 3. Create the Background Decoration
+                let background = NSCollectionLayoutDecorationItem.background(
+                    elementKind: "section-background"
+                )
+
+                
+                // This shrinks the yellow background relative to the section, creating the gaps.
+                background.contentInsets = NSDirectionalEdgeInsets(
+                    top: 4,      // Gap above the yellow box
+                    leading: 0, // Gap on the left
+                    bottom: 4,   // Gap below the yellow box
+                    trailing: 0 // Gap on the right
+                )
+
+                section.decorationItems = [background]
+
+                return section
+            }
+
+            // Register the decoration view
+            layout.register(
+                SectionBackground.self,
+                forDecorationViewOfKind: "section-background"
+            )
+
+            return layout
+        }
 }
 
 extension MealViewController: UICollectionViewDataSource,
@@ -196,8 +286,9 @@ extension MealViewController: UICollectionViewDataSource,
                 ofKind: kind,
                 withReuseIdentifier: "SectionHeader",
                 for: indexPath
-            )
-
+            ) as! MealSectionHeaderView
+        
+        header.sectionLabel.text = sectionTitles[indexPath.section]
 //        var content = header.defaultContentConfiguration()
 //        content.text = sectionTitles[indexPath.section]
 //        content.textProperties.font = .boldSystemFont(ofSize: 20)
@@ -208,3 +299,5 @@ extension MealViewController: UICollectionViewDataSource,
     }
 
 }
+
+
