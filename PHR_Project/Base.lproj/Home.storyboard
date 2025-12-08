@@ -1040,13 +1040,13 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peanuts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-je-Loy">
-                                                                    <rect key="frame" x="38" y="29.333333333333336" width="163.33333333333334" height="21.666666666666664"/>
+                                                                    <rect key="frame" x="37.999999999999993" y="29.333333333333336" width="123.33333333333331" height="21.666666666666664"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="g7Q-uT-GeM">
-                                                                    <rect key="frame" x="209.33333333333337" y="23" width="144.66666666666663" height="34"/>
+                                                                    <rect key="frame" x="169.33333333333337" y="23" width="144.66666666666663" height="34"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reaction:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txY-8h-PI5">
                                                                             <rect key="frame" x="0.0" y="0.0" width="144.66666666666666" height="14.333333333333334"/>
@@ -1062,6 +1062,17 @@
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-9V-ZSm">
+                                                                    <rect key="frame" x="322" y="24" width="32" height="32"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="32" id="0YW-Uv-x0W"/>
+                                                                        <constraint firstAttribute="width" constant="32" id="lGy-Ha-3Es"/>
+                                                                    </constraints>
+                                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                                    <buttonConfiguration key="configuration" style="tinted" cornerStyle="capsule">
+                                                                        <imageReference key="image" image="trash" catalog="system" symbolScale="medium"/>
+                                                                    </buttonConfiguration>
+                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="52R-lo-c0T" firstAttribute="top" secondItem="UCU-lt-7aW" secondAttribute="top" id="95P-fD-U0N"/>
@@ -1091,6 +1102,7 @@
                                             <outlet property="allergyColor" destination="52R-lo-c0T" id="dR4-zO-Xi8"/>
                                             <outlet property="allergyDescLabel" destination="wIT-1a-0Nm" id="RD7-pr-2yW"/>
                                             <outlet property="allergyLabel" destination="kM8-je-Loy" id="gVm-6C-brV"/>
+                                            <outlet property="deleteButton" destination="Clg-9V-ZSm" id="OTw-y3-JTX"/>
                                             <outlet property="mainView" destination="nNz-8k-Bia" id="KWC-s7-u9p"/>
                                         </connections>
                                     </tableViewCell>
@@ -1110,11 +1122,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bjG-9E-axq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="70X-Yz-LYH">
-                            <connections>
-                                <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="70X-Yz-LYH">
+                                <connections>
+                                    <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="Mnk-Ab-mmn"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="allergiesTableView" destination="0HV-kh-br4" id="6mm-YE-Fng"/>
@@ -1449,6 +1464,7 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="profile" width="3178" height="3178"/>
         <image name="shoeprints.fill" catalog="system" width="116" height="128"/>
+        <image name="trash" catalog="system" width="117" height="128"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
