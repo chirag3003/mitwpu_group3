@@ -324,7 +324,7 @@
         <scene sceneID="jTH-Qa-AMr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Oer-j2-j1S" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Documents" image="document.fill" catalog="system" id="X66-yS-AFL"/>
+                    <tabBarItem key="tabBarItem" title="Documents" image="document" catalog="system" id="X66-yS-AFL"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="av2-1D-Hvb">
@@ -361,6 +361,7 @@
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="document" catalog="system" width="115" height="128"/>
         <image name="document.fill" catalog="system" width="115" height="128"/>
         <image name="document.viewfinder.fill" catalog="system" width="128" height="115"/>
         <image name="folder.fill" catalog="system" width="128" height="96"/>

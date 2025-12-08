@@ -33,7 +33,7 @@ class SymptomTableViewCell: UITableViewCell {
     func configureSymptomCell(with symptom: Symptom) {
             
         cardView.addRoundedCorner(radius: 20)
-        cardView.applyLiquidGlassEffect()
+    
             // 1. Basic Text
             nameLabel.text = symptom.symptomName
             intensityLabel.text = "Intensity: \(symptom.intensity)"
