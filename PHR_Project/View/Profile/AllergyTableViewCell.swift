@@ -34,7 +34,7 @@ class AllergyTableViewCell: UITableViewCell {
         switch allergy.severity {
         case "High":
             allergyColor.backgroundColor = .red
-        case "Medium":
+        case "Moderate":
             allergyColor.backgroundColor = .orange
         case "Low":
             allergyColor.backgroundColor = .yellow

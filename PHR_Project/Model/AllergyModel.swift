@@ -9,6 +9,7 @@ import Foundation
 
 
 struct Allergy {
+    var id: UUID?
     var name: String
     var severity: String
     var notes: String?
