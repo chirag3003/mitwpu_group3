@@ -4,11 +4,16 @@ struct DataSource {
     var profile: Profile
     let document: Document
     let family: Family
+    let symptoms: Symptoms
 //    let meal: MealScreen
 }
 
 struct Profile {
     let allergies: [Allergy]
+}
+
+struct Symptoms {
+    let allSymptoms: [Symptom]
 }
 
 struct Document {
@@ -31,23 +36,25 @@ func getAllData() -> DataSource {
         profile: Profile(
             allergies: [
                 Allergy(
+                    id: nil,
                     name: "Peanuts",
                     severity: "High",
                     notes: "Difficulty in Breathing"
                 ),
                 Allergy(
+                    id: nil,
                     name: "Dust",
                     severity: "Medium",
                     notes: "Causes sneezing, runny nose"
                 ),
                 Allergy(
+                    id: nil,
                     name: "Pollen",
                     severity: "Low",
                     notes: "Seasonal allergy during spring"
-                ),
-            ],
+                )
+            ]
         ),
-        
         document: Document(
             prescriptions: [
                 documentsModel(
@@ -74,7 +81,7 @@ func getAllData() -> DataSource {
                     id: UUID(),
                     title: "Dr. E",
                     lastUpdatedAt: "20 Nov 2025"
-                ),
+                )
             ],
             reports: [
                 ReportModel(
@@ -88,7 +95,7 @@ func getAllData() -> DataSource {
                     title: "Sugar",
                     lastUpdatedAt: "16 Nov 2025",
                     fileSize: "5MB"
-                ),
+                )
             ]
         ),
         family: Family(
@@ -98,13 +105,40 @@ func getAllData() -> DataSource {
                 FamilyMember(name: "Ved", imageName: "person.fill", isMe: false),
                 FamilyMember(name: "Sushi", imageName: "person.fill", isMe: false),
                 FamilyMember(name: "Chintu", imageName: "person.fill", isMe: false),
-                FamilyMember(name: "Tosh", imageName: "person.fill", isMe: false),
-            ], contacts:[
+                FamilyMember(name: "Tosh", imageName: "person.fill", isMe: false)
+            ],
+            contacts: [
                 Contact(name: "Chirag", image: "", phoneNum: "+91 7044521050"),
                 Contact(name: "Sakshi", image: "", phoneNum: "+91 9970001033"),
                 Contact(name: "Ved", image: "", phoneNum: "+91 9284612186")
             ]
         ),
-//        meal: 
+        symptoms: Symptoms(
+            allSymptoms: [
+                Symptom(
+                    symptomName: "Migraine",
+                    intensity: "High",
+                    dateRecorded: Date(day: "Mon,", number: "16th"),
+                    notes: "Experiencing sensitivity to light",
+                    time: DateComponents(hour: 9, minute: 30)
+                ),
+                Symptom(
+                    symptomName: "Fatigue",
+                    intensity: "Medium",
+                    dateRecorded: Date(day: "Thu,", number: "27th"),
+                    notes: "Feeling sluggish after meals",
+                    time: DateComponents(hour: 14, minute: 15)
+                ),
+                Symptom(
+                    symptomName: "Dizziness",
+                    intensity: "Low",
+                    dateRecorded: Date(day: "Fri,", number: "28th"),
+                    notes: "Occurred after standing up too quickly",
+                    time: DateComponents(hour: 11, minute: 0)
+                )
+            ]
+        )
+//        meal:
     )
 }
+
