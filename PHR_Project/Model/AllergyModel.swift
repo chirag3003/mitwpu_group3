@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Allergy {
+struct Allergy: Codable {
     var id: UUID?
     var name: String
     var severity: String
