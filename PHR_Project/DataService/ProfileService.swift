@@ -1,43 +1,54 @@
 import Foundation
 
-protocol ProfileServiceDelegate {
-    func reloadData()
-}
 
 class ProfileService {
     static let shared = ProfileService()
+    private let storageKey = "user_profile_data"
+    private var data: ProfileModel {
+        didSet{
+            save()
+            NotificationCenter.default.post(name: NSNotification.Name("ProfileUpdated"), object: nil)
+        }
+    }
+    
+    
+    private init() {
+        if let savedData = UserDefaults.standard.data(forKey: storageKey),
+            let decodedModel = try? JSONDecoder().decode(
+                ProfileModel.self,
+                from: savedData
+            )
+        {
 
-    private var data: ProfileModel
-    private var delegates: [ProfileServiceDelegate] = []
+            self.data = decodedModel
+            print("Loaded profile from Disk")
 
-    init() {
-        var dateComponents = DateComponents()
-        dateComponents.year = 2005
-        dateComponents.month = 6  // June
-        dateComponents.day = 30
+        } else {
+            // 3. If no data exists, load the default (User's code)
+            var dateComponents = DateComponents()
+            dateComponents.year = 2005
+            dateComponents.month = 6
+            dateComponents.day = 30
+            dateComponents.hour = 0
+            dateComponents.minute = 0
+            dateComponents.second = 0
+            dateComponents.timeZone = TimeZone(abbreviation: "UTC")
 
-        // Optionally, specify the time zone. If omitted, Calendar.current's time zone is used.
-        // Setting time components to 00:00:00 UTC often provides a consistent base.
-        dateComponents.hour = 0
-        dateComponents.minute = 0
-        dateComponents.second = 0
-        dateComponents.timeZone = TimeZone(abbreviation: "UTC")  // Use UTC for consistency
+            let calendar = Calendar(identifier: .gregorian)
+            let date = calendar.date(from: dateComponents)
 
-        // 2. Use the Calendar to create the Date
-        let calendar = Calendar(identifier: .gregorian)  // Use the Gregorian calendar
-
-        let date = calendar.date(from: dateComponents)
-
-        data = ProfileModel(
-            firstName: "Chirag",
-            lastName: "Bhalotia",
-            dob: date!,
-            sex: "Male",
-            diabetesType: "Type 2",
-            bloodType: "B+",
-            height: 172,
-            weight: 65
-        )
+            self.data = ProfileModel(
+                firstName: "Chirag",
+                lastName: "Bhalotia",
+                dob: date!,
+                sex: "Male",
+                diabetesType: "Type 2",
+                bloodType: "B+",
+                height: 172,
+                weight: 65
+            )
+            print("Loaded default profile (First Run)")
+        }
     }
 
     func getProfile() -> ProfileModel {
@@ -46,12 +57,16 @@ class ProfileService {
 
     func setProfile(to data: ProfileModel) {
         self.data = data
-        for (_, delegate) in delegates.enumerated() {
-            delegate.reloadData()
-        }
     }
 
-    func addDeletegate(_ delegate: ProfileServiceDelegate) {
-        delegates.append(delegate)
+    // MARK: - Persistence Helper
+    private func save() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(self.data)
+            UserDefaults.standard.set(data, forKey: storageKey)
+        } catch {
+            print("Failed to save profile: \(error)")
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, ProfileServiceDelegate {
+class HomeViewController: UIViewController {
 
     @IBOutlet weak var circularSummariesStack: UIStackView!
     @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
@@ -38,15 +38,15 @@ class HomeViewController: UIViewController, ProfileServiceDelegate {
 
         // Do any additional setup after loading the view.
         headerView.layer.zPosition = 2
-
-        // Setting up delegates
-        ProfileService.shared.addDeletegate(self)
-
+        
         // Setting up data
         greetingsLabel.text =
             "Good Morning, \(ProfileService.shared.getProfile().firstName)"
         stepsSummaryCard.setProgress(to: 0.45)
-        caloriesSummaryCard.setProgress(to: 0.49)
+        caloriesSummaryCard.setProgress(to: 0.82)
+        
+        //setting up event listeners
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("ProfileUpdated"), object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +67,12 @@ class HomeViewController: UIViewController, ProfileServiceDelegate {
     func reloadData() {
         greetingsLabel.text =
             "Good Morning, \(ProfileService.shared.getProfile().firstName)"
+    }
+    
+    @objc func updateUI() {
+        let profile = ProfileService.shared.getProfile()
+        reloadData()
+        // Update your labels here...
     }
 
 }
