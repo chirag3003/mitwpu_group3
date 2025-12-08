@@ -12,10 +12,6 @@ struct Profile {
     let allergies: [Allergy]
 }
 
-struct Symptoms {
-    let allSymptoms: [Symptom]
-}
-
 struct Document {
     let prescriptions: [documentsModel]
     let reports: [ReportModel]
@@ -116,28 +112,22 @@ func getAllData() -> DataSource {
         symptoms: Symptoms(
             allSymptoms: [
                 Symptom(
-                    symptomName: "Migraine",
+                    symptomName: "Fever",
                     intensity: "High",
-                    dateRecorded: Date(day: "Mon,", number: "16th"),
-                    notes: "Experiencing sensitivity to light",
-                    time: DateComponents(hour: 9, minute: 30)
+                    dateRecorded: CustomDate(day: "Mon,", number: "16th"),
+                    notes: "Felt chills in the evening",
+                    time: DateComponents(hour: 19, minute: 30)
                 ),
                 Symptom(
-                    symptomName: "Fatigue",
+                    symptomName: "Headache",
                     intensity: "Medium",
-                    dateRecorded: Date(day: "Thu,", number: "27th"),
-                    notes: "Feeling sluggish after meals",
-                    time: DateComponents(hour: 14, minute: 15)
-                ),
-                Symptom(
-                    symptomName: "Dizziness",
-                    intensity: "Low",
-                    dateRecorded: Date(day: "Fri,", number: "28th"),
-                    notes: "Occurred after standing up too quickly",
-                    time: DateComponents(hour: 11, minute: 0)
+                    dateRecorded: CustomDate(day: "Tue,", number: "17th"),
+                    notes: "Throbbing pain, relieved by rest",
+                    time: DateComponents(hour: 10, minute: 15)
                 )
             ]
         )
+        
 //        meal:
     )
 }

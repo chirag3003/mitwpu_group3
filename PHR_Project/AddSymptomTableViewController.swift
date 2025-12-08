@@ -95,6 +95,10 @@ class AddSymptomTableViewController: UITableViewController {
     }
     
     
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        
+        dismiss(animated: true)
+    }
     
     @IBAction func saveButtonTapped(_ sender: Any)
     {

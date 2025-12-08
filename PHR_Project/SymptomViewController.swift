@@ -9,43 +9,68 @@ import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var symptoms: [Symptom] = []
+    
     
     @IBOutlet weak var symptomTableView: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Load data
-        symptoms = getAllData().symptoms.allSymptoms
-
-        // Table setup
-        symptomTableView.dataSource = self
-        symptomTableView.delegate = self
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return symptoms.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Make sure your storyboard/xib cell identifier matches "symptom_cell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "symptom_cell", for: indexPath) as? SymptomTableViewCell else {
-            return UITableViewCell()
+    var symptomData = Symptoms(
+            allSymptoms: [
+                Symptom(
+                    symptomName: "Migraine",
+                    intensity: "High",
+                    dateRecorded: CustomDate(day: "Mon,", number: "16th"),
+                    notes: "Experiencing sensitivity to light",
+                    time: DateComponents(hour: 9, minute: 30)
+                ),
+                Symptom(
+                    symptomName: "Fatigue",
+                    intensity: "Medium",
+                    dateRecorded: CustomDate(day: "Thu,", number: "27th"),
+                    notes: "Feeling sluggish after meals",
+                    time: DateComponents(hour: 14, minute: 15)
+                ),
+                Symptom(
+                    symptomName: "Dizziness",
+                    intensity: "Low",
+                    dateRecorded: CustomDate(day: "Fri,", number: "28th"),
+                    notes: "Occurred after standing up too quickly",
+                    time: DateComponents(hour: 11, minute: 0)
+                )
+            ]
+        )
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            symptomTableView.dataSource = self
+            symptomTableView.delegate = self
+            
+            // UI Cleanup
+            symptomTableView.separatorStyle = .none
+//            symptomTableView.backgroundColor = .systemGroupedBackground
+//            view.backgroundColor = .systemGroupedBackground
         }
-        let symptom = symptoms[indexPath.row]
-        cell.configureSymptomCell(with: symptom)
-        return cell
-    }
+        
+        // MARK: - TableView Methods
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return symptomData.allSymptoms.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            // Ensure Identifier in Storyboard is "symptom_cell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "symptom_cell", for: indexPath) as! SymptomTableViewCell
+            
+            // Get specific symptom
+            let currentSymptom = symptomData.allSymptoms[indexPath.row]
+            
+            // Configure cell
+            cell.configure(with: currentSymptom)
+            
+            return cell
+        }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

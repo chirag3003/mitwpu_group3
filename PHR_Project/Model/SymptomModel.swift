@@ -7,12 +7,22 @@
 
 import Foundation
 
-struct Symptom
-{
+// 1. Your Custom Date Struct (Based on your datasource usage)
+struct CustomDate {
+    let day: String    // "Mon,"
+    let number: String // "16th"
+}
+
+// 2. The Main Symptom Struct
+struct Symptom {
     var symptomName: String
     var intensity: String
-    var dateRecorded: Date
+    var dateRecorded: CustomDate // Using the custom struct above
     var notes: String?
-    var time: DateComponents?
-    
+    var time: DateComponents
+}
+
+// 3. The Container (Optional, but matches your 'symptoms: Symptoms(...)' pattern)
+struct Symptoms {
+    var allSymptoms: [Symptom]
 }

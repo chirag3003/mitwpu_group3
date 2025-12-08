@@ -309,7 +309,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Select" id="rRz-xy-Nfr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="gRy-ks-2bX"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="gRy-ks-2bX">
+                            <connections>
+                                <action selector="cancelButton:" destination="KTK-me-Pwj" id="dTI-jn-fVg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="scanFileView" destination="RO2-tb-Nya" id="95u-0x-gpd"/>

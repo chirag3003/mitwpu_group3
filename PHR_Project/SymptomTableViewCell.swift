@@ -9,59 +9,75 @@ import UIKit
 
 class SymptomTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var intensityLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var notesLabel: UILabel!
-    
-    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var cardView: UIView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
     
     @IBOutlet weak var dateLabel: UILabel!
     
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    
+    @IBOutlet weak var severityView: UIView!
+    
+    @IBOutlet weak var severityLabel: UILabel!
+    
     override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-    func configureSymptomCell(with symptom: Symptom) {
+            super.awakeFromNib()
+            setupStyle()
+        }
+        
+        func setupStyle() {
+            // Card Shadow & Radius
+            cardView.layer.cornerRadius = 20
+            cardView.layer.shadowColor = UIColor.black.cgColor
+            cardView.layer.shadowOpacity = 0.08
+            cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
+            cardView.layer.shadowRadius = 6
             
-        cardView.addRoundedCorner(radius: 20)
-    
-            // 1. Basic Text
-            nameLabel.text = symptom.symptomName
-            intensityLabel.text = "Intensity: \(symptom.intensity)"
-            notesLabel.text = symptom.notes
+            // Badge Styling
+            severityView.layer.cornerRadius = 10
+            severityView.clipsToBounds = true
+        }
+        
+        // MARK: - Configuration
+        func configure(with symptom: Symptom) {
             
-            // 2. Format the Date (Using your custom Date struct)
-            // Accesses the .day ("Fri") and .number ("28") from your data
-            let dayStr = symptom.dateRecorded.day
-            let numStr = symptom.dateRecorded.number
-            dateLabel.text = "Logged \(dayStr) \(numStr)"
+            // 1. Text Data
+            titleLabel.text = symptom.symptomName
+            subtitleLabel.text = symptom.notes ?? "No notes"
+            severityLabel.text = symptom.intensity
             
-            // 3. Format the Time (DateComponents -> String)
-            if let hour = symptom.time?.hour, let minute = symptom.time?.minute {
-                
-                // Logic to convert 24h (14:00) to 12h (2:00 pm)
-                let amPm = hour >= 12 ? "pm" : "am"
-                let hour12 = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour)
-                
-                // %02d ensures that 5 minutes becomes "05"
-                let minuteString = String(format: "%02d", minute)
-                
-                timeLabel.text = "\(hour12).\(minuteString) \(amPm)"
+            // 2. Date Formatting (Combining your custom struct)
+            // Output: "Mon, 16th"
+            dateLabel.text = "\(symptom.dateRecorded.day) \(symptom.dateRecorded.number)"
+            
+            // 3. Time Formatting (DateComponents -> String)
+            if let dateFromComponents = Calendar.current.date(from: symptom.time) {
+                let formatter = DateFormatter()
+                formatter.timeStyle = .short // e.g., "9:30 AM"
+                timeLabel.text = "\(formatter.string(from: dateFromComponents))"
             } else {
-                // Fallback if time is nil
-                timeLabel.text = "--.--"
+                timeLabel.text = "--:--"
+            }
+            
+            // 4. Badge Color Logic
+            switch symptom.intensity {
+            case "High":
+                severityView.backgroundColor = .systemRed
+            case "Medium":
+                severityView.backgroundColor = .systemOrange
+            case "Low":
+                severityView.backgroundColor = .systemGreen
+            default:
+                severityView.backgroundColor = .systemGray
             }
         }
-    
    
 
 }
