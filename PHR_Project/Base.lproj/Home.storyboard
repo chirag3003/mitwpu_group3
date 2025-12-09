@@ -539,7 +539,7 @@
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <segue destination="pZA-83-9ol" kind="show" id="Abd-ET-C95"/>
+                                                                    <segue destination="YNY-Vc-27l" kind="show" id="azf-Aj-u8S"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -655,16 +655,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwE-3f-pnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2526" y="-156"/>
-        </scene>
-        <!--Symptoms-->
-        <scene sceneID="Fhi-ea-vQX">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Symptoms" storyboardName="Symptoms" id="pZA-83-9ol" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="NZK-86-dni"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MKV-eR-ZiX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2526" y="-66"/>
         </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
@@ -1122,14 +1112,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bjG-9E-axq">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="70X-Yz-LYH">
-                                <connections>
-                                    <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="edit" id="Mnk-Ab-mmn"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="70X-Yz-LYH">
+                            <connections>
+                                <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="allergiesTableView" destination="0HV-kh-br4" id="6mm-YE-Fng"/>
@@ -1452,6 +1439,16 @@
             </objects>
             <point key="canvasLocation" x="7545" y="-205"/>
         </scene>
+        <!--Symptoms-->
+        <scene sceneID="4lm-U6-Vo6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Symptoms" id="YNY-Vc-27l" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="cy7-Ak-2CF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JbA-Nr-zv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2781" y="65"/>
+        </scene>
     </scenes>
     <resources>
         <image name="carrot.fill" catalog="system" width="128" height="122"/>
@@ -1470,19 +1467,19 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
