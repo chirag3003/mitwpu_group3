@@ -208,7 +208,7 @@
                     <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WJd-Jj-YZl">
                             <connections>
-                                <segue destination="geb-7z-qDH" kind="presentation" id="2hB-yN-xUh"/>
+                                <segue destination="d5W-Zj-Kq5" kind="show" id="K6I-6N-t3h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -226,11 +226,11 @@
             <objects>
                 <viewController id="KTK-me-Pwj" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IDV-w5-Iap">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M12-CE-tOZ">
-                                <rect key="frame" x="0.0" y="70" width="393" height="138"/>
+                                <rect key="frame" x="0.0" y="172" width="393" height="138"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-pH-e9b">
                                         <rect key="frame" x="16" y="8" width="361" height="57"/>
@@ -346,7 +346,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="geb-7z-qDH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEV-Od-juy">
-                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -357,6 +357,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgq-nD-mza" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2585.4961832061067" y="286.61971830985919"/>
+        </scene>
+        <!--Generate Health Report-->
+        <scene sceneID="ebq-8P-9AX">
+            <objects>
+                <viewController id="d5W-Zj-Kq5" customClass="GenerateHealthViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="57O-Ey-2Ex">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzP-Fm-YIu">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QTM-i8-ieG">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="130"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWK-9L-8VI">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="130"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="ixZ-8J-EPI"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="leading" secondItem="QTM-i8-ieG" secondAttribute="leadingMargin" id="PCR-OH-GFP"/>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="top" secondItem="QTM-i8-ieG" secondAttribute="topMargin" id="R5W-X4-hAH"/>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="top" secondItem="QTM-i8-ieG" secondAttribute="top" id="fQh-tR-KQ1"/>
+                                            <constraint firstAttribute="trailing" secondItem="OWK-9L-8VI" secondAttribute="trailing" id="kaH-kl-MF0"/>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="bottom" secondItem="QTM-i8-ieG" secondAttribute="bottomMargin" id="qea-gF-LbR"/>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="leading" secondItem="QTM-i8-ieG" secondAttribute="leading" id="xX2-si-vGV"/>
+                                            <constraint firstItem="OWK-9L-8VI" firstAttribute="trailing" secondItem="QTM-i8-ieG" secondAttribute="trailingMargin" id="zkU-Am-Em9"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="QTM-i8-ieG" secondAttribute="bottom" id="3hg-AU-Qd5"/>
+                                    <constraint firstItem="QTM-i8-ieG" firstAttribute="width" secondItem="tzP-Fm-YIu" secondAttribute="width" id="Dn7-rw-ut6"/>
+                                    <constraint firstAttribute="trailing" secondItem="QTM-i8-ieG" secondAttribute="trailing" id="LDp-iu-dCY"/>
+                                    <constraint firstItem="QTM-i8-ieG" firstAttribute="top" secondItem="gEC-yV-Utw" secondAttribute="top" id="i5S-mK-jzB"/>
+                                    <constraint firstItem="QTM-i8-ieG" firstAttribute="leading" secondItem="tzP-Fm-YIu" secondAttribute="leading" id="lHn-lc-BOH"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="rsY-jz-egf"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="gEC-yV-Utw"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CZX-dk-kbG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="tzP-Fm-YIu" secondAttribute="bottom" id="MHd-tc-g8O"/>
+                            <constraint firstItem="tzP-Fm-YIu" firstAttribute="leading" secondItem="CZX-dk-kbG" secondAttribute="leading" id="Rdz-Z4-397"/>
+                            <constraint firstItem="CZX-dk-kbG" firstAttribute="trailing" secondItem="tzP-Fm-YIu" secondAttribute="trailing" id="TWW-mV-NRN"/>
+                            <constraint firstItem="tzP-Fm-YIu" firstAttribute="top" secondItem="CZX-dk-kbG" secondAttribute="top" id="Tlr-OL-xFt"/>
+                            <constraint firstItem="tzP-Fm-YIu" firstAttribute="top" secondItem="CZX-dk-kbG" secondAttribute="top" id="V2K-lQ-6Wn"/>
+                            <constraint firstItem="tzP-Fm-YIu" firstAttribute="leading" secondItem="CZX-dk-kbG" secondAttribute="leading" id="ecm-SI-Yeo"/>
+                            <constraint firstItem="tzP-Fm-YIu" firstAttribute="trailing" secondItem="CZX-dk-kbG" secondAttribute="trailing" id="tLP-Ha-zME"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Generate Health Report" id="dKG-Mh-8vi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WsL-HL-gvu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2647" y="1098"/>
         </scene>
     </scenes>
     <resources>
