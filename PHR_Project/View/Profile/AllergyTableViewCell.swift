@@ -15,7 +15,6 @@ class AllergyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var allergyDescLabel: UILabel!
 
-    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var mainView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,7 +42,6 @@ class AllergyTableViewCell: UITableViewCell {
         default:
             allergyColor.backgroundColor = .yellow
         }
-        deleteButton.isHidden = true
     }
 
 }

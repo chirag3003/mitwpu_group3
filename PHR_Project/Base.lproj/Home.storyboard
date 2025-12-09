@@ -1030,13 +1030,13 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peanuts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kM8-je-Loy">
-                                                                    <rect key="frame" x="37.999999999999993" y="29.333333333333336" width="123.33333333333331" height="21.666666666666664"/>
+                                                                    <rect key="frame" x="38" y="29.333333333333336" width="163.33333333333334" height="21.666666666666664"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="g7Q-uT-GeM">
-                                                                    <rect key="frame" x="169.33333333333337" y="23" width="144.66666666666663" height="34"/>
+                                                                    <rect key="frame" x="209.33333333333337" y="23" width="144.66666666666663" height="34"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reaction:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txY-8h-PI5">
                                                                             <rect key="frame" x="0.0" y="0.0" width="144.66666666666666" height="14.333333333333334"/>
@@ -1052,17 +1052,6 @@
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-9V-ZSm">
-                                                                    <rect key="frame" x="322" y="24" width="32" height="32"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="32" id="0YW-Uv-x0W"/>
-                                                                        <constraint firstAttribute="width" constant="32" id="lGy-Ha-3Es"/>
-                                                                    </constraints>
-                                                                    <color key="tintColor" systemColor="systemRedColor"/>
-                                                                    <buttonConfiguration key="configuration" style="tinted" cornerStyle="capsule">
-                                                                        <imageReference key="image" image="trash" catalog="system" symbolScale="medium"/>
-                                                                    </buttonConfiguration>
-                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="52R-lo-c0T" firstAttribute="top" secondItem="UCU-lt-7aW" secondAttribute="top" id="95P-fD-U0N"/>
@@ -1092,7 +1081,6 @@
                                             <outlet property="allergyColor" destination="52R-lo-c0T" id="dR4-zO-Xi8"/>
                                             <outlet property="allergyDescLabel" destination="wIT-1a-0Nm" id="RD7-pr-2yW"/>
                                             <outlet property="allergyLabel" destination="kM8-je-Loy" id="gVm-6C-brV"/>
-                                            <outlet property="deleteButton" destination="Clg-9V-ZSm" id="OTw-y3-JTX"/>
                                             <outlet property="mainView" destination="nNz-8k-Bia" id="KWC-s7-u9p"/>
                                         </connections>
                                     </tableViewCell>
@@ -1320,7 +1308,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergy From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOu-SP-3NQ">
-                                                    <rect key="frame" x="20" y="15" width="153" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="96" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1335,7 +1323,6 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Yqu-CR-ptF" firstAttribute="leading" secondItem="qOu-SP-3NQ" secondAttribute="trailing" constant="8" id="3u6-zz-nYK"/>
                                                 <constraint firstItem="Yqu-CR-ptF" firstAttribute="centerY" secondItem="TbL-eb-TQn" secondAttribute="centerY" id="JYP-df-HTB"/>
                                                 <constraint firstAttribute="trailing" secondItem="Yqu-CR-ptF" secondAttribute="trailing" constant="20" symbolic="YES" id="SfG-yc-aYc"/>
                                                 <constraint firstItem="qOu-SP-3NQ" firstAttribute="leading" secondItem="TbL-eb-TQn" secondAttribute="leadingMargin" id="Xva-X5-VCE"/>
@@ -1352,7 +1339,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyk-Tj-7Cg">
-                                                    <rect key="frame" x="20" y="15" width="153" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="66.666666666666671" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1372,7 +1359,6 @@
                                                 <constraint firstItem="Dyk-Tj-7Cg" firstAttribute="leading" secondItem="9sd-aD-DtK" secondAttribute="leadingMargin" id="Pa4-aX-3xs"/>
                                                 <constraint firstItem="M4A-9h-Bt9" firstAttribute="centerY" secondItem="9sd-aD-DtK" secondAttribute="centerY" id="QHN-SW-3bg"/>
                                                 <constraint firstAttribute="trailing" secondItem="M4A-9h-Bt9" secondAttribute="trailing" constant="20" symbolic="YES" id="tBh-SX-g5p"/>
-                                                <constraint firstItem="M4A-9h-Bt9" firstAttribute="leading" secondItem="Dyk-Tj-7Cg" secondAttribute="trailing" constant="8" id="uUF-6e-00g"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1408,7 +1394,6 @@
                                                 <constraint firstItem="vvu-sN-i3L" firstAttribute="leading" secondItem="xjd-P9-uv4" secondAttribute="leadingMargin" id="Eo9-5f-clz"/>
                                                 <constraint firstItem="8Rh-Cd-qzk" firstAttribute="width" secondItem="xjd-P9-uv4" secondAttribute="width" multiplier="0.5" id="MFk-Yr-49H"/>
                                                 <constraint firstAttribute="trailing" secondItem="8Rh-Cd-qzk" secondAttribute="trailing" constant="20" symbolic="YES" id="S4R-hs-GMG"/>
-                                                <constraint firstItem="8Rh-Cd-qzk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vvu-sN-i3L" secondAttribute="trailing" constant="8" symbolic="YES" id="YvC-qw-nzA"/>
                                                 <constraint firstItem="vvu-sN-i3L" firstAttribute="centerY" secondItem="8Rh-Cd-qzk" secondAttribute="centerY" id="tkc-ab-eFo"/>
                                                 <constraint firstItem="8Rh-Cd-qzk" firstAttribute="centerY" secondItem="xjd-P9-uv4" secondAttribute="centerY" id="wE8-YK-G9R"/>
                                             </constraints>
@@ -1461,7 +1446,6 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="profile" width="3178" height="3178"/>
         <image name="shoeprints.fill" catalog="system" width="116" height="128"/>
-        <image name="trash" catalog="system" width="117" height="128"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
