@@ -46,4 +46,11 @@ class SymptomService {
             print("Failed to load symptoms: \(error)")
         }
     }
+    
+     func deleteSymptom(at index: Int) {
+        if index < symptoms.count {
+            symptoms.remove(at: index)
+        }
+    }
+    
 }

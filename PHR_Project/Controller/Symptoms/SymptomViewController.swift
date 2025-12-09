@@ -14,6 +14,8 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var symptomTableView: UITableView!
 
     var symptomsData: [Symptom] = []
+    
+    var isDeleting = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,26 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                
+                isDeleting = true
+                // Step A: Update the Data Source (Persistence)
+                // You must delete the item from your Service/Database first!
+                // Example: SymptomService.shared.deleteSymptom(at: indexPath.row)
+                SymptomService.shared.deleteSymptom(at: indexPath.row)
+                // Step B: Remove from the local array
+                symptomsData.remove(at: indexPath.row)
+                
+                // Step C: Update the Table View with animation
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.isDeleting = false
+                            }
+            }
+        }
 
     func reloadData() {
         symptomsData = SymptomService.shared.getSymptoms()
@@ -70,6 +92,10 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
 
     @objc func updateSymptoms() {
         let profile = ProfileService.shared.getProfile()
+        if isDeleting {
+            return
+        }
+        
         reloadData()
         // Update your labels here...
     }
