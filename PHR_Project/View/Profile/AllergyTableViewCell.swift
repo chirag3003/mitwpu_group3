@@ -15,6 +15,7 @@ class AllergyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var allergyDescLabel: UILabel!
 
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var mainView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,19 +29,21 @@ class AllergyTableViewCell: UITableViewCell {
     }
 
     func configureCell(with allergy: Allergy) {
+        contentView.applyLiquidGlassEffect()
         mainView.addRoundedSides()
         allergyLabel.text = allergy.name
         allergyDescLabel.text = allergy.notes
         switch allergy.severity {
         case "High":
             allergyColor.backgroundColor = .red
-        case "Medium":
+        case "Moderate":
             allergyColor.backgroundColor = .orange
         case "Low":
             allergyColor.backgroundColor = .yellow
         default:
             allergyColor.backgroundColor = .yellow
         }
+        deleteButton.isHidden = true
     }
 
 }

@@ -84,12 +84,14 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "meal_detail_cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "meal_detail_cell", for: indexPath) as! MealDetailTableViewCell
         
         if indexPath.row == 0 {
-            cell.textLabel?.text = mealDetails[0].date
+            cell.dataLabel?.text = "Date"
+            cell.dataValue?.text = mealDetails[0].date
         } else if indexPath.row == 1 {
-            cell.textLabel?.text = mealDetails[0].addedBy
+            cell.dataLabel?.text = "Added by"
+            cell.dataValue?.text = mealDetails[0].addedBy
         }
         
         return cell

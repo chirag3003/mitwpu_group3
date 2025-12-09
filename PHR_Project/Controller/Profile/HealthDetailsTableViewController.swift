@@ -4,7 +4,7 @@
 //
 //  Created by SDC_USER on 26/11/25.
 //
-
+import Foundation
 import UIKit
 
 class HealthDetailsTableViewController: UITableViewController,
@@ -18,16 +18,18 @@ class HealthDetailsTableViewController: UITableViewController,
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var healthProfileImage: UIImageView!
     @IBOutlet weak var sexSelectButton: UIButton!
-
     @IBOutlet weak var bloodTypeButton: UIButton!
     @IBOutlet weak var typeSelectButton: UIButton!
 
     // Group them for easier toggling
     var allTextFields: [UITextField] = []
     var allButtons: [UIButton] = []
+
+    var profileData: ProfileModel?
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        profileData = ProfileService.shared.getProfile()
 
         weightTextField.delegate = self
         heightTextField.delegate = self
@@ -52,7 +54,16 @@ class HealthDetailsTableViewController: UITableViewController,
         // 4. Ensure styling is correct (Look like labels initially)
         updateTextFieldsState(isEditing: false)
 
-        // 5. Configure the sex selection menu
+        // 5. Configure the fields
+        setupFields()
+    }
+
+    private func setupFields() {
+        firstNameField.text = profileData?.firstName
+        lastNameField.text = profileData?.lastName
+        heightTextField.text = "\(profileData?.height ?? 0)"
+        weightTextField.text = "\(profileData?.weight ?? 0)"
+        dobInput.date = profileData?.dob ?? Foundation.Date()
         setupPullDownButton()
         setupTypeSelectButton()
         setupBloodSelectButton()
@@ -79,18 +90,28 @@ class HealthDetailsTableViewController: UITableViewController,
             _ = self  // keep self captured if needed later
         }
 
-        // Define your options
-        // Set 'state: .on' for the default selection
-        let option1 = UIAction(title: "Male", handler: optionClosure)
-        let option2 = UIAction(
-            title: "Female",
-            state: .on,
-            handler: optionClosure
-        )
-        let option3 = UIAction(title: "Other", handler: optionClosure)
+        // Assuming optionClosure is defined and profileData.sex holds the current selection (e.g., "Male", "Female", or "Other")
 
+        let sexOptions = ["Male", "Female", "Other"]
+
+        let options: [UIAction] = sexOptions.map { title in
+            // Determine the state: if the title matches profileData.sex, set state to .on, otherwise .off
+            let currentState: UIMenuElement.State =
+                (title == profileData!.sex) ? .on : .off
+
+            // Create the UIAction with the dynamically determined state
+            let action = UIAction(
+                title: title,
+                state: currentState,
+                handler: optionClosure
+            )
+            return action
+        }
+
+        // Now the 'options' array contains three UIAction objects,
+        // and only the one matching profileData.sex has state: .on
         // 2. Create the Menu
-        let menu = UIMenu(children: [option1, option2, option3])
+        let menu = UIMenu(children: options)
 
         // 3. Configure the Button (use the outlet UIButton)
         sexSelectButton.menu = menu
@@ -102,18 +123,24 @@ class HealthDetailsTableViewController: UITableViewController,
         let selectionClosure = { (action: UIAction) in
             print("Blood Type Selected: \(action.title)")
         }
+        let allBloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
-        let menu = UIMenu(children: [
-            UIAction(title: "A+", state: .on, handler: selectionClosure),  // Default
-            UIAction(title: "A-", handler: selectionClosure),
-            UIAction(title: "B+", handler: selectionClosure),
-            UIAction(title: "B-", handler: selectionClosure),
-            UIAction(title: "AB+", handler: selectionClosure),
-            UIAction(title: "AB-", handler: selectionClosure),
-            UIAction(title: "O+", handler: selectionClosure),
-            UIAction(title: "O-", handler: selectionClosure),
+        // 1. Map the array of strings into an array of UIAction objects
+        let actions: [UIAction] = allBloodTypes.map { bloodTypeTitle in
 
-        ])
+            // 2. Determine the state: if the title matches profileData.bloodType, set state to .on
+            let currentState: UIMenuElement.State =
+                (bloodTypeTitle == profileData!.bloodType) ? .on : .off
+
+            // 3. Create the UIAction with the dynamically determined state
+            let action = UIAction(
+                title: bloodTypeTitle,
+                state: currentState,  // Dynamically set to .on or .off
+                handler: selectionClosure
+            )
+            return action
+        }
+        let menu = UIMenu(children: actions)
 
         bloodTypeButton.menu = menu
         bloodTypeButton.showsMenuAsPrimaryAction = true
@@ -125,15 +152,28 @@ class HealthDetailsTableViewController: UITableViewController,
         let selectionClosure = { (action: UIAction) in
             print("Diabetes Type Selected: \(action.title)")
         }
+        let allDiabetesTypes = [
+            "Type 1", "Type 2", "Gestational", "Prediabetes",
+        ]
 
-        let menu = UIMenu(children: [
-            UIAction(title: "Type 1", state: .on, handler: selectionClosure),  // Default
-            UIAction(title: "Type 2", handler: selectionClosure),
-            UIAction(title: "Gestational", handler: selectionClosure),
-            UIAction(title: "Prediabetes", handler: selectionClosure),
+        // 1. Map the array of strings into an array of UIAction objects
+        let actions: [UIAction] = allDiabetesTypes.map { typeTitle in
 
-        ])
+            // 2. Determine the state: if the title matches profileData.diabetesType, set state to .on
+            let currentState: UIMenuElement.State =
+                (typeTitle == profileData!.diabetesType) ? .on : .off
 
+            // 3. Create the UIAction with the dynamically determined state
+            let action = UIAction(
+                title: typeTitle,
+                state: currentState,  // Dynamically set to .on or .off
+                handler: selectionClosure
+            )
+            return action
+        }
+
+        // 4. Create the menu using the dynamically generated actions
+        let menu = UIMenu(children: actions)
         typeSelectButton.menu = menu
         typeSelectButton.showsMenuAsPrimaryAction = true
         typeSelectButton.changesSelectionAsPrimaryAction = true
@@ -179,6 +219,18 @@ class HealthDetailsTableViewController: UITableViewController,
         // Here you would save the text from textFields to your Data Model or UserDefaults
         // Example:
         // let newName = firstNameField.text
+        let profile = ProfileModel(
+            firstName: firstNameField.text ?? "",
+            lastName: lastNameField.text ?? "",
+            dob: dobInput.date,
+            sex: sexSelectButton.titleLabel?.text ?? "",
+            diabetesType: typeSelectButton.titleLabel?.text ?? "",
+            bloodType: bloodTypeButton.titleLabel?.text ?? "",
+            height: Int(heightTextField?.text ?? "") ?? 0,
+            weight: Int(weightTextField?.text ?? "") ?? 0
+        )
+
+        ProfileService.shared.setProfile(to: profile)
     }
 
     // MARK: - Disable Delete Functionality
