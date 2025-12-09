@@ -1,17 +1,15 @@
 import UIKit
 
-class CircularProgressView: UIView {
+class SemicircularProgressView: UIView {
     
     // MARK: - Properties
     private var progressLayer = CAShapeLayer()
     private var trackLayer = CAShapeLayer()
     
-    // 1. ADD THIS: A property to control thickness
     var lineWidth: CGFloat = 20 {
         didSet {
             trackLayer.lineWidth = lineWidth
             progressLayer.lineWidth = lineWidth
-            // We must trigger layout again because the radius calculation depends on line width
             setNeedsLayout()
         }
     }
@@ -37,47 +35,48 @@ class CircularProgressView: UIView {
     
     // MARK: - Setup
     private func setupLayers() {
-        // Track Layer
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = .round
         trackLayer.strokeEnd = 1.0
         layer.addSublayer(trackLayer)
         
-        // Progress Layer
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.strokeEnd = 0.0
         layer.addSublayer(progressLayer)
         
-        // Initial set of line width
         trackLayer.lineWidth = lineWidth
         progressLayer.lineWidth = lineWidth
-        
-        self.addRoundedCorner()
     }
     
-    // MARK: - Layout
+    // MARK: - Layout (FIXED FOR TOP ALIGNMENT)
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let center = CGPoint(x: bounds.midX, y: bounds.midY)
-        // 2. UPDATE THIS: Calculate radius based on the current lineWidth
-        // We subtract lineWidth so the stroke stays inside the view bounds
-        let radius = (min(bounds.width, bounds.height) - lineWidth - 16) / 2
+        // 1. Calculate Radius based on width
+        let radius = (bounds.width - lineWidth - 8) / 2
         
+        // 2. Center Point Calculation
+        // X: Middle of the view
+        // Y: We start at the top (0) + half the line thickness + radius.
+        //    This effectively "pushes" the center down just enough so the arch touches the top edge.
+        let center = CGPoint(x: bounds.midX, y: (lineWidth / 2) + radius + 6)
+        
+        // 3. Define the path (Rainbow shape)
+        // Start at PI (9 o'clock) -> End at 2*PI (3 o'clock) -> Clockwise
         let circularPath = UIBezierPath(arcCenter: center,
                                         radius: radius,
-                                        startAngle: -CGFloat.pi / 2,
-                                        endAngle: 2 * CGFloat.pi - CGFloat.pi / 2,
+                                        startAngle: CGFloat.pi,
+                                        endAngle: 2 * CGFloat.pi,
                                         clockwise: true)
         
         trackLayer.path = circularPath.cgPath
         trackLayer.strokeColor = trackColor.cgColor
-        trackLayer.lineWidth = lineWidth // Ensure width is set during layout
+        trackLayer.lineWidth = lineWidth
         
         progressLayer.path = circularPath.cgPath
         progressLayer.strokeColor = progressColor.cgColor
-        progressLayer.lineWidth = lineWidth // Ensure width is set during layout
+        progressLayer.lineWidth = lineWidth
     }
     
     // MARK: - Public Methods
@@ -97,7 +96,6 @@ class CircularProgressView: UIView {
         }
     }
     
-    // 3. ADD THIS: A convenience method to set everything at once
     func configure(progress: Float, thickness: CGFloat, color: UIColor? = nil) {
         self.lineWidth = thickness
         if let color = color {
