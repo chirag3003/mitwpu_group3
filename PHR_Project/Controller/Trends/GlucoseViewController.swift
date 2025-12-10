@@ -9,6 +9,8 @@ import UIKit
 
 class GlucoseViewController: UIViewController {
 
+    @IBOutlet weak var glucoseValueStack: UIStackView!
+    @IBOutlet weak var glucoseGraphStack: UIStackView!
     @IBOutlet weak var postDinnerSecondView: UIView!
     @IBOutlet weak var exerciseBenefitsView: UIView!
     @IBOutlet weak var postDinnerView: UIView!
@@ -35,8 +37,12 @@ class GlucoseViewController: UIViewController {
         postDinnerView.addRoundedCorner(radius: 10)
         exerciseBenefitsView.addRoundedCorner(radius: 10)
         postDinnerSecondView.addRoundedCorner(radius: 10)
+        
+        //custom stack spacing
+        glucoseGraphStack.setCustomSpacing(-5, after: glucoseValueStack)
 
         // Do any additional setup after loading the view.
+        
     }
     
 
