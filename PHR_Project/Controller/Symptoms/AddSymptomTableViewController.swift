@@ -148,6 +148,7 @@ class AddSymptomTableViewController: UITableViewController {
                 day: days[dateComponents.weekday! - 1],
                 number: String(dateComponents.day ?? 1)
             ),
+            notes: notesTextView.text ?? "",
             time: timeComponents,
         )
         SymptomService.shared.addSymptom(newSymptom)

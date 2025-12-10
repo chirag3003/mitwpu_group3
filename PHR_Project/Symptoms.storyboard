@@ -394,7 +394,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YNb-ld-sQl">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XQq-SV-fEX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="addSymptomScreen" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XQq-SV-fEX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MBs-En-Ibp">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
