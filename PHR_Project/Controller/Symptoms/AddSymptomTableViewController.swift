@@ -122,34 +122,40 @@ class AddSymptomTableViewController: UITableViewController {
             return
         }
 
-        // Combine Date and Time
+        // Combine Date and Time into a single Foundation.Date
         let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents(
-            [.year, .month, .day, .weekday],
+
+        // Date components (year, month, day from datePicker)
+        var dateComponents = calendar.dateComponents(
+            [.year, .month, .day],
             from: datePicker.date
         )
+        // Time components (hour, minute from timePicker)
         let timeComponents = calendar.dateComponents(
             [.hour, .minute],
             from: timePicker.date
         )
+        dateComponents.hour = timeComponents.hour
+        dateComponents.minute = timeComponents.minute
+
+        // Build the final Date for dateRecorded
+        let recordedDate: Foundation.Date =
+            calendar.date(from: dateComponents) ?? datePicker.date
 
         print("Saving Symptom:")
         print("Type: \(type)")
         print("Intensity: \(intensity)")
-        print("Date: \(dateComponents)")
-        print("Time: \(timeComponents)")
+        print("Date: \(recordedDate)")
+        print("Time components: \(timeComponents)")
         print("Notes: \(notesTextView.text ?? "")")
-        let days = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
         let newSymptom = Symptom(
             id: UUID(),
             symptomName: type,
             intensity: intensity,
-            dateRecorded: CustomDate(
-                day: days[dateComponents.weekday! - 1],
-                number: String(dateComponents.day ?? 1)
-            ),
+            dateRecorded: recordedDate,
             notes: notesTextView.text ?? "",
-            time: timeComponents,
+            time: timeComponents
         )
         SymptomService.shared.addSymptom(newSymptom)
         dismiss(animated: true)

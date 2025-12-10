@@ -12,7 +12,7 @@ class MealDataStore {
     
     private var mealItem: [MealItem] = []
     private var mealDetails: [MealDetails] = []
-    private var days: [Date] = []
+    private var days: [CalendarDay] = []
     
     func getMealItem() -> [MealItem] {
         return mealItem
@@ -22,7 +22,7 @@ class MealDataStore {
         return mealDetails
     }
     
-    func getDays() -> [Date] {
+    func getDays() -> [CalendarDay] {
         return days
     }
     
@@ -101,35 +101,34 @@ class MealDataStore {
             )
         ]
         
-        let dayData: [Date] = [
-            Date(day: "M", number: "20"),
-            Date(day: "T", number: "21"),
-            Date(day: "W", number: "22"),
-            Date(day: "T", number: "23"),
-            Date(day: "F", number: "25"),
-            Date(day: "S", number: "27"),
-            Date(day: "S", number: "28"),
-            Date(day: "M", number: "20"),
-            Date(day: "T", number: "21"),
-            Date(day: "W", number: "22"),
-            Date(day: "T", number: "23"),
-            Date(day: "F", number: "25"),
-            Date(day: "S", number: "27"),
-            Date(day: "S", number: "28"),
-            Date(day: "M", number: "20"),
-            Date(day: "T", number: "21"),
-            Date(day: "W", number: "22"),
-            Date(day: "T", number: "23"),
-            Date(day: "F", number: "25"),
-            Date(day: "S", number: "27"),
-            Date(day: "S", number: "28")
+        let dayData: [CalendarDay] = [
+            CalendarDay(day: "M", number: "20"),
+            CalendarDay(day: "T", number: "21"),
+            CalendarDay(day: "W", number: "22"),
+            CalendarDay(day: "T", number: "23"),
+            CalendarDay(day: "F", number: "25"),
+            CalendarDay(day: "S", number: "27"),
+            CalendarDay(day: "S", number: "28"),
+            CalendarDay(day: "M", number: "20"),
+            CalendarDay(day: "T", number: "21"),
+            CalendarDay(day: "W", number: "22"),
+            CalendarDay(day: "T", number: "23"),
+            CalendarDay(day: "F", number: "25"),
+            CalendarDay(day: "S", number: "27"),
+            CalendarDay(day: "S", number: "28"),
+            CalendarDay(day: "M", number: "20"),
+            CalendarDay(day: "T", number: "21"),
+            CalendarDay(day: "W", number: "22"),
+            CalendarDay(day: "T", number: "23"),
+            CalendarDay(day: "F", number: "25"),
+            CalendarDay(day: "S", number: "27"),
+            CalendarDay(day: "S", number: "28")
         ]
 
-            
-        
         self.mealItem = mealData
         self.mealDetails = mealDetailsData
         self.days = dayData
     }
     
 }
+
