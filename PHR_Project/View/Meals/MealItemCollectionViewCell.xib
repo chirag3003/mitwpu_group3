@@ -75,6 +75,9 @@
                 <constraint firstItem="b5g-eT-RtQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tPL-Zg-lM0"/>
             </constraints>
             <size key="customSize" width="326" height="50"/>
+            <connections>
+                <outlet property="mealImage" destination="xgD-58-lWY" id="yu4-86-RNz"/>
+            </connections>
             <point key="canvasLocation" x="143.5114503816794" y="119.71830985915494"/>
         </collectionViewCell>
     </objects>
