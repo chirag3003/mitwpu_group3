@@ -169,6 +169,9 @@
                                                                                 <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                                                                     <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                                                                                 </buttonConfiguration>
+                                                                                <connections>
+                                                                                    <segue destination="r4m-7r-PSy" kind="presentation" id="gJ0-Iu-xpm"/>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="0.0" right="16"/>
@@ -1308,21 +1311,92 @@
             </objects>
             <point key="canvasLocation" x="4743.2835820895516" y="-218.30663615560638"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Glucose Data-->
         <scene sceneID="DTv-Fm-7aR">
             <objects>
-                <viewController id="jcm-5J-Vau" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="add glucose data" id="jcm-5J-Vau" customClass="AddGlucoseModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gNJ-xf-EwZ">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3gS-zR-NyW">
+                                <rect key="frame" x="16" y="70" width="370" height="202"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KF7-ME-Xua">
+                                        <rect key="frame" x="16" y="32" width="338" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Es-Gw-f7s">
+                                                <rect key="frame" x="0.0" y="0.0" width="36" height="50"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="khZ-qp-u4w">
+                                                <rect key="frame" x="36" y="0.0" width="302" height="50"/>
+                                            </datePicker>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4I-3q-sYv">
+                                        <rect key="frame" x="16" y="92" width="338" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrH-3j-cuI">
+                                                <rect key="frame" x="0.0" y="0.0" width="37.666666666666664" height="50"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MrK-15-1BU">
+                                                <rect key="frame" x="37.666666666666657" y="0.0" width="300.33333333333337" height="50"/>
+                                            </datePicker>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-g9-KJW">
+                                        <rect key="frame" x="16" y="152" width="338" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glucose Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-Yg-Kw2">
+                                                <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="108.33" id="rsI-SU-aft"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg: 109" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GKx-is-bdu">
+                                                <rect key="frame" x="148.33333333333337" y="0.0" width="189.66666666666663" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="32" left="16" bottom="16" right="16"/>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Usj-hS-S7G"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="3gS-zR-NyW" secondAttribute="trailing" id="PVc-28-8HK"/>
+                            <constraint firstItem="3gS-zR-NyW" firstAttribute="leading" secondItem="gNJ-xf-EwZ" secondAttribute="leadingMargin" id="XOo-aj-Xb7"/>
+                            <constraint firstItem="3gS-zR-NyW" firstAttribute="top" secondItem="gNJ-xf-EwZ" secondAttribute="topMargin" id="YGJ-f6-nsM"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="o0c-7A-zv6"/>
+                    <navigationItem key="navigationItem" title="Add Glucose Data" id="o0c-7A-zv6">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7hx-ai-y9i">
+                            <connections>
+                                <action selector="closeModalButton:" destination="jcm-5J-Vau" id="JnH-t8-e8j"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="kY9-TZ-8LZ">
+                            <connections>
+                                <action selector="doneModalButton:" destination="jcm-5J-Vau" id="JDz-d1-5dd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fD5-c6-an5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5649.2537313432831" y="517.62013729977116"/>
+            <point key="canvasLocation" x="5678" y="518"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nr9-gj-bbM">
@@ -1923,6 +1997,9 @@
             <point key="canvasLocation" x="4729.8507462686566" y="517.62013729977116"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gJ0-Iu-xpm"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt.square.fill" catalog="system" width="128" height="114"/>
         <image name="carrot.fill" catalog="system" width="128" height="122"/>
