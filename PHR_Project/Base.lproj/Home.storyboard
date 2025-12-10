@@ -526,6 +526,9 @@
                                                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                                                             <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <segue destination="rPh-tf-bdq" kind="presentation" id="egW-ue-Vqf"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
@@ -666,6 +669,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwE-3f-pnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2526" y="-156"/>
+        </scene>
+        <!--addSymptomScreen-->
+        <scene sceneID="jsT-Xg-Nid">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Symptoms" referencedIdentifier="addSymptomScreen" id="rPh-tf-bdq" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="36j-9f-YVa"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nxA-xb-hnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2306" y="29"/>
         </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
