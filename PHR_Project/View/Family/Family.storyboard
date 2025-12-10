@@ -538,7 +538,7 @@
         <scene sceneID="guZ-fh-Rbj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ouX-wa-bkB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Family" image="person.2" catalog="system" id="ZfI-hY-Zav"/>
+                    <tabBarItem key="tabBarItem" title="Family" image="person.2.fill" catalog="system" id="ZfI-hY-Zav"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hyj-Lg-2NY">
@@ -575,7 +575,7 @@
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <image name="person.2" catalog="system" width="128" height="87"/>
+        <image name="person.2.fill" catalog="system" width="128" height="86"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="profile" width="3178" height="3178"/>
         <systemColor name="systemBackgroundColor">
