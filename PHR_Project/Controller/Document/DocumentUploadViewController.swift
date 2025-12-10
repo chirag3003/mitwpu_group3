@@ -20,5 +20,12 @@ class DocumentUploadViewController: UIViewController {
         scanFileView.addRoundedSides()
         uploadDocumentView.addRoundedSides()
     }
+    
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
 
 }

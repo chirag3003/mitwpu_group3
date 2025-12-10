@@ -114,6 +114,8 @@ class AddAllergyTableViewController: UITableViewController {
         return false
     }
     
+
+    
     // Important: Do not include numberOfSections or numberOfRowsInSection
     // because you are using Static Cells in Storyboard.
 }
