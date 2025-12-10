@@ -454,6 +454,9 @@
                                                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                                                             <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <segue destination="hOh-lf-4c3" kind="presentation" id="eW4-MT-fVR"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
@@ -668,7 +671,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwE-3f-pnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2526" y="-156"/>
+            <point key="canvasLocation" x="2436" y="10"/>
         </scene>
         <!--addSymptomScreen-->
         <scene sceneID="jsT-Xg-Nid">
@@ -678,7 +681,15 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxA-xb-hnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306" y="29"/>
+            <point key="canvasLocation" x="2402" y="47"/>
+        </scene>
+        <!--addMealScreen-->
+        <scene sceneID="geS-s4-2pN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="addMealScreen" id="hOh-lf-4c3" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ter-cv-ItP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="-30"/>
         </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
@@ -1296,6 +1307,22 @@
             </objects>
             <point key="canvasLocation" x="4743.2835820895516" y="-218.30663615560638"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="DTv-Fm-7aR">
+            <objects>
+                <viewController id="jcm-5J-Vau" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gNJ-xf-EwZ">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Usj-hS-S7G"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="o0c-7A-zv6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fD5-c6-an5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5649.2537313432831" y="517.62013729977116"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="nr9-gj-bbM">
             <objects>
@@ -1462,7 +1489,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbA-Nr-zv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2781" y="65"/>
+            <point key="canvasLocation" x="2292" y="73"/>
         </scene>
         <!--Glucose-->
         <scene sceneID="clA-Qq-966">
@@ -1852,7 +1879,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Glucose" id="ypk-uc-6ID">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="C9n-ax-M69"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="C9n-ax-M69">
+                            <connections>
+                                <segue destination="r4m-7r-PSy" kind="presentation" id="rYD-Av-LTB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="avgView" destination="ktK-SH-wx4" id="96y-oD-2yK"/>
@@ -1871,6 +1902,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aNn-3o-cti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2922.3880597014922" y="510.06864988558351"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="u5A-KE-8qi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="r4m-7r-PSy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ULR-lO-LCW">
+                        <rect key="frame" x="0.0" y="16" width="402" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jcm-5J-Vau" kind="relationship" relationship="rootViewController" id="cbT-Iz-qzd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hBL-Zo-11S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4729.8507462686566" y="517.62013729977116"/>
         </scene>
     </scenes>
     <resources>
@@ -1893,22 +1942,22 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
