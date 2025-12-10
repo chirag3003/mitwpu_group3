@@ -7,23 +7,18 @@
 
 import Foundation
 
-// 1. Your Custom Date Struct (Based on your datasource usage)
-struct CustomDate:Codable {
-    let day: String    // "Mon,"
-    let number: String // "16th"
-}
+// 1. Delete the 'struct CustomDate' block entirely. You don't need it.
 
-// 2. The Main Symptom Struct
+// 2. Update the Main Symptom Struct to use Foundation.Date explicitly
 struct Symptom: Codable {
     var id: UUID?
     var symptomName: String
     var intensity: String
-    var dateRecorded: CustomDate // Using the custom struct above
+    var dateRecorded: Foundation.Date  // Ensure this is Foundation.Date
     var notes: String?
     var time: DateComponents
 }
 
-// 3. The Container (Optional, but matches your 'symptoms: Symptoms(...)' pattern)
 struct Symptoms {
     var allSymptoms: [Symptom]
 }
