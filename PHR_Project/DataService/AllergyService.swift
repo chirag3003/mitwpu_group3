@@ -53,4 +53,11 @@ class AllergyService {
             print("Failed to load allergies: \(error)")
         }
     }
+    
+    func deleteAllergy(at index: Int) {
+            if index < allergies.count {
+                allergies.remove(at: index)
+                // 'didSet' will automatically save this change
+            }
+        }
 }

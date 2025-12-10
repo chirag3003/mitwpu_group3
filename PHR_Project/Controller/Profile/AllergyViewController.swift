@@ -35,6 +35,20 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                
+                // 1. Delete from Service (Database)
+                AllergyService.shared.deleteAllergy(at: indexPath.row)
+                
+                // 2. Update Local Array (So the view controller knows it's gone)
+                allergies.remove(at: indexPath.row)
+                
+                // 3. Delete Row Animation
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    
     func addAllergy(allergy: Allergy) {
         AllergyService.shared.addAllergy(allergy)
         allergies = AllergyService.shared.fetchAllergies()
