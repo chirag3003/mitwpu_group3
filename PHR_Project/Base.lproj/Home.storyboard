@@ -1162,8 +1162,9 @@
         <scene sceneID="1oc-XQ-24s">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="diA-Dh-pDT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="Oir-GC-ts2"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="Oir-GC-ts2"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eTh-Mt-ryZ">
                         <rect key="frame" x="0.0" y="124" width="402" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2009,7 +2010,7 @@
         <image name="fork.knife.circle" catalog="system" width="128" height="123"/>
         <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="image 1" width="356" height="259"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="profile" width="3178" height="3178"/>

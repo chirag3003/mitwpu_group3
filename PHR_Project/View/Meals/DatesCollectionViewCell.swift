@@ -12,7 +12,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var viewDateCell: UIView!
     @IBOutlet weak var dayCell: UILabel!
     
-    func configureCell(date: Date){
+    func configureCell(date: CalendarDay){
         dayCell.text = date.day
         
         viewDateCell.addRoundedCorner(radius: 20)
@@ -21,3 +21,4 @@ class DatesCollectionViewCell: UICollectionViewCell {
     }
     
 }
+

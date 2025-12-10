@@ -28,6 +28,17 @@ struct MealScreen {
 }
 
 func getAllData() -> DataSource {
+    // Helper to build a concrete Date from components
+    func makeDate(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Foundation.Date {
+        var comps = DateComponents()
+        comps.year = year
+        comps.month = month
+        comps.day = day
+        comps.hour = hour
+        comps.minute = minute
+        return Calendar.current.date(from: comps) ?? Date()
+    }
+
     return DataSource(
         profile: Profile(
             allergies: [
@@ -112,16 +123,18 @@ func getAllData() -> DataSource {
         symptoms: Symptoms(
             allSymptoms: [
                 Symptom(
+                    id: UUID(),
                     symptomName: "Fever",
                     intensity: "High",
-                    dateRecorded: CustomDate(day: "Mon,", number: "16th"),
+                    dateRecorded: makeDate(year: 2025, month: 11, day: 16, hour: 19, minute: 30),
                     notes: "Felt chills in the evening",
                     time: DateComponents(hour: 19, minute: 30)
                 ),
                 Symptom(
+                    id: UUID(),
                     symptomName: "Headache",
                     intensity: "Medium",
-                    dateRecorded: CustomDate(day: "Tue,", number: "17th"),
+                    dateRecorded: makeDate(year: 2025, month: 11, day: 17, hour: 10, minute: 15),
                     notes: "Throbbing pain, relieved by rest",
                     time: DateComponents(hour: 10, minute: 15)
                 )
@@ -131,4 +144,3 @@ func getAllData() -> DataSource {
 //        meal:
     )
 }
-
