@@ -917,7 +917,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xBr-jB-jcm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FBz-HF-rgo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="addMealScreen" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FBz-HF-rgo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="njd-k8-xFG">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>
