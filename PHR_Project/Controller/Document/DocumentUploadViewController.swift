@@ -28,4 +28,8 @@ class DocumentUploadViewController: UIViewController {
     
     
 
+    @IBAction func CloseModalButton(_ sender: Any) {
+        dismiss(animated: true)
+            
+    }
 }

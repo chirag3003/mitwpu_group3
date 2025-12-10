@@ -308,22 +308,22 @@
                                                                     <rect key="frame" x="0.0" y="32" width="329" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Was feeling Low" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9yK-0w-eEp">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="104.66666666666667" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="214" height="17"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="H3y-ue-5uC">
-                                                                            <rect key="frame" x="104.66666666666664" y="0.0" width="224.33333333333337" height="40"/>
+                                                                            <rect key="frame" x="214" y="0.0" width="115" height="40"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 31 Oct 2025" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kg4-MU-h35">
-                                                                                    <rect key="frame" x="135.66666666666666" y="0.0" width="88.666666666666657" height="18"/>
+                                                                                    <rect key="frame" x="26.333333333333321" y="0.0" width="88.666666666666686" height="18"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 8:00 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksn-t6-J5o">
-                                                                                    <rect key="frame" x="162.33333333333334" y="22" width="62" height="18"/>
+                                                                                    <rect key="frame" x="53" y="22" width="62" height="18"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -331,6 +331,9 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="9yK-0w-eEp" firstAttribute="width" secondItem="mev-v9-vWO" secondAttribute="width" multiplier="0.65" id="urF-1z-5CN"/>
+                                                                    </constraints>
                                                                 </stackView>
                                                             </subviews>
                                                         </stackView>
@@ -394,7 +397,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YNb-ld-sQl">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XQq-SV-fEX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="addSymptomScreen" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XQq-SV-fEX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MBs-En-Ibp">
                         <rect key="frame" x="0.0" y="16" width="393" height="54"/>

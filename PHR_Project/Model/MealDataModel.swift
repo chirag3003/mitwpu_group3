@@ -23,7 +23,9 @@ struct MealDetails {
     let notes: String
 }
 
-struct Date {
+// Renamed from `Date` to avoid shadowing Foundation.Date
+struct CalendarDay {
     let day: String
     let number: String
 }
+
