@@ -21,4 +21,8 @@ class DocumentUploadViewController: UIViewController {
         uploadDocumentView.addRoundedSides()
     }
 
+    @IBAction func CloseModalButton(_ sender: Any) {
+        dismiss(animated: true)
+            
+    }
 }

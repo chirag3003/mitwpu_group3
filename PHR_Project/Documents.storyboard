@@ -209,7 +209,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WJd-Jj-YZl"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WJd-Jj-YZl">
+                            <connections>
+                                <segue destination="geb-7z-qDH" kind="presentation" id="ru2-da-PYS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dataSegment" destination="Zuv-yf-uiD" id="WLN-3l-Wok"/>
@@ -225,11 +229,11 @@
             <objects>
                 <viewController id="KTK-me-Pwj" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IDV-w5-Iap">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M12-CE-tOZ">
-                                <rect key="frame" x="0.0" y="172" width="393" height="138"/>
+                                <rect key="frame" x="0.0" y="70" width="393" height="138"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-pH-e9b">
                                         <rect key="frame" x="16" y="8" width="361" height="57"/>
@@ -308,7 +312,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Select" id="rRz-xy-Nfr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="gRy-ks-2bX"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dZ0-1h-nab">
+                            <connections>
+                                <action selector="CloseModalButton:" destination="KTK-me-Pwj" id="Mgc-vV-bc8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="scanFileView" destination="RO2-tb-Nya" id="95u-0x-gpd"/>
@@ -345,7 +353,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="geb-7z-qDH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEV-Od-juy">
-                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -396,7 +404,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="GbF-xp-jBV">
-                                                                                <rect key="frame" x="0.0" y="27.333333333333343" width="114" height="65"/>
+                                                                                <rect key="frame" x="0.0" y="27.333333333333343" width="121" height="65"/>
                                                                             </datePicker>
                                                                         </subviews>
                                                                     </stackView>
@@ -656,6 +664,7 @@
                         <outlet property="DataFields" destination="mP7-c7-DNo" id="gIg-vt-BAu"/>
                         <outlet property="TextField" destination="J7n-W1-hkf" id="luv-u7-sSN"/>
                         <outlet property="TypeOfVisitView" destination="4PR-7p-bTa" id="7AN-fh-q6l"/>
+                        <outlet property="allCheckboxButtons" destination="nEe-Na-Iqq" id="oqn-tf-7Ml"/>
                         <outlet property="dateInputView" destination="D5f-8N-2ua" id="8eM-Me-uv8"/>
                         <outlet property="fromDatePicker" destination="GbF-xp-jBV" id="i7P-AI-fXb"/>
                     </connections>
