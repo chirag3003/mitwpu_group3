@@ -454,6 +454,9 @@
                                                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
                                                                             <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <segue destination="hOh-lf-4c3" kind="presentation" id="eW4-MT-fVR"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
@@ -668,7 +671,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwE-3f-pnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2526" y="-156"/>
+            <point key="canvasLocation" x="2436" y="10"/>
         </scene>
         <!--addSymptomScreen-->
         <scene sceneID="jsT-Xg-Nid">
@@ -678,7 +681,15 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxA-xb-hnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306" y="29"/>
+            <point key="canvasLocation" x="2402" y="47"/>
+        </scene>
+        <!--addMealScreen-->
+        <scene sceneID="geS-s4-2pN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="addMealScreen" id="hOh-lf-4c3" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ter-cv-ItP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="-30"/>
         </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
@@ -1478,7 +1489,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbA-Nr-zv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2781" y="65"/>
+            <point key="canvasLocation" x="2292" y="73"/>
         </scene>
         <!--Glucose-->
         <scene sceneID="clA-Qq-966">
