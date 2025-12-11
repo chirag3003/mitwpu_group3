@@ -9,23 +9,23 @@ import UIKit
 
 class AddSymptomTableViewController: UITableViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var typeButton: UIButton!
-
     @IBOutlet weak var datePicker: UIDatePicker!
-
     @IBOutlet weak var timePicker: UIDatePicker!
-
     @IBOutlet weak var intensityButton: UIButton!
-
     @IBOutlet weak var notesTextView: UITextView!
-
     @IBOutlet weak var placeholderLabel: UILabel!
-
     @IBOutlet weak var cameraImageView: UIImageView!
 
     var selectedType: String?
     var selectedIntensity: String?
     var selectedImage: UIImage?
+    
+    private let symptomsOptions = [
+        "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
+        "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth",
+    ]
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -48,13 +48,10 @@ class AddSymptomTableViewController: UITableViewController {
     // MARK: - Setup Functions
 
     func setupTypeMenu() {
-        let options = [
-            "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
-            "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth",
-        ]
+        
         var actions: [UIAction] = []
 
-        for option in options {
+        for option in symptomsOptions {
             actions.append(
                 UIAction(title: option) { [weak self] action in
                     self?.selectedType = action.title
@@ -142,13 +139,7 @@ class AddSymptomTableViewController: UITableViewController {
         let recordedDate: Foundation.Date =
             calendar.date(from: dateComponents) ?? datePicker.date
 
-        print("Saving Symptom:")
-        print("Type: \(type)")
-        print("Intensity: \(intensity)")
-        print("Date: \(recordedDate)")
-        print("Time components: \(timeComponents)")
-        print("Notes: \(notesTextView.text ?? "")")
-
+        //Creating new symptom
         let newSymptom = Symptom(
             id: UUID(),
             symptomName: type,
@@ -158,6 +149,8 @@ class AddSymptomTableViewController: UITableViewController {
             time: timeComponents
         )
         SymptomService.shared.addSymptom(newSymptom)
+        
+        // Dismiss after saving
         dismiss(animated: true)
     }
 
