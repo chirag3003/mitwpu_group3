@@ -331,7 +331,7 @@
         <scene sceneID="jTH-Qa-AMr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Oer-j2-j1S" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Documents" image="document" catalog="system" id="X66-yS-AFL"/>
+                    <tabBarItem key="tabBarItem" title="Documents" image="document.fill" catalog="system" id="X66-yS-AFL"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="av2-1D-Hvb">

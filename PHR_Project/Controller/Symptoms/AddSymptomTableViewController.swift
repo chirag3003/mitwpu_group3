@@ -17,7 +17,9 @@ class AddSymptomTableViewController: UITableViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var cameraImageView: UIImageView!
-
+    @IBOutlet var addSymptomTableView: UITableView!
+    
+    
     var selectedType: String?
     var selectedIntensity: String?
     var selectedImage: UIImage?
@@ -43,6 +45,9 @@ class AddSymptomTableViewController: UITableViewController {
 
         // Optional: Remove extra lines if any
         tableView.separatorStyle = .singleLine
+        
+        addSymptomTableView.addRoundedCorner()
+        addSymptomTableView.backgroundColor = .systemGray6
     }
 
     // MARK: - Setup Functions
@@ -194,5 +199,7 @@ extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
         }
         dismiss(animated: true)
     }
+    
+
 
 }

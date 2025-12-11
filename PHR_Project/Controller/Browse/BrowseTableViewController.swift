@@ -7,62 +7,176 @@
 
 import UIKit
 
-class BrowseTableViewController: UITableViewController {
+class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
+{
 
     struct Category {
-            let name: String
-            let icon: String
-            let color: UIColor
-        }
+        let name: String
+        let icon: String
+        let color: UIColor
+    }
 
-        // 2. Data Source
-        let categories: [Category] = [
-            Category(name: "Activity", icon: "flame.fill", color: .systemOrange),
-            Category(name: "Glucose", icon: "heart.fill", color: .systemRed),
-            Category(name: "Water Intake", icon: "drop.fill", color: .systemBlue),
-            Category(name: "Medications", icon: "pills.fill", color: .systemCyan),
-            Category(name: "Allergy", icon: "allergens.fill", color: .systemTeal),
-            Category(name: "Nutrition", icon: "fork.knife.circle", color: .systemGreen),
-            Category(name: "Generate Summary", icon: "list.bullet.clipboard.fill", color: .systemPurple),
-            Category(name: "Notifications", icon: "lightbulb.max.fill", color: .systemBlue),
-            Category(name: "Symptoms", icon: "waveform.path.ecg", color: .systemYellow),
-        ]
+    // 1. Data Source
+    let categories: [Category] = [
+        Category(name: "Activity", icon: "flame.fill", color: .systemOrange),
+        Category(name: "Glucose", icon: "heart.fill", color: .systemRed),
+        Category(name: "Water Intake", icon: "drop.fill", color: .systemBlue),
+        Category(name: "Medications", icon: "pills.fill", color: .systemCyan),
+        Category(name: "Allergy", icon: "allergens.fill", color: .systemTeal),
+        Category(
+            name: "Nutrition",
+            icon: "fork.knife.circle",
+            color: .systemGreen
+        ),
+        Category(
+            name: "Generate Summary",
+            icon: "list.bullet.clipboard.fill",
+            color: .systemPurple
+        ),
+        Category(
+            name: "Notifications",
+            icon: "lightbulb.max.fill",
+            color: .systemBlue
+        ),
+        Category(
+            name: "Symptoms",
+            icon: "waveform.path.ecg",
+            color: .systemYellow
+        ),
+    ]
 
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            // Optional: Make the search bar background transparent if needed
-            // navigationItem.hidesSearchBarWhenScrolling = false
-        }
+    // Filtered data for search
+    var filteredCategories: [Category] = []
 
-        // MARK: - Table view data source
+    // 2. The Search Controller (Standard Apple UI)
+    let searchController = UISearchController(searchResultsController: nil)
 
-        override func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
-        }
-        
-        
-       
+    // Helper to check if searching
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
 
-        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return categories.count
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "browse_cell", for: indexPath)
-            let item = categories[indexPath.row]
-            
-            // Modern Cell Configuration
-            var content = cell.defaultContentConfiguration()
-            
-            // Text
-            content.text = item.name
-            content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
-            
-            // Image
-            content.image = UIImage(systemName: item.icon)
-            content.imageProperties.tintColor = item.color
-            
-            cell.contentConfiguration = content
-            return cell
+        // Setup Search
+        setupSearchController()
+
+        // Setup Keyboard Dismissal (Scroll to hide)
+//        tableView.keyboardDismissMode = .interactive
+    }
+
+    func setupSearchController() {
+        // 1. connect delegate
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Categories"
+
+        // 2. Add to Navigation Item (This puts it in the large title area like Apple Health)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+
+        // 3. Prevent the search bar from hiding the Tab Bar
+        definesPresentationContext = true
+
+        // 4. ADD THE KEYBOARD DISMISSAL TOOLBAR
+//        addKeyboardDismissToolbar()
+    }
+
+    func addKeyboardDismissToolbar() {
+        // Create a toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+
+        // Create a flexible space to push the button to the right
+        let flexSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+
+        // Create the "Down Keyboard" button
+        let doneButton = UIBarButtonItem(
+            image: UIImage(systemName: "keyboard.chevron.compact.down"),
+            style: .plain,
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+
+        // Add items to toolbar
+        toolbar.setItems([flexSpace, doneButton], animated: false)
+
+        // Assign toolbar to the search bar's internal text field
+        if let textField = searchController.searchBar.value(
+            forKey: "searchField"
+        ) as? UITextField {
+            textField.inputAccessoryView = toolbar
+        } else {
+            // Fallback: try assigning directly (may be ignored on some iOS versions)
+            searchController.searchBar.inputAccessoryView = toolbar
         }
     }
+
+    @objc func dismissKeyboard() {
+        searchController.searchBar.resignFirstResponder()
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        if isFiltering {
+            return filteredCategories.count
+        }
+        return categories.count
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "browse_cell",
+            for: indexPath
+        )
+
+        let item: Category
+        if isFiltering {
+            item = filteredCategories[indexPath.row]
+        } else {
+            item = categories[indexPath.row]
+        }
+
+        // Configuration
+        var content = cell.defaultContentConfiguration()
+        content.text = item.name
+        content.textProperties.font = .systemFont(ofSize: 17, weight: .semibold)
+        content.image = UIImage(systemName: item.icon)
+        content.imageProperties.tintColor = item.color
+        cell.contentConfiguration = content
+
+        return cell
+    }
+
+    // MARK: - Search Logic
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+
+    func filterContentForSearchText(_ searchText: String) {
+        filteredCategories = categories.filter { (category: Category) -> Bool in
+            return category.name.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+}
