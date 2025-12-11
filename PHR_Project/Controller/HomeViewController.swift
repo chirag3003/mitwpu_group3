@@ -70,9 +70,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func updateUI() {
-        let profile = ProfileService.shared.getProfile()
         reloadData()
-        // Update your labels here...
     }
 
 }

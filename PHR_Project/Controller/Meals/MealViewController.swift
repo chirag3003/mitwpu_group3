@@ -150,33 +150,22 @@ class MealViewController: UIViewController {
     }
 
     private func setupMealCollectionView() {
-        // 1. REGISTER YOUR NIBS (The new step)
         let mealNib = UINib(nibName: "MealItemCollectionViewCell", bundle: nil)
         mealCollectionView.register(
             mealNib,
             forCellWithReuseIdentifier: "MealCell"
         )
 
-        //        let emptyNib = UINib(nibName: "EmptyStateCell", bundle: nil)
-        //        mealCollectionView.register(
-        //            emptyNib,
-        //            forCellWithReuseIdentifier: "EmptyStateCell"
-        //        )
-
-        // 3. Layout and Delegate
         mealCollectionView.collectionViewLayout = createMealLayout()
         mealCollectionView.dataSource = self
         mealCollectionView.delegate = self
     }
 
     private func createMealLayout() -> UICollectionViewLayout {
-            // 1. Use .sidebar or .plain to have more control over the width,
-            // or keep .insetGrouped but ensure background insets are set.
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             config.headerMode = .supplementary
-        config.headerTopPadding = 16
+            config.headerTopPadding = 16
             config.showsSeparators = true
-            // Set this to .clear so the yellow background shows through the list gaps
             config.backgroundColor = .clear
 
             let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
@@ -186,8 +175,6 @@ class MealViewController: UIViewController {
                     layoutEnvironment: env
                 )
 
-                // 2. INTERNAL PADDING: Uncomment this to push the text/cells inside
-                // away from the edges of the yellow box.
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 10,
                     leading: 0,
@@ -195,18 +182,15 @@ class MealViewController: UIViewController {
                     trailing: 0
                 )
 
-                // 3. Create the Background Decoration
                 let background = NSCollectionLayoutDecorationItem.background(
                     elementKind: "section-background"
                 )
-
                 
-                // This shrinks the yellow background relative to the section, creating the gaps.
                 background.contentInsets = NSDirectionalEdgeInsets(
-                    top: 4,      // Gap above the yellow box
-                    leading: 0, // Gap on the left
-                    bottom: 4,   // Gap below the yellow box
-                    trailing: 0 // Gap on the right
+                    top: 4,
+                    leading: 0,
+                    bottom: 4,
+                    trailing: 0
                 )
 
                 section.decorationItems = [background]
@@ -234,7 +218,6 @@ extension MealViewController: UICollectionViewDataSource,
         if collectionView == dateCollectionView {
             return dates.getDays().count
         }
-        print(meals[section].count, "COunt")
         return meals[section].count
     }
 
@@ -262,9 +245,7 @@ extension MealViewController: UICollectionViewDataSource,
                 withReuseIdentifier: "MealCell",
                 for: indexPath
             ) as! MealItemCollectionViewCell
-        print("Deque in queue")
         let meal = meals[indexPath.section][indexPath.row]
-        // cell.configure(with: meal) // Assuming you have a configure function
         return cell
     }
 
@@ -289,12 +270,6 @@ extension MealViewController: UICollectionViewDataSource,
             ) as! MealSectionHeaderView
         
         header.sectionLabel.text = sectionTitles[indexPath.section]
-//        var content = header.defaultContentConfiguration()
-//        content.text = sectionTitles[indexPath.section]
-//        content.textProperties.font = .boldSystemFont(ofSize: 20)
-//        content.textProperties.color = .black
-//        header.contentConfiguration = content
-
         return header
     }
 

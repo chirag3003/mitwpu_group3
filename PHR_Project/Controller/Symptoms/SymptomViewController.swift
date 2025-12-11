@@ -91,11 +91,9 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     }
 
     @objc func updateSymptoms() {
-        let profile = ProfileService.shared.getProfile()
         if isDeleting {
             return
         }
-        
         reloadData()
         // Update your labels here...
     }

@@ -9,23 +9,25 @@ import UIKit
 
 class AddSymptomTableViewController: UITableViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var typeButton: UIButton!
-
     @IBOutlet weak var datePicker: UIDatePicker!
-
     @IBOutlet weak var timePicker: UIDatePicker!
-
     @IBOutlet weak var intensityButton: UIButton!
-
     @IBOutlet weak var notesTextView: UITextView!
-
     @IBOutlet weak var placeholderLabel: UILabel!
-
     @IBOutlet weak var cameraImageView: UIImageView!
-
+    @IBOutlet var addSymptomTableView: UITableView!
+    
+    
     var selectedType: String?
     var selectedIntensity: String?
     var selectedImage: UIImage?
+    
+    private let symptomsOptions = [
+        "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
+        "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth",
+    ]
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -43,18 +45,18 @@ class AddSymptomTableViewController: UITableViewController {
 
         // Optional: Remove extra lines if any
         tableView.separatorStyle = .singleLine
+        
+        addSymptomTableView.addRoundedCorner()
+        addSymptomTableView.backgroundColor = .systemGray6
     }
 
     // MARK: - Setup Functions
 
     func setupTypeMenu() {
-        let options = [
-            "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
-            "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth",
-        ]
+        
         var actions: [UIAction] = []
 
-        for option in options {
+        for option in symptomsOptions {
             actions.append(
                 UIAction(title: option) { [weak self] action in
                     self?.selectedType = action.title
@@ -122,36 +124,38 @@ class AddSymptomTableViewController: UITableViewController {
             return
         }
 
-        // Combine Date and Time
+        // Combine Date and Time into a single Foundation.Date
         let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents(
-            [.year, .month, .day, .weekday],
+
+        // Date components (year, month, day from datePicker)
+        var dateComponents = calendar.dateComponents(
+            [.year, .month, .day],
             from: datePicker.date
         )
+        // Time components (hour, minute from timePicker)
         let timeComponents = calendar.dateComponents(
             [.hour, .minute],
             from: timePicker.date
         )
+        dateComponents.hour = timeComponents.hour
+        dateComponents.minute = timeComponents.minute
 
-        print("Saving Symptom:")
-        print("Type: \(type)")
-        print("Intensity: \(intensity)")
-        print("Date: \(dateComponents)")
-        print("Time: \(timeComponents)")
-        print("Notes: \(notesTextView.text ?? "")")
-        let days = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        // Build the final Date for dateRecorded
+        let recordedDate: Foundation.Date =
+            calendar.date(from: dateComponents) ?? datePicker.date
+
+        //Creating new symptom
         let newSymptom = Symptom(
             id: UUID(),
             symptomName: type,
             intensity: intensity,
-            dateRecorded: CustomDate(
-                day: days[dateComponents.weekday! - 1],
-                number: String(dateComponents.day ?? 1)
-            ),
+            dateRecorded: recordedDate,
             notes: notesTextView.text ?? "",
-            time: timeComponents,
+            time: timeComponents
         )
         SymptomService.shared.addSymptom(newSymptom)
+        
+        // Dismiss after saving
         dismiss(animated: true)
     }
 
@@ -195,5 +199,7 @@ extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
         }
         dismiss(animated: true)
     }
+    
+
 
 }
