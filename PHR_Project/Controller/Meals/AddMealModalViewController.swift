@@ -7,25 +7,20 @@
 
 import UIKit
 
-class AddMealModalViewController: UIViewController {
+class AddMealModalViewController: UITableViewController{
 
-    @IBOutlet weak var mealType: UIButton!
-    @IBOutlet weak var viewThree: UIView!
-    @IBOutlet weak var viewTwo: UIView!
-    @IBOutlet weak var viewOne: UIView!
+    @IBOutlet weak var mealMenu: UIButton!
     
     var selectedMeal: String?
+   
     
-    @IBOutlet weak var notesTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMealMenu()
         
-        viewOne.addRoundedCorner()
-        viewTwo.addRoundedCorner()
-        viewThree.addRoundedCorner()
-        notesTextField.addRoundedCorner(radius: 20)
+        
 
         // Do any additional setup after loading the view.
     }
@@ -49,12 +44,12 @@ class AddMealModalViewController: UIViewController {
             actions.append(
                 UIAction(title: option) { [weak self] action in
                     self?.selectedMeal = action.title
-                    self?.mealType.setTitle(action.title, for: .normal)
+                    self?.mealMenu.setTitle(action.title, for: .normal)
                 }
             )
         }
-        mealType.menu = UIMenu(children: actions)
-        mealType.showsMenuAsPrimaryAction = true
+        mealMenu.menu = UIMenu(children: actions)
+        mealMenu.showsMenuAsPrimaryAction = true
     }
     
     @IBAction func doneButton(_ sender: Any) {
