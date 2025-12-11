@@ -7,13 +7,6 @@
 
 import Foundation
 
-//struct FamilyMember {
-//    var id: String
-//    var name: String
-//    var memoji: String
-//    var relation: String?
-//}
-
 struct FamilyMember {
     let name: String
     let imageName: String // Use "person.fill" or asset name

@@ -5,7 +5,6 @@ struct DataSource {
     let document: Document
     let family: Family
     let symptoms: Symptoms
-//    let meal: MealScreen
 }
 
 struct Profile {
@@ -138,9 +137,7 @@ func getAllData() -> DataSource {
                     notes: "Throbbing pain, relieved by rest",
                     time: DateComponents(hour: 10, minute: 15)
                 )
-            ]
+            )
         )
-        
-//        meal:
     )
 }
