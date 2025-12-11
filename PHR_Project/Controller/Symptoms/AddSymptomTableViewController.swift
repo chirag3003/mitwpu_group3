@@ -30,81 +30,101 @@ class AddSymptomTableViewController: UITableViewController {
     ]
 
     // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        override func viewDidLoad() {
+            super.viewDidLoad()
 
-        // 1. Setup Menus
-        setupTypeMenu()
-        setupIntensityMenu()
+            // 1. Setup Menus
+            setupTypeMenu()
+            setupIntensityMenu()
 
-        // 2. Setup Image Tap
-        setupImageGesture()
+            // 2. Setup Image Tap
+            setupImageGesture()
 
-        // 3. Notes Delegate
-        notesTextView.delegate = self
+            // 3. Notes Configuration
+            notesTextView.delegate = self
+            setupHideKeyboardOnTap()
+            setupTextViewAlignment() 
 
-        // Optional: Remove extra lines if any
-        tableView.separatorStyle = .singleLine
-        
-        addSymptomTableView.addRoundedCorner()
-        addSymptomTableView.backgroundColor = .systemGray6
-    }
-
-    // MARK: - Setup Functions
-
-    func setupTypeMenu() {
-        
-        var actions: [UIAction] = []
-
-        for option in symptomsOptions {
-            actions.append(
-                UIAction(title: option) { [weak self] action in
-                    self?.selectedType = action.title
-                    self?.typeButton.setTitle(action.title, for: .normal)
-                }
-            )
+            // UI Cleanup
+            tableView.separatorStyle = .singleLine
+            // addSymptomTableView.addRoundedCorner() // Ensure this extension exists
+            addSymptomTableView.backgroundColor = .systemGray6
         }
-        typeButton.menu = UIMenu(children: actions)
-        typeButton.showsMenuAsPrimaryAction = true
-    }
 
-    func setupIntensityMenu() {
-        let options = ["Low", "Medium", "High"]
-        var actions: [UIAction] = []
+        // MARK: - NEW: Keyboard & Cursor Fixes
 
-        for option in options {
-            actions.append(
-                UIAction(title: option) { [weak self] action in
-                    self?.selectedIntensity = action.title
-                    self?.intensityButton.setTitle(action.title, for: .normal)
-                }
-            )
+    func setupHideKeyboardOnTap() {
+            // Create the gesture
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            
+            // IMPORTANT: canceling touches prevents you from tapping buttons/cells.
+            // We set it to false so taps pass through to buttons if you hit them.
+            tapGesture.cancelsTouchesInView = false
+            
+            // Add it to the view
+            view.addGestureRecognizer(tapGesture)
         }
-        intensityButton.menu = UIMenu(children: actions)
-        intensityButton.showsMenuAsPrimaryAction = true
-    }
+        
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
 
-    func setupImageGesture() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleImageTap)
-        )
-        cameraImageView.isUserInteractionEnabled = true
-        cameraImageView.addGestureRecognizer(tap)
-    }
+        func setupTextViewAlignment() {
+            // UITextView has built-in padding that causes misalignment with UILabels.
+            // We remove it so the cursor starts at the exact top-left.
+            notesTextView.textContainerInset = .zero
+            notesTextView.textContainer.lineFragmentPadding = 0
+            
+            // Optional: Ensure text view font matches placeholder font
+            // notesTextView.font = UIFont.systemFont(ofSize: 17) // Or whatever your label is
+        }
 
-    // MARK: - Actions
+        // MARK: - Setup Functions
 
-    @objc func handleImageTap() {
-        let picker = UIImagePickerController()
-        // Check if camera is available (use .photoLibrary for Simulator)
-        picker.sourceType =
-            UIImagePickerController.isSourceTypeAvailable(.camera)
-            ? .camera : .photoLibrary
-        picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true)
-    }
+        func setupTypeMenu() {
+            var actions: [UIAction] = []
+            for option in symptomsOptions {
+                actions.append(
+                    UIAction(title: option) { [weak self] action in
+                        self?.selectedType = action.title
+                        self?.typeButton.setTitle(action.title, for: .normal)
+                    }
+                )
+            }
+            typeButton.menu = UIMenu(children: actions)
+            typeButton.showsMenuAsPrimaryAction = true
+        }
+
+        func setupIntensityMenu() {
+            let options = ["Low", "Medium", "High"]
+            var actions: [UIAction] = []
+            for option in options {
+                actions.append(
+                    UIAction(title: option) { [weak self] action in
+                        self?.selectedIntensity = action.title
+                        self?.intensityButton.setTitle(action.title, for: .normal)
+                    }
+                )
+            }
+            intensityButton.menu = UIMenu(children: actions)
+            intensityButton.showsMenuAsPrimaryAction = true
+        }
+
+        func setupImageGesture() {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleImageTap))
+            cameraImageView.isUserInteractionEnabled = true
+            cameraImageView.addGestureRecognizer(tap)
+        }
+
+        // MARK: - Actions
+
+        @objc func handleImageTap() {
+            let picker = UIImagePickerController()
+            picker.sourceType = UIImagePickerController.isSourceTypeAvailable(.camera) ? .camera : .photoLibrary
+            picker.delegate = self
+            picker.allowsEditing = true
+            present(picker, animated: true)
+        }
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
 
@@ -124,81 +144,54 @@ class AddSymptomTableViewController: UITableViewController {
             return
         }
 
-        // Combine Date and Time into a single Foundation.Date
-        let calendar = Calendar.current
+        // Combine Date and Time
+                let calendar = Calendar.current
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: datePicker.date)
+                let timeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
+                dateComponents.hour = timeComponents.hour
+                dateComponents.minute = timeComponents.minute
 
-        // Date components (year, month, day from datePicker)
-        var dateComponents = calendar.dateComponents(
-            [.year, .month, .day],
-            from: datePicker.date
-        )
-        // Time components (hour, minute from timePicker)
-        let timeComponents = calendar.dateComponents(
-            [.hour, .minute],
-            from: timePicker.date
-        )
-        dateComponents.hour = timeComponents.hour
-        dateComponents.minute = timeComponents.minute
+                let recordedDate: Foundation.Date = calendar.date(from: dateComponents) ?? datePicker.date
 
-        // Build the final Date for dateRecorded
-        let recordedDate: Foundation.Date =
-            calendar.date(from: dateComponents) ?? datePicker.date
+                // Creating new symptom
+                let newSymptom = Symptom(
+                    id: UUID(),
+                    symptomName: type,
+                    intensity: intensity,
+                    dateRecorded: recordedDate,
+                    notes: notesTextView.text ?? "",
+                    time: timeComponents
+                )
+                
+                SymptomService.shared.addSymptom(newSymptom)
+                dismiss(animated: true)
+            }
 
-        //Creating new symptom
-        let newSymptom = Symptom(
-            id: UUID(),
-            symptomName: type,
-            intensity: intensity,
-            dateRecorded: recordedDate,
-            notes: notesTextView.text ?? "",
-            time: timeComponents
-        )
-        SymptomService.shared.addSymptom(newSymptom)
-        
-        // Dismiss after saving
-        dismiss(animated: true)
-    }
-
-    // MARK: - Table View Config (Optional adjustments)
-    // Since we use Static Cells, we don't need numberOfRows or cellForRowAt!
-
-    // We can use this to make the header/footer spacing cleaner if needed
-    override func tableView(
-        _ tableView: UITableView,
-        heightForHeaderInSection section: Int
-    ) -> CGFloat {
-        return 10  // Space between cards
-    }
-}
-
-// MARK: - Extensions
-
-extension AddSymptomTableViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !textView.text.isEmpty
-    }
-}
-
-extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
-{
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
-            Any]
-    ) {
-
-        if let image = info[.editedImage] as? UIImage ?? info[.originalImage]
-            as? UIImage
-        {
-            selectedImage = image
-            cameraImageView.image = image
-            cameraImageView.contentMode = .scaleAspectFill
-            cameraImageView.layer.cornerRadius = 8
-            cameraImageView.clipsToBounds = true
+            // MARK: - Table View Config
+            override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+                return 10
+            }
         }
-        dismiss(animated: true)
-    }
+
+        // MARK: - Extensions
+
+        extension AddSymptomTableViewController: UITextViewDelegate {
+            func textViewDidChange(_ textView: UITextView) {
+                placeholderLabel.isHidden = !textView.text.isEmpty
+            }
+        }
+
+        extension AddSymptomTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+            func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+                if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
+                    selectedImage = image
+                    cameraImageView.image = image
+                    cameraImageView.contentMode = .scaleAspectFill
+                    cameraImageView.layer.cornerRadius = 8
+                    cameraImageView.clipsToBounds = true
+                }
+                dismiss(animated: true)
+            }
     
 
 
