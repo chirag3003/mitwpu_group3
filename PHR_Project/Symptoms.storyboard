@@ -153,9 +153,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eg - Triggers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAP-e6-onk">
-                                                    <rect key="frame" x="16" y="54.333333333333343" width="104" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional notes regarding your symptom" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAP-e6-onk">
+                                                    <rect key="frame" x="16" y="54.333333333333336" width="337" height="17.000000000000007"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -170,7 +170,7 @@
                                                 <constraint firstItem="QxC-Hp-pLa" firstAttribute="width" secondItem="AJP-Pw-bFq" secondAttribute="width" multiplier="1.07477" id="f3q-EK-uUa"/>
                                                 <constraint firstItem="QxC-Hp-pLa" firstAttribute="centerX" secondItem="AJP-Pw-bFq" secondAttribute="centerX" id="jnD-b2-8Yy"/>
                                                 <constraint firstItem="lAP-e6-onk" firstAttribute="leading" secondItem="Hdx-af-efd" secondAttribute="leading" constant="16" id="ldW-Lh-jQ4"/>
-                                                <constraint firstAttribute="trailing" secondItem="lAP-e6-onk" secondAttribute="trailing" constant="233" id="uAL-Pb-vze"/>
+                                                <constraint firstAttribute="trailing" secondItem="lAP-e6-onk" secondAttribute="trailing" id="uAL-Pb-vze"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
