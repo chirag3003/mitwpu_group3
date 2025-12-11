@@ -173,25 +173,6 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
         // 2. Get the specific member data
         let selectedMember = familyData[indexPath.row]
-        print("Tapped on: \(selectedMember.name)")
-
-        // 3. Perform Action (e.g., Navigate to details)
-        // Example: Pushing a detail controller
-        /*
-        let detailVC = MemberDetailViewController()
-        detailVC.member = selectedMember
-        navigationController?.pushViewController(detailVC, animated: true)
-        */
-
-        // For testing now: Show an alert
-//        let alert = UIAlertController(
-//            title: "Selected",
-//            message: "You clicked on \(selectedMember.name)",
-//            preferredStyle: .alert
-//        )
-//        alert.addAction(UIAlertAction(title: "OK", style: .default))
-//        present(alert, animated: true)
-
         performSegue(withIdentifier: "goToMemberDetails", sender: selectedMember)
     }
 

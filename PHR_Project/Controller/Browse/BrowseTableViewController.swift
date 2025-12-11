@@ -62,11 +62,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup Search
         setupSearchController()
-
-        // Setup Keyboard Dismissal (Scroll to hide)
-//        tableView.keyboardDismissMode = .interactive
     }
 
     func setupSearchController() {

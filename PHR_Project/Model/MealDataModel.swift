@@ -6,12 +6,12 @@
 //
 import Foundation
 
-struct MealItem {
+struct MealItem: Codable {
     let id: UUID
     let name: String
 }
 
-struct MealDetails {
+struct MealDetails: Codable {
     let meal: MealItem
     let mealImage: String
     let calories: Int
@@ -23,8 +23,7 @@ struct MealDetails {
     let notes: String
 }
 
-// Renamed from `Date` to avoid shadowing Foundation.Date
-struct CalendarDay {
+struct CalendarDay: Codable {
     let day: String
     let number: String
 }
