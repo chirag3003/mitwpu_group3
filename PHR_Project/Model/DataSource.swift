@@ -15,6 +15,7 @@ struct Profile {
 struct Document {
     let prescriptions: [documentsModel]
     let reports: [ReportModel]
+    let prescriptionData : [PrescriptionModel]
 }
 
 struct Family {
@@ -93,7 +94,7 @@ func getAllData() -> DataSource {
             reports: [
                 ReportModel(
                     id: UUID(),
-                    title: "H1ABC",
+                    title: "HbA1C",
                     lastUpdatedAt: "15 Nov 2025",
                     fileSize: "3MB"
                 ),
@@ -103,6 +104,25 @@ func getAllData() -> DataSource {
                     lastUpdatedAt: "16 Nov 2025",
                     fileSize: "5MB"
                 )
+            ],
+            prescriptionData: [
+                PrescriptionModel(
+                    id: UUID(),
+                    title: "HbA1c",
+                    lastUpdatedAt: "16 Nov 2025",
+                    fileSize: "6MB"
+                ),
+                PrescriptionModel(
+                    id: UUID(),
+                    title: "TSH",
+                    lastUpdatedAt: "17 Nov 2025",
+                    fileSize: "8MB"
+                ),
+                PrescriptionModel(
+                    id: UUID(),
+                    title: "CMP",
+                    lastUpdatedAt: "18 Nov 2025",
+                    fileSize: "4MB")
             ]
         ),
         family: Family(

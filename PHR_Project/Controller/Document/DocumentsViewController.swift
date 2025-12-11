@@ -15,19 +15,21 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var dataSegment: UISegmentedControl!
     private var documentData: [documentsModel] = []
     private var reportsData: [ReportModel] = []
-
+    
     private func fetchDocumentData() {
         documentData = getAllData().document.prescriptions
     }
     private func fetchReportsData() {
         reportsData = getAllData().document.reports
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         fetchDocumentData()
         fetchReportsData()
+       
 
         documentTableView.delegate = self
         documentTableView.dataSource = self

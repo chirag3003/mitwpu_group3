@@ -6,10 +6,52 @@
 //
 
 import UIKit
-class PrescriptionPageViewController: UIViewController{
-    override func viewDidLoad() {
+class PrescriptionPageViewController:UIViewController,UITableViewDelegate,UITableViewDataSource{
     
-        super.viewDidLoad()
+    private var prescriptionData: [PrescriptionModel] = []
+    
+    @IBOutlet weak var tableView: UITableView!
+    private var documentData: [documentsModel] = []
+    private func fetchPrescriptionData() {
+        prescriptionData = getAllData().document.prescriptionData
         
-        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchDocumentData()
+        fetchPrescriptionData()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+    }
+    
+    private func fetchDocumentData() {
+        documentData = getAllData().document.prescriptions
+    }
+    
+    
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        // Reduce this value significantly.
+        // Try values between 60.0 and 75.0, depending on the desired space.
+        return 65.0  // Example of a reduced height
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return prescriptionData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PrescriptionCell", for: indexPath) as! PrescriptionTableViewCell
+        let prescription = prescriptionData[indexPath.row]
+        cell.configure(with: prescription)
+        return cell
+    }
+    
 }
