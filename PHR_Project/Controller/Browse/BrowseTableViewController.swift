@@ -81,43 +81,6 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
 
         // 3. Prevent the search bar from hiding the Tab Bar
         definesPresentationContext = true
-
-        // 4. ADD THE KEYBOARD DISMISSAL TOOLBAR
-//        addKeyboardDismissToolbar()
-    }
-
-    func addKeyboardDismissToolbar() {
-        // Create a toolbar
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-
-        // Create a flexible space to push the button to the right
-        let flexSpace = UIBarButtonItem(
-            barButtonSystemItem: .flexibleSpace,
-            target: nil,
-            action: nil
-        )
-
-        // Create the "Down Keyboard" button
-        let doneButton = UIBarButtonItem(
-            image: UIImage(systemName: "keyboard.chevron.compact.down"),
-            style: .plain,
-            target: self,
-            action: #selector(dismissKeyboard)
-        )
-
-        // Add items to toolbar
-        toolbar.setItems([flexSpace, doneButton], animated: false)
-
-        // Assign toolbar to the search bar's internal text field
-        if let textField = searchController.searchBar.value(
-            forKey: "searchField"
-        ) as? UITextField {
-            textField.inputAccessoryView = toolbar
-        } else {
-            // Fallback: try assigning directly (may be ignored on some iOS versions)
-            searchController.searchBar.inputAccessoryView = toolbar
-        }
     }
 
     @objc func dismissKeyboard() {
@@ -125,7 +88,6 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
