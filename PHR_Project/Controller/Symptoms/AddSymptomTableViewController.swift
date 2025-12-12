@@ -46,7 +46,7 @@ class AddSymptomTableViewController: UITableViewController {
         // Optional: Remove extra lines if any
         tableView.separatorStyle = .singleLine
         
-        addSymptomTableView.addRoundedCorner()
+        //addSymptomTableView.addRoundedCorner()
         addSymptomTableView.backgroundColor = .systemGray6
     }
 

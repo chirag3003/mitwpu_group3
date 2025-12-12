@@ -9,6 +9,7 @@ import UIKit
 
 class AddMealModalViewController: UITableViewController{
 
+    @IBOutlet var addMealTableView: UITableView!
     @IBOutlet weak var mealMenu: UIButton!
     
     var selectedMeal: String?
@@ -19,6 +20,9 @@ class AddMealModalViewController: UITableViewController{
         super.viewDidLoad()
         
         setupMealMenu()
+        
+        //addMealTableView.addRoundedCorner()
+        addMealTableView.backgroundColor = .systemGray6
         
         
 
@@ -53,6 +57,17 @@ class AddMealModalViewController: UITableViewController{
     }
     
     @IBAction func doneButton(_ sender: Any) {
+        guard let type = selectedMeal else {
+            // Show simple alert
+            let alert = UIAlertController(
+                title: "Missing Info",
+                message: "Please select Meal Type",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         dismiss(animated: true)
     }
     
