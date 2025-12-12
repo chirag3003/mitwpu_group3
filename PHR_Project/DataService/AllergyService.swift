@@ -2,7 +2,7 @@ import Foundation
 
 class AllergyService {
     static let shared = AllergyService()
-    private let storageKey = "saved_allergies_list"
+    private let storageKey = StorageKeys.allergies
 
     private var allergies: [Allergy] = []{
         didSet{

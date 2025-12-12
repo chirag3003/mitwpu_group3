@@ -9,8 +9,11 @@ import UIKit
 
 class AddGlucoseModalViewController: UIViewController {
 
+    @IBOutlet weak var glucoseView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        glucoseView.addRoundedCorner()
 
         
     }

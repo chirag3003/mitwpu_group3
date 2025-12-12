@@ -45,41 +45,12 @@ class AddSymptomTableViewController: UITableViewController {
             setupHideKeyboardOnTap()
             setupTextViewAlignment()
 
-            // UI Cleanup
-            tableView.separatorStyle = .singleLine
-            // addSymptomTableView.addRoundedCorner() // Ensure this extension exists
-            addSymptomTableView.backgroundColor = .systemGray6
-            
+        // Optional: Remove extra lines if any
+        tableView.separatorStyle = .singleLine
         
-        }
-
-        // MARK: - NEW: Keyboard & Cursor Fixes
-
-    func setupHideKeyboardOnTap() {
-            // Create the gesture
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            
-            // IMPORTANT: canceling touches prevents you from tapping buttons/cells.
-            // We set it to false so taps pass through to buttons if you hit them.
-            tapGesture.cancelsTouchesInView = false
-            
-            // Add it to the view
-            view.addGestureRecognizer(tapGesture)
-        }
-        
-        @objc func dismissKeyboard() {
-            view.endEditing(true)
-        }
-
-        func setupTextViewAlignment() {
-            // UITextView has built-in padding that causes misalignment with UILabels.
-            // We remove it so the cursor starts at the exact top-left.
-            notesTextView.textContainerInset = .zero
-            notesTextView.textContainer.lineFragmentPadding = 0
-            
-            // Optional: Ensure text view font matches placeholder font
-            // notesTextView.font = UIFont.systemFont(ofSize: 17) // Or whatever your label is
-        }
+        //addSymptomTableView.addRoundedCorner()
+        addSymptomTableView.backgroundColor = .systemGray6
+    }
 
         // MARK: - Setup Functions
 
