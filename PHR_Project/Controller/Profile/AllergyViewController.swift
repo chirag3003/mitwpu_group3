@@ -30,7 +30,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "allergy_cell", for: indexPath) as! AllergyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.allergyCell, for: indexPath) as! AllergyTableViewCell
         cell.configureCell(with: allergies[indexPath.row])
         return cell
     }

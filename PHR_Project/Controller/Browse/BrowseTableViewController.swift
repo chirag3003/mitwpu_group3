@@ -103,7 +103,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: "browse_cell",
+            withIdentifier: CellIdentifiers.browseCell,
             for: indexPath
         )
 
