@@ -78,6 +78,7 @@
                                                                         <constraint firstAttribute="height" constant="20" id="SS9-it-YhA"/>
                                                                         <constraint firstAttribute="width" constant="20" id="zWq-eb-4g1"/>
                                                                     </constraints>
+                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
                                                                     <connections>
@@ -808,7 +809,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MZ1-w9-mp3">
-                                <rect key="frame" x="159" y="120.66666666666664" width="72" height="69.6666666666667"/>
+                                <rect key="frame" x="159" y="120.66666666666666" width="72" height="69.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="72" id="3K5-Hn-DE3"/>
                                     <constraint firstAttribute="height" constant="71" id="tVk-Ve-9iC"/>
