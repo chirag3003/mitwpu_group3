@@ -137,7 +137,7 @@ func getAllData() -> DataSource {
                     notes: "Throbbing pain, relieved by rest",
                     time: DateComponents(hour: 10, minute: 15)
                 )
-            )
+            ]
         )
     )
 }

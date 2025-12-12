@@ -43,12 +43,14 @@ class AddSymptomTableViewController: UITableViewController {
             // 3. Notes Configuration
             notesTextView.delegate = self
             setupHideKeyboardOnTap()
-            setupTextViewAlignment() 
+            setupTextViewAlignment()
 
             // UI Cleanup
             tableView.separatorStyle = .singleLine
             // addSymptomTableView.addRoundedCorner() // Ensure this extension exists
             addSymptomTableView.backgroundColor = .systemGray6
+            
+        
         }
 
         // MARK: - NEW: Keyboard & Cursor Fixes
