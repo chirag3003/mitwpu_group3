@@ -39,6 +39,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         ) as! ContactTableViewCell
                  let contact = contacts[indexPath.row]
         cell.configure(with: contact)
+        cell.selectionStyle = .none
         return cell
     }
 

@@ -72,12 +72,15 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
                 for: indexPath
             ) as! DocumentTableViewCell
             let doctor = documentData[indexPath.row]
+            cell.selectionStyle = .none
             cell.configure(with: doctor)
+            
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.reportCell, for: indexPath) as! ReportsTableViewCell
         let report = reportsData[indexPath.row]
         cell.configure(with: report)
+        cell.selectionStyle = .none
         return cell
     }
 

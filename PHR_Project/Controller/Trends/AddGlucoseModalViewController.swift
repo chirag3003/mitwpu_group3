@@ -15,7 +15,7 @@ class AddGlucoseModalViewController: UIViewController {
         
         glucoseView.addRoundedCorner()
 
-        // Do any additional setup after loading the view.
+        
     }
     
 

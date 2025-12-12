@@ -62,7 +62,10 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         // Configure cell
         cell.configure(with: currentSymptom)
 
+        cell.selectionStyle = .none
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
