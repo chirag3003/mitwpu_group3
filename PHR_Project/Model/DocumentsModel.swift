@@ -22,3 +22,11 @@ struct ReportModel {
     let lastUpdatedAt: String
     let fileSize: String
 }
+
+
+struct PrescriptionModel{
+    let id: UUID
+    let title: String
+    let lastUpdatedAt: String
+    let fileSize: String
+}
