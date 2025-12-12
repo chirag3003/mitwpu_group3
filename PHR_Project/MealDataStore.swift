@@ -10,9 +10,27 @@ class MealDataStore {
     
     static let shared = MealDataStore()
     
-    private var mealItem: [MealItem] = []
-    private var mealDetails: [MealDetails] = []
-    private var days: [CalendarDay] = []
+    private let mealItemsKey = StorageKeys.mealItems
+    private let mealDetailsKey = StorageKeys.mealDetails
+    private let daysKey = StorageKeys.calendarDays
+    
+    private var mealItem: [MealItem] = [] {
+        didSet {
+            saveMealItems()
+        }
+    }
+    
+    private var mealDetails: [MealDetails] = [] {
+        didSet {
+            saveMealDetails()
+        }
+    }
+    
+    private var days: [CalendarDay] = [] {
+        didSet {
+            saveDays()
+        }
+    }
     
     func getMealItem() -> [MealItem] {
         return mealItem
@@ -27,7 +45,13 @@ class MealDataStore {
     }
     
     private init() {
-        loadSampleData()
+        loadMealItems()
+        loadMealDetails()
+        loadDays()
+        
+        if mealItem.isEmpty {
+            loadSampleData()
+        }
     }
     
     func loadSampleData() {
@@ -130,5 +154,77 @@ class MealDataStore {
         self.days = dayData
     }
     
+    // MARK: - Persistence Logic
+    
+    private func saveMealItems() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(mealItem)
+            UserDefaults.standard.set(data, forKey: mealItemsKey)
+        } catch {
+            print("Failed to save meal items: \(error)")
+        }
+    }
+    
+    private func saveMealDetails() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(mealDetails)
+            UserDefaults.standard.set(data, forKey: mealDetailsKey)
+        } catch {
+            print("Failed to save meal details: \(error)")
+        }
+    }
+    
+    private func saveDays() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(days)
+            UserDefaults.standard.set(data, forKey: daysKey)
+        } catch {
+            print("Failed to save calendar days: \(error)")
+        }
+    }
+    
+    private func loadMealItems() {
+        guard let data = UserDefaults.standard.data(forKey: mealItemsKey) else {
+            return
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            mealItem = try decoder.decode([MealItem].self, from: data)
+        } catch {
+            print("Failed to load meal items: \(error)")
+        }
+    }
+    
+    private func loadMealDetails() {
+        guard let data = UserDefaults.standard.data(forKey: mealDetailsKey) else {
+            return
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            mealDetails = try decoder.decode([MealDetails].self, from: data)
+        } catch {
+            print("Failed to load meal details: \(error)")
+        }
+    }
+    
+    private func loadDays() {
+        guard let data = UserDefaults.standard.data(forKey: daysKey) else {
+            return
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            days = try decoder.decode([CalendarDay].self, from: data)
+        } catch {
+            print("Failed to load calendar days: \(error)")
+        }
+    }
+    
 }
+
 

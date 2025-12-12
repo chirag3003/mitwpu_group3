@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIView{
-    func addRoundedCorner(radius: CGFloat = 30){
+    func addRoundedCorner(radius: CGFloat = UIConstants.CornerRadius.huge){
         layer.cornerRadius = radius
         self.clipsToBounds = true
         layer.masksToBounds = true

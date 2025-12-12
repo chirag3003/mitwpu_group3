@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		192785BF2ED4771A00490930 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 192785BD2ED4771A00490930 /* Home.storyboard */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		192785BE2ED4771A00490930 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PHR_Project/Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PHR_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,7 +45,6 @@
 		19E0D1792E8A8F9E00A6E73C = {
 			isa = PBXGroup;
 			children = (
-				192785BD2ED4771A00490930 /* Home.storyboard */,
 				19E0D1842E8A8F9E00A6E73C /* PHR_Project */,
 				19E0D1832E8A8F9E00A6E73C /* Products */,
 			);
@@ -128,7 +122,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				192785BF2ED4771A00490930 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,17 +136,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		192785BD2ED4771A00490930 /* Home.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				192785BE2ED4771A00490930 /* Base */,
-			);
-			name = Home.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		19E0D1962E8A8F9F00A6E73C /* Debug */ = {
