@@ -88,7 +88,7 @@ class CircularProgressView: UIView {
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             animation.fromValue = progressLayer.strokeEnd
             animation.toValue = clampedValue
-            animation.duration = 0.5
+            animation.duration = UIConstants.AnimationDuration.medium
             animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             progressLayer.strokeEnd = CGFloat(clampedValue)
             progressLayer.add(animation, forKey: "animateProgress")

@@ -3,11 +3,11 @@ import Foundation
 
 class ProfileService {
     static let shared = ProfileService()
-    private let storageKey = "user_profile_data"
+    private let storageKey = StorageKeys.profile
     private var data: ProfileModel {
         didSet{
             save()
-            NotificationCenter.default.post(name: NSNotification.Name("ProfileUpdated"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.profileUpdated), object: nil)
         }
     }
     

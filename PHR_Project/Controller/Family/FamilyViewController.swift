@@ -60,22 +60,20 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             // 0.33 fractional width = 3 columns
             let itemSize = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0 / 3.0),
-                    heightDimension: .fractionalHeight(1.0)
+                    widthDimension: .fractionalWidth(UIConstants.CollectionLayout.oneThirdWidth),
+                    heightDimension: .fractionalHeight(UIConstants.CollectionLayout.fullWidth)
                 )
             )
             itemSize.contentInsets = NSDirectionalEdgeInsets(
-                top: 8,
-                leading: 8,
-                bottom: 8,
-                trailing: 8
+                top: UIConstants.Spacing.small,
+                leading: UIConstants.Spacing.small,
+                bottom: UIConstants.Spacing.small,
+                trailing: UIConstants.Spacing.small
             )
 
-            // 2. Group
-            // Absolute height 150 ensures enough space for Circle + Text
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(150)
+                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
+                heightDimension: .absolute(UIConstants.CollectionLayout.memberItemHeight)
             )
 
             let group = NSCollectionLayoutGroup.horizontal(
@@ -83,20 +81,18 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                 subitems: [itemSize]
             )
 
-            // 3. Section
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = NSDirectionalEdgeInsets(
-                top: 10,
-                leading: 16,
-                bottom: 20,
-                trailing: 16
+                top: UIConstants.Padding.medium,
+                leading: UIConstants.Spacing.medium,
+                bottom: UIConstants.Spacing.large,
+                trailing: UIConstants.Spacing.medium
             )
-            section.interGroupSpacing = 10
+            section.interGroupSpacing = UIConstants.Spacing.medium
 
-            // 4. Header Setup
             let headerSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(220)
+                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
+                heightDimension: .estimated(UIConstants.CollectionLayout.headerHeight)
             )
 
             let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -173,13 +169,13 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
         // 2. Get the specific member data
         let selectedMember = familyData[indexPath.row]
-        performSegue(withIdentifier: "goToMemberDetails", sender: selectedMember)
+        performSegue(withIdentifier: SegueIdentifiers.goToMemberDetails, sender: selectedMember)
     }
 
    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToMemberDetails" {
+        if segue.identifier == SegueIdentifiers.goToMemberDetails {
             if let destinationVC = segue.destination
                 as? FamilyMemberViewController
             {

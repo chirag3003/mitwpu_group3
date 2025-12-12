@@ -10,9 +10,9 @@ class MealDataStore {
     
     static let shared = MealDataStore()
     
-    private let mealItemsKey = "saved_meal_items"
-    private let mealDetailsKey = "saved_meal_details"
-    private let daysKey = "saved_calendar_days"
+    private let mealItemsKey = StorageKeys.mealItems
+    private let mealDetailsKey = StorageKeys.mealDetails
+    private let daysKey = StorageKeys.calendarDays
     
     private var mealItem: [MealItem] = [] {
         didSet {
