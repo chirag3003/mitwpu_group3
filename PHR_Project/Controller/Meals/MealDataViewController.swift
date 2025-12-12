@@ -50,7 +50,7 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = meal.name
         
         cell.accessoryType = .disclosureIndicator
-        
+        cell.selectionStyle = .none
         return cell
     }
     
