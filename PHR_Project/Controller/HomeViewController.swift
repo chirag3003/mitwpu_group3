@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
         greetingsLabel.text =
             "Good Morning, \(ProfileService.shared.getProfile().firstName)"
         stepsSummaryCard.setProgress(to: 0.45)
-        caloriesSummaryCard.setProgress(to: 0.82)
+        caloriesSummaryCard.setProgress(to: 0.49)
         
         //setting up event listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(NotificationNames.profileUpdated), object: nil)
