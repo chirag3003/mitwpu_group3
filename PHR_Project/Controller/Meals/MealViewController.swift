@@ -32,6 +32,8 @@ class MealViewController: UIViewController {
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
     var dates: MealDataStore = MealDataStore.shared
+    
+    var hasScrolledToToday = false
 
     // Data Model
     struct Meal {
@@ -83,10 +85,14 @@ class MealViewController: UIViewController {
         super.viewDidLoad()
 
         dateCollectionView.dataSource = self
+        dateCollectionView.delegate = self
         dateCollectionView.setCollectionViewLayout(
             createDateLayout(),
             animated: true
         )
+        
+//        let firstIndex = IndexPath(item: 15, section: 0)
+//        dateCollectionView.selectItem(at: firstIndex, animated: false, scrollPosition: .centeredHorizontally)
         
         calorieProgressView.configure(progress: 0.49, thickness: 25.0)
         
@@ -111,17 +117,53 @@ class MealViewController: UIViewController {
         setupMealCollectionView()
 
     }
-
+    
+    //To align the today's date to the center of the scroll
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            
+            // Check if we have already scrolled and if we have data
+            if !hasScrolledToToday && dates.getDays().count > 0 {
+                
+                // 1. FORCE the collection view to calculate cell positions right now
+                dateCollectionView.layoutIfNeeded()
+                
+                // 2. Define the index for "Today" (Index 15)
+                let todayIndex = IndexPath(item: 15, section: 0)
+                
+                // 3. Perform the scroll on the main thread to ensure it happens after the visual pass
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.dateCollectionView.scrollToItem(
+                        at: todayIndex,
+                        at: .centeredHorizontally,
+                        animated: false
+                    )
+                    
+                    // 4. Select the item visually (highlighting the blue circle)
+                    self.dateCollectionView.selectItem(
+                        at: todayIndex,
+                        animated: false,
+                        scrollPosition: .centeredHorizontally
+                    )
+                    
+                    self.hasScrolledToToday = true
+                }
+            }
+        }
+    
     private func createDateLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {
             (sectionIndex, env) -> NSCollectionLayoutSection? in
 
-            let item = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0 / 7.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
             )
+            
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
             item.contentInsets = NSDirectionalEdgeInsets(
                 top: 8,
                 leading: 8,
@@ -132,18 +174,18 @@ class MealViewController: UIViewController {
             // 2. Group
             // Absolute height 150 ensures enough space for Circle + Text
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
+                widthDimension: .fractionalWidth(1.0/7.0),
                 heightDimension: .absolute(100)
             )
 
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
-                subitem: item,
-                count: 7  // This divides the screen width by 7 automatically
+                subitems: [item]
+                //count: 7  // This divides the screen width by 7 automatically
             )
             // 3. Section
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .groupPaging
+            section.orthogonalScrollingBehavior = .groupPagingCentered
 
             return section
         }
@@ -208,9 +250,7 @@ class MealViewController: UIViewController {
         }
 }
 
-extension MealViewController: UICollectionViewDataSource,
-    UICollectionViewDelegate
-{
+extension MealViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -221,21 +261,23 @@ extension MealViewController: UICollectionViewDataSource,
         return meals[section].count
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView == dateCollectionView {
-            let cell =
-                collectionView.dequeueReusableCell(
+            let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: "date_cell",
                     for: indexPath
                 ) as! DatesCollectionViewCell
 
             let date = dates.getDays()[indexPath.row]
-
             cell.configureCell(date: date)
+            
+            if indexPath.row == 15 {
+                cell.isToday = true
+            } else {
+                cell.isToday = false
+            }
+            
 
             return cell
         }
@@ -247,6 +289,15 @@ extension MealViewController: UICollectionViewDataSource,
             ) as! MealItemCollectionViewCell
         let meal = meals[indexPath.section][indexPath.row]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == dateCollectionView {
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+        
+        let selectedDay = dates.getDays()[indexPath.row]
+        print("Selected: \(selectedDay)")
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -275,4 +326,40 @@ extension MealViewController: UICollectionViewDataSource,
 
 }
 
-
+extension MealViewController: CustomCameraDelegate {
+    
+    
+    @IBAction func addMealCamera(_ sender: Any) {
+        // Create the custom camera VC
+        let customCameraVC = CustomCameraViewController()
+        
+        // Set the delegate to 'self' so we get the results back
+        customCameraVC.delegate = self
+        
+        // Present it full screen
+        customCameraVC.modalPresentationStyle = .fullScreen
+        present(customCameraVC, animated: true)
+    }
+    
+    
+    func didCaptureImage(_ image: UIImage) {
+        print("Custom camera took a picture!")
+        
+        
+        
+    }
+    
+    func didTapManuallyLog() {
+        print("User chose to manually log")
+        dismiss(animated: true) { [weak self] in
+            
+            // 2. ONLY after the camera is gone, try to present the new screen
+            guard let self = self else { return }
+            
+            let storyboard = UIStoryboard(name: "Meals", bundle: nil)
+            let manualVC = storyboard.instantiateViewController(withIdentifier: "AddMealScreenNav")
+            manualVC.modalPresentationStyle = .pageSheet
+            self.present(manualVC, animated: true, completion: nil)
+        }
+    }
+}
