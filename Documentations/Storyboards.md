@@ -7,7 +7,7 @@ The app uses multiple storyboards for organization.
 | File | Location | Description |
 |------|----------|-------------|
 | `Main.storyboard` | `Base.lproj/` | Main entry point and tab bar |
-| `Home.storyboard` | `Base.lproj/` | Home dashboard |
+| `Home.storyboard` | Root | Home dashboard |
 | `LaunchScreen.storyboard` | `Base.lproj/` | App launch screen |
 | `Meals.storyboard` | Root | Meal tracking screens |
 | `Symptoms.storyboard` | Root | Symptom tracking screens |
@@ -16,34 +16,40 @@ The app uses multiple storyboards for organization.
 
 ---
 
-## 📝 PLACEHOLDER: Storyboard Structure
+## Storyboard Architecture
 
-<!-- 
-TODO: Add your explanation of how storyboards are structured and connected.
+### Main Storyboard (Entry Point)
 
-Consider documenting:
-- Navigation flow between storyboards
-- How storyboard references are set up
-- Tab bar structure and organization
-- Segue connections and identifiers
-- Initial view controllers for each storyboard
--->
+`Main.storyboard` contains **only** the Tab Bar Controller with 4 storyboard references:
 
-### Navigation Structure
+### Home Storyboard (Complex Navigation)
 
-_[Add your explanation here]_
+`Home.storyboard` contains multiple connected screens:
 
-### Storyboard References
+- **Home Screen** - Main dashboard
+- **Profile Screen** - User profile management
+- **Allergies Screen** - Allergy tracking
+- **Glucose & Trends Screen** - Health metrics visualization
 
-_[Explain how storyboards reference each other]_
+For additional features, Home references **separate storyboards**:
+- `Meals.storyboard` - Meal tracking feature
+- `Symptoms.storyboard` - Symptom logging feature
 
-### Tab Bar Organization
+### Standalone Storyboards
 
-_[Describe the tab bar structure]_
+These storyboards contain only their own features **without external references**:
 
-### Segue Connections
+| Storyboard | Scope |
+|------------|-------|
+| `Family.storyboard` | Family member management only |
+| `Documents.storyboard` | Document management only |
+| `Browse.storyboard` | Browse/Search feature only |
 
-_[Document key segues and their identifiers]_
+### Benefits of This Approach
+
+1. **Parallel Development** - Team members can work on different storyboards simultaneously without Git conflicts
+2. **Faster Loading** - Smaller storyboards load faster in Xcode
+3. **Better Organization** - Clear separation of concerns by feature
 
 ---
 
