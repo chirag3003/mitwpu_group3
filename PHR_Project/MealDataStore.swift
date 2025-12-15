@@ -14,6 +14,8 @@ class MealDataStore {
     private let mealDetailsKey = StorageKeys.mealDetails
     private let daysKey = StorageKeys.calendarDays
     
+    
+    
     private var mealItem: [MealItem] = [] {
         didSet {
             saveMealItems()
@@ -26,11 +28,14 @@ class MealDataStore {
         }
     }
     
-    private var days: [CalendarDay] = [] {
-        didSet {
-            saveDays()
-        }
-    }
+//    private var days: [CalendarDay] = [] {
+//        didSet {
+//            saveDays()
+//        }
+//    }
+    
+    private var days: [CalendarDay] = []
+    
     
     func getMealItem() -> [MealItem] {
         return mealItem
@@ -47,11 +52,16 @@ class MealDataStore {
     private init() {
         loadMealItems()
         loadMealDetails()
-        loadDays()
+        //loadDays()
         
         if mealItem.isEmpty {
             loadSampleData()
         }
+        
+        self.days = generateNext30Days()
+        print(days)
+        
+        
     }
     
     func loadSampleData() {
@@ -124,37 +134,12 @@ class MealDataStore {
                 notes: "High-calorie meal good for dinner."
             )
         ]
-        
-        let dayData: [CalendarDay] = [
-            CalendarDay(day: "M", number: "20"),
-            CalendarDay(day: "T", number: "21"),
-            CalendarDay(day: "W", number: "22"),
-            CalendarDay(day: "T", number: "23"),
-            CalendarDay(day: "F", number: "25"),
-            CalendarDay(day: "S", number: "27"),
-            CalendarDay(day: "S", number: "28"),
-            CalendarDay(day: "M", number: "20"),
-            CalendarDay(day: "T", number: "21"),
-            CalendarDay(day: "W", number: "22"),
-            CalendarDay(day: "T", number: "23"),
-            CalendarDay(day: "F", number: "25"),
-            CalendarDay(day: "S", number: "27"),
-            CalendarDay(day: "S", number: "28"),
-            CalendarDay(day: "M", number: "20"),
-            CalendarDay(day: "T", number: "21"),
-            CalendarDay(day: "W", number: "22"),
-            CalendarDay(day: "T", number: "23"),
-            CalendarDay(day: "F", number: "25"),
-            CalendarDay(day: "S", number: "27"),
-            CalendarDay(day: "S", number: "28")
-        ]
+    
 
         self.mealItem = mealData
         self.mealDetails = mealDetailsData
-        self.days = dayData
+        //self.days = dayData
     }
-    
-    // MARK: - Persistence Logic
     
     private func saveMealItems() {
         do {
@@ -225,6 +210,27 @@ class MealDataStore {
         }
     }
     
+    private func generateNext30Days() -> [CalendarDay] {
+        var generatedDays: [CalendarDay] = []
+        let calendar = Calendar.current
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        
+        for i in -15...15 {
+            if let date = calendar.date(byAdding: .day, value: i, to: today) {
+                
+                dateFormatter.dateFormat = "EEEEE"
+                let dayString = dateFormatter.string(from: date)
+                
+                dateFormatter.dateFormat = "d"
+                let numberString = dateFormatter.string(from: date)
+                
+                let dayObject = CalendarDay(day: dayString, number: numberString)
+                generatedDays.append(dayObject)
+            }
+        }
+        return generatedDays
+    }
 }
 
 

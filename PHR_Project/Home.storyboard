@@ -686,10 +686,10 @@
             </objects>
             <point key="canvasLocation" x="2402" y="47"/>
         </scene>
-        <!--AddMealScreen-->
+        <!--AddMealScreenNav-->
         <scene sceneID="geS-s4-2pN">
             <objects>
-                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="AddMealScreen" id="hOh-lf-4c3" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="AddMealScreenNav" id="hOh-lf-4c3" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ter-cv-ItP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2500" y="-30"/>
