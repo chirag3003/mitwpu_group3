@@ -478,11 +478,11 @@
                                                                 </constraints>
                                                                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <inset key="contentEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Show all your meal data" cornerStyle="capsule">
+                                                                <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Show all your meal data" imagePadding="16" cornerStyle="capsule">
                                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="20"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <segue destination="OND-8L-dfZ" kind="show" id="bdK-FB-WVi"/>
@@ -557,6 +557,7 @@
                                                                 <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Show all your symptoms data" cornerStyle="capsule">
                                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="20"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <segue destination="YNY-Vc-27l" kind="show" id="azf-Aj-u8S"/>
@@ -1030,7 +1031,7 @@
             <objects>
                 <viewController id="Ejm-Og-VO8" customClass="AllergyViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6zB-Yn-Dud">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-YT-Owa">
@@ -2016,7 +2017,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rYD-Av-LTB"/>
+        <segue reference="gJ0-Iu-xpm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt.square.fill" catalog="system" width="128" height="114"/>
