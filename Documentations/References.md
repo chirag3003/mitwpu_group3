@@ -22,28 +22,5 @@ Used in: `CircularProgressView`, `SemicircularProgressView` (Home screen progres
 
 ---
 
-## UIKit & Interface
-
-<!-- Add more references here -->
-
----
-
-## Data Persistence
-
-<!-- Add more references here -->
-
----
-
-## Third-Party Libraries
-
-<!-- Add any third-party libraries used -->
-
----
-
-## Design Resources
-
-<!-- Add design inspiration or asset sources -->
-
----
 
 *Note: This document is maintained for academic integrity purposes.*
