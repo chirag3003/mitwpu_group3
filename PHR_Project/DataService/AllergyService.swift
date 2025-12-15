@@ -37,7 +37,7 @@ class AllergyService {
             let data = try encoder.encode(allergies)
             UserDefaults.standard.set(data, forKey: storageKey)
         } catch {
-            print("Failed to save allergies: \(error)")
+            print("Failed to save allergies locally: \(error)")
         }
     }
 
@@ -50,7 +50,7 @@ class AllergyService {
             let decoder = JSONDecoder()
             allergies = try decoder.decode([Allergy].self, from: data)
         } catch {
-            print("Failed to load allergies: \(error)")
+            print("Failed to load allergies locally: \(error)")
         }
     }
     

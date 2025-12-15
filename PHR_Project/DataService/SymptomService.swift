@@ -30,7 +30,7 @@ class SymptomService {
             let data = try encoder.encode(symptoms)
             UserDefaults.standard.set(data, forKey: storageKey)
         } catch {
-            print("Failed to save symptoms: \(error)")
+            print("Failed to save symptoms locally: \(error)")
         }
     }
 
@@ -43,7 +43,7 @@ class SymptomService {
             let decoder = JSONDecoder()
             symptoms = try decoder.decode([Symptom].self, from: data)
         } catch {
-            print("Failed to load symptoms: \(error)")
+            print("Failed to load symptoms locally: \(error)")
         }
     }
     

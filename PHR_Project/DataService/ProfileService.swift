@@ -11,7 +11,6 @@ class ProfileService {
         }
     }
     
-    
     private init() {
         if let savedData = UserDefaults.standard.data(forKey: storageKey),
             let decodedModel = try? JSONDecoder().decode(
@@ -19,12 +18,10 @@ class ProfileService {
                 from: savedData
             )
         {
-
+            // Using saved data
             self.data = decodedModel
-            print("Loaded profile from Disk")
-
         } else {
-            // 3. If no data exists, load the default (User's code)
+            // If no data exists, load the default (User's code)
             var dateComponents = DateComponents()
             dateComponents.year = 2005
             dateComponents.month = 6
@@ -47,7 +44,6 @@ class ProfileService {
                 height: 172,
                 weight: 65
             )
-            print("Loaded default profile (First Run)")
         }
     }
 

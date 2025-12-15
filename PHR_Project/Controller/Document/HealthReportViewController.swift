@@ -25,14 +25,6 @@ class HealthReportViewController: UIViewController {
     @IBAction func shareButtonTapped(_ sender: Any) {
         presentShareSheet()
     }
-    // MARK: - IBActions
-//    @IBAction func shareButtonTapped(_ sender: UIButton) {
-//        presentShareSheet()
-//    }
-//    
-//    @IBAction func closeButtonTapped(_ sender: UIButton) {
-//        dismiss(animated: true, completion: nil)
-//    }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
