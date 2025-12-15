@@ -150,41 +150,41 @@ class MealViewController: UIViewController {
         }
     
     private func createDateLayout() -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout {
-            (sectionIndex, env) -> NSCollectionLayoutSection? in
+            return UICollectionViewCompositionalLayout {
+                (sectionIndex, env) -> NSCollectionLayoutSection? in
 
-            let item = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(UIConstants.CollectionLayout.oneSeventhWidth),
-                    heightDimension: .fractionalHeight(UIConstants.CollectionLayout.fullWidth)
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalHeight(1.0)
                 )
-            )
-            
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            item.contentInsets = NSDirectionalEdgeInsets(
-                top: UIConstants.Spacing.small,
-                leading: UIConstants.Spacing.small,
-                bottom: UIConstants.Spacing.small,
-                trailing: UIConstants.Spacing.small
-            )
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                item.contentInsets = NSDirectionalEdgeInsets(
+                    top: 8,
+                    leading: 8,
+                    bottom: 8,
+                    trailing: 8
+                )
 
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
-                heightDimension: .absolute(UIConstants.CollectionLayout.dateItemHeight)
-            )
+                // 2. Group
+                // Absolute height 150 ensures enough space for Circle + Text
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0/7.0),
+                    heightDimension: .absolute(100)
+                )
 
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: groupSize,
-                subitems: [item]
-                //count: 7  // This divides the screen width by 7 automatically
-            )
-            // 3. Section
-            let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .groupPagingCentered
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: groupSize,
+                    subitems: [item]
+                    //count: 7  // This divides the screen width by 7 automatically
+                )
+                // 3. Section
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPagingCentered
 
-            return section
-        }
+                return section
+            }
     }
 
     private func setupMealCollectionView() {
