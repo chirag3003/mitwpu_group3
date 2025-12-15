@@ -44,11 +44,8 @@ class AddSymptomTableViewController: UITableViewController {
         setupHideKeyboardOnTap()
         setupTextViewAlignment()
 
-        // Optional: Remove extra lines if any
+        //Removing table lines
         tableView.separatorStyle = .singleLine
-
-        //addSymptomTableView.addRoundedCorner()
-        addSymptomTableView.backgroundColor = .systemGray6
     }
 
     // MARK: - Setup Functions
