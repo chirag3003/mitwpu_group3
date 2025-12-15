@@ -2,12 +2,12 @@ import Foundation
 
 class SymptomService {
     static let shared = SymptomService()
-    private let storageKey = "saved_symptoms_list"
+    private let storageKey = StorageKeys.symptoms
 
     private var symptoms: [Symptom] = [] {
         didSet {
             save()
-            NotificationCenter.default.post(name: NSNotification.Name("SymptomsUpdated"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.symptomsUpdated), object: nil)
 
         }
     }

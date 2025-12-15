@@ -33,7 +33,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSymptoms),
-            name: NSNotification.Name("SymptomsUpdated"),
+            name: NSNotification.Name(NotificationNames.symptomsUpdated),
             object: nil
         )
     }
@@ -52,7 +52,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         // Ensure Identifier in Storyboard is "symptom_cell"
         let cell =
             tableView.dequeueReusableCell(
-                withIdentifier: "symptom_cell",
+                withIdentifier: CellIdentifiers.symptomCell,
                 for: indexPath
             ) as! SymptomTableViewCell
 
@@ -62,7 +62,10 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         // Configure cell
         cell.configure(with: currentSymptom)
 
+        cell.selectionStyle = .none
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

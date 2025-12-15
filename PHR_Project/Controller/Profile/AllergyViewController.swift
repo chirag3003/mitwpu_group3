@@ -12,6 +12,8 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
     var allergies: [Allergy] = []
     
     
+    
+    
     @IBOutlet weak var allergiesTableView: UITableView!
     
     override func viewDidLoad() {
@@ -23,6 +25,8 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
+
+       
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,8 +34,9 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "allergy_cell", for: indexPath) as! AllergyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.allergyCell, for: indexPath) as! AllergyTableViewCell
         cell.configureCell(with: allergies[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
     

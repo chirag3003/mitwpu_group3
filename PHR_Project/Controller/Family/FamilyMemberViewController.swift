@@ -17,6 +17,12 @@ class FamilyMemberViewController: UIViewController {
     
     @IBOutlet weak var docButton: UIButton!
     
+    @IBOutlet weak var mealButton: UIButton!
+    
+    @IBOutlet weak var symptomLogButton: UIButton!
+    
+    @IBOutlet weak var trendButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,9 +30,8 @@ class FamilyMemberViewController: UIViewController {
         pfpImage.addFullRoundedCorner()
         
         memberName.text = familyMember?.name ?? "No Name"
-//        docButton.applyLiquidGlassEffect()
-//        docButton.addRoundedCorner()
-        
+    //   docButton.addRoundedCorner()
+    //   docButton.applyLiquidGlassEffect()
     }
     
 

@@ -62,11 +62,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup Search
         setupSearchController()
-
-        // Setup Keyboard Dismissal (Scroll to hide)
-//        tableView.keyboardDismissMode = .interactive
     }
 
     func setupSearchController() {
@@ -107,7 +103,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: "browse_cell",
+            withIdentifier: CellIdentifiers.browseCell,
             for: indexPath
         )
 

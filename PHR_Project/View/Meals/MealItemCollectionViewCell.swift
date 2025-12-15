@@ -14,8 +14,7 @@ class MealItemCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        mealImage.addRoundedCorner(radius: 10)
+        mealImage.addRoundedCorner(radius: UIConstants.CornerRadius.small)
         self.backgroundColor = .clear 
         self.contentView.backgroundColor = .clear
     }
