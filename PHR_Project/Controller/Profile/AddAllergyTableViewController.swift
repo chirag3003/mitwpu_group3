@@ -1,103 +1,108 @@
 import UIKit
 
 protocol AddAllergyProtocol {
-    func addAllergy(allergy: Allergy)
+  func addAllergy(allergy: Allergy)
 }
 
 class AddAllergyTableViewController: UITableViewController {
-    
-    // MARK: - Outlets
-    @IBOutlet weak var allergyIngredient: UITextField!
-    @IBOutlet weak var allergyDetailReaction: UITextField!
-    @IBOutlet weak var intensityButton: UIButton!
-    
-    var addDelegate: AddAllergyProtocol?
-    
-    // Keep reference to fields for keyboard management if needed
-    var allTextFields: [UITextField] = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // 1. Setup Data Arrays
-        allTextFields = [allergyIngredient, allergyDetailReaction]
-        
-        // 2. Setup UI
-        setupPullDownButton()
-        
-        // 3. Hide Keyboard on Tap
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        // NOTE: We REMOVED the "self.editButtonItem" line.
-        // The text fields will be blank by default as long as they are empty in Storyboard.
-    }
-    
-    // MARK: - Setup Logic
-    func setupPullDownButton() {
-        let optionClosure: UIActionHandler = { action in
-            print("User selected intensity: \(action.title)")
-        }
 
-        // Define options
-        let option1 = UIAction(title: "Low", handler: optionClosure)
-        // We keep Moderate as the default selection for the BUTTON so it's not empty
-        let option2 = UIAction(title: "Moderate", state: .on, handler: optionClosure)
-        let option3 = UIAction(title: "High", handler: optionClosure)
-        
-        // Configure Menu
-        let menu = UIMenu(children: [option1, option2, option3])
-        
-        intensityButton.menu = menu
-        intensityButton.showsMenuAsPrimaryAction = true
-        intensityButton.changesSelectionAsPrimaryAction = true
-    }
-    
-    // MARK: - Actions
-    
-    // Connect this to your 'Done' or 'Save' bar button item
-    @IBAction func saveTapped(_ sender: UIBarButtonItem) {
-        
-        // 1. Validate Ingredient Name
-        // We use guard to ensure the user actually wrote something
-        guard let name = allergyIngredient.text, !name.isEmpty else {
-            let alert = UIAlertController(title: "Missing Info", message: "Please enter the allergy ingredient.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-            return
-        }
-        
-        // 2. Gather Data
-        let reaction = allergyDetailReaction.text ?? ""
-        let intensity = intensityButton.currentTitle ?? DefaultValues.moderateIntensity
-        
-        //Adding allergy
-        addDelegate?.addAllergy(allergy: Allergy(id: UUID(), name: name, severity: intensity, notes: reaction))
-       
-        // 4. Go back to previous screen
-        navigationController?.popViewController(animated: true)
-//        dismiss(animated: true)
-    }
-  
-    @IBAction func allergyIngredient(_ sender: UITextField) {}
-    @IBAction func allergyDetailReaction(_ sender: Any) {}
-    @IBAction func intensityButton(_ sender: UIButton) {}
-    
-    // MARK: - Helpers
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+  // MARK: - Outlets
+  @IBOutlet weak var allergyIngredient: UITextField!
+  @IBOutlet weak var allergyDetailReaction: UITextField!
+  @IBOutlet weak var intensityButton: UIButton!
+
+  var addDelegate: AddAllergyProtocol?
+
+  // Keep reference to fields for keyboard management if needed
+  var allTextFields: [UITextField] = []
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // 1. Setup Data Arrays
+    allTextFields = [allergyIngredient, allergyDetailReaction]
+
+    // 2. Setup UI
+    setupPullDownButton()
+
+    // 3. Hide Keyboard on Tap
+    let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    view.addGestureRecognizer(tap)
+
+    // NOTE: We REMOVED the "self.editButtonItem" line.
+    // The text fields will be blank by default as long as they are empty in Storyboard.
+  }
+
+  // MARK: - Setup Logic
+  func setupPullDownButton() {
+    let optionClosure: UIActionHandler = { action in
+      print("User selected intensity: \(action.title)")
     }
 
-    // MARK: - Table View Overrides
-    
-    // Returns .none to ensure no delete/edit UI ever appears
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
+    // Define options
+    let option1 = UIAction(title: "Low", handler: optionClosure)
+    // We keep Moderate as the default selection for the BUTTON so it's not empty
+    let option2 = UIAction(title: "Moderate", state: .on, handler: optionClosure)
+    let option3 = UIAction(title: "High", handler: optionClosure)
+
+    // Configure Menu
+    let menu = UIMenu(children: [option1, option2, option3])
+
+    intensityButton.menu = menu
+    intensityButton.showsMenuAsPrimaryAction = true
+    intensityButton.changesSelectionAsPrimaryAction = true
+  }
+
+  // MARK: - Actions
+
+  // Connect this to your 'Done' or 'Save' bar button item
+  @IBAction func saveTapped(_ sender: UIBarButtonItem) {
+
+    // 1. Validate Ingredient Name
+    // We use guard to ensure the user actually wrote something
+    guard let name = allergyIngredient.text, !name.isEmpty else {
+      let alert = UIAlertController(
+        title: "Missing Info", message: "Please enter the allergy ingredient.",
+        preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .default))
+      present(alert, animated: true)
+      return
     }
-    
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+
+    // 2. Gather Data
+    let reaction = allergyDetailReaction.text ?? ""
+    let intensity = intensityButton.currentTitle ?? DefaultValues.moderateIntensity
+
+    //Adding allergy
+    addDelegate?.addAllergy(
+      allergy: Allergy(id: UUID(), name: name, severity: intensity, notes: reaction))
+
+    // 4. Go back to previous screen
+    navigationController?.popViewController(animated: true)
+    //        dismiss(animated: true)
+  }
+
+  @IBAction func allergyIngredient(_ sender: UITextField) {}
+  @IBAction func allergyDetailReaction(_ sender: Any) {}
+  @IBAction func intensityButton(_ sender: UIButton) {}
+
+  // MARK: - Helpers
+  @objc func dismissKeyboard() {
+    view.endEditing(true)
+  }
+
+  // MARK: - Table View Overrides
+
+  // Returns .none to ensure no delete/edit UI ever appears
+  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)
+    -> UITableViewCell.EditingStyle
+  {
+    return .none
+  }
+
+  override func tableView(
+    _ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath
+  ) -> Bool {
+    return false
+  }
 }
-
-
