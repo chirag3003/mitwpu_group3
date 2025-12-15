@@ -1,10 +1,3 @@
-//
-//  AddAllergyTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 27/11/25.
-//
-
 import UIKit
 
 protocol AddAllergyProtocol {
@@ -85,8 +78,7 @@ class AddAllergyTableViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
 //        dismiss(animated: true)
     }
-    
-    // These empty actions are just to satisfy connections if you made them in storyboard
+  
     @IBAction func allergyIngredient(_ sender: UITextField) {}
     @IBAction func allergyDetailReaction(_ sender: Any) {}
     @IBAction func intensityButton(_ sender: UIButton) {}
