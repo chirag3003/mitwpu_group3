@@ -1,6 +1,5 @@
 # PHR Project Documentation
-
-A Personal Health Record (PHR) iOS application built with Swift and UIKit.
+Note: These documentations were written using AI and then modified and verified by us.
 
 ## Quick Navigation
 
