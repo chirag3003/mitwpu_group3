@@ -493,7 +493,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FvY-gg-FDg"/>
-                        <color key="backgroundColor" red="0.69882574600000003" green="0.87551548479999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.93725490199999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="d26-qD-foI" firstAttribute="centerX" secondItem="URc-91-Kx2" secondAttribute="centerX" id="SM1-Zl-Dnk"/>
                             <constraint firstItem="d26-qD-foI" firstAttribute="leading" secondItem="FvY-gg-FDg" secondAttribute="leading" constant="16" id="bSD-3J-UZr"/>
