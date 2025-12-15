@@ -142,7 +142,7 @@ extension HealthReportViewController {
             let title = "Wade Wilson's Health Report"
             title.draw(at: CGPoint(x: 50, y: 50), withAttributes: titleAttributes)
             
-            let bodyText = "Health Report Summary\n\nYour health data goes here..."
+            let bodyText = "Health Report Summary\n\nYour health data goes here tralalelo tralala..."
             let bodyAttributes = [
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
             ]
