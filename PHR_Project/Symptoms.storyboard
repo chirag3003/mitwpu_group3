@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HTY-CY-Yfj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HTY-CY-Yfj">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +15,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="mW5-87-OgF">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                         <sections>
                             <tableViewSection id="Hgw-zJ-qIW">
                                 <cells>
@@ -165,10 +166,10 @@
                                                 <constraint firstItem="lAP-e6-onk" firstAttribute="top" secondItem="AJP-Pw-bFq" secondAttribute="bottom" constant="8" id="ISe-3R-F5j"/>
                                                 <constraint firstAttribute="bottom" secondItem="QxC-Hp-pLa" secondAttribute="bottom" id="R9a-SP-hLE"/>
                                                 <constraint firstItem="AJP-Pw-bFq" firstAttribute="top" secondItem="Hdx-af-efd" secondAttribute="topMargin" constant="11" id="Tnn-jd-Stz"/>
+                                                <constraint firstItem="lAP-e6-onk" firstAttribute="leading" secondItem="Hdx-af-efd" secondAttribute="leading" constant="16" id="YOc-IX-vse"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="AJP-Pw-bFq" secondAttribute="trailing" id="d64-AA-aIZ"/>
                                                 <constraint firstItem="QxC-Hp-pLa" firstAttribute="width" secondItem="AJP-Pw-bFq" secondAttribute="width" multiplier="1.07477" id="f3q-EK-uUa"/>
                                                 <constraint firstItem="QxC-Hp-pLa" firstAttribute="centerX" secondItem="AJP-Pw-bFq" secondAttribute="centerX" id="jnD-b2-8Yy"/>
-                                                <constraint firstItem="lAP-e6-onk" firstAttribute="leading" secondItem="Hdx-af-efd" secondAttribute="leading" constant="16" id="ldW-Lh-jQ4"/>
                                                 <constraint firstAttribute="trailing" secondItem="lAP-e6-onk" secondAttribute="trailing" id="uAL-Pb-vze"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -420,8 +421,11 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

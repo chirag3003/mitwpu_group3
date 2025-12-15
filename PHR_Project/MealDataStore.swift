@@ -1,9 +1,3 @@
-//
-//  MealDataStore.swift
-//  PHR_Project
-//
-//  Created by Sushant Pulipati on 26/11/25.
-//
 import Foundation
 
 class MealDataStore {
@@ -27,12 +21,6 @@ class MealDataStore {
             saveMealDetails()
         }
     }
-    
-//    private var days: [CalendarDay] = [] {
-//        didSet {
-//            saveDays()
-//        }
-//    }
     
     private var days: [CalendarDay] = []
     
