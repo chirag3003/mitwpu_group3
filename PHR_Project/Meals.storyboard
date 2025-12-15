@@ -970,7 +970,7 @@
         <!--Calorie Info View Controller-->
         <scene sceneID="fHv-In-MMw">
             <objects>
-                <viewController id="8Go-iJ-XRL" customClass="calorieInfoViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8Go-iJ-XRL" customClass="CalorieInfoViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MT1-zR-CcB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

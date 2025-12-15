@@ -9,7 +9,7 @@ class FamilyHeaderView: UICollectionReusableView {
         let iv = UIImageView()
         iv.backgroundColor = .systemGray5
         iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(named: "profile") ?? UIImage(systemName: "person.crop.circle.fill") // Use your 'profile' asset here
+        iv.image = UIImage(named: "WhatsApp Image 2025-12-15 at 17.09.58") ?? UIImage(systemName: "person.crop.circle.fill") // Use your 'profile' asset here
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
