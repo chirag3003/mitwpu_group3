@@ -78,12 +78,6 @@ class AddAllergyTableViewController: UITableViewController {
         let reaction = allergyDetailReaction.text ?? ""
         let intensity = intensityButton.currentTitle ?? DefaultValues.moderateIntensity
         
-        // 3. Save Logic (Print for now)
-        print("--- SAVING NEW ALLERGY ---")
-        print("Ingredient: \(name)")
-        print("Reaction: \(reaction)")
-        print("Intensity: \(intensity)")
-        
         //Adding allergy
         addDelegate?.addAllergy(allergy: Allergy(id: UUID(), name: name, severity: intensity, notes: reaction))
        
