@@ -11,7 +11,6 @@ class ProfileService {
         }
     }
     
-    
     private init() {
         if let savedData = UserDefaults.standard.data(forKey: storageKey),
             let decodedModel = try? JSONDecoder().decode(

@@ -22,16 +22,19 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Border radius changes 
         notificationView.addRoundedCorner(radius: UIConstants.CornerRadius.medium)
         mealLogCardView.addRoundedCorner()
         symptomLogCard.addRoundedCorner()
 
+        // Liquid Glass Effect
         headerView.applyLiquidGlassEffect()
 
+        // Custom Spacing
         mainStack.setCustomSpacing(UIConstants.Spacing.large, after: notificationView)
         mainStack.setCustomSpacing(UIConstants.Spacing.large, after: circularSummariesStack)
 
-        // Do any additional setup after loading the view.
+        // UI Layer Adjustments
         headerView.layer.zPosition = 2
         
         // Setting up data
