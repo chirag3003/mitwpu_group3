@@ -26,22 +26,7 @@ class CalorieInfoViewController: UIViewController {
     }
     */
     @IBAction func dismiss(_ sender: Any) {
-        let confirmAlert = UIAlertController(
-            title: "Are you sure?",
-            message: "Do want to close this page?",
-            preferredStyle: .alert
-        )
-        
-        // YES → show compliment alert, then dismiss
-        confirmAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] _ in
-            
-            self?.dismiss(animated: true)
-        }))
-        
-        // NO → do nothing
-        confirmAlert.addAction(UIAlertAction(title: "No", style: .cancel))
-        
-        present(confirmAlert, animated: true)
+        dismiss(animated: true)
     }
 
     
