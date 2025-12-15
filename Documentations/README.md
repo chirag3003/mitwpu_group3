@@ -12,6 +12,7 @@ Note: These documentations were written using AI and then modified and verified 
 | [Views](Views.md) | Custom UI components |
 | [Storyboards](Storyboards.md) | UI layout and navigation |
 | [Extensions](Extensions.md) | Swift extensions and utilities |
+| [References](References.md) | External resources and citations |
 
 ## Project Structure
 
