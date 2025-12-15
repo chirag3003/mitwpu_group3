@@ -160,8 +160,6 @@ class MealViewController: UIViewController {
                 )
             )
             
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
             item.contentInsets = NSDirectionalEdgeInsets(
                 top: UIConstants.Spacing.small,
                 leading: UIConstants.Spacing.small,
