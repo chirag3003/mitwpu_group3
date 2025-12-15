@@ -43,9 +43,16 @@ class AddSymptomTableViewController: UITableViewController {
         notesTextView.delegate = self
         setupHideKeyboardOnTap()
         setupTextViewAlignment()
+        configureNotesTextViewInsets()
 
         //Removing table lines
         tableView.separatorStyle = .singleLine
+    }
+    
+    
+    private func configureNotesTextViewInsets() {
+        // Cursor Alignment karna hai
+        notesTextView.textContainerInset = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
     }
 
     // MARK: - Setup Functions
@@ -180,3 +187,4 @@ extension AddSymptomTableViewController: UIImagePickerControllerDelegate, UINavi
         dismiss(animated: true)
     }
 }
+

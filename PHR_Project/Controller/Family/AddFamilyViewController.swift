@@ -22,6 +22,17 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         // Do any additional setup after loading the view.
         
         contacts = getAllData().family.contacts
+        setupHideKeyboardOnTap()
+    }
+    
+    func setupHideKeyboardOnTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        view.endEditing(true)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
