@@ -444,7 +444,7 @@
                                                                             <constraint firstAttribute="width" constant="30" id="by6-4z-WAd"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rg5-nw-6uf">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rg5-nw-6uf">
                                                                         <rect key="frame" x="62" y="21.333333333333258" width="252" height="19.333333333333329"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <nil key="textColor"/>

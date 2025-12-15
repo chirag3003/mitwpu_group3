@@ -29,7 +29,7 @@ class ContactTableViewCell: UITableViewCell {
         nameLabel.text = contact.name
         numLabel.text = contact.phoneNum
         // Assuming contact.image is a URL string or image name
-        pfpImage.image = UIImage(named: "profile")
+        pfpImage.image = UIImage(named: "WhatsApp Image 2025-12-15 at 17.09.58")
         
         pfpImage.addFullRoundedCorner()
     }
