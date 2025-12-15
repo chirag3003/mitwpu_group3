@@ -67,18 +67,3 @@ Manages meal data with calendar integration.
                             │ UserDefaults│
                             └─────────────┘
 ```
-
-## Storage Keys
-
-All keys are centralized in `Constants.swift`:
-
-```swift
-struct StorageKeys {
-    static let profile = "userProfile"
-    static let allergies = "userAllergies"
-    static let symptoms = "userSymptoms"
-    static let mealItems = "mealItems"
-    static let mealDetails = "mealDetails"
-    static let calendarDays = "calendarDays"
-}
-```
