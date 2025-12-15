@@ -7,7 +7,7 @@
 
 import UIKit
 
-class calorieInfoViewController: UIViewController {
+class CalorieInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,29 +28,14 @@ class calorieInfoViewController: UIViewController {
     @IBAction func dismiss(_ sender: Any) {
         let confirmAlert = UIAlertController(
             title: "Are you sure?",
-            message: "Do you feel like you have gained enough information about the knowledge you were seeking?",
+            message: "Do want to close this page?",
             preferredStyle: .alert
         )
         
         // YES → show compliment alert, then dismiss
         confirmAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] _ in
             
-            // Second alert
-            let wowAlert = UIAlertController(
-                title: nil,
-                message: "Wow you must be smart!",
-                preferredStyle: .alert
-            )
-            
-            // Present second alert
-            self?.present(wowAlert, animated: true)
-            
-            // Auto dismiss after 3 seconds, then close the VC
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                wowAlert.dismiss(animated: true) {
-                    self?.dismiss(animated: true)
-                }
-            }
+            self?.dismiss(animated: true)
         }))
         
         // NO → do nothing

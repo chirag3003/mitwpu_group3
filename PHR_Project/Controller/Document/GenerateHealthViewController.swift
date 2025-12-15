@@ -26,10 +26,31 @@ class GenerateHealthViewController: UIViewController {
         TypeOfVisitView.addRoundedCorner()
         DataFields.addRoundedCorner()
         AdditionalNotes.addRoundedCorner()
-        TextField.addRoundedCorner(radius:10)
-       
+        setupHideKeyboardOnTap()
+        TextField.borderStyle = .none
+                
+                
+                TextField.layer.cornerRadius = 8.0
+                TextField.layer.borderWidth = 1.0
+                TextField.layer.borderColor = UIColor.lightGray.cgColor
+                TextField.layer.masksToBounds = true
+                
+                
+                let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: TextField.frame.height))
+                TextField.leftView = paddingView
+                TextField.leftViewMode = .always
+        setupHideKeyboardOnTap()
     }
     
+    func setupHideKeyboardOnTap() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func handleBackgroundTap() {
+        view.endEditing(true)
+    }
 
     @IBAction func toggleSelection(_ sender: UISwitch) {
         sender.isSelected.toggle()
@@ -45,5 +66,4 @@ class GenerateHealthViewController: UIViewController {
     
 
 }
-
 

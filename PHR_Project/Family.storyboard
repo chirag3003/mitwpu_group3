@@ -93,7 +93,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgr-4K-s37" userLabel="Contact Card Stack View">
                                                     <rect key="frame" x="0.0" y="1" width="393" height="57"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="oDH-8q-AOy">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="oDH-8q-AOy">
                                                             <rect key="frame" x="16" y="8" width="40" height="41"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="IjA-7E-RB0"/>
@@ -187,7 +187,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Sxn-uZ-RsJ" userLabel="Profile Stack View">
                                                 <rect key="frame" x="16" y="16" width="361" height="100"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="v5G-XC-ik0">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="v5G-XC-ik0">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="2AC-PB-IhM"/>
@@ -589,10 +589,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="WhatsApp Image 2025-12-15 at 17.09.58" width="2854" height="3213"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="profile" width="3178" height="3178"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
