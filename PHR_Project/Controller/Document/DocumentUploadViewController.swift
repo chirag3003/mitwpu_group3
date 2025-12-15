@@ -25,6 +25,9 @@ class DocumentUploadViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func scanBtnTapped(_ sender: Any) {
+        
+    }
     
     
 
