@@ -105,6 +105,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         let cell = tableView.dequeueReusableCell(
             withIdentifier: CellIdentifiers.browseCell,
             for: indexPath
+            
         )
 
         let item: Category
@@ -121,7 +122,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         content.image = UIImage(systemName: item.icon)
         content.imageProperties.tintColor = item.color
         cell.contentConfiguration = content
-
+        cell.selectionStyle = .none
         return cell
     }
 

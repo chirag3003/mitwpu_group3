@@ -83,28 +83,22 @@ class AddSymptomTableViewController: UITableViewController {
     }
 
     func setupImageGesture() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleImageTap)
-        )
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleImageTap))
         cameraImageView.isUserInteractionEnabled = true
         cameraImageView.addGestureRecognizer(tap)
     }
-
+    
     // Dismiss keyboard when tapping outside text inputs
     func setupHideKeyboardOnTap() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleBackgroundTap)
-        )
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc private func handleBackgroundTap() {
         view.endEditing(true)
     }
-
+    
     // Keep text view and placeholder aligned, set initial placeholder visibility
     func setupTextViewAlignment() {
         notesTextView.textAlignment = .natural
@@ -116,9 +110,7 @@ class AddSymptomTableViewController: UITableViewController {
 
     @objc func handleImageTap() {
         let picker = UIImagePickerController()
-        picker.sourceType =
-            UIImagePickerController.isSourceTypeAvailable(.camera)
-            ? .camera : .photoLibrary
+        picker.sourceType = UIImagePickerController.isSourceTypeAvailable(.camera) ? .camera : .photoLibrary
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true)
@@ -144,19 +136,12 @@ class AddSymptomTableViewController: UITableViewController {
 
         // Combine Date and Time
         let calendar = Calendar.current
-        var dateComponents = calendar.dateComponents(
-            [.year, .month, .day],
-            from: datePicker.date
-        )
-        let timeComponents = calendar.dateComponents(
-            [.hour, .minute],
-            from: timePicker.date
-        )
+        var dateComponents = calendar.dateComponents([.year, .month, .day], from: datePicker.date)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
         dateComponents.hour = timeComponents.hour
         dateComponents.minute = timeComponents.minute
 
-        let recordedDate: Foundation.Date =
-            calendar.date(from: dateComponents) ?? datePicker.date
+        let recordedDate: Foundation.Date = calendar.date(from: dateComponents) ?? datePicker.date
 
         // Creating new symptom
         let newSymptom = Symptom(
@@ -167,16 +152,13 @@ class AddSymptomTableViewController: UITableViewController {
             notes: notesTextView.text ?? "",
             time: timeComponents
         )
-
+        
         SymptomService.shared.addSymptom(newSymptom)
         dismiss(animated: true)
     }
 
     // MARK: - Table View Config
-    override func tableView(
-        _ tableView: UITableView,
-        heightForHeaderInSection section: Int
-    ) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
 }
@@ -189,17 +171,9 @@ extension AddSymptomTableViewController: UITextViewDelegate {
     }
 }
 
-extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
-{
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
-            Any]
-    ) {
-        if let image = info[.editedImage] as? UIImage ?? info[.originalImage]
-            as? UIImage
-        {
+extension AddSymptomTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
             selectedImage = image
             cameraImageView.image = image
             cameraImageView.contentMode = .scaleAspectFill
@@ -208,5 +182,4 @@ extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
         }
         dismiss(animated: true)
     }
-
 }
