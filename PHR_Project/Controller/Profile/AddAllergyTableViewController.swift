@@ -28,9 +28,6 @@ class AddAllergyTableViewController: UITableViewController {
     // 3. Hide Keyboard on Tap
     let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     view.addGestureRecognizer(tap)
-
-    // NOTE: We REMOVED the "self.editButtonItem" line.
-    // The text fields will be blank by default as long as they are empty in Storyboard.
   }
 
   // MARK: - Setup Logic
