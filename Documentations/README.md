@@ -27,7 +27,6 @@ PHR_Project/
 ├── View/                     # Custom UI components
 ├── DataService/              # Persistence services
 ├── Extensions/               # UIKit extensions
-└── CoreData/                 # Core Data model (if used)
 ```
 
 ## Features
