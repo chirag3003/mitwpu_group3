@@ -91,26 +91,22 @@ class MealViewController: UIViewController {
             animated: true
         )
         
-//        let firstIndex = IndexPath(item: 15, section: 0)
-//        dateCollectionView.selectItem(at: firstIndex, animated: false, scrollPosition: .centeredHorizontally)
+        calorieProgressView.configure(progress: 0.49, thickness: UIConstants.ProgressThickness.thick)
         
-        calorieProgressView.configure(progress: 0.49, thickness: 25.0)
-        
-        
-        carbsProgress.configure(progress: 0.81, thickness: 12.0)
+        carbsProgress.configure(progress: 0.81, thickness: UIConstants.ProgressThickness.thin)
         carbsProgress.addRoundedCorner()
         carbsProgress.addDropShadow()
         
-        proteinProgress.configure(progress: 0.66, thickness: 12.0)
+        proteinProgress.configure(progress: 0.66, thickness: UIConstants.ProgressThickness.thin)
         proteinProgress.addRoundedCorner()
         proteinProgress.addDropShadow()
         
-        fiberProgress.configure(progress: 0.71, thickness: 12.0)
+        fiberProgress.configure(progress: 0.71, thickness: UIConstants.ProgressThickness.thin)
         fiberProgress.addRoundedCorner()
         fiberProgress.addDropShadow()
         
-        insightOne.addRoundedCorner(radius: 10)
-        insightTwo.addRoundedCorner(radius: 10)
+        insightOne.addRoundedCorner(radius: UIConstants.CornerRadius.small)
+        insightTwo.addRoundedCorner(radius: UIConstants.CornerRadius.small)
         
         
         
@@ -157,25 +153,25 @@ class MealViewController: UIViewController {
         return UICollectionViewCompositionalLayout {
             (sectionIndex, env) -> NSCollectionLayoutSection? in
 
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalHeight(1.0)
+            let item = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(UIConstants.CollectionLayout.oneSeventhWidth),
+                    heightDimension: .fractionalHeight(UIConstants.CollectionLayout.fullWidth)
+                )
             )
             
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             item.contentInsets = NSDirectionalEdgeInsets(
-                top: 8,
-                leading: 8,
-                bottom: 8,
-                trailing: 8
+                top: UIConstants.Spacing.small,
+                leading: UIConstants.Spacing.small,
+                bottom: UIConstants.Spacing.small,
+                trailing: UIConstants.Spacing.small
             )
 
-            // 2. Group
-            // Absolute height 150 ensures enough space for Circle + Text
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0/7.0),
-                heightDimension: .absolute(100)
+                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
+                heightDimension: .absolute(UIConstants.CollectionLayout.dateItemHeight)
             )
 
             let group = NSCollectionLayoutGroup.horizontal(
@@ -206,7 +202,7 @@ class MealViewController: UIViewController {
     private func createMealLayout() -> UICollectionViewLayout {
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             config.headerMode = .supplementary
-            config.headerTopPadding = 16
+            config.headerTopPadding = UIConstants.Spacing.medium
             config.showsSeparators = true
             config.backgroundColor = .clear
 
@@ -218,9 +214,9 @@ class MealViewController: UIViewController {
                 )
 
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 10,
+                    top: UIConstants.Padding.medium,
                     leading: 0,
-                    bottom: 10,
+                    bottom: UIConstants.Padding.medium,
                     trailing: 0
                 )
 
@@ -229,9 +225,9 @@ class MealViewController: UIViewController {
                 )
                 
                 background.contentInsets = NSDirectionalEdgeInsets(
-                    top: 4,
+                    top: UIConstants.Spacing.extraSmall,
                     leading: 0,
-                    bottom: 4,
+                    bottom: UIConstants.Spacing.extraSmall,
                     trailing: 0
                 )
 
@@ -264,8 +260,9 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView == dateCollectionView {
-            let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "date_cell",
+            let cell =
+                collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CellIdentifiers.dateCell,
                     for: indexPath
                 ) as! DatesCollectionViewCell
 
@@ -284,7 +281,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         let cell =
             collectionView.dequeueReusableCell(
-                withReuseIdentifier: "MealCell",
+                withReuseIdentifier: CellIdentifiers.mealCell,
                 for: indexPath
             ) as! MealItemCollectionViewCell
         let meal = meals[indexPath.section][indexPath.row]
@@ -316,7 +313,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
         let header =
             collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: "SectionHeader",
+                withReuseIdentifier: CellIdentifiers.sectionHeader,
                 for: indexPath
             ) as! MealSectionHeaderView
         

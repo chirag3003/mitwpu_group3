@@ -15,19 +15,21 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var dataSegment: UISegmentedControl!
     private var documentData: [documentsModel] = []
     private var reportsData: [ReportModel] = []
-
+    
     private func fetchDocumentData() {
         documentData = getAllData().document.prescriptions
     }
     private func fetchReportsData() {
         reportsData = getAllData().document.reports
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         fetchDocumentData()
         fetchReportsData()
+       
 
         documentTableView.delegate = self
         documentTableView.dataSource = self
@@ -47,8 +49,7 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
         // Reduce this value significantly.
-        // Try values between 60.0 and 75.0, depending on the desired space.
-        return 65.0  // Example of a reduced height
+        return DefaultValues.defaultTableRowHeight
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -69,16 +70,19 @@ class DocumentsViewController: UIViewController, UITableViewDelegate,
         if(dataSegment.selectedSegmentIndex == 0){
             let cell =
             tableView.dequeueReusableCell(
-                withIdentifier: "DoctorCell",
+                withIdentifier: CellIdentifiers.doctorCell,
                 for: indexPath
             ) as! DocumentTableViewCell
             let doctor = documentData[indexPath.row]
+            cell.selectionStyle = .none
             cell.configure(with: doctor)
+            
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReportCell", for: indexPath) as! ReportsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.reportCell, for: indexPath) as! ReportsTableViewCell
         let report = reportsData[indexPath.row]
         cell.configure(with: report)
+        cell.selectionStyle = .none
         return cell
     }
 

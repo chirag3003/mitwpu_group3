@@ -29,15 +29,13 @@ class SymptomTableViewCell: UITableViewCell {
     }
 
     func setupStyle() {
-        // Card Shadow & Radius
-        cardView.layer.cornerRadius = 20
+        cardView.layer.cornerRadius = UIConstants.CornerRadius.large
         cardView.layer.shadowColor = UIColor.black.cgColor
-        cardView.layer.shadowOpacity = 0.08
-        cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cardView.layer.shadowRadius = 6
+        cardView.layer.shadowOpacity = UIConstants.Shadow.defaultOpacity
+        cardView.layer.shadowOffset = UIConstants.Shadow.defaultOffset
+        cardView.layer.shadowRadius = UIConstants.Shadow.defaultRadius
 
-        // Badge Styling
-        severityView.layer.cornerRadius = 10
+        severityView.layer.cornerRadius = UIConstants.CornerRadius.small
         severityView.clipsToBounds = true
     }
 

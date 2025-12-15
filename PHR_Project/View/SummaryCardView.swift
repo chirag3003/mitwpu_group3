@@ -23,7 +23,7 @@ class SummaryCardView: UIView {
     }
     
     private func setupView() {
-        layer.cornerRadius = 30
+        layer.cornerRadius = UIConstants.CornerRadius.huge
         layer.masksToBounds = true
     }
 }
