@@ -35,9 +35,8 @@ class PrescriptionPageViewController:UIViewController,UITableViewDelegate,UITabl
         _ tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
-        // Reduce this value significantly.
-        // Try values between 60.0 and 75.0, depending on the desired space.
-        return 65.0  // Example of a reduced height
+        
+        return 65.0  
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
