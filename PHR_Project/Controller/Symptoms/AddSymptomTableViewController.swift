@@ -45,11 +45,8 @@ class AddSymptomTableViewController: UITableViewController {
         setupTextViewAlignment()
         configureNotesTextViewInsets()
 
-        // Optional: Remove extra lines if any
+        //Removing table lines
         tableView.separatorStyle = .singleLine
-
-        //addSymptomTableView.addRoundedCorner()
-        addSymptomTableView.backgroundColor = .systemGray6
     }
     
     

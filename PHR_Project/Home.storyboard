@@ -482,7 +482,7 @@
                                                                 <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Show all your meal data" imagePadding="16" cornerStyle="capsule">
                                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="20"/>
+                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="23"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <segue destination="OND-8L-dfZ" kind="show" id="bdK-FB-WVi"/>
@@ -557,7 +557,7 @@
                                                                 <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Show all your symptoms data" cornerStyle="capsule">
                                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="20"/>
+                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="16" bottom="0.0" trailing="23"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <segue destination="YNY-Vc-27l" kind="show" id="azf-Aj-u8S"/>
@@ -1031,7 +1031,7 @@
             <objects>
                 <viewController id="Ejm-Og-VO8" customClass="AllergyViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6zB-Yn-Dud">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-YT-Owa">
