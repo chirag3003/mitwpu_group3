@@ -27,51 +27,7 @@ class MealViewController: UIViewController {
     var dates: MealDataStore = MealDataStore.shared
     
     var hasScrolledToToday = false
-
-    // Data Model
-    struct Meal {
-        let name: String
-        let detail: String
-        let time: String
-        let image: String  // In real app, this might be UIImage or URL
-    }
-
-    // Data: Section 0 (Breakfast), Section 1 (Lunch), Section 2 (Dinner - Empty)
-    let meals = [
-        [
-            Meal(
-                name: "Coffee",
-                detail: "1 cup",
-                time: "9:00 am",
-                image: "coffee"
-            ),
-            Meal(
-                name: "Kellogs Granola",
-                detail: "1 bowl",
-                time: "9:20 am",
-                image: "granola"
-            ),
-        ],
-
-        [
-            Meal(
-                name: "Dal Rice",
-                detail: "1 plate",
-                time: "2:00 pm",
-                image: "dal"
-            )
-        ],
-
-        [
-            Meal(
-                name: "Dal Rice",
-                detail: "1 plate",
-                time: "2:00 pm",
-                image: "dal"
-            )
-        ],  // Empty array for Dinner
-    ]
-
+    
     let sectionTitles = ["Breakfast", "Lunch", "Dinner"]
 
     override func viewDidLoad() {
@@ -104,8 +60,26 @@ class MealViewController: UIViewController {
         
         
         setupMealCollectionView()
+        
+        NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(refreshData),
+                    name: NSNotification.Name("MealsUpdated"),
+                    object: nil
+        )
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            mealCollectionView.reloadData()
+        }
+    
+    @objc func refreshData() {
+            DispatchQueue.main.async {
+                self.mealCollectionView.reloadData()
+            }
+        }
     
     //To align the today's date to the center of the scroll
     override func viewDidLayoutSubviews() {
@@ -186,6 +160,11 @@ class MealViewController: UIViewController {
             mealNib,
             forCellWithReuseIdentifier: "MealCell"
         )
+        
+        mealCollectionView.register(
+            NoMealsCollectionViewCell.self,
+            forCellWithReuseIdentifier: "NoMealsCell"
+        )
 
         mealCollectionView.collectionViewLayout = createMealLayout()
         mealCollectionView.dataSource = self
@@ -198,6 +177,22 @@ class MealViewController: UIViewController {
             config.headerTopPadding = UIConstants.Spacing.medium
             config.showsSeparators = true
             config.backgroundColor = .clear
+        
+        config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
+                
+                let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
+                let mealToDelete = mealsInSection[indexPath.row]
+                
+                MealService.shared.deleteMeal(mealToDelete)
+                
+                completion(true)
+            }
+            
+            deleteAction.backgroundColor = .systemRed
+            
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
 
             let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
                 
@@ -247,7 +242,11 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == dateCollectionView {
             return dates.getDays().count
         }
-        return meals[section].count
+        
+        let count = MealService.shared.getMeals(forSection: section).count
+        
+        return count == 0 ? 1 : count
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -272,12 +271,18 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         }
 
-        let cell =
-            collectionView.dequeueReusableCell(
-                withReuseIdentifier: CellIdentifiers.mealCell,
-                for: indexPath
-            ) as! MealItemCollectionViewCell
-        let meal = meals[indexPath.section][indexPath.row]
+        let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
+                
+                // 1. If empty, show the "No Meals" placeholder
+        if mealsInSection.isEmpty {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoMealsCell", for: indexPath) as! NoMealsCollectionViewCell
+                    return cell
+        }
+                
+                // 2. If not empty, show the actual meal
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.mealCell, for: indexPath) as! MealItemCollectionViewCell
+        let meal = mealsInSection[indexPath.row]
+        cell.setup(with: meal)
         return cell
     }
     
@@ -314,6 +319,33 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
         return header
     }
 
+}
+
+class NoMealsCollectionViewCell: UICollectionViewCell {
+    let label = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        label.text = "No meals logged yet"
+        label.textColor = .secondaryLabel
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+    }
 }
 
 extension MealViewController: CustomCameraDelegate {
