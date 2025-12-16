@@ -26,7 +26,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
 
-       
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +36,10 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.allergyCell, for: indexPath) as! AllergyTableViewCell
         cell.configureCell(with: allergies[indexPath.row])
+        
+        
+        
+        
         cell.selectionStyle = .none
         return cell
     }

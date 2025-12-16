@@ -24,7 +24,7 @@ class AllergyTableViewCell: UITableViewCell {
 
     func configureCell(with allergy: Allergy) {
         //Configure UI
-        contentView.applyLiquidGlassEffect()
+//        contentView.applyLiquidGlassEffect()
         mainView.addRoundedSides()
         
         //Configuring Data
