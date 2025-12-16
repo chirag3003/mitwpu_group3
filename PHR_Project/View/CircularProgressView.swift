@@ -11,6 +11,10 @@ class CircularProgressView: UIView {
     private var progressLayer = CAShapeLayer()
     private var trackLayer = CAShapeLayer()
     
+    var mode: ProgressMode = .achievement
+    
+    private let defaultColor = UIColor(red: 100/255, green: 180/255, blue: 255/255, alpha: 1)
+    
     // 1. ADD THIS: A property to control thickness
     var lineWidth: CGFloat = 20 {
         didSet {
@@ -21,9 +25,9 @@ class CircularProgressView: UIView {
         }
     }
     
-    var progressColor: UIColor = UIColor(red: 100/255, green: 180/255, blue: 255/255, alpha: 1) {
-        didSet { progressLayer.strokeColor = progressColor.cgColor }
-    }
+//    var progressColor: UIColor = UIColor(red: 100/255, green: 180/255, blue: 255/255, alpha: 1) {
+//        didSet { progressLayer.strokeColor = progressColor.cgColor }
+//    }
     
     var trackColor: UIColor = UIColor(white: 0.2, alpha: 1) {
         didSet { trackLayer.strokeColor = trackColor.cgColor }
@@ -46,12 +50,14 @@ class CircularProgressView: UIView {
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = .round
         trackLayer.strokeEnd = 1.0
+        trackLayer.strokeColor = trackColor.cgColor
         layer.addSublayer(trackLayer)
         
         // Progress Layer
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.strokeEnd = 0.0
+        progressLayer.strokeColor = defaultColor.cgColor
         layer.addSublayer(progressLayer)
         
         // Initial set of line width
@@ -77,11 +83,9 @@ class CircularProgressView: UIView {
                                         clockwise: true)
         
         trackLayer.path = circularPath.cgPath
-        trackLayer.strokeColor = trackColor.cgColor
         trackLayer.lineWidth = lineWidth // Ensure width is set during layout
         
         progressLayer.path = circularPath.cgPath
-        progressLayer.strokeColor = progressColor.cgColor
         progressLayer.lineWidth = lineWidth // Ensure width is set during layout
     }
     
@@ -89,25 +93,55 @@ class CircularProgressView: UIView {
     func setProgress(to value: Float, animated: Bool = true) {
         let clampedValue = max(0, min(1, value))
         
+        let targetColor = getColor(for: clampedValue)
+        
         if animated {
-            let animation = CABasicAnimation(keyPath: "strokeEnd")
-            animation.fromValue = progressLayer.strokeEnd
-            animation.toValue = clampedValue
-            animation.duration = UIConstants.AnimationDuration.medium
-            animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            progressLayer.strokeEnd = CGFloat(clampedValue)
-            progressLayer.add(animation, forKey: "animateProgress")
-        } else {
-            progressLayer.strokeEnd = CGFloat(clampedValue)
-        }
+                    // Animate stroke
+                    let strokeAnimation = CABasicAnimation(keyPath: "strokeEnd")
+                    strokeAnimation.fromValue = progressLayer.strokeEnd
+                    strokeAnimation.toValue = clampedValue
+                    strokeAnimation.duration = 0.5
+                    strokeAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                    
+                    // Animate color
+                    let colorAnimation = CABasicAnimation(keyPath: "strokeColor")
+                    colorAnimation.fromValue = progressLayer.strokeColor
+                    colorAnimation.toValue = targetColor.cgColor
+                    colorAnimation.duration = 0.5
+                    
+                    progressLayer.strokeEnd = CGFloat(clampedValue)
+                    progressLayer.strokeColor = targetColor.cgColor
+                    
+                    progressLayer.add(strokeAnimation, forKey: "animateProgress")
+                    progressLayer.add(colorAnimation, forKey: "animateColor")
+                } else {
+                    progressLayer.strokeEnd = CGFloat(clampedValue)
+                    progressLayer.strokeColor = targetColor.cgColor
+                }
     }
     
-    // 3. ADD THIS: A convenience method to set everything at once
-    func configure(progress: Float, thickness: CGFloat, color: UIColor? = nil) {
-        self.lineWidth = thickness
-        if let color = color {
-            self.progressColor = color
+    private func getColor(for value: Float) -> UIColor {
+            switch mode {
+            case .achievement:
+                // Always return the default blue
+                return defaultColor
+                
+            case .limitWarning:
+                // Blue -> Yellow -> Red logic
+                if value < 0.75 {
+                    return defaultColor // Safe zone (Blue)
+                } else if value < 0.90 {
+                    return .systemYellow // Warning
+                } else {
+                    return .systemRed // Danger
+                }
+            }
         }
-        self.setProgress(to: progress)
-    }
+    
+    // 3. ADD THIS: A convenience method to set everything at once
+    func configure(mode: ProgressMode, progress: Float, thickness: CGFloat) {
+            self.mode = mode
+            self.lineWidth = thickness
+            self.setProgress(to: progress)
+        }
 }

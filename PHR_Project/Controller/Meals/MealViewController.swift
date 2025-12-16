@@ -84,7 +84,7 @@ class MealViewController: UIViewController {
             animated: true
         )
         
-        calorieProgressView.configure(progress: 0.49, thickness: UIConstants.ProgressThickness.thick)
+        calorieProgressView.configure(mode:.limitWarning ,progress: 0.49, thickness: UIConstants.ProgressThickness.thick)
         
         carbsProgress.configure(progress: 0.81, thickness: UIConstants.ProgressThickness.thin)
         carbsProgress.addRoundedCorner()
