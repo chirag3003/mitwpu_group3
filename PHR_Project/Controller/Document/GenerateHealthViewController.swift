@@ -41,6 +41,9 @@ class GenerateHealthViewController: UIViewController {
                 TextField.leftView = paddingView
                 TextField.leftViewMode = .always
         setupHideKeyboardOnTap()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+            
     }
     @objc func keyboardWillShow(notification: NSNotification) {
             // 1. Get the size of the keyboard
