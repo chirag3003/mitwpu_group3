@@ -13,7 +13,7 @@ class DocumentUploadViewController: UIViewController {
     @IBOutlet weak var uploadDocumentView: UIView!
     
     override func viewDidLoad() {
-    
+        
         super.viewDidLoad()
         
         //Adding rounded corners
@@ -21,18 +21,33 @@ class DocumentUploadViewController: UIViewController {
         uploadDocumentView.addRoundedSides()
     }
     
-    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
     
-    @IBAction func scanBtnTapped(_ sender: Any) {
+@IBAction func CloseModalButton(_ sender: Any) {
+        dismiss(animated: true)
         
     }
-    
-    
+}
 
-    @IBAction func CloseModalButton(_ sender: Any) {
-        dismiss(animated: true)
-            
+
+extension DocumentUploadViewController: CustomDocumentScannerDelegate {
+    
+    
+    
+    @IBAction func addDocumentCamera(_ sender: Any) {
+        // Create the custom camera VC
+        let customCameraVC = CustomDocumentScannerViewController()
+        
+        // Set the delegate to 'self' so we get the results back
+        customCameraVC.delegate = self
+        
+        // Present it full screen
+        customCameraVC.modalPresentationStyle = .fullScreen
+        present(customCameraVC, animated: true)
     }
+    
+    func didCaptureDocument(_ image: UIImage) {
+        print("Document scanned by camera")
+    }
+    
+    
 }

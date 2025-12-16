@@ -295,7 +295,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Scan File"/>
                                                         <connections>
-                                                            <action selector="scanBtnTapped:" destination="KTK-me-Pwj" eventType="touchUpInside" id="2y0-c6-gWm"/>
+                                                            <action selector="addDocumentCamera:" destination="KTK-me-Pwj" eventType="touchUpInside" id="fff-q1-qJ6"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -457,7 +457,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J7n-W1-hkf">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J7n-W1-hkf">
                                                         <rect key="frame" x="25" y="53" width="316" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -639,6 +639,7 @@
                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="32" right="16"/>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstItem="Lg0-bU-Cs5" firstAttribute="bottom" secondItem="RSW-ja-Btv" secondAttribute="bottom" id="FFc-zY-GgB"/>
                                     <constraint firstItem="Lg0-bU-Cs5" firstAttribute="width" secondItem="neT-F9-KQ5" secondAttribute="width" id="NAp-so-hm8"/>
