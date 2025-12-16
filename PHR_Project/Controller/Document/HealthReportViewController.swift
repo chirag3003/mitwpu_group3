@@ -165,7 +165,7 @@ extension HealthReportViewController {
             )
 
             let bodyText =
-                "Health Report Summary\n\nYour health data goes here tralalelo tralala..."
+                "Health Report Summary\n\nYour health data goes here"
             let bodyAttributes = [
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
             ]
