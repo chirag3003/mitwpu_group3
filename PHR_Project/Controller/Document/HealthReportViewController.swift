@@ -15,9 +15,17 @@ class HealthReportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        pdfPreviewView.setPdf(
-            url: "https://cdn1.lalpathlabs.com/live/reports/Z615.pdf"
-        )
+
+        // Load a sample PDF for preview
+        // pdfPreviewView.setPdf(
+        //     url: "https://cdn1.lalpathlabs.com/live/reports/Z615.pdf"
+        // )
+        
+        // Generate PDF and preview it
+        if let generatedPdfURL = generateHealthReportPDF() {
+            reportURL = generatedPdfURL
+            pdfPreviewView.setPdf(url: generatedPdfURL.path)
+        }
     }
 
     func setupUI() {
