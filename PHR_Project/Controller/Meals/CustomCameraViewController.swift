@@ -19,15 +19,15 @@ protocol CustomCameraDelegate: AnyObject {
 
 class CustomCameraViewController: UIViewController {
 
-    // --- Delegates ---
+    
     weak var delegate: CustomCameraDelegate?
 
-    // --- AVFoundation Properties ---
+   
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer?
     var photoOutput: AVCapturePhotoOutput!
 
-    // --- UI Elements ---
+   
     
     // 1. Top Bar
     private let closeButton: UIButton = {
@@ -50,7 +50,7 @@ class CustomCameraViewController: UIViewController {
     private let overlayImageView: UIImageView = {
         // This is the salad icon
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "bowl.fill") // Replace with your custom "salad" icon asset
+        imageView.image = UIImage(systemName: "bowl.fill")
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -59,7 +59,7 @@ class CustomCameraViewController: UIViewController {
     private let bracketImageView: UIImageView = {
         // This is the blue corner bracket image
         let imageView = UIImageView()
-        // You'll need an asset for this frame. For now, I'll use a system frame.
+        
         let config = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight)
         imageView.image = UIImage(systemName: "viewfinder", withConfiguration: config)
         imageView.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1.0, alpha: 1.0) // Light blue
@@ -178,8 +178,7 @@ class CustomCameraViewController: UIViewController {
         guard let backCamera = AVCaptureDevice.default(for: .video) else {
             print("Unable to access back camera! (Are you on Simulator?)")
                         
-                        // SIMULATOR FALLBACK:
-                        // Just show a dark gray background so you can test the UI buttons
+                        
             view.backgroundColor = .darkGray
             return
         }

@@ -2,6 +2,11 @@ import UIKit
 
 class CircularProgressView: UIView {
     
+    enum ProgressMode {
+            case achievement    // Steps: Blue always
+            case limitWarning   // Calories: Blue -> Yellow -> Red
+        }
+    
     // MARK: - Properties
     private var progressLayer = CAShapeLayer()
     private var trackLayer = CAShapeLayer()
