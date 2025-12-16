@@ -28,3 +28,12 @@ struct CalendarDay: Codable {
     let number: String
 }
 
+struct Meal: Codable {
+    var id: UUID = UUID() // Unique ID
+        let name: String
+        let detail: String
+        let time: String
+        let image: String
+        let type: String      // "Breakfast", "Lunch", "Dinner"
+        let dateRecorded: Date
+}

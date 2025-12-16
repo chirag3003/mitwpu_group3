@@ -9,7 +9,11 @@ import UIKit
 
 class MealItemCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var mealName: UILabel!
+    @IBOutlet weak var mealQty: UILabel!
+    @IBOutlet weak var mealTime: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
+    
     static let identifier: String = "MealCell"
 
     override func awakeFromNib() {
@@ -18,4 +22,11 @@ class MealItemCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .clear 
         self.contentView.backgroundColor = .clear
     }
+    
+    func setup(with meal: Meal) {
+            mealName.text = meal.name
+            mealQty.text = meal.detail
+            mealTime.text = meal.time
     }
+    
+}
