@@ -9,6 +9,7 @@ import UIKit
 class GenerateHealthViewController: UIViewController {
     
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var dateInputView: UIView!
     @IBOutlet weak var TypeOfVisitView: UIView!
     
@@ -42,25 +43,23 @@ class GenerateHealthViewController: UIViewController {
         setupHideKeyboardOnTap()
     }
     @objc func keyboardWillShow(notification: NSNotification) {
-           
-            if TextField.isFirstResponder {
-                if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                    
-                    if self.view.frame.origin.y == 0 {
-                        self.view.frame.origin.y -= keyboardSize.height
-                    }
-                }
-            }
+            // 1. Get the size of the keyboard
+            guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+
+            // 2. Add "Padding" to the bottom of the scroll view equal to the keyboard height
+            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
         }
 
         @objc func keyboardWillHide(notification: NSNotification) {
-            
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y = 0
-            }
+            // 1. Reset the padding to zero when keyboard disappears
+            let contentInsets = UIEdgeInsets.zero
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
         }
-        
-        
+
+        // --- CLEANUP ---
         deinit {
             NotificationCenter.default.removeObserver(self)
         }
