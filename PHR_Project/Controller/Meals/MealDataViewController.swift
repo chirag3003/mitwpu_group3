@@ -30,6 +30,29 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            // 1. Check if the destination is the Detail View Controller
+            if let detailVC = segue.destination as? MealDetailViewController,
+               // 2. Check which cell was tapped
+               let cell = sender as? UITableViewCell,
+               let indexPath = mealTableView.indexPath(for: cell) {
+                
+                // 3. Get the full list of details
+                let allDetails = MealDataStore.shared.getMealDetails()
+                
+                // 4. CRITICAL FIX: Match by Row Index
+                // We ensure we don't crash if the arrays have different lengths
+                if indexPath.row < allDetails.count {
+                    let selectedDetail = allDetails[indexPath.row]
+                    detailVC.selectedMealDetail = selectedDetail
+                } else {
+                    print("Error: No details found for row \(indexPath.row)")
+                }
+            }
+        }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

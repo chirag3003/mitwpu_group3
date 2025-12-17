@@ -26,7 +26,9 @@ class MealDetailViewController: UIViewController {
     @IBOutlet weak var fiberCard: UIView!
     
     @IBOutlet weak var notesText: UILabel!
-    private var mealDetails: [MealDetails] = []
+    
+    //private var mealDetails: [MealDetails] = []
+    var selectedMealDetail: MealDetails?
     
     
     @IBOutlet weak var notesView: UIView!
@@ -34,42 +36,49 @@ class MealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mealDetails = MealDataStore.shared.getMealDetails()
         
         mealDetailTableView.dataSource = self
         mealDetailTableView.delegate = self
-//        
-//        headerLabel.text = "Meal Details"
-//        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+
         
-        let image = mealDetails[0].mealImage
-        mealImage.image = UIImage(named: image)
-        mealImage.addRoundedCorner(radius: 10)
-        
-        mealName.text = mealDetails[0].meal.name
-        
-        mealDetailTableView.addRoundedCorner()
-        
-        calorieCard.addRoundedCorner(radius: 10)
-        calorieCardValue.text = "\(mealDetails[0].calories)kcal"
-        
-        carbsCard.addRoundedCorner(radius: 10)
-        carbsCardDetail.text = "\(mealDetails[0].carbs)g"
-        
-        proteinCard.addRoundedCorner(radius: 10)
-        proteinCardDetail.text = "\(mealDetails[0].protein)g"
-        
-        fiberCard.addRoundedCorner(radius: 10)
-        fiberCardDetail.text = "\(mealDetails[0].fiber)g"
-        
-        notesView.addRoundedCorner(radius: 20)
-        
-        notesText.addRoundedCorner(radius: 10)
-        notesText.text = mealDetails[0].notes
-        
-        
+        setupUI()
         
     }
+    
+    func setupUI() {
+            // CHANGE 2: Safely unwrap the selected meal.
+            // If it's nil (error), we return so the app doesn't crash.
+            guard let meal = selectedMealDetail else { return }
+            
+            // Use 'meal' instead of 'mealDetails[0]'
+            let image = meal.mealImage
+            // Safe check for empty image string
+            if !image.isEmpty {
+                mealImage.image = UIImage(named: image)
+            }
+            mealImage.addRoundedCorner(radius: 10)
+            
+            mealName.text = meal.meal.name
+            
+            mealDetailTableView.addRoundedCorner()
+            
+            calorieCard.addRoundedCorner(radius: 10)
+            calorieCardValue.text = "\(meal.calories)kcal"
+            
+            carbsCard.addRoundedCorner(radius: 10)
+            carbsCardDetail.text = "\(meal.carbs)g"
+            
+            proteinCard.addRoundedCorner(radius: 10)
+            proteinCardDetail.text = "\(meal.protein)g"
+            
+            fiberCard.addRoundedCorner(radius: 10)
+            fiberCardDetail.text = "\(meal.fiber)g"
+            
+            notesView.addRoundedCorner(radius: 20)
+            
+            notesText.addRoundedCorner(radius: 10)
+            notesText.text = meal.notes
+        }
    
 }
 
@@ -86,12 +95,14 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "meal_detail_cell", for: indexPath) as! MealDetailTableViewCell
         
+        guard let meal = selectedMealDetail else { return cell }
+        
         if indexPath.row == 0 {
             cell.dataLabel?.text = "Date"
-            cell.dataValue?.text = mealDetails[0].date
+            cell.dataValue?.text = meal.date
         } else if indexPath.row == 1 {
             cell.dataLabel?.text = "Added by"
-            cell.dataValue?.text = mealDetails[0].addedBy
+            cell.dataValue?.text = meal.addedBy
         }
         
         return cell

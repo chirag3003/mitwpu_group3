@@ -14,6 +14,9 @@ class SectionBackground: UICollectionReusableView {
 class MealViewController: UIViewController {
 
 
+    @IBOutlet weak var tipOne: UIView!
+    @IBOutlet weak var tipTwo: UIView!
+    @IBOutlet weak var tipThree: UIView!
     @IBOutlet weak var insightOne: UIView!
     
     @IBOutlet weak var insightTwo: UIView!
@@ -54,8 +57,12 @@ class MealViewController: UIViewController {
         fiberProgress.addRoundedCorner()
         fiberProgress.addDropShadow()
         
-        insightOne.addRoundedCorner(radius: UIConstants.CornerRadius.small)
-        insightTwo.addRoundedCorner(radius: UIConstants.CornerRadius.small)
+        insightOne.addRoundedCorner(radius: 20)
+        insightTwo.addRoundedCorner(radius: 20)
+        
+        tipOne.addRoundedCorner(radius: 20)
+        tipTwo.addRoundedCorner(radius: 20)
+        tipThree.addRoundedCorner(radius: 20)
         
         
         
