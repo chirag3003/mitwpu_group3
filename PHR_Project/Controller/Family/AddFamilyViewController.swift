@@ -8,9 +8,10 @@
 import UIKit
 
 class AddFamilyViewController: UIViewController, UITableViewDataSource,
-    UITableViewDelegate
+    UITableViewDelegate, UISearchBarDelegate
 {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private var contacts: [Contact] = []
 
@@ -19,6 +20,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
         setupHideKeyboardOnTap()
         fetchContacts()
@@ -29,6 +31,21 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
             self?.contacts = contacts
             self?.tableView.reloadData()
         }
+    }
+    
+    // MARK: - UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            contacts = ContactsService.shared.getCachedContacts()
+        } else {
+            contacts = ContactsService.shared.searchContacts(query: searchText)
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
     func setupHideKeyboardOnTap() {
@@ -59,5 +76,8 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         cell.selectionStyle = .none
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "addContactPermissionSegue", sender: nil)
+    }
 }

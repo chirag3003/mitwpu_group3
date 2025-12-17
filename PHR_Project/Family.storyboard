@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ouX-wa-bkB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ouX-wa-bkB">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -93,8 +93,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgr-4K-s37" userLabel="Contact Card Stack View">
                                                     <rect key="frame" x="0.0" y="1" width="393" height="57"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="oDH-8q-AOy">
-                                                            <rect key="frame" x="16" y="8" width="40" height="41"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oDH-8q-AOy">
+                                                            <rect key="frame" x="16" y="8.6666666666666679" width="40" height="39.666666666666657"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="IjA-7E-RB0"/>
                                                                 <constraint firstAttribute="width" constant="40" id="eO4-gr-pbf"/>
@@ -137,33 +137,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6iM-wI-5eY">
-                                <rect key="frame" x="127.66666666666667" y="684.66666666666663" width="137.66666666666663" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Next"/>
-                                <connections>
-                                    <segue destination="cdE-ur-PcR" kind="presentation" id="kGg-sh-1xk"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Y1V-G9-89d"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Y1V-G9-89d" firstAttribute="trailing" secondItem="NxJ-Zz-x2s" secondAttribute="trailing" id="7Eb-71-B6N"/>
                             <constraint firstItem="XG4-5U-hrO" firstAttribute="top" secondItem="Y1V-G9-89d" secondAttribute="top" constant="16" id="EyV-Bb-EBz"/>
-                            <constraint firstItem="6iM-wI-5eY" firstAttribute="width" secondItem="1JR-Ge-458" secondAttribute="width" multiplier="0.35" id="FmH-pW-Q1e"/>
                             <constraint firstItem="NxJ-Zz-x2s" firstAttribute="top" secondItem="XG4-5U-hrO" secondAttribute="bottom" id="GMG-cy-74o"/>
                             <constraint firstAttribute="bottom" secondItem="NxJ-Zz-x2s" secondAttribute="bottom" id="LnQ-A8-JdQ"/>
                             <constraint firstItem="NxJ-Zz-x2s" firstAttribute="leading" secondItem="Y1V-G9-89d" secondAttribute="leading" id="aK3-Vw-5DB"/>
                             <constraint firstItem="Y1V-G9-89d" firstAttribute="trailing" secondItem="XG4-5U-hrO" secondAttribute="trailing" constant="16" id="aPo-rP-xzt"/>
                             <constraint firstItem="XG4-5U-hrO" firstAttribute="leading" secondItem="Y1V-G9-89d" secondAttribute="leading" constant="16" id="gkX-xO-NTH"/>
-                            <constraint firstItem="Y1V-G9-89d" firstAttribute="bottom" secondItem="6iM-wI-5eY" secondAttribute="bottom" constant="16" id="nw6-Ph-sjK"/>
-                            <constraint firstItem="6iM-wI-5eY" firstAttribute="centerX" secondItem="1JR-Ge-458" secondAttribute="centerX" id="rEN-tM-RpE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BH0-JJ-Nh5"/>
                     <connections>
+                        <outlet property="searchBar" destination="XG4-5U-hrO" id="3xk-Iy-SMI"/>
                         <outlet property="tableView" destination="NxJ-Zz-x2s" id="NT2-Tk-dLD"/>
+                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="addContactPermissionSegue" id="AAh-Xc-1l1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7a-Dd-4yL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -612,6 +603,7 @@
         <image name="WhatsApp Image 2025-12-15 at 17.09.58" width="2854" height="3213"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
