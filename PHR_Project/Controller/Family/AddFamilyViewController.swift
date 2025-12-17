@@ -19,10 +19,16 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
         
-        contacts = getAllData().family.contacts
         setupHideKeyboardOnTap()
+        fetchContacts()
+    }
+    
+    private func fetchContacts() {
+        ContactsService.shared.fetchContacts { [weak self] contacts in
+            self?.contacts = contacts
+            self?.tableView.reloadData()
+        }
     }
     
     func setupHideKeyboardOnTap() {
@@ -48,7 +54,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
             withIdentifier: "contact_cell",
             for: indexPath
         ) as! ContactTableViewCell
-                 let contact = contacts[indexPath.row]
+        let contact = contacts[indexPath.row]
         cell.configure(with: contact)
         cell.selectionStyle = .none
         return cell
