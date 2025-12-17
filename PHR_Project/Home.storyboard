@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="diA-Dh-pDT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="diA-Dh-pDT">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -706,11 +706,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="NoG-JY-nX7">
                             <rect key="frame" x="0.0" y="0.0" width="402" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="85E-nY-XGT">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="85E-nY-XGT">
                                     <rect key="frame" x="161" y="20" width="80" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="80" id="Te2-va-Mkk"/>
@@ -1162,11 +1163,11 @@
             </objects>
             <point key="canvasLocation" x="6682" y="-218"/>
         </scene>
-        <!--Home-->
+        <!--Today-->
         <scene sceneID="1oc-XQ-24s">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="diA-Dh-pDT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="Oir-GC-ts2"/>
+                    <tabBarItem key="tabBarItem" title="Today" image="sun.max.fill" catalog="system" id="Oir-GC-ts2"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eTh-Mt-ryZ">
@@ -1194,7 +1195,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="402" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-3G-xwi">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-3G-xwi">
                                     <rect key="frame" x="161" y="20" width="80" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="lhY-DJ-DI7"/>
@@ -1576,7 +1577,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0YX-aC-HeN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7545" y="-205"/>
+            <point key="canvasLocation" x="7560" y="-218"/>
         </scene>
         <!--Symptoms-->
         <scene sceneID="4lm-U6-Vo6">
@@ -2020,7 +2021,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gJ0-Iu-xpm"/>
+        <segue reference="rYD-Av-LTB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="WhatsApp Image 2025-12-15 at 17.09.58" width="2854" height="3213"/>
@@ -2033,11 +2034,11 @@
         <image name="fork.knife.circle" catalog="system" width="128" height="123"/>
         <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="image 1" width="356" height="259"/>
         <image name="list.bullet.clipboard.fill" catalog="system" width="98" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="shoeprints.fill" catalog="system" width="116" height="128"/>
+        <image name="sun.max.fill" catalog="system" width="128" height="125"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

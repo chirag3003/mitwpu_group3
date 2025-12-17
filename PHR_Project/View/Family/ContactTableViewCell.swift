@@ -28,8 +28,13 @@ class ContactTableViewCell: UITableViewCell {
     func configure(with contact: Contact) {
         nameLabel.text = contact.name
         numLabel.text = contact.phoneNum
-        // Assuming contact.image is a URL string or image name
-        pfpImage.image = UIImage(named: "WhatsApp Image 2025-12-15 at 17.09.58")
+        
+        // Use contact's photo if available, otherwise use default
+        if let imageData = contact.imageData, let image = UIImage(data: imageData) {
+            pfpImage.image = image
+        } else {
+            pfpImage.image = UIImage(systemName: "person.circle")
+        }
         
         pfpImage.addFullRoundedCorner()
     }

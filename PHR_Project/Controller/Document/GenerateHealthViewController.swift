@@ -9,6 +9,7 @@ import UIKit
 class GenerateHealthViewController: UIViewController {
     
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var dateInputView: UIView!
     @IBOutlet weak var TypeOfVisitView: UIView!
     
@@ -40,7 +41,31 @@ class GenerateHealthViewController: UIViewController {
                 TextField.leftView = paddingView
                 TextField.leftViewMode = .always
         setupHideKeyboardOnTap()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+            
     }
+    @objc func keyboardWillShow(notification: NSNotification) {
+            // 1. Get the size of the keyboard
+            guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+
+            // 2. Add "Padding" to the bottom of the scroll view equal to the keyboard height
+            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+        }
+
+        @objc func keyboardWillHide(notification: NSNotification) {
+            // 1. Reset the padding to zero when keyboard disappears
+            let contentInsets = UIEdgeInsets.zero
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+        }
+
+        // --- CLEANUP ---
+        deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
     
     func setupHideKeyboardOnTap() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap))
