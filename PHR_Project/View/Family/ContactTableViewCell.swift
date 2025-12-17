@@ -33,7 +33,7 @@ class ContactTableViewCell: UITableViewCell {
         if let imageData = contact.imageData, let image = UIImage(data: imageData) {
             pfpImage.image = image
         } else {
-            pfpImage.image = UIImage(systemName: "person.circle.fill")
+            pfpImage.image = UIImage(systemName: "person.circle")
         }
         
         pfpImage.addFullRoundedCorner()
