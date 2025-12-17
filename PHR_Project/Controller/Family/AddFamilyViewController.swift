@@ -20,10 +20,46 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
         searchBar.delegate = self
         
         setupHideKeyboardOnTap()
+        setupKeyboardObservers()
         fetchContacts()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Keyboard Handling
+    
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardHeight = keyboardFrame.height
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+        tableView.scrollIndicatorInsets = tableView.contentInset
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        tableView.contentInset = .zero
+        tableView.scrollIndicatorInsets = .zero
     }
     
     private func fetchContacts() {
