@@ -28,31 +28,10 @@ class DocumentsViewController: UIViewController {
         return formatter
     }()
     
-    private lazy var filterButton: UIButton = {
-        var config = UIButton.Configuration.plain()
-        config.image = UIImage(systemName: "line.3.horizontal.decrease")
-        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 15, weight: .semibold)
-        config.baseForegroundColor = .label
-        config.background.visualEffect = UIBlurEffect(style: .systemThinMaterial)
-        config.background.backgroundColor = .systemBackground.withAlphaComponent(0.3)
-        config.cornerStyle = .capsule
-        
-        let button = UIButton(configuration: config, primaryAction: nil)
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.1
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowRadius = 4
-        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setupFilterButton()
         loadData()
     }
     
@@ -62,23 +41,6 @@ class DocumentsViewController: UIViewController {
         documentTableView.delegate = self
         documentTableView.dataSource = self
         documentTableView.separatorStyle = .none
-    }
-    
-    private func setupFilterButton() {
-        view.addSubview(filterButton)
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        documentTableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            filterButton.topAnchor.constraint(equalTo: dataSegment.bottomAnchor, constant: 12),
-            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            filterButton.widthAnchor.constraint(equalToConstant: 36),
-            filterButton.heightAnchor.constraint(equalToConstant: 36),
-            documentTableView.topAnchor.constraint(equalTo: filterButton.bottomAnchor, constant: 10),
-            documentTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            documentTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            documentTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     private func loadData() {
@@ -93,7 +55,7 @@ class DocumentsViewController: UIViewController {
         documentTableView.reloadData()
     }
     
-    @objc private func didTapFilterButton() {
+    @IBAction func didTapFilterButton() {
         isNewestFirst.toggle()
         sortData()
         
