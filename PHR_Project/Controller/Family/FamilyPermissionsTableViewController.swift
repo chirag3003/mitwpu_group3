@@ -48,7 +48,7 @@ class FamilyPermissionsTableViewController: UITableViewController {
                 let label = UILabel()
                 // Standard iOS headers are often Uppercase. Remove .uppercased() if you prefer Title Case.
                 label.text = "Allow Access To"
-                label.font = UIFont.systemFont(ofSize: 17, weight: .medium) // Standard Header Font
+                label.font = UIFont.systemFont(ofSize: 17, weight: .semibold) // Standard Header Font
                 label.textColor = .secondaryLabel // Standard Gray Color
                 label.translatesAutoresizingMaskIntoConstraints = false
                 
@@ -65,7 +65,7 @@ class FamilyPermissionsTableViewController: UITableViewController {
                 
                 // Constraints
                 NSLayoutConstraint.activate([
-                    // CHANGED: Reduced from 20 to 16 to move it slightly Left
+                    
                     label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
                     label.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
                     
