@@ -9,6 +9,7 @@ import UIKit
 
 class PrescriptionTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var fileImage: UIImageView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var fileSize: UILabel!
     @IBOutlet weak var lastUpdatedAt: UILabel!
@@ -26,7 +27,8 @@ class PrescriptionTableViewCell: UITableViewCell {
     
     func configure(
         with report: PrescriptionModel) {
-            mainView.addRoundedCorner(radius: mainView.frame.height / 2)
+            mainView.addRoundedCorner(radius: 15)
+            fileImage.addRoundedCorner(radius: 15)
             
         reportName.text = report.title
         fileSize.text = "\(report.fileSize)"

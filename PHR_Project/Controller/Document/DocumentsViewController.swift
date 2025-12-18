@@ -12,6 +12,8 @@ class DocumentsViewController: UIViewController {
     
     // MARK: - IBOutlets
     
+   
+
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
     
@@ -33,6 +35,8 @@ class DocumentsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         loadData()
+        
+        
     }
     
     // MARK: - Setup
