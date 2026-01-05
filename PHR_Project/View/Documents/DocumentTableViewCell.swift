@@ -9,6 +9,7 @@ import UIKit
 
 class DocumentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var folderImage: UIImageView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var doctorLabel: UILabel!
     
@@ -18,7 +19,8 @@ class DocumentTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
 //        documentButton.addRoundedCorner(radius:30)
-        mainView.addRoundedCorner(radius: mainView.frame.height / 2)
+        mainView.addRoundedCorner(radius: 15)
+        folderImage.addRoundedCorner(radius:16)
         
     }
 
