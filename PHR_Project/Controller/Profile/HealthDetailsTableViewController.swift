@@ -56,6 +56,8 @@ class HealthDetailsTableViewController: UITableViewController,
 
         // 5. Configure the fields
         setupFields()
+       
+        
     }
 
     private func setupFields() {
@@ -180,15 +182,51 @@ class HealthDetailsTableViewController: UITableViewController,
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-
-        // Toggle the state of the text fields
-        updateTextFieldsState(isEditing: editing)
-
-        if !editing {
-            saveData()  // Call save when user taps "Done"
+            
+            // --- SCENARIO 1: User Tapped "Edit" (Entering Edit Mode) ---
+            if editing {
+                // Check if fields say "Not Set" (or "0" if you prefer) and clear them
+                if heightTextField.text == "Not Set" {
+                    heightTextField.text = ""
+                }
+                if weightTextField.text == "Not Set" {
+                    weightTextField.text = ""
+                }
+            }
+            
+            // --- SCENARIO 2: User Tapped "Done" (Exiting Edit Mode) ---
+            if !editing {
+                
+                // 1. Get current text values
+                let fName = firstNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                let lName = lastNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                
+                // 2. VALIDATION: Check if Names are empty
+                if fName.isEmpty || lName.isEmpty {
+                    showAlert(message: "First Name and Last Name cannot be empty.")
+                    // Prevent exiting edit mode
+                    super.setEditing(true, animated: false)
+                    return
+                }
+                
+                // 3. FORMATTING: Check Height & Weight
+                // If empty, set them back to "Not Set"
+                if heightTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    heightTextField.text = "Not Set"
+                }
+                
+                if weightTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+                    weightTextField.text = "Not Set"
+                }
+                
+                // 4. Save Logic
+                saveData()
+            }
+            
+            // --- FINALLY: Toggle the mode ---
+            super.setEditing(editing, animated: animated)
+            updateTextFieldsState(isEditing: editing)
         }
-    }
 
     func updateTextFieldsState(isEditing: Bool) {
         for field in allTextFields {
@@ -286,5 +324,89 @@ class HealthDetailsTableViewController: UITableViewController,
 
         return true  // Allow everything for Name/Address fields
     }
+    
+    //custom section headers
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // 1. Create a container view
+        let headerView = UIView()
+        headerView.backgroundColor = .clear // Keep it transparent
+        
+        // 2. Create the label
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold) // Larger and Bolder
+        titleLabel.textColor = .label // Standard Black (or White in Dark Mode)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 3. Set the text based on the section index
+        switch section {
+        case 0:
+            titleLabel.text = "User Details"
+        case 1:
+            titleLabel.text = "Health Information"
+        case 2:
+            titleLabel.text = "Additional Details"
+        default:
+            return nil
+        }
+        
+        // 4. Add label to the container
+        headerView.addSubview(titleLabel)
+        
+        // 5. Set Constraints (This creates the spacing)
+        NSLayoutConstraint.activate([
+            // Left Margin (Standard is around 20)
+            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+            
+            // Padding at the BOTTOM (Pushing the text away from the rows below)
+            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -12),
+            
+            // Padding at the TOP (Pushing the text away from the previous section)
+            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 15)
+        ])
+        
+        return headerView
+    }
+
+    // 6. Define the height
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // Return a height large enough to fit your font (22) + top padding (15) + bottom padding (12)
+        return 60
+    }
+    
+    //Edit functionality made such that no border visible of any textfield
+    
+    // Remove the calls from viewDidLoad
+        // Override this function instead:
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            
+            // This ensures the style is applied AFTER the layout is finished
+            removeBorder(from: firstNameField)
+            removeBorder(from: lastNameField)
+            removeBorder(from: heightTextField)
+            removeBorder(from: weightTextField)
+        }
+
+        func removeBorder(from textField: UITextField) {
+            textField.borderStyle = .none
+            textField.backgroundColor = .clear
+            
+            // Force the layer to be clean
+            textField.layer.borderWidth = 0
+            textField.layer.borderColor = UIColor.clear.cgColor
+            
+            // Disable the Focus Ring (Blue glow)
+            if #available(iOS 15.0, *) {
+                textField.focusEffect = nil
+            }
+        }
+    
+    // MARK: - Helper for Alerts
+        func showAlert(message: String) {
+            let alert = UIAlertController(title: "Missing Information", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
 
 }
