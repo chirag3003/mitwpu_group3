@@ -203,7 +203,7 @@ class HealthDetailsTableViewController: UITableViewController,
                 
                 // 2. VALIDATION: Check if Names are empty
                 if fName.isEmpty || lName.isEmpty {
-                    showAlert(message: "First Name and Last Name cannot be empty.")
+                    showAlert(message: "First and last name cannot be empty.")
                     // Prevent exiting edit mode
                     super.setEditing(true, animated: false)
                     return
