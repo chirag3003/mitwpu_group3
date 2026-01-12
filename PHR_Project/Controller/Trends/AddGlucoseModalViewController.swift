@@ -7,31 +7,18 @@
 
 import UIKit
 
-class AddGlucoseModalViewController: UIViewController {
+class AddGlucoseModalViewController: UITableViewController {
 
-    @IBOutlet weak var glucoseView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        glucoseView.addRoundedCorner()
-
-        
+        // If needed, additional setup can go here.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: - Actions
     @IBAction func doneModalButton(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+
     @IBAction func closeModalButton(_ sender: Any) {
         dismiss(animated: true)
     }

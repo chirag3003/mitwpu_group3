@@ -1331,110 +1331,124 @@
             </objects>
             <point key="canvasLocation" x="4743.2835820895516" y="-218.30663615560638"/>
         </scene>
-        <!--Add Glucose Data-->
-        <scene sceneID="DTv-Fm-7aR">
+        <!--Add Glucose Value-->
+        <scene sceneID="AHn-bo-dRJ">
             <objects>
-                <viewController storyboardIdentifier="add glucose data" id="jcm-5J-Vau" customClass="AddGlucoseModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gNJ-xf-EwZ">
+                <tableViewController id="6Y0-9Y-AU2" customClass="AddGlucoseModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="P0C-3D-94n">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-xQ-ayb">
-                                <rect key="frame" x="16" y="70" width="370" height="200"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3gS-zR-NyW">
-                                        <rect key="frame" x="0.0" y="0.0" width="370" height="200"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KF7-ME-Xua">
-                                                <rect key="frame" x="16" y="8.0000000000000036" width="338" height="55.333333333333343"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Es-Gw-f7s">
-                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="55.333333333333336"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="khZ-qp-u4w">
-                                                        <rect key="frame" x="36" y="0.0" width="302" height="55.333333333333336"/>
-                                                    </datePicker>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4I-3q-sYv">
-                                                <rect key="frame" x="16" y="68.333333333333343" width="338" height="55.333333333333343"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrH-3j-cuI">
-                                                        <rect key="frame" x="0.0" y="0.0" width="37.666666666666664" height="55.333333333333336"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MrK-15-1BU">
-                                                        <rect key="frame" x="37.666666666666657" y="0.0" width="300.33333333333337" height="55.333333333333336"/>
-                                                    </datePicker>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yOv-g9-KJW">
-                                                <rect key="frame" x="16" y="128.66666666666666" width="338" height="55.333333333333343"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glucose Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-Yg-Kw2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="55.333333333333336"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="108.33" id="rsI-SU-aft"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="eg: 109" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GKx-is-bdu">
-                                                        <rect key="frame" x="148.33333333333337" y="0.0" width="189.66666666666663" height="55.333333333333336"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="200" id="Bul-Kc-vVf"/>
-                                        </constraints>
-                                        <edgeInsets key="layoutMargins" top="8" left="16" bottom="16" right="16"/>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="3gS-zR-NyW" firstAttribute="top" secondItem="MHl-xQ-ayb" secondAttribute="top" id="NaD-1z-zx6"/>
-                                    <constraint firstAttribute="trailing" secondItem="3gS-zR-NyW" secondAttribute="trailing" id="d64-gk-02W"/>
-                                    <constraint firstAttribute="bottom" secondItem="3gS-zR-NyW" secondAttribute="bottom" id="dKQ-7A-quH"/>
-                                    <constraint firstItem="3gS-zR-NyW" firstAttribute="leading" secondItem="MHl-xQ-ayb" secondAttribute="leading" id="xLA-jB-akf"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Usj-hS-S7G"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <constraints>
-                            <constraint firstItem="MHl-xQ-ayb" firstAttribute="top" secondItem="Usj-hS-S7G" secondAttribute="top" id="52M-Qa-R97"/>
-                            <constraint firstItem="Usj-hS-S7G" firstAttribute="trailing" secondItem="MHl-xQ-ayb" secondAttribute="trailing" constant="16" id="MYX-Do-gQ6"/>
-                            <constraint firstItem="MHl-xQ-ayb" firstAttribute="leading" secondItem="Usj-hS-S7G" secondAttribute="leading" constant="16" id="pwh-t1-oUk"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Add Glucose Data" id="o0c-7A-zv6">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="7hx-ai-y9i">
+                        <sections>
+                            <tableViewSection id="6N3-9O-PCt">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Qzv-dI-12x">
+                                        <rect key="frame" x="20" y="18" width="362" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qzv-dI-12x" id="OPg-Ji-yPY">
+                                            <rect key="frame" x="0.0" y="0.0" width="362" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbE-U9-Pk9">
+                                                    <rect key="frame" x="16" y="15" width="36" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="bz5-un-M3O">
+                                                    <rect key="frame" x="165" y="8.3333333333333321" width="181" height="34.333333333333343"/>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XbE-U9-Pk9" firstAttribute="centerY" secondItem="OPg-Ji-yPY" secondAttribute="centerY" id="9LZ-Ez-Sc8"/>
+                                                <constraint firstItem="XbE-U9-Pk9" firstAttribute="leading" secondItem="OPg-Ji-yPY" secondAttribute="leadingMargin" id="D8x-pp-DxD"/>
+                                                <constraint firstAttribute="trailing" secondItem="bz5-un-M3O" secondAttribute="trailing" constant="16" id="KFH-pW-OXH"/>
+                                                <constraint firstItem="bz5-un-M3O" firstAttribute="width" secondItem="OPg-Ji-yPY" secondAttribute="width" multiplier="0.5" id="g5c-bk-h98"/>
+                                                <constraint firstItem="bz5-un-M3O" firstAttribute="centerY" secondItem="OPg-Ji-yPY" secondAttribute="centerY" id="z5J-hB-PWm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0c3-6y-p85">
+                                        <rect key="frame" x="20" y="69" width="362" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0c3-6y-p85" id="ckM-oM-wqK">
+                                            <rect key="frame" x="0.0" y="0.0" width="362" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6WP-gC-vHw">
+                                                    <rect key="frame" x="16" y="15" width="38" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZsF-Sr-9LB">
+                                                    <rect key="frame" x="165" y="7.6666666666666679" width="181" height="36"/>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ZsF-Sr-9LB" firstAttribute="width" secondItem="ckM-oM-wqK" secondAttribute="width" multiplier="0.5" id="C4Q-uT-xZp"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZsF-Sr-9LB" secondAttribute="trailing" constant="16" id="FSf-hz-5sh"/>
+                                                <constraint firstItem="6WP-gC-vHw" firstAttribute="centerY" secondItem="ckM-oM-wqK" secondAttribute="centerY" id="MwM-F6-7N6"/>
+                                                <constraint firstItem="ZsF-Sr-9LB" firstAttribute="centerY" secondItem="ckM-oM-wqK" secondAttribute="centerY" id="ScF-yl-W7D"/>
+                                                <constraint firstItem="6WP-gC-vHw" firstAttribute="leading" secondItem="ckM-oM-wqK" secondAttribute="leadingMargin" id="y8k-Br-mYe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="O6t-bx-p7d">
+                                        <rect key="frame" x="20" y="120" width="362" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O6t-bx-p7d" id="aty-0b-CY0">
+                                            <rect key="frame" x="0.0" y="0.0" width="362" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glucose Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qK-Hu-ysT">
+                                                    <rect key="frame" x="16" y="15" width="109" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b1n-aj-w83">
+                                                    <rect key="frame" x="246" y="14.666666666666664" width="100" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="XCE-Zy-RlH"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0qK-Hu-ysT" firstAttribute="leading" secondItem="aty-0b-CY0" secondAttribute="leadingMargin" id="2Ik-eK-TP7"/>
+                                                <constraint firstAttribute="trailing" secondItem="b1n-aj-w83" secondAttribute="trailing" constant="16" id="JuR-GK-1SI"/>
+                                                <constraint firstItem="b1n-aj-w83" firstAttribute="centerY" secondItem="aty-0b-CY0" secondAttribute="centerY" id="UCm-gC-Hd9"/>
+                                                <constraint firstItem="0qK-Hu-ysT" firstAttribute="centerY" secondItem="aty-0b-CY0" secondAttribute="centerY" id="q0p-hc-bRt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="6Y0-9Y-AU2" id="Ibc-Y2-ZkH"/>
+                            <outlet property="delegate" destination="6Y0-9Y-AU2" id="Nke-Gu-LfU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Glucose Value" id="Gsh-Fe-IfS">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1Ux-Z0-8G7">
                             <connections>
-                                <action selector="closeModalButton:" destination="jcm-5J-Vau" id="JnH-t8-e8j"/>
+                                <action selector="closeModalButton:" destination="6Y0-9Y-AU2" id="HVe-vz-2dy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="kY9-TZ-8LZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="C4n-ZE-XQU">
                             <connections>
-                                <action selector="doneModalButton:" destination="jcm-5J-Vau" id="JDz-d1-5dd"/>
+                                <action selector="doneModalButton:" destination="6Y0-9Y-AU2" id="joX-M6-sZ1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="glucoseView" destination="MHl-xQ-ayb" id="fdz-6f-FFT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fD5-c6-an5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rre-YO-VvC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5677.6119402985069" y="517.62013729977116"/>
+            <point key="canvasLocation" x="5639" y="518"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nr9-gj-bbM">
@@ -2027,7 +2041,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="jcm-5J-Vau" kind="relationship" relationship="rootViewController" id="cbT-Iz-qzd"/>
+                        <segue destination="6Y0-9Y-AU2" kind="relationship" relationship="rootViewController" id="6bU-mb-KS8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBL-Zo-11S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2059,22 +2073,22 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
