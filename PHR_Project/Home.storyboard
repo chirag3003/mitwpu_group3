@@ -698,6 +698,22 @@
             </objects>
             <point key="canvasLocation" x="2500" y="-30"/>
         </scene>
+        <!--HelpN Support View Controller-->
+        <scene sceneID="ASJ-Hm-HlV">
+            <objects>
+                <viewController id="d0e-vS-J1q" customClass="HelpNSupportViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3XB-SI-KUH">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="erm-Uo-juz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mMh-ng-J9g"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aBh-7b-lfH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5754" y="-888"/>
+        </scene>
         <!--Health Details-->
         <scene sceneID="ADf-4q-I5V">
             <objects>
@@ -1305,6 +1321,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="d0e-vS-J1q" kind="show" id="zgB-lC-Fgv"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
