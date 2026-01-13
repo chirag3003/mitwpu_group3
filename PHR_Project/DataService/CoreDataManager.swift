@@ -116,9 +116,9 @@ class CoreDataManager {
         }
     }
 
-    // MARK: - USER PROFILE
+    
         
-        // Changed 'UserProfileEntity' to 'UserProfile' to match your Data Model
+        // Changed 'UserProfileEntity' to 'UserProfile' to match our Data Model
         func fetchUserProfile() -> UserProfile? {
             let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
             request.fetchLimit = 1
