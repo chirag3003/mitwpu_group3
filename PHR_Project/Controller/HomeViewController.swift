@@ -23,12 +23,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var glassDecrement: UIImageView!
     @IBOutlet weak var glassIncrement: UIImageView!
     
-    private var currentGlassCount: Int = 0 {
-        didSet {
-            currentGlassCount = max(0, min(10, currentGlassCount))
-            glassValue.text = "\(currentGlassCount)"
-        }
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,6 +49,8 @@ class HomeViewController: UIViewController {
         caloriesSummaryCard.configure(mode: .limitWarning, progress: 0.76, thickness: 16)
         
         setupWaterIntakeGestures()
+        updateWaterIntakeUI()
+        
         
         //setting up event listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(NotificationNames.profileUpdated), object: nil)
@@ -66,6 +63,7 @@ class HomeViewController: UIViewController {
 
         greetingsLabel.text =
             "Good Morning, \(ProfileService.shared.getProfile().firstName)"
+        updateWaterIntakeUI()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,6 +81,10 @@ class HomeViewController: UIViewController {
         reloadData()
     }
     
+    deinit {
+            NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setupWaterIntakeGestures() {
             
             let incrementTap = UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount))
@@ -93,24 +95,28 @@ class HomeViewController: UIViewController {
         }
     
     @objc private func incrementGlassCount() {
-            if currentGlassCount < 10 {
-                currentGlassCount += 1
-                animateGlassValue()
-                // Optional: Add haptic feedback
-                let generator = UIImpactFeedbackGenerator(style: .light)
-                generator.impactOccurred()
-            }
-        }
+        WaterIntakeService.shared.incrementGlass()
+        updateWaterIntakeUI()
+        animateGlassValue()
+               // Optional: Add haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+         
+    }
     
     @objc private func decrementGlassCount() {
-            if currentGlassCount > 0 {
-                currentGlassCount -= 1
-                animateGlassValue()
-                // Optional: Add haptic feedback
-                let generator = UIImpactFeedbackGenerator(style: .light)
-                generator.impactOccurred()
-            }
-        }
+        WaterIntakeService.shared.decrementGlass()
+        updateWaterIntakeUI()
+        animateGlassValue()
+        
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+    }
+    
+    @objc private func updateWaterIntakeUI() {
+        let count = WaterIntakeService.shared.getGlassCount()
+        glassValue.text = "\(count)"
+    }
     
     private func animateGlassValue() {
             UIView.animate(withDuration: 0.1, animations: {

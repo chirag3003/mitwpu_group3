@@ -183,19 +183,19 @@
                                                                         <rect key="frame" x="0.0" y="31.999999999999993" width="181" height="80.333333333333314"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="118" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNN-q9-xb2">
-                                                                                <rect key="frame" x="53" y="15.000000000000004" width="55" height="38.333333333333343"/>
+                                                                                <rect key="frame" x="50" y="10" width="55" height="38.333333333333336"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="mg/dl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uo-QD-MZf">
-                                                                                <rect key="frame" x="109" y="35.666666666666686" width="56" height="12"/>
+                                                                                <rect key="frame" x="106" y="30.666666666666686" width="59" height="12"/>
                                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                        <edgeInsets key="layoutMargins" top="15" left="53" bottom="27" right="16"/>
+                                                                        <edgeInsets key="layoutMargins" top="10" left="50" bottom="32" right="16"/>
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
@@ -241,24 +241,24 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="181" height="48.333333333333336"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-l1-y2a">
-                                                                                        <rect key="frame" x="30" y="16.333333333333332" width="20" height="21.666666666666668"/>
+                                                                                        <rect key="frame" x="30" y="16.333333333333332" width="25" height="21.666666666666668"/>
                                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" constant="20" id="lVu-ho-VvT"/>
+                                                                                            <constraint firstAttribute="width" constant="25" id="lVu-ho-VvT"/>
                                                                                         </constraints>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5z-o3-yqR">
-                                                                                        <rect key="frame" x="50" y="8" width="81" height="38.333333333333336"/>
+                                                                                        <rect key="frame" x="55" y="8" width="71" height="38.333333333333336"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-ze-kSJ">
-                                                                                        <rect key="frame" x="131" y="11.666666666666666" width="20" height="31.000000000000007"/>
+                                                                                        <rect key="frame" x="126" y="11.666666666666666" width="25" height="31.000000000000007"/>
                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" constant="20" id="lUb-nW-wap"/>
+                                                                                            <constraint firstAttribute="width" constant="25" id="lUb-nW-wap"/>
                                                                                         </constraints>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                     </imageView>
