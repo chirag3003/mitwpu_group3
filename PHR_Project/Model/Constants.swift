@@ -78,6 +78,7 @@ enum StorageKeys {
     static let mealItems = "saved_meal_items"
     static let mealDetails = "saved_meal_details"
     static let calendarDays = "saved_calendar_days"
+    static let waterIntake = "water_intake_value"
 }
 
 // MARK: - Notification Names
@@ -85,6 +86,7 @@ enum StorageKeys {
 enum NotificationNames {
     static let profileUpdated = "ProfileUpdated"
     static let symptomsUpdated = "SymptomsUpdated"
+    static let waterIntakeUpdated = "waterIntakeUpdated"
 }
 
 // MARK: - Cell Identifiers
