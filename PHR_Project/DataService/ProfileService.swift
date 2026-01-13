@@ -31,19 +31,19 @@ class ProfileService {
             // 3. No Core Data found? Load Defaults (Your original logic)
             var dateComponents = DateComponents()
             dateComponents.year = 2005
-            dateComponents.month = 6
-            dateComponents.day = 30
+            dateComponents.month = 12
+            dateComponents.day = 2
             
             let calendar = Calendar(identifier: .gregorian)
             let date = calendar.date(from: dateComponents) ?? Date()
 
             self.data = ProfileModel(
-                firstName: "Chirag",
-                lastName: "Bhalotia",
+                firstName: "Ved",
+                lastName: "Chavan",
                 dob: date,
                 sex: "Male",
                 diabetesType: "Type 2",
-                bloodType: "B+",
+                bloodType: "AB+",
                 height: 172,
                 weight: 65
             )
