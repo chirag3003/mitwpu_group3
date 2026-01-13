@@ -2,13 +2,10 @@ import Foundation
 
 class SymptomService {
     static let shared = SymptomService()
-    private let storageKey = StorageKeys.symptoms
-
+    
     private var symptoms: [Symptom] = [] {
         didSet {
-            save()
-            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.symptomsUpdated), object: nil)
-
+            NotificationCenter.default.post(name: NSNotification.Name("SymptomsUpdated"), object: nil)
         }
     }
 
@@ -21,36 +18,39 @@ class SymptomService {
     }
 
     func addSymptom(_ symptom: Symptom) {
+        CoreDataManager.shared.addSymptom(symptom)
         symptoms.append(symptom)
     }
 
-    private func save() {
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(symptoms)
-            UserDefaults.standard.set(data, forKey: storageKey)
-        } catch {
-            print("Failed to save symptoms locally: \(error)")
+    func deleteSymptom(at index: Int) {
+        guard index < symptoms.count else { return }
+        
+        let symptomToRemove = symptoms[index]
+        if let id = symptomToRemove.id {
+             CoreDataManager.shared.deleteSymptom(id: id)
         }
+        
+        symptoms.remove(at: index)
     }
 
     private func loadSymptoms() {
-        guard let data = UserDefaults.standard.data(forKey: storageKey) else {
-            return
-        }
-
-        do {
-            let decoder = JSONDecoder()
-            symptoms = try decoder.decode([Symptom].self, from: data)
-        } catch {
-            print("Failed to load symptoms locally: \(error)")
+        let entities = CoreDataManager.shared.fetchSymptoms()
+        
+        self.symptoms = entities.map { entity in
+            
+            // Reconstruct DateComponents from the saved Int16s
+            var components = DateComponents()
+            components.hour = Int(entity.timeHour)
+            components.minute = Int(entity.timeMinute)
+            
+            return Symptom(
+                id: entity.id,
+                symptomName: entity.symptomName ?? "Unknown",
+                intensity: entity.intensity ?? "Low",
+                dateRecorded: entity.dateRecorded ?? Date(),
+                notes: entity.notes,
+                time: components
+            )
         }
     }
-    
-     func deleteSymptom(at index: Int) {
-        if index < symptoms.count {
-            symptoms.remove(at: index)
-        }
-    }
-    
 }
