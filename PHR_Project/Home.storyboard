@@ -242,7 +242,7 @@
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-l1-y2a">
                                                                                         <rect key="frame" x="30" y="16.333333333333332" width="25" height="21.666666666666668"/>
-                                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                                        <color key="tintColor" red="0.517578125" green="0.7412109375" blue="0.970703125" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="lVu-ho-VvT"/>
                                                                                         </constraints>
@@ -256,7 +256,7 @@
                                                                                     </label>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-ze-kSJ">
                                                                                         <rect key="frame" x="126" y="11.666666666666666" width="25" height="31.000000000000007"/>
-                                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <color key="tintColor" red="0.517578125" green="0.7412109375" blue="0.970703125" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="lUb-nW-wap"/>
                                                                                         </constraints>

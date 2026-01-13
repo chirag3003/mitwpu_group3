@@ -54,6 +54,9 @@ class HomeViewController: UIViewController {
         
         //setting up event listeners
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(NotificationNames.profileUpdated), object: nil)
+        
+        
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
