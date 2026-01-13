@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Oer-j2-j1S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Oer-j2-j1S">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -34,7 +34,7 @@
                             </segmentedControl>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mFz-fc-cL9">
                                 <rect key="frame" x="16" y="242" width="361" height="493"/>
-                                <color key="backgroundColor" red="0.92156862745098034" green="0.96078431372549022" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="linkColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DoctorCell" rowHeight="63" id="Alz-6M-qN8" customClass="DocumentTableViewCell" customModule="PHR_Project" customModuleProvider="target">
@@ -104,6 +104,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             <constraints>
                                                 <constraint firstItem="1xw-jM-EW0" firstAttribute="top" secondItem="ATi-BF-pRk" secondAttribute="top" constant="4" id="41u-5L-EkY"/>
                                                 <constraint firstAttribute="trailing" secondItem="1xw-jM-EW0" secondAttribute="trailing" constant="8" id="IY1-4u-znb"/>
@@ -111,7 +112,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="1xw-jM-EW0" secondAttribute="bottom" constant="4" id="io7-Lt-fyg"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.92156862745098034" green="0.96078431372549022" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="doctorLabel" destination="xI1-Ot-Wmu" id="wts-Mm-Spw"/>
                                             <outlet property="folderImage" destination="tew-VD-BHQ" id="Cll-ss-r5j"/>
@@ -183,6 +183,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             <constraints>
                                                 <constraint firstItem="Ews-Xu-o53" firstAttribute="top" secondItem="pcx-Gm-k8v" secondAttribute="top" constant="4" id="2Nh-s1-J4j"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ews-Xu-o53" secondAttribute="trailing" constant="8" id="7WS-WA-WNo"/>
@@ -190,7 +191,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="Ews-Xu-o53" secondAttribute="bottom" constant="4" id="oPU-oG-nsy"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.92156862745098034" green="0.96078431372549022" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="fileImage" destination="gh9-aV-DMP" id="eoV-f7-IIa"/>
                                             <outlet property="fileSize" destination="57j-Sw-DVV" id="bwM-70-7EB"/>
@@ -211,7 +211,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cyb-lH-JbM"/>
-                        <color key="backgroundColor" red="0.92156862745098034" green="0.96078431372549022" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="mFz-fc-cL9" firstAttribute="top" secondItem="Zuv-yf-uiD" secondAttribute="bottom" constant="20" id="2MD-Jc-ZrM"/>
                             <constraint firstItem="cyb-lH-JbM" firstAttribute="trailing" secondItem="mFz-fc-cL9" secondAttribute="trailing" constant="16" id="7Nc-eM-Rve"/>

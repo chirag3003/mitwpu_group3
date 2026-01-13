@@ -2,13 +2,13 @@ import Foundation
 
 class AllergyService {
     static let shared = AllergyService()
-    private let storageKey = StorageKeys.allergies
-
-    private var allergies: [Allergy] = []{
-        didSet{
-            save()
+    
+    private var allergies: [Allergy] = [] {
+        didSet {
+            // Notification if needed
         }
     }
+
     private init() {
         loadAllergies()
     }
@@ -18,46 +18,46 @@ class AllergyService {
     }
 
     func addAllergy(_ allergy: Allergy) {
+        CoreDataManager.shared.addAllergy(allergy)
         allergies.append(allergy)
     }
 
     func removeAllergy(_ allergy: Allergy) {
-        allergies.removeAll { $0.id == allergy.id }
-    }
-
-    func getAllergyByID(_ id: UUID) -> Allergy? {
-        return allergies.first(where: { $0.id == id })
-    }
-
-    // MARK: - Persistence Logic
-
-    private func save() {
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(allergies)
-            UserDefaults.standard.set(data, forKey: storageKey)
-        } catch {
-            print("Failed to save allergies locally: \(error)")
-        }
+        guard let id = allergy.id else { return }
+        
+        CoreDataManager.shared.deleteAllergy(id: id)
+        allergies.removeAll { $0.id == id }
     }
 
     private func loadAllergies() {
-        guard let data = UserDefaults.standard.data(forKey: storageKey) else {
-            return
-        }
-
-        do {
-            let decoder = JSONDecoder()
-            allergies = try decoder.decode([Allergy].self, from: data)
-        } catch {
-            print("Failed to load allergies locally: \(error)")
+        let entities = CoreDataManager.shared.fetchAllergies()
+        
+        self.allergies = entities.map { entity in
+            return Allergy(
+                id: entity.id,
+                name: entity.name ?? "Unknown",
+                severity: entity.severity ?? "Mild",
+                notes: entity.notes
+            )
         }
     }
     
+    // Fixing a code of delete allergy method
+
     func deleteAllergy(at index: Int) {
-            if index < allergies.count {
-                allergies.remove(at: index)
-                // 'didSet' will automatically save this change
-            }
+        // 1. Check if index is valid
+        guard index < allergies.count else { return }
+        
+        // 2. Get the item to remove
+        let allergyToRemove = allergies[index]
+        
+        // 3. Remove from Core Data using its ID
+        if let id = allergyToRemove.id {
+             CoreDataManager.shared.deleteAllergy(id: id)
         }
+        
+        // 4. Remove from local array
+        allergies.remove(at: index)
+    }
+    
 }
