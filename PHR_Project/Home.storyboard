@@ -212,7 +212,7 @@
                                                         <rect key="frame" x="189" y="0.0" width="181" height="112.33333333333333"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="VsA-SP-yLC">
-                                                                <rect key="frame" x="0.0" y="0.0" width="181" height="93"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="181" height="88.333333333333329"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="U9G-0W-fcA">
                                                                         <rect key="frame" x="0.0" y="0.0" width="181" height="28"/>
@@ -235,38 +235,38 @@
                                                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="0.0" right="16"/>
                                                                     </stackView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7tD-zV-Kjz">
-                                                                        <rect key="frame" x="0.0" y="28" width="181" height="65"/>
+                                                                        <rect key="frame" x="0.0" y="28.000000000000004" width="181" height="60.333333333333343"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALV-vT-rkc">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="181" height="53"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="181" height="48.333333333333336"/>
                                                                                 <subviews>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-l1-y2a">
-                                                                                        <rect key="frame" x="36" y="10.333333333333332" width="25" height="38.333333333333343"/>
+                                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-l1-y2a">
+                                                                                        <rect key="frame" x="30" y="16.333333333333332" width="20" height="21.666666666666668"/>
                                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" constant="25" id="lVu-ho-VvT"/>
+                                                                                            <constraint firstAttribute="width" constant="20" id="lVu-ho-VvT"/>
                                                                                         </constraints>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                     </imageView>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5z-o3-yqR">
-                                                                                        <rect key="frame" x="61" y="8" width="59" height="43"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5z-o3-yqR">
+                                                                                        <rect key="frame" x="50" y="8" width="81" height="38.333333333333336"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-ze-kSJ">
-                                                                                        <rect key="frame" x="120" y="10.333333333333332" width="25" height="38.333333333333343"/>
+                                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-ze-kSJ">
+                                                                                        <rect key="frame" x="131" y="11.666666666666666" width="20" height="31.000000000000007"/>
                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" constant="25" id="lUb-nW-wap"/>
+                                                                                            <constraint firstAttribute="width" constant="20" id="lUb-nW-wap"/>
                                                                                         </constraints>
                                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                                     </imageView>
                                                                                 </subviews>
-                                                                                <edgeInsets key="layoutMargins" top="8" left="36" bottom="2" right="36"/>
+                                                                                <edgeInsets key="layoutMargins" top="8" left="30" bottom="2" right="30"/>
                                                                             </stackView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="out of 10 glasses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJh-V0-Lpz">
-                                                                                <rect key="frame" x="0.0" y="53" width="181" height="12"/>
+                                                                                <rect key="frame" x="0.0" y="48.333333333333314" width="181" height="12"/>
                                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -655,6 +655,9 @@
                     <connections>
                         <outlet property="caloriesSummaryCard" destination="ZKT-PM-Iio" id="pyd-ra-otT"/>
                         <outlet property="circularSummariesStack" destination="yiq-2D-VbO" id="YtO-Mt-K1b"/>
+                        <outlet property="glassDecrement" destination="ZeR-l1-y2a" id="qec-Le-oJz"/>
+                        <outlet property="glassIncrement" destination="NhV-ze-kSJ" id="05I-YO-jsE"/>
+                        <outlet property="glassValue" destination="u5z-o3-yqR" id="uQg-bx-3qV"/>
                         <outlet property="greetingsLabel" destination="ic7-kk-Pje" id="ey0-DN-3Ba"/>
                         <outlet property="headerView" destination="vto-fR-G7q" id="yal-wq-wPB"/>
                         <outlet property="mainStack" destination="18m-S3-yQQ" id="YSU-aS-4bI"/>
@@ -2034,9 +2037,8 @@
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="image 1" width="356" height="259"/>
         <image name="list.bullet.clipboard.fill" catalog="system" width="98" height="128"/>
-        <image name="minus.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="minus" catalog="system" width="128" height="26"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <image name="shoeprints.fill" catalog="system" width="116" height="128"/>
         <image name="sun.max.fill" catalog="system" width="128" height="125"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
