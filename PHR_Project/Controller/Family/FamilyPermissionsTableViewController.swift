@@ -21,10 +21,31 @@ class FamilyPermissionsTableViewController: UITableViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+            super.viewDidLoad()
+            
+            // 1. Set Default State
+            readWriteSwitch.isOn = true
+            readOnlySwitch.isOn = false
+            
+            // 2. Add targets to listen for switch changes (for the toggle logic)
+            readWriteSwitch.addTarget(self, action: #selector(readWriteToggled(_:)), for: .valueChanged)
+            readOnlySwitch.addTarget(self, action: #selector(readOnlyToggled(_:)), for: .valueChanged)
+        }
+    
+    
+    @objc func readWriteToggled(_ sender: UISwitch) {
+            // If Read/Write is turned ON, turn Read Only OFF
+            if sender.isOn {
+                readOnlySwitch.setOn(false, animated: true)
+            }
+        }
 
-       
-    }
+        @objc func readOnlyToggled(_ sender: UISwitch) {
+            // If Read Only is turned ON, turn Read/Write OFF
+            if sender.isOn {
+                readWriteSwitch.setOn(false, animated: true)
+            }
+        }
     
     @IBAction func tickButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -35,9 +56,7 @@ class FamilyPermissionsTableViewController: UITableViewController {
     }
     
 
-    
-    // MARK: - Custom Header for "Turn On All"
-    // MARK: - Custom Header for "Turn On All"
+    //Custom Header
         override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             
             if section == 1 {
@@ -52,16 +71,10 @@ class FamilyPermissionsTableViewController: UITableViewController {
                 label.textColor = .secondaryLabel // Standard Gray Color
                 label.translatesAutoresizingMaskIntoConstraints = false
                 
-                // 2. The Button ("Turn On All")
-                let button = UIButton(type: .system)
-                button.setTitle("Turn On All", for: .normal)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-                button.setTitleColor(.systemBlue, for: .normal)
-                button.addTarget(self, action: #selector(turnOnAllTapped), for: .touchUpInside)
-                button.translatesAutoresizingMaskIntoConstraints = false
+               
                 
                 headerView.addSubview(label)
-                headerView.addSubview(button)
+             
                 
                 // Constraints
                 NSLayoutConstraint.activate([
@@ -69,9 +82,7 @@ class FamilyPermissionsTableViewController: UITableViewController {
                     label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
                     label.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8),
                     
-                    // Button: Trailing 16 from right
-                    button.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
-                    button.firstBaselineAnchor.constraint(equalTo: label.firstBaselineAnchor)
+                    
                 ])
                 
                 return headerView
