@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HTY-CY-Yfj">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -148,7 +148,7 @@
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QxC-Hp-pLa">
                                                     <rect key="frame" x="4" y="56" width="345" height="64"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -160,6 +160,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="QxC-Hp-pLa" firstAttribute="top" secondItem="Hdx-af-efd" secondAttribute="top" constant="56" id="15W-3B-KnN"/>
                                                 <constraint firstItem="AJP-Pw-bFq" firstAttribute="leading" secondItem="Hdx-af-efd" secondAttribute="leadingMargin" id="9PK-bE-Tae"/>
@@ -260,7 +261,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fdo-kZ-rCq">
                                 <rect key="frame" x="0.0" y="223.66666666666669" width="393" height="560.33333333333326"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="symptom_cell" id="XNf-jb-S8Q" customClass="SymptomTableViewCell" customModule="PHR_Project" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="120"/>
@@ -338,7 +339,7 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="1gy-a4-cON" firstAttribute="top" secondItem="xT8-av-TMr" secondAttribute="top" constant="16" id="TL6-PB-uoy"/>
                                                         <constraint firstAttribute="trailing" secondItem="1gy-a4-cON" secondAttribute="trailing" constant="16" id="aGV-mR-Zfy"/>
@@ -347,6 +348,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="xT8-av-TMr" secondAttribute="bottom" constant="8" id="3NT-TW-Ckq"/>
                                                 <constraint firstItem="xT8-av-TMr" firstAttribute="leading" secondItem="aId-yg-riN" secondAttribute="leading" constant="16" id="HrS-iI-lhH"/>
@@ -354,6 +356,7 @@
                                                 <constraint firstItem="xT8-av-TMr" firstAttribute="top" secondItem="aId-yg-riN" secondAttribute="top" constant="8" id="fqd-dp-H6i"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="cardView" destination="xT8-av-TMr" id="cxW-mv-7mF"/>
                                             <outlet property="dateLabel" destination="kg4-MU-h35" id="r8s-Bw-IdZ"/>
@@ -368,7 +371,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z6U-NP-AZK"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="Fdo-kZ-rCq" firstAttribute="top" secondItem="0ck-0o-LoU" secondAttribute="bottom" constant="18" id="L6n-Yi-j0u"/>
                             <constraint firstItem="0ck-0o-LoU" firstAttribute="top" secondItem="z6U-NP-AZK" secondAttribute="top" id="Mr2-b7-ZSi"/>
@@ -418,14 +421,14 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
