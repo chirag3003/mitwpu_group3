@@ -134,7 +134,8 @@ class CoreDataManager {
             bloodType: String,
             height: String,
             weight: String
-        ) {
+        )
+    {
             // Changed 'UserProfileEntity' to 'UserProfile'
             let profile = fetchUserProfile() ?? UserProfile(context: context)
             
@@ -149,4 +150,40 @@ class CoreDataManager {
             
             saveContext()
         }
+    
+    // MARK: - WATER INTAKE
+        
+        // Helper to fetch the entity for a specific date (ignoring time)
+        func fetchWaterIntake(for date: Date) -> WaterIntakeEntity? {
+            let request: NSFetchRequest<WaterIntakeEntity> = WaterIntakeEntity.fetchRequest()
+            
+            // Get start and end of the day to filter correctly
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+            
+            // Predicate: Date is >= Start AND Date < End
+            request.predicate = NSPredicate(format: "date >= %@ AND date < %@", startOfDay as NSDate, endOfDay as NSDate)
+            request.fetchLimit = 1
+            
+            return (try? context.fetch(request))?.first
+        }
+
+        func saveWaterIntake(count: Int, date: Date) {
+            // 1. Check if we already have a record for today
+            let entity: WaterIntakeEntity
+            
+            if let existing = fetchWaterIntake(for: date) {
+                entity = existing
+            } else {
+                // 2. No record for today? Create a new one.
+                entity = WaterIntakeEntity(context: context)
+                entity.date = date
+            }
+            
+            // 3. Update the count
+            entity.count = Int16(count)
+            saveContext()
+        }
+    
 }
