@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="euh-qk-zB0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="euh-qk-zB0">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,6 +18,97 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9yg-eV-8I0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-503" y="543"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ezz-8Z-boM">
+            <objects>
+                <viewController id="2cH-Xq-I5p" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZY0-y1-PY8">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="qtS-Zd-ryI">
+                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="756.33333333333348"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nZK-hV-jzp">
+                                        <rect key="frame" x="16" y="8" width="370" height="358"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiabetEase" translatesAutoresizingMaskIntoConstraints="NO" id="HPD-Ds-d3g">
+                                                <rect key="frame" x="60" y="8" width="250" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="WOD-YF-ffA"/>
+                                                </constraints>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                            </imageView>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="8" left="60" bottom="50" right="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YT6-sY-4Nr">
+                                        <rect key="frame" x="16" y="396" width="370" height="108.33333333333331"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RZ-DR-tSB">
+                                                <rect key="frame" x="0.0" y="30" width="370" height="54"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your journey starts from here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LI6-12-5kQ">
+                                                <rect key="frame" x="0.0" y="89" width="370" height="19.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="30" left="0.0" bottom="0.0" right="0.0"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-km-Sps">
+                                        <rect key="frame" x="16" y="534.33333333333337" width="370" height="146"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRs-68-h6G">
+                                                <rect key="frame" x="0.0" y="8" width="370" height="60"/>
+                                                <color key="backgroundColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="hss-d5-PIQ"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.48535461749801034" green="0.69894136067415857" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Continue with Phone" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2m-r8-g0h">
+                                                <rect key="frame" x="0.0" y="78" width="370" height="60"/>
+                                                <color key="backgroundColor" red="0.16552732880000001" green="0.17529295380000001" blue="0.1840820312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="wRr-yG-6EU"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.16552732880000001" green="0.17529295380000001" blue="0.1840820312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" imagePlacement="leading" title="Continue with Apple" imagePadding="6" cornerStyle="capsule">
+                                                    <imageReference key="image" image="apple.logo" catalog="system" symbolScale="large"/>
+                                                    <color key="baseBackgroundColor" red="0.16552732880000001" green="0.17529295380000001" blue="0.1840820312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
+                                    </stackView>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DGY-ux-VNb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qtS-Zd-ryI" firstAttribute="top" secondItem="DGY-ux-VNb" secondAttribute="top" id="c1M-2h-d63"/>
+                            <constraint firstItem="qtS-Zd-ryI" firstAttribute="leading" secondItem="DGY-ux-VNb" secondAttribute="leading" id="hiS-R6-VC9"/>
+                            <constraint firstItem="DGY-ux-VNb" firstAttribute="trailing" secondItem="qtS-Zd-ryI" secondAttribute="trailing" id="oCL-qb-hrE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nwR-ZW-PU3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xwp-Na-CuV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1870.1492537313432" y="110.52631578947367"/>
         </scene>
         <!--Browse-->
         <scene sceneID="dBD-oO-gKh">
@@ -67,5 +161,30 @@
             </objects>
             <point key="canvasLocation" x="-751" y="524"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1Js-Wy-qgP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kT9-Yf-jxw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wi8-1F-Yyb">
+                        <rect key="frame" x="0.0" y="124" width="402" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2cH-Xq-I5p" kind="relationship" relationship="rootViewController" id="RnY-ui-HtB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TOL-sA-NL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="950.74626865671632" y="110.52631578947367"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="DiabetEase" width="497" height="497"/>
+        <image name="apple.logo" catalog="system" width="105" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

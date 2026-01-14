@@ -16,6 +16,7 @@ class WaterIntakeService {
             save()
             // Post notification when water intake changes
             NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.waterIntakeUpdated), object: nil)
+            
         }
     }
     
