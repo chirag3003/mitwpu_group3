@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="diA-Dh-pDT">
-    <device id="retina6_3" orientation="portrait" appearance="dark"/>
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -1134,7 +1134,7 @@
                                                             <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="8"/>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                    <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="UCU-lt-7aW" firstAttribute="leading" secondItem="nNz-8k-Bia" secondAttribute="leading" id="VYr-mG-gnk"/>
                                                         <constraint firstAttribute="bottom" secondItem="UCU-lt-7aW" secondAttribute="bottom" id="cxM-0X-Myp"/>
@@ -1161,7 +1161,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6U5-WF-tPL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="6U5-WF-tPL" firstAttribute="trailing" secondItem="0HV-kh-br4" secondAttribute="trailing" id="2Za-rM-ax0"/>
                             <constraint firstItem="QW7-YT-Owa" firstAttribute="top" secondItem="6U5-WF-tPL" secondAttribute="top" id="3Fi-1H-iiO"/>
@@ -1494,16 +1494,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="vtq-1w-iJk">
-                            <rect key="frame" x="0.0" y="0.0" width="402" height="120"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        </view>
                         <sections>
                             <tableViewSection id="A0z-Dx-LzE">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="yFk-kK-9WS">
-                                        <rect key="frame" x="0.0" y="170" width="402" height="51"/>
+                                        <rect key="frame" x="0.0" y="50" width="402" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yFk-kK-9WS" id="TbL-eb-TQn">
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="51"/>
@@ -1534,7 +1529,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KmH-aa-jRl">
-                                        <rect key="frame" x="0.0" y="221" width="402" height="51"/>
+                                        <rect key="frame" x="0.0" y="101" width="402" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KmH-aa-jRl" id="9sd-aD-DtK">
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="51"/>
@@ -1565,7 +1560,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xg2-wl-iBK">
-                                        <rect key="frame" x="0.0" y="272" width="402" height="51"/>
+                                        <rect key="frame" x="0.0" y="152" width="402" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xg2-wl-iBK" id="xjd-P9-uv4">
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="51"/>
@@ -2114,6 +2109,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
