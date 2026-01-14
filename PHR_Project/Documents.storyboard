@@ -267,7 +267,7 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-9f-p4c">
                                                         <rect key="frame" x="16" y="20.000000000000004" width="25" height="25.333333333333339"/>
-                                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="Svb-y5-ike"/>
                                                             <constraint firstAttribute="width" constant="25" id="dkN-3K-LEb"/>
@@ -275,7 +275,7 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFA-4K-rwY">
                                                         <rect key="frame" x="57" y="16.000000000000004" width="288" height="34.333333333333343"/>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Upload Document"/>
                                                     </button>
@@ -283,7 +283,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="rkF-RW-kyO" firstAttribute="leading" secondItem="UZG-pH-e9b" secondAttribute="leading" id="4Qo-MS-UrH"/>
                                             <constraint firstItem="rkF-RW-kyO" firstAttribute="top" secondItem="UZG-pH-e9b" secondAttribute="top" id="6a3-JX-Udy"/>
@@ -299,7 +299,7 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="spv-gd-mCO">
                                                         <rect key="frame" x="16" y="21.666666666666657" width="25" height="23"/>
-                                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="038-id-2I1"/>
                                                             <constraint firstAttribute="width" constant="25" id="ecT-mE-cQ1"/>
@@ -307,7 +307,7 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiz-0f-L4h">
                                                         <rect key="frame" x="57" y="16.000000000000004" width="288" height="34.333333333333343"/>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" systemColor="labelColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Scan File"/>
                                                         <connections>
@@ -318,7 +318,7 @@
                                                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="MYN-3z-1TJ" firstAttribute="leading" secondItem="RO2-tb-Nya" secondAttribute="leading" id="AOj-Cr-j86"/>
                                             <constraint firstItem="MYN-3z-1TJ" firstAttribute="top" secondItem="RO2-tb-Nya" secondAttribute="top" id="MUx-pG-slA"/>
@@ -331,7 +331,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="90c-6c-br9"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="M12-CE-tOZ" firstAttribute="trailing" secondItem="90c-6c-br9" secondAttribute="trailing" id="GI9-TQ-eaS"/>
                             <constraint firstItem="M12-CE-tOZ" firstAttribute="top" secondItem="90c-6c-br9" secondAttribute="top" id="pgk-RS-LEl"/>
@@ -476,6 +476,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J7n-W1-hkf">
                                                         <rect key="frame" x="25" y="53" width="316" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -620,6 +621,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="eg: Remarks you would like to ask the doctor" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fo2-U6-Tvy">
                                                         <rect key="frame" x="22" y="47.666666666666742" width="323" height="100"/>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="VX9-Kq-rdD"/>
                                                         </constraints>
