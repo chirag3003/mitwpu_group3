@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var glucoseCard: SummaryCardView!
     @IBOutlet weak var circularSummariesStack: UIStackView!
     @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
     @IBOutlet weak var stepsSummaryCard: CircularProgressView!
@@ -49,6 +50,7 @@ class HomeViewController: UIViewController {
         caloriesSummaryCard.configure(mode: .limitWarning, progress: 0.76, thickness: 16)
         
         setupWaterIntakeGestures()
+        setupGlucoseCardGesture()
         updateWaterIntakeUI()
         
         
@@ -119,6 +121,16 @@ class HomeViewController: UIViewController {
     @objc private func updateWaterIntakeUI() {
         let count = WaterIntakeService.shared.getGlassCount()
         glassValue.text = "\(count)"
+    }
+
+    private func setupGlucoseCardGesture() {
+        glucoseCard.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(glucoseCardTapped))
+        glucoseCard.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func glucoseCardTapped() {
+        performSegue(withIdentifier: "glucoseSegue", sender: self)
     }
     
     private func animateGlassValue() {
