@@ -685,6 +685,7 @@
                         <outlet property="TypeOfVisitView" destination="4PR-7p-bTa" id="7AN-fh-q6l"/>
                         <outlet property="dateInputView" destination="hxK-vW-J8e" id="SO0-3n-lk1"/>
                         <outlet property="fromDatePicker" destination="GbF-xp-jBV" id="i7P-AI-fXb"/>
+                        <outlet property="notesTextField" destination="Fo2-U6-Tvy" id="fLv-0d-BnZ"/>
                         <outlet property="scrollView" destination="2rM-dz-H76" id="4B6-0g-oG6"/>
                     </connections>
                 </viewController>
