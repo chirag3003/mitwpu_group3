@@ -25,7 +25,7 @@ class AddSymptomTableViewController: UITableViewController {
 
     private let symptomsOptions = [
         "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
-        "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth",
+        "Blurred Vision", "Irritability", "Extreme Hunger", "Dry Mouth", "Sweating", 
     ]
 
     // MARK: - Lifecycle
