@@ -525,19 +525,84 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rNk-76-eLt">
+                                <rect key="frame" x="0.0" y="69" width="393" height="593"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GNf-FC-7jT">
+                                        <rect key="frame" x="16" y="32" width="361" height="264"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importance of Water Tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-DR-mqL">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OL1-6E-m8Z">
+                                                <rect key="frame" x="0.0" y="30.33333333333335" width="361" height="101.66666666666669"/>
+                                                <string key="text">Proper hydration is essential because water makes up the majority of your body weight and supports every cell's function. It regulates body temperature, keeps joints lubricated, and helps kidneys flush out waste.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwr-t6-aAn">
+                                                <rect key="frame" x="0.0" y="142" width="361" height="122"/>
+                                                <string key="text">Drinking pure water is the most effective way to stay hydrated without consuming extra sugar or calories. Consistent intake improves energy levels, skin health, and cognitive focus, while preventing the fatigue often caused by mild dehydration.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0VW-iG-Xxt">
+                                        <rect key="frame" x="16" y="311" width="361" height="274"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How is your goal calculated?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwn-2Y-Ttf">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wD-0C-LNl">
+                                                <rect key="frame" x="0.0" y="30.333333333333321" width="361" height="101.66666666666669"/>
+                                                <string key="text">Your daily target is calculated based on your Body Weight, using the health standard of approximately 35ml per kilogram. This ensures your goal matches your specific physical needs rather than a generic average.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKW-Vb-auC">
+                                                <rect key="frame" x="0.0" y="142" width="361" height="122"/>
+                                                <string key="text">To make tracking simple, this app measures intake in "Glasses." We define 1 Standard Glass as 250ml. If you drink from larger containers, they are calculated as multiples (e.g., a 500ml bottle = 2 glasses) to ensure your progress remains accurate.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0p-Ny-bPQ">
+                                                <rect key="frame" x="0.0" y="274" width="361" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="32" left="16" bottom="8" right="16"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ppK-sd-CAz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pv2-w8-Qhf" firstAttribute="leading" secondItem="pXO-Y4-Jg7" secondAttribute="leading" id="JBI-G8-fdW"/>
+                            <constraint firstItem="rNk-76-eLt" firstAttribute="leading" secondItem="ppK-sd-CAz" secondAttribute="leading" id="dew-Rd-CtG"/>
                             <constraint firstAttribute="trailing" secondItem="Pv2-w8-Qhf" secondAttribute="trailing" id="gC8-ag-KoI"/>
+                            <constraint firstItem="rNk-76-eLt" firstAttribute="top" secondItem="Pv2-w8-Qhf" secondAttribute="bottom" id="sDR-Ud-eQO"/>
                             <constraint firstItem="Pv2-w8-Qhf" firstAttribute="top" secondItem="pXO-Y4-Jg7" secondAttribute="top" constant="15" id="vVx-C6-rgU"/>
+                            <constraint firstAttribute="trailing" secondItem="rNk-76-eLt" secondAttribute="trailing" id="vWY-gn-cfh"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uNd-jT-YWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2080" y="1268"/>
+            <point key="canvasLocation" x="2078.6259541984732" y="1267.605633802817"/>
         </scene>
     </scenes>
     <resources>
