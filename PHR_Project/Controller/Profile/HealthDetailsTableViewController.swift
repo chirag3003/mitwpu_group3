@@ -229,28 +229,33 @@ class HealthDetailsTableViewController: UITableViewController,
         }
 
     func updateTextFieldsState(isEditing: Bool) {
-        for field in allTextFields {
-            // Enable interaction only when editing
-            field.isUserInteractionEnabled = isEditing
+            // 1. Text Fields
+            for field in allTextFields {
+                field.isUserInteractionEnabled = isEditing
+                field.borderStyle = isEditing ? .roundedRect : .none
+                field.textColor = isEditing ? .systemBlue : .label
+            }
 
-            // Visual feedback: Show border when editing, hide when not
-            field.borderStyle = isEditing ? .roundedRect : .none
+            // 2. Buttons
+            for button in allButtons {
+                button.isUserInteractionEnabled = isEditing
+                button.tintColor = isEditing ? .systemBlue : .label
+            }
+            
+            // 3. Date Picker (UPDATED)
+            // Use this property to freeze it without greying it out
+            dobInput.isUserInteractionEnabled = isEditing
+            
+            // OPTIONAL: If it still looks slightly faded, force the alpha
+            dobInput.alpha = 1.0
 
-            // Optional: Change text color to indicate state
-            field.textColor = isEditing ? .systemBlue : .label
+            // 4. Focus Logic
+            if isEditing {
+                firstNameField.becomeFirstResponder()
+            } else {
+                view.endEditing(true)
+            }
         }
-
-        for button in allButtons {
-            button.isUserInteractionEnabled = isEditing
-            button.tintColor = isEditing ? .systemBlue : .label
-        }
-        // If editing started, focus on the first field
-        if isEditing {
-            firstNameField.becomeFirstResponder()
-        } else {
-            view.endEditing(true)  // Hide keyboard
-        }
-    }
 
     func saveData() {
         print("Saving Data...")
