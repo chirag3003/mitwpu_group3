@@ -623,6 +623,7 @@
                         <outlet property="symptomLogCard" destination="yZe-NE-7lt" id="RYa-PW-7n6"/>
                         <outlet property="waterIntakeCard" destination="34Q-Ge-cLu" id="dZU-gA-7ES"/>
                         <segue destination="kfD-dt-odZ" kind="show" identifier="glucoseSegue" id="Z0n-YI-mmo"/>
+                        <segue destination="yQE-5k-65g" kind="show" identifier="waterIntakeSegue" id="jLk-wR-adK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1602,16 +1603,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbA-Nr-zv7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2292" y="73"/>
-        </scene>
-        <!--Meals-->
-        <scene sceneID="Mtm-WT-SBn">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Meals" id="G5B-8b-SiT" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ZGW-9Z-Fv5"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yzd-1J-dIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2437" y="-119"/>
         </scene>
         <!--Glucose-->
         <scene sceneID="clA-Qq-966">

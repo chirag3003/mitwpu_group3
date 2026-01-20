@@ -8,6 +8,11 @@
     <key>NSHealthUpdateUsageDescription</key>
     <string>We need permission to save workout data to your Health profile.</string>
 
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>x-apple-health</string>
+    </array>
+
     <key>UIApplicationSceneManifest</key>
     <dict>
         <key>UIApplicationSupportsMultipleScenes</key>
