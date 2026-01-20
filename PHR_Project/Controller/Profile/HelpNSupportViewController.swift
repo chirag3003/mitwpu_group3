@@ -24,34 +24,6 @@ class HelpNSupportViewController: UIViewController {
         return view
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(red: 100/255, green: 180/255, blue: 255/255, alpha: 1)
-        return view
-    }()
-    
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Help & Support"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private let headerSubtitle: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "We're here to help you"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.alpha = 0.9
-        return label
-    }()
-    
     private let mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -64,18 +36,12 @@ class HelpNSupportViewController: UIViewController {
     // MARK: - Data
     
     private let faqItems: [(question: String, answer: String)] = [
-        ("How do I add a symptom?", "Navigate to the Symptoms tab and tap the '+' button. Fill in the symptom details including name, intensity, date, and any notes."),
-        ("How do I log my meals?", "Go to the Meals tab, select the date, and tap the '+' button to add a new meal with nutritional information."),
-        ("Can I track my family members?", "Yes! Use the Family tab to add family members and manage their health information."),
-        ("How do I update my profile?", "Go to the Home tab, tap on your profile, then select 'Edit Profile' to update your personal health information."),
-        ("Is my data secure?", "Your health data is stored securely on your device using encrypted local storage. We do not share your data with third parties.")
+        ("Why can't I see my step count?", "To view your steps, you need to grant permission to access Apple HealthKit. Go to Settings > Privacy & Security > Health > PHR App and enable 'Steps'. Then return to the app and your step count will appear on the home screen.")
     ]
     
     private let contactOptions: [(icon: String, title: String, subtitle: String, tag: Int)] = [
         ("envelope.fill", "Email Support", "support@phrapp.com", 0),
-        ("phone.fill", "Call Us", "+1 (800) 123-4567", 1),
-        ("message.fill", "Live Chat", "Available 9 AM - 6 PM", 2),
-        ("link", "Visit Website", "www.phrapp.com", 3)
+        ("bubble.left.and.bubble.right.fill", "AI Chat", "Available 24/7", 2)
     ]
 
     // MARK: - Lifecycle
@@ -94,11 +60,6 @@ class HelpNSupportViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
         title = "Help & Support"
         
-        // Add subviews
-        view.addSubview(headerView)
-        headerView.addSubview(headerLabel)
-        headerView.addSubview(headerSubtitle)
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(mainStackView)
@@ -106,22 +67,9 @@ class HelpNSupportViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // Header View
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 120),
-            
-            // Header Label
-            headerLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -10),
-            
-            // Header Subtitle
-            headerSubtitle.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 4),
-            headerSubtitle.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            
+ 
             // Scroll View
-            scrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -166,7 +114,6 @@ class HelpNSupportViewController: UIViewController {
         // Quick Links Section
         let quickLinksSection = createSectionContainer(title: "Quick Links")
         let links = [
-            ("book.fill", "User Guide", "Learn how to use the app"),
             ("doc.text.fill", "Privacy Policy", "How we protect your data"),
             ("checkmark.shield.fill", "Terms of Service", "Our terms and conditions")
         ]

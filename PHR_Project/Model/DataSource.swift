@@ -42,86 +42,46 @@ func getAllData() -> DataSource {
     return DataSource(
         profile: Profile(
             allergies: [
-                Allergy(
-                    id: nil,
-                    name: "Peanuts",
-                    severity: "High",
-                    notes: "Difficulty in Breathing"
-                ),
-                Allergy(
-                    id: nil,
-                    name: "Dust",
-                    severity: "Medium",
-                    notes: "Causes sneezing, runny nose"
-                ),
-                Allergy(
-                    id: nil,
-                    name: "Pollen",
-                    severity: "Low",
-                    notes: "Seasonal allergy during spring"
-                )
+                Allergy(id: nil, name: "Peanuts", severity: "High", notes: "Difficulty in Breathing"),
+                Allergy(id: nil, name: "Dust", severity: "Medium", notes: "Causes sneezing, runny nose"),
+                Allergy(id: nil, name: "Pollen", severity: "Low", notes: "Seasonal allergy during spring")
             ]
         ),
         document: Document(
             prescriptions: [
-                documentsModel(
-                    id: UUID(),
-                    title: "Dr. Abhishek Khare",
-                    lastUpdatedAt: "18 Nov 2025"
-                ),
-                documentsModel(
-                    id: UUID(),
-                    title: "Dr. Rutuja Khare",
-                    lastUpdatedAt: "7 Nov 2025"
-                )
-//                documentsModel(
-//                    id: UUID(),
-//                    title: "Dr. C",
-//                    lastUpdatedAt: "18 Nov 2025"
-//                ),
-//                documentsModel(
-//                    id: UUID(),
-//                    title: "Dr. D",
-//                    lastUpdatedAt: "19 Nov 2025"
-//                ),
-//                documentsModel(
-//                    id: UUID(),
-//                    title: "Dr. E",
-//                    lastUpdatedAt: "20 Nov 2025"
-//                )
+                documentsModel(id: UUID(), title: "Dr. Abhishek Khare", lastUpdatedAt: "18 Nov 2025"),
+                documentsModel(id: UUID(), title: "Dr. Rutuja Khare", lastUpdatedAt: "7 Nov 2025")
             ],
             reports: [
-                ReportModel(
-                    id: UUID(),
-                    title: "HbA1c",
-                    lastUpdatedAt: "15 Nov 2025",
-                    fileSize: "3MB"
-                ),
-                ReportModel(
-                    id: UUID(),
-                    title: "Sugar",
-                    lastUpdatedAt: "16 Jan 2025",
-                    fileSize: "5MB"
-                )
+                ReportModel(id: UUID(), title: "HbA1c", lastUpdatedAt: "15 Nov 2025"),
+                ReportModel(id: UUID(), title: "Sugar", lastUpdatedAt: "16 Jan 2025")
             ],
+            // MARK: - FIXED SECTION BELOW
             prescriptionData: [
                 PrescriptionModel(
                     id: UUID(),
-                    title: "HbA1c",
+                    title: "HbA1c Report",
+                    doctorName: "Dr. Abhishek Khare",
                     lastUpdatedAt: "16 Nov 2025",
-                    fileSize: "6MB"
+                    fileSize: "6MB",
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                 ),
                 PrescriptionModel(
                     id: UUID(),
-                    title: "TSH",
+                    title: "TSH Report",
+                    doctorName: "Dr. Rutuja Khare",
                     lastUpdatedAt: "17 Nov 2025",
-                    fileSize: "8MB"
+                    fileSize: "8MB",
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                 ),
                 PrescriptionModel(
                     id: UUID(),
-                    title: "CMP",
+                    title: "CMP Report",
+                    doctorName: "Dr. Abhishek Khare",
                     lastUpdatedAt: "18 Nov 2025",
-                    fileSize: "4MB")
+                    fileSize: "4MB",
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                )
             ]
         ),
         family: Family(
@@ -161,3 +121,4 @@ func getAllData() -> DataSource {
         )
     )
 }
+
