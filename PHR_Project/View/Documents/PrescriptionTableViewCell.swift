@@ -1,5 +1,5 @@
 //
-//  ReportsTableViewCell.swift
+//  PrescriptionTableViewCell.swift
 //  PHR_Project
 //
 //  Created by SDC-USER on 27/11/25.
@@ -8,31 +8,44 @@
 import UIKit
 
 class PrescriptionTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var fileImage: UIImageView!
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var fileSize: UILabel!
-    @IBOutlet weak var lastUpdatedAt: UILabel!
-    @IBOutlet weak var reportName: UILabel!
+    
+    static let reuseIdentifier = "PrescriptionCell"
+    
+    // MARK: - IBOutlets (Connect in Interface Builder)
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
+    // MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        setupCell()
     }
     
-    func configure(
-        with report: PrescriptionModel) {
-            mainView.addRoundedCorner(radius: 15)
-            fileImage.addRoundedCorner(radius: 15)
-            
-        reportName.text = report.title
-        fileSize.text = "\(report.fileSize)"
-        lastUpdatedAt.text = "\(report.lastUpdatedAt)"
+    // MARK: - Setup
+    private func setupCell() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        selectionStyle = .none
+        
+        containerView.addRoundedCorner(radius: 15)
+        iconImageView.addFullRoundedCorner()
     }
-
+    
+    // MARK: - Configure
+    func configure(with prescription: PrescriptionModel) {
+        titleLabel.text = prescription.lastUpdatedAt
+//        subtitleLabel.text = "Modified: \(prescription.lastUpdatedAt)"
+        subtitleLabel.text = prescription.fileSize
+    }
+    
+    // MARK: - Selection Feedback
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        UIView.animate(withDuration: 0.1) {
+            self.containerView?.backgroundColor = highlighted ? .systemGray5 : .white
+        }
+    }
 }

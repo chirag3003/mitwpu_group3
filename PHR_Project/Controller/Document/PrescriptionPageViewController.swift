@@ -8,192 +8,153 @@
 import QuickLook
 import UIKit
 
-class PrescriptionPageViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource, QLPreviewControllerDataSource
-{
-
+final class PrescriptionPageViewController: UIViewController {
+    
+    // MARK: - IBOutlets (Connect in Interface Builder)
     @IBOutlet weak var tableView: UITableView!
-
+    
     // MARK: - Properties
-    private var prescriptionData: [PrescriptionModel] = []
-    private var documentData: [documentsModel] = []
+    private var prescriptions: [PrescriptionModel] = []
     private var previewURL: URL?
-
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchDocumentData()
-        fetchPrescriptionData()
-
+        setupTableView()
+        loadData()
+    }
+    
+    // MARK: - Setup
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
     }
-
-    // MARK: - Data Fetching
-    private func fetchPrescriptionData() {
-        prescriptionData = getAllData().document.prescriptionData
+    
+    private func loadData() {
+        prescriptions = getAllData().document.prescriptionData
+        tableView.reloadData()
     }
+}
 
-    private func fetchDocumentData() {
-        documentData = getAllData().document.prescriptions
+// MARK: - UITableViewDataSource
+extension PrescriptionPageViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return prescriptions.count
     }
-
-    // MARK: - TableView Methods
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
-        return prescriptionData.count
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
-        return 65.0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: "PrescriptionCell",
-                for: indexPath
-            ) as! PrescriptionTableViewCell
-        let prescription = prescriptionData[indexPath.row]
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: PrescriptionTableViewCell.reuseIdentifier,
+            for: indexPath
+        ) as? PrescriptionTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let prescription = prescriptions[indexPath.row]
         cell.configure(with: prescription)
         return cell
     }
-
-    // MARK: - TableView Selection
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-
-        let prescription = prescriptionData[indexPath.row]
-
-        print("1. Tapped row: \(prescription.title)")  // DEBUG
-
-        // Check if URL exists
-        if let urlString = prescription.pdfUrl, !urlString.isEmpty {
-            print("2. URL Found: \(urlString)")  // DEBUG
-            showPDFPreview(for: urlString)
-        } else {
-            print("Error: No URL found for this prescription.")
-            let alert = UIAlertController(
-                title: "Unavailable",
-                message: "No PDF link found for this item.",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "prescriptionsSegue"){
+            
         }
     }
+}
 
-    // MARK: - PDF Preview Logic
-    private func showPDFPreview(for urlString: String) {
-        guard let url = URL(string: urlString) else {
-            print("Error: Invalid URL string")
+// MARK: - UITableViewDelegate
+extension PrescriptionPageViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let prescription = prescriptions[indexPath.row]
+        
+        guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
+            showAlert(title: "Unavailable", message: "No PDF link found for this item.")
             return
         }
+        
+        downloadAndPreviewPDF(from: urlString)
+    }
+}
 
-        // 1. Show Loading Indicator
-        let loadingAlert = UIAlertController(
-            title: "Downloading...",
-            message: "\n\n",
-            preferredStyle: .alert
-        )
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.center = CGPoint(x: 135, y: 65.5)  // Center in the alert
-        spinner.color = .black
-        spinner.startAnimating()
-        loadingAlert.view.addSubview(spinner)
-
-        present(loadingAlert, animated: true)
-
-        // 2. Start Download
-        URLSession.shared.dataTask(with: url) {
-            [weak self] data, response, error in
-            guard let self = self else { return }
-
-            // 3. Handle Download Errors
-            if let error = error {
-                print("Download Error: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    loadingAlert.dismiss(animated: true) {
-                        self.showErrorAlert(message: "Failed to download PDF.")
-                    }
-                }
-                return
-            }
-
-            guard let data = data else {
-                print("Error: Data is nil")
-                DispatchQueue.main.async {
-                    loadingAlert.dismiss(animated: true)
-                }
-                return
-            }
-
-            print("3. Download successful. Data size: \(data.count)")  // DEBUG
-
-            // 4. Save to Temp Directory
-            do {
-                // Use a unique name so QLPreviewController doesn't show a cached/wrong file
-                let uniqueName = "prescription_\(UUID().uuidString).pdf"
-                let tempURL = FileManager.default.temporaryDirectory
-                    .appendingPathComponent(uniqueName)
-
-                try data.write(to: tempURL)
-                self.previewURL = tempURL
-
-                print("4. Saved to: \(tempURL.path)")  // DEBUG
-
-                // 5. Present Preview Controller (Main Thread)
-                DispatchQueue.main.async {
-                    // IMPORTANT: Dismiss loader FIRST, then present preview
-                    loadingAlert.dismiss(animated: true) {
-                        let previewController = QLPreviewController()
-                        previewController.dataSource = self
-                        self.present(previewController, animated: true)
-                    }
-                }
-            } catch {
-                print("File Write Error: \(error)")
-                DispatchQueue.main.async {
-                    loadingAlert.dismiss(animated: true) {
-                        self.showErrorAlert(
-                            message: "Could not save the PDF file."
-                        )
-                    }
+// MARK: - PDF Preview
+extension PrescriptionPageViewController: QLPreviewControllerDataSource {
+    
+    private func downloadAndPreviewPDF(from urlString: String) {
+        guard let url = URL(string: urlString) else {
+            showAlert(title: "Error", message: "Invalid URL")
+            return
+        }
+        
+        let loadingVC = createLoadingAlert()
+        present(loadingVC, animated: true)
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            DispatchQueue.main.async {
+                loadingVC.dismiss(animated: true) {
+                    self?.handleDownloadResult(data: data, error: error)
                 }
             }
         }.resume()
     }
-
-    // Helper for errors
-    func showErrorAlert(message: String) {
-        let alert = UIAlertController(
-            title: "Error",
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+    
+    private func handleDownloadResult(data: Data?, error: Error?) {
+        if let error = error {
+            showAlert(title: "Download Failed", message: error.localizedDescription)
+            return
+        }
+        
+        guard let data = data else {
+            showAlert(title: "Error", message: "No data received")
+            return
+        }
+        
+        do {
+            let fileName = "prescription_\(UUID().uuidString).pdf"
+            let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+            try data.write(to: tempURL)
+            previewURL = tempURL
+            
+            let previewController = QLPreviewController()
+            previewController.dataSource = self
+            present(previewController, animated: true)
+        } catch {
+            showAlert(title: "Error", message: "Could not save the PDF file.")
+        }
     }
-
-    // MARK: - QLPreviewControllerDataSource
+    
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
         return previewURL != nil ? 1 : 0
     }
-
-    func previewController(
-        _ controller: QLPreviewController,
-        previewItemAt index: Int
-    ) -> QLPreviewItem {
-        return previewURL! as NSURL
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return (previewURL ?? URL(fileURLWithPath: "")) as NSURL
     }
-}  // End of Class
+}
+
+// MARK: - Helpers
+extension PrescriptionPageViewController {
+    
+    private func createLoadingAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "Downloading...", message: "\n\n", preferredStyle: .alert)
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.center = CGPoint(x: 135, y: 65.5)
+        spinner.startAnimating()
+        alert.view.addSubview(spinner)
+        return alert
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+}
+
+
