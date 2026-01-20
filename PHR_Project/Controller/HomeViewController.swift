@@ -98,6 +98,7 @@ private extension HomeViewController {
         setupGlucoseCardGesture()
         setupWaterIntakeCardGesture()
         setupCaloriesCardGesture()
+        setupStepsCardGesture()
     }
     
     func setupNotificationObservers() {
@@ -287,6 +288,39 @@ private extension HomeViewController {
     
     @objc func caloriesCardTapped() {
         performSegue(withIdentifier: "mealSegue", sender: self)
+    }
+}
+
+// MARK: - Steps Card Navigation
+
+private extension HomeViewController {
+    
+    func setupStepsCardGesture() {
+        stepsCard.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stepsCardTapped))
+        stepsCard.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func stepsCardTapped() {
+        openAppleHealth()
+    }
+    
+    func openAppleHealth() {
+        // Apple Health URL scheme
+        guard let healthURL = URL(string: "x-apple-health://") else { return }
+        
+        if UIApplication.shared.canOpenURL(healthURL) {
+            UIApplication.shared.open(healthURL, options: [:], completionHandler: nil)
+        } else {
+            // Fallback: Show alert if Health app is not available
+            let alert = UIAlertController(
+                title: "Health App Unavailable",
+                message: "The Apple Health app is not available on this device.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
 }
 
