@@ -10,35 +10,56 @@ class AllergyService {
     }
 
     private init() {
-        loadAllergies()
+        // Initial fetch from API
+        fetchAllergiesFromAPI()
     }
 
+    // 1. Synchronous Return for UI (Returns Cached Data)
     func fetchAllergies() -> [Allergy] {
         return allergies
     }
+    
+    // 2. Asynchronous API Call
+    func fetchAllergiesFromAPI() {
+        APIService.shared.request(endpoint: "/allergies", method: .get) { [weak self] (result: Result<[Allergy], Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedAllergies):
+                self.allergies = fetchedAllergies
+                
+                DispatchQueue.main.async {
+                    // Notify UI to reload
+                    NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                }
+                
+            case .failure(let error):
+                print("Error fetching allergies: \(error)")
+            }
+        }
+    }
 
     func addAllergy(_ allergy: Allergy) {
-        CoreDataManager.shared.addAllergy(allergy)
-        allergies.append(allergy)
-    }
-
-    func removeAllergy(_ allergy: Allergy) {
-        guard let id = allergy.id else { return }
+        // Optimistic UI: Add to local array immediately
+        NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
         
-        CoreDataManager.shared.deleteAllergy(id: id)
-        allergies.removeAll { $0.id == id }
-    }
-
-    private func loadAllergies() {
-        let entities = CoreDataManager.shared.fetchAllergies()
-        
-        self.allergies = entities.map { entity in
-            return Allergy(
-                id: entity.id,
-                name: entity.name ?? "Unknown",
-                severity: entity.severity ?? "Mild",
-                notes: entity.notes
-            )
+        // Call API
+        APIService.shared.request(endpoint: "/allergies", method: .post, body: allergy) { [weak self] (result: Result<Allergy, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let newAllergy):
+                // Replace the local temporary item with the actual server item (which has the real apiID)
+                if let index = self.allergies.firstIndex(where: { $0.id == allergy.id }) {
+                    self.allergies[index] = newAllergy
+                    // Ensure the new allergy also has a UUID for local consitency if needed, though 'init(from:)' handles it
+                }
+                self.allergies.append(newAllergy)
+                
+            case .failure(let error):
+                print("Error adding allergy: \(error)")
+                // Revert optimistic update? For now we just log error.
+            }
         }
     }
     
@@ -51,13 +72,23 @@ class AllergyService {
         // 2. Get the item to remove
         let allergyToRemove = allergies[index]
         
-        // 3. Remove from Core Data using its ID
-        if let id = allergyToRemove.id {
-             CoreDataManager.shared.deleteAllergy(id: id)
+        // 3. Remove from local array (Optimistic UI)
+        allergies.remove(at: index)
+        NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+        
+        // 4. Call API to delete
+        // prefer apiID (Server ID), fallback to nothing or log error if missing
+        guard let apiID = allergyToRemove.apiID else {
+            print("Warning: Deleted allergy had no apiID (might be local only)")
+            return 
         }
         
-        // 4. Remove from local array
-        allergies.remove(at: index)
+        APIService.shared.request(endpoint: "/allergies/\(apiID)", method: .delete) { (result: Result<EmptyResponse, Error>) in
+             // Handle error if needed (e.g. re-add item?)
+        }
     }
+    
+    // Helper struct for empty JSON responses
+    struct EmptyResponse: Decodable {}
     
 }

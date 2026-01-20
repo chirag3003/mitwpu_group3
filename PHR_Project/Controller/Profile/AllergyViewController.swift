@@ -25,8 +25,13 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
-
         
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("AllergiesUpdated"), object: nil)
+    }
+    
+    @objc func refreshData() {
+        self.allergies = AllergyService.shared.fetchAllergies()
+        self.allergiesTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
