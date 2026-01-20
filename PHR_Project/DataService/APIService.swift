@@ -40,7 +40,9 @@ class APIService {
         
         if let body = body {
             do {
-                request.httpBody = try JSONEncoder().encode(body)
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                request.httpBody = try encoder.encode(body)
             } catch {
                 completion(.failure(error))
                 return
@@ -67,7 +69,9 @@ class APIService {
             }
             
             do {
-                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let decodedData = try decoder.decode(T.self, from: data)
                 DispatchQueue.main.async { completion(.success(decodedData)) }
             } catch {
                 DispatchQueue.main.async { completion(.failure(APIError.decodingError)) }
