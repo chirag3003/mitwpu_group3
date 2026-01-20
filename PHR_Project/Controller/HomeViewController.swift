@@ -123,6 +123,14 @@ class HomeViewController: UIViewController {
         glassValue.text = "\(count)"
     }
 
+    @IBAction func onNotificationClose(_ sender: Any) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.notificationView.alpha = 0
+        }) { _ in
+            self.notificationView.isHidden = true
+            self.notificationView.alpha = 1  // Reset alpha for next time
+        }
+    }
     private func setupGlucoseCardGesture() {
         glucoseCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(glucoseCardTapped))

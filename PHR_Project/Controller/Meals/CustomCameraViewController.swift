@@ -159,15 +159,19 @@ class CustomCameraViewController: UIViewController {
             bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bottomBarView.heightAnchor.constraint(equalToConstant: 150),
+            bottomBarView.heightAnchor.constraint(equalToConstant: 200),
             
+            //Shutter button
             shutterButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor),
-            shutterButton.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor),
+            shutterButton.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -20),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
             shutterButton.heightAnchor.constraint(equalToConstant: 70),
             
-            manuallyLogButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor),
-            manuallyLogButton.leadingAnchor.constraint(equalTo: shutterButton.trailingAnchor, constant: 30)
+            // Manually Log Button (UPDATED)
+            // Pin top of manual button to bottom of shutter button
+            manuallyLogButton.topAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 20),
+            // Center horizontally
+            manuallyLogButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor)
         ])
     }
     
