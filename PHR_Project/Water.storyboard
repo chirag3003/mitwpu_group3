@@ -21,10 +21,10 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wFh-uV-9xj">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="126.33333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="342.33333333333331"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BeF-O7-5Y9">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="126.33333333333333"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="342.33333333333331"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="December" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9u-OO-bmA">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="13.333333333333334"/>
@@ -115,6 +115,19 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pIg-4y-dy5">
+                                                        <rect key="frame" x="0.0" y="126.33333333333334" width="393" height="216.00000000000003"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-LY-L1I" customClass="CircularProgressView" customModule="PHR_Project" customModuleProvider="target">
+                                                                <rect key="frame" x="8" y="8" width="377" height="200"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="200" id="kld-Zk-SlO"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -143,11 +156,13 @@
                     <navigationItem key="navigationItem" title="Water Intake" id="ZD9-yP-LPc"/>
                     <connections>
                         <outlet property="dateCollectionView" destination="BzS-vD-r2V" id="2se-Zn-tL9"/>
+                        <outlet property="monthName" destination="V9u-OO-bmA" id="kun-G8-AcZ"/>
+                        <outlet property="progressView" destination="SPF-LY-L1I" id="fKF-nn-zU7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsv-Xf-FD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1062" y="556"/>
+            <point key="canvasLocation" x="1102" y="531"/>
         </scene>
     </scenes>
     <resources>
