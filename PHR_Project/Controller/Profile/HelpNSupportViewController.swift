@@ -24,34 +24,6 @@ class HelpNSupportViewController: UIViewController {
         return view
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(red: 100/255, green: 180/255, blue: 255/255, alpha: 1)
-        return view
-    }()
-    
-    private let headerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Help & Support"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        label.textColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private let headerSubtitle: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "We're here to help you"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.alpha = 0.9
-        return label
-    }()
-    
     private let mainStackView: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -94,11 +66,6 @@ class HelpNSupportViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
         title = "Help & Support"
         
-        // Add subviews
-        view.addSubview(headerView)
-        headerView.addSubview(headerLabel)
-        headerView.addSubview(headerSubtitle)
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(mainStackView)
@@ -106,22 +73,9 @@ class HelpNSupportViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // Header View
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 120),
-            
-            // Header Label
-            headerLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -10),
-            
-            // Header Subtitle
-            headerSubtitle.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 4),
-            headerSubtitle.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            
+ 
             // Scroll View
-            scrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
