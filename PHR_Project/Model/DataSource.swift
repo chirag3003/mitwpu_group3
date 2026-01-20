@@ -60,24 +60,27 @@ func getAllData() -> DataSource {
             prescriptionData: [
                 PrescriptionModel(
                     id: UUID(),
-                    title: "HbA1caa",
+                    title: "HbA1c Report",
+                    doctorName: "Dr. Abhishek Khare",
                     lastUpdatedAt: "16 Nov 2025",
                     fileSize: "6MB",
-                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // Added This
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                 ),
                 PrescriptionModel(
                     id: UUID(),
-                    title: "TSH",
+                    title: "TSH Report",
+                    doctorName: "Dr. Rutuja Khare",
                     lastUpdatedAt: "17 Nov 2025",
                     fileSize: "8MB",
-                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // Added This
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                 ),
                 PrescriptionModel(
                     id: UUID(),
-                    title: "CMP",
+                    title: "CMP Report",
+                    doctorName: "Dr. Abhishek Khare",
                     lastUpdatedAt: "18 Nov 2025",
                     fileSize: "4MB",
-                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // Added This
+                    pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
                 )
             ]
         ),

@@ -172,7 +172,11 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // This just deselects the gray highlight after you tap
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        if(dataSegment.selectedSegmentIndex == 1){
+            //Open PDF
+        } else {
+            performSegue(withIdentifier: "prescriptionsSegue", sender: nil)
+        }
        
     }
 }
