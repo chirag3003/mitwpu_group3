@@ -9,6 +9,8 @@ import UIKit
 
 class GenerateHealthViewController: UIViewController {
 
+    // MARK: - Outlets
+
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var dateInputView: UIView!
     @IBOutlet weak var TypeOfVisitView: UIView!
@@ -19,21 +21,24 @@ class GenerateHealthViewController: UIViewController {
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var TextField: UITextField!
     @IBOutlet weak var AdditionalNotes: UIView!
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
+
         dateInputView.addRoundedCorner()
         TypeOfVisitView.addRoundedCorner()
         DataFields.addRoundedCorner()
         AdditionalNotes.addRoundedCorner()
+
         setupHideKeyboardOnTap()
 
         notesTextField.addRoundedCorner(radius: 8)
+        notesTextField.borderStyle = .none
         TextField.borderStyle = .none
-
         TextField.layer.cornerRadius = 8.0
-        TextField.layer.borderWidth = 1.0
-        TextField.layer.borderColor = UIColor.lightGray.cgColor
         TextField.layer.masksToBounds = true
 
         let paddingView = UIView(
@@ -41,7 +46,36 @@ class GenerateHealthViewController: UIViewController {
         )
         TextField.leftView = paddingView
         TextField.leftViewMode = .always
-        setupHideKeyboardOnTap()
+
+        // Add padding for UITextField
+        let notesLeftPadding = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 12,
+                height: notesTextField.frame.height
+            )
+        )
+        let notesRightPadding = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 12,
+                height: notesTextField.frame.height
+            )
+        )
+        notesTextField.leftView = notesLeftPadding
+        notesTextField.leftViewMode = .always
+        notesTextField.rightView = notesRightPadding
+        notesTextField.rightViewMode = .always
+        notesTextField.contentVerticalAlignment = .top
+        // Nudge text down a bit to simulate top padding in UITextField
+        notesTextField.layer.sublayerTransform = CATransform3DMakeTranslation(
+            0,
+            6,
+            0
+        )
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -54,8 +88,10 @@ class GenerateHealthViewController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-
     }
+
+    // MARK: - Keyboard Handling
+
     @objc func keyboardWillShow(notification: NSNotification) {
         // 1. Get the size of the keyboard
         guard
@@ -82,10 +118,13 @@ class GenerateHealthViewController: UIViewController {
         scrollView.scrollIndicatorInsets = contentInsets
     }
 
-    // --- CLEANUP ---
+    // MARK: - Cleanup
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+    // MARK: - Helpers
 
     func setupHideKeyboardOnTap() {
         let tap = UITapGestureRecognizer(
@@ -99,6 +138,8 @@ class GenerateHealthViewController: UIViewController {
     @objc private func handleBackgroundTap() {
         view.endEditing(true)
     }
+
+    // MARK: - Actions
 
     @IBAction func toggleSelection(_ sender: UISwitch) {
         sender.isSelected.toggle()

@@ -28,6 +28,9 @@ class AddAllergyTableViewController: UITableViewController {
     // 3. Hide Keyboard on Tap
     let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     view.addGestureRecognizer(tap)
+      
+      removeBorder(from: allergyIngredient)
+      removeBorder(from: allergyDetailReaction)
   }
 
   // MARK: - Setup Logic
@@ -102,4 +105,20 @@ class AddAllergyTableViewController: UITableViewController {
   ) -> Bool {
     return false
   }
+    
+    
+    func removeBorder(from textField: UITextField) {
+        textField.borderStyle = .none
+        textField.backgroundColor = .clear
+        
+        // Force the layer to be clean
+        textField.layer.borderWidth = 0
+        textField.layer.borderColor = UIColor.clear.cgColor
+        
+        // Disable the Focus Ring (Blue glow)
+        if #available(iOS 15.0, *) {
+            textField.focusEffect = nil
+        }
+    }
+    
 }
