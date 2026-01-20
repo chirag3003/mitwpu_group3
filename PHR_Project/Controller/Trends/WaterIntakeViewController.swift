@@ -17,6 +17,10 @@ class WaterIntakeViewController: UIViewController {
     @IBOutlet weak var increment: UIImageView!
     @IBOutlet weak var decrement: UIImageView!
     
+    @IBOutlet weak var insight1: UIView!
+    @IBOutlet weak var insight2: UIView!
+    @IBOutlet weak var insight3: UIView!
+    
     var dates: MealDataStore = MealDataStore.shared
     var hasScrolledToToday = false
     
@@ -30,11 +34,15 @@ class WaterIntakeViewController: UIViewController {
             animated: true
         )
         
+        insight1.addRoundedCorner(radius: 20)
+        insight2.addRoundedCorner(radius: 20)
+        insight3.addRoundedCorner(radius: 20)
+        
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thick)
         
         setupWaterIntakeGestures()
         
-        // Setup notification observer for water intake updates
+       
         setupNotificationObservers()
         
         // Update UI with current water intake
