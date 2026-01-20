@@ -617,6 +617,8 @@
                         <outlet property="mainStack" destination="18m-S3-yQQ" id="YSU-aS-4bI"/>
                         <outlet property="mealLogCardView" destination="OXF-aa-G9R" id="GwS-CL-O7c"/>
                         <outlet property="notificationView" destination="tPc-Lg-Io4" id="vGF-ia-Q6t"/>
+                        <outlet property="stepsCard" destination="8ye-xR-VZl" id="Nsl-u1-HJw"/>
+                        <outlet property="stepsLabel" destination="kjI-C1-hOT" id="Oei-Ci-Avs"/>
                         <outlet property="stepsSummaryCard" destination="8ye-xR-VZl" id="UmT-ZX-Fda"/>
                         <outlet property="symptomLogCard" destination="yZe-NE-7lt" id="RYa-PW-7n6"/>
                         <outlet property="waterIntakeCard" destination="34Q-Ge-cLu" id="dZU-gA-7ES"/>
