@@ -13,6 +13,10 @@ class WaterIntakeViewController: UIViewController {
     @IBOutlet weak var monthName: UILabel!
     @IBOutlet weak var dateCollectionView: UICollectionView!
     
+    @IBOutlet weak var glassValue: UILabel!
+    @IBOutlet weak var increment: UIImageView!
+    @IBOutlet weak var decrement: UIImageView!
+    
     var dates: MealDataStore = MealDataStore.shared
     var hasScrolledToToday = false
     
@@ -28,9 +32,25 @@ class WaterIntakeViewController: UIViewController {
         
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thick)
         
+        setupWaterIntakeGestures()
         
+        // Setup notification observer for water intake updates
+        setupNotificationObservers()
+        
+        // Update UI with current water intake
+        updateWaterIntakeUI()
         
         updateMonthLabel(for: 15)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Refresh water intake UI when view appears
+        updateWaterIntakeUI()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,6 +143,75 @@ class WaterIntakeViewController: UIViewController {
         }
     }
 }
+
+
+private extension WaterIntakeViewController {
+    
+    func setupWaterIntakeGestures() {
+        increment.isUserInteractionEnabled = true
+        decrement.isUserInteractionEnabled = true
+        
+        let incrementTap = UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount))
+        increment.addGestureRecognizer(incrementTap)
+        
+        let decrementTap = UITapGestureRecognizer(target: self, action: #selector(decrementGlassCount))
+        decrement.addGestureRecognizer(decrementTap)
+    }
+    
+    func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleWaterIntakeUpdate),
+            name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+            object: nil
+        )
+    }
+    
+    @objc func incrementGlassCount() {
+        WaterIntakeService.shared.incrementGlass()
+        animateGlassValue()
+        provideHapticFeedback()
+    }
+    
+    @objc func decrementGlassCount() {
+        WaterIntakeService.shared.decrementGlass()
+        animateGlassValue()
+        provideHapticFeedback()
+    }
+    
+    @objc func handleWaterIntakeUpdate() {
+        updateWaterIntakeUI()
+    }
+    
+    func updateWaterIntakeUI() {
+        let count = WaterIntakeService.shared.getGlassCount()
+        glassValue.text = "\(count)"
+        
+        // Update progress view based on glass count (assuming 8 glasses is the goal)
+        let progress = Float(count) / 10.0
+        progressView.configure(
+            mode: progress >= 1.0 ? .achievement : .achievement,
+            progress: min(progress, 1.0),
+            thickness: UIConstants.ProgressThickness.thick
+        )
+    }
+    
+    func animateGlassValue() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.glassValue.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }) { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.glassValue.transform = .identity
+            }
+        }
+    }
+    
+    func provideHapticFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+    }
+}
+
 
 extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     

@@ -151,25 +151,25 @@
                                                                                 <rect key="frame" x="60" y="7.9999999999999716" width="257" height="234"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-Zp-XFv">
-                                                                                        <rect key="frame" x="8" y="70" width="241" height="44"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
+                                                                                        <rect key="frame" x="8" y="70" width="241" height="51.666666666666657"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="42"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of 10 glasses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRw-wl-kqN">
-                                                                                        <rect key="frame" x="8" y="114" width="241" height="17.333333333333343"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                        <rect key="frame" x="8" y="121.66666666666669" width="241" height="12.333333333333343"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98E-Ie-3O6">
-                                                                                        <rect key="frame" x="8" y="131.33333333333337" width="241" height="17.666666666666657"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500/2500 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98E-Ie-3O6">
+                                                                                        <rect key="frame" x="8" y="134" width="241" height="14.666666666666657"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IU-iu-PDI">
-                                                                                        <rect key="frame" x="8" y="149" width="241" height="35"/>
+                                                                                        <rect key="frame" x="8" y="148.66666666666669" width="241" height="35.333333333333343"/>
                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                                                         <connections>
@@ -243,6 +243,9 @@
                     <navigationItem key="navigationItem" title="Water Intake" id="ZD9-yP-LPc"/>
                     <connections>
                         <outlet property="dateCollectionView" destination="BzS-vD-r2V" id="2se-Zn-tL9"/>
+                        <outlet property="decrement" destination="M54-sc-y29" id="0tk-ty-iPB"/>
+                        <outlet property="glassValue" destination="gIP-Zp-XFv" id="ifk-Nq-tq3"/>
+                        <outlet property="increment" destination="XiF-Kh-6a6" id="RZb-hN-1bf"/>
                         <outlet property="monthName" destination="V9u-OO-bmA" id="kun-G8-AcZ"/>
                         <outlet property="progressView" destination="SPF-LY-L1I" id="fKF-nn-zU7"/>
                     </connections>
@@ -251,10 +254,10 @@
             </objects>
             <point key="canvasLocation" x="1102" y="531"/>
         </scene>
-        <!--View Controller-->
+        <!--Water Info Modal View Controller-->
         <scene sceneID="XYY-By-ifB">
             <objects>
-                <viewController id="anA-xG-bmR" sceneMemberID="viewController">
+                <viewController id="anA-xG-bmR" customClass="WaterInfoModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pXO-Y4-Jg7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +266,11 @@
                                 <rect key="frame" x="0.0" y="15" width="393" height="54"/>
                                 <items>
                                     <navigationItem title="Water measurement" id="Lfk-le-7Vp">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BWM-0M-c2M"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BWM-0M-c2M">
+                                            <connections>
+                                                <action selector="dismiss:" destination="anA-xG-bmR" id="VPV-gb-Cx6"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
