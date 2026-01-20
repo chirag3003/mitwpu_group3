@@ -65,8 +65,8 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func addAllergy(allergy: Allergy) {
         AllergyService.shared.addAllergy(allergy)
-        allergies = AllergyService.shared.fetchAllergies()
-        allergiesTableView.reloadData()
+        // No need to reload here manually; the Service will post 'AllergiesUpdated' on success,
+        // which triggers refreshData() via the observer.
     }
     
 

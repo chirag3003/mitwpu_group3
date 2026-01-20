@@ -40,25 +40,23 @@ class AllergyService {
     }
 
     func addAllergy(_ allergy: Allergy) {
-        // Optimistic UI: Add to local array immediately
-        NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
-        
         // Call API
         APIService.shared.request(endpoint: "/allergies", method: .post, body: allergy) { [weak self] (result: Result<Allergy, Error>) in
             guard let self = self else { return }
             
             switch result {
             case .success(let newAllergy):
-                // Replace the local temporary item with the actual server item (which has the real apiID)
-                if let index = self.allergies.firstIndex(where: { $0.id == allergy.id }) {
-                    self.allergies[index] = newAllergy
-                    // Ensure the new allergy also has a UUID for local consitency if needed, though 'init(from:)' handles it
-                }
+                // Add to local storage
                 self.allergies.append(newAllergy)
+                
+                // Notify UI only after success
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                }
                 
             case .failure(let error):
                 print("Error adding allergy: \(error)")
-                // Revert optimistic update? For now we just log error.
+                // Optionally notify UI of error?
             }
         }
     }
