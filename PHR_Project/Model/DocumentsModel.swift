@@ -24,9 +24,10 @@ struct ReportModel {
 }
 
 
-struct PrescriptionModel{
+struct PrescriptionModel {
     let id: UUID
     let title: String
     let lastUpdatedAt: String
     let fileSize: String
-}
+    var pdfUrl: String? // Make sure this exists!
+}   

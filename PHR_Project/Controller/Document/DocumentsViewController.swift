@@ -170,11 +170,10 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // This just deselects the gray highlight after you tap
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // Demo URL - replace with actual report URL from model
-        let demoURL = "https://cdn1.lalpathlabs.com/live/reports/Z615.pdf"
-        showPDFPreview(for: demoURL)
+       
     }
 }
 
