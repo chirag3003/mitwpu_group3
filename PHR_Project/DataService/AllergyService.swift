@@ -65,7 +65,7 @@ class AllergyService {
     
     // Fixing a code of delete allergy method
 
-    func deleteAllergy(at index: Int) {
+    func deleteAllergy(at index: Int, notify: Bool = true) {
         // 1. Check if index is valid
         guard index < allergies.count else { return }
         
@@ -74,7 +74,10 @@ class AllergyService {
         
         // 3. Remove from local array (Optimistic UI)
         allergies.remove(at: index)
-        NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+        
+        if notify {
+            NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+        }
         
         // 4. Call API to delete
         // prefer apiID (Server ID), fallback to nothing or log error if missing

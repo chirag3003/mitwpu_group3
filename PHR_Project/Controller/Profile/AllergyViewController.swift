@@ -53,7 +53,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
             if editingStyle == .delete {
                 
                 // 1. Delete from Service (Database)
-                AllergyService.shared.deleteAllergy(at: indexPath.row)
+                AllergyService.shared.deleteAllergy(at: indexPath.row, notify: false)
                 
                 // 2. Update Local Array (So the view controller knows it's gone)
                 allergies.remove(at: indexPath.row)
