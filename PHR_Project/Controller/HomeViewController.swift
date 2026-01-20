@@ -30,6 +30,9 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var glassDecrement: UIImageView!
     @IBOutlet weak var glassIncrement: UIImageView!
     
+    // Calories
+    @IBOutlet weak var caloriesCard: CircularProgressView!
+    
     // Quick Actions
     @IBOutlet weak var mainStack: UIStackView!
     @IBOutlet weak var mealLogCardView: UIView!
@@ -91,6 +94,7 @@ private extension HomeViewController {
         setupWaterIntakeGestures()
         setupGlucoseCardGesture()
         setupWaterIntakeCardGesture()
+        setupCaloriesCardGesture()
     }
     
     func setupNotificationObservers() {
@@ -202,6 +206,21 @@ private extension HomeViewController {
     
     @objc func waterIntakeCardTapped() {
         performSegue(withIdentifier: "waterIntakeSegue", sender: self)
+    }
+}
+
+// MARK: - Calories Card Navigation
+
+private extension HomeViewController {
+    
+    func setupCaloriesCardGesture() {
+        caloriesCard.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(caloriesCardTapped))
+        caloriesCard.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func caloriesCardTapped() {
+        performSegue(withIdentifier: "mealSegue", sender: self)
     }
 }
 
