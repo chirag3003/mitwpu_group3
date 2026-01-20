@@ -36,18 +36,12 @@ class HelpNSupportViewController: UIViewController {
     // MARK: - Data
     
     private let faqItems: [(question: String, answer: String)] = [
-        ("How do I add a symptom?", "Navigate to the Symptoms tab and tap the '+' button. Fill in the symptom details including name, intensity, date, and any notes."),
-        ("How do I log my meals?", "Go to the Meals tab, select the date, and tap the '+' button to add a new meal with nutritional information."),
-        ("Can I track my family members?", "Yes! Use the Family tab to add family members and manage their health information."),
-        ("How do I update my profile?", "Go to the Home tab, tap on your profile, then select 'Edit Profile' to update your personal health information."),
-        ("Is my data secure?", "Your health data is stored securely on your device using encrypted local storage. We do not share your data with third parties.")
+        ("Why can't I see my step count?", "To view your steps, you need to grant permission to access Apple HealthKit. Go to Settings > Privacy & Security > Health > PHR App and enable 'Steps'. Then return to the app and your step count will appear on the home screen.")
     ]
     
     private let contactOptions: [(icon: String, title: String, subtitle: String, tag: Int)] = [
         ("envelope.fill", "Email Support", "support@phrapp.com", 0),
-        ("phone.fill", "Call Us", "+1 (800) 123-4567", 1),
-        ("message.fill", "Live Chat", "Available 9 AM - 6 PM", 2),
-        ("link", "Visit Website", "www.phrapp.com", 3)
+        ("bubble.left.and.bubble.right.fill", "AI Chat", "Available 24/7", 2)
     ]
 
     // MARK: - Lifecycle
@@ -120,7 +114,6 @@ class HelpNSupportViewController: UIViewController {
         // Quick Links Section
         let quickLinksSection = createSectionContainer(title: "Quick Links")
         let links = [
-            ("book.fill", "User Guide", "Learn how to use the app"),
             ("doc.text.fill", "Privacy Policy", "How we protect your data"),
             ("checkmark.shield.fill", "Terms of Service", "Our terms and conditions")
         ]
