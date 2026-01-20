@@ -53,8 +53,8 @@ func getAllData() -> DataSource {
                 documentsModel(id: UUID(), title: "Dr. Rutuja Khare", lastUpdatedAt: "7 Nov 2025")
             ],
             reports: [
-                ReportModel(id: UUID(), title: "HbA1c", lastUpdatedAt: "15 Nov 2025", fileSize: "3MB"),
-                ReportModel(id: UUID(), title: "Sugar", lastUpdatedAt: "16 Jan 2025", fileSize: "5MB")
+                ReportModel(id: UUID(), title: "HbA1c", lastUpdatedAt: "15 Nov 2025"),
+                ReportModel(id: UUID(), title: "Sugar", lastUpdatedAt: "16 Jan 2025")
             ],
             // MARK: - FIXED SECTION BELOW
             prescriptionData: [
@@ -121,3 +121,4 @@ func getAllData() -> DataSource {
         )
     )
 }
+

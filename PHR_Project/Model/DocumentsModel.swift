@@ -20,7 +20,7 @@ struct ReportModel {
     let id: UUID
     let title: String
     let lastUpdatedAt: String
-    let fileSize: String
+    var pdfUrl: String?
 }
 
 
