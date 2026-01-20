@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HealthKit
 
 /// Main dashboard screen displaying health summaries, water intake tracking,
 /// and quick access to meal/symptom logging.
@@ -30,8 +31,10 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var glassDecrement: UIImageView!
     @IBOutlet weak var glassIncrement: UIImageView!
     
-    // Calories
+    // Calories and Steps
     @IBOutlet weak var caloriesCard: CircularProgressView!
+    @IBOutlet weak var stepsCard: CircularProgressView!
+    @IBOutlet weak var stepsLabel: UILabel!
     
     // Quick Actions
     @IBOutlet weak var mainStack: UIStackView!
@@ -115,11 +118,13 @@ private extension HomeViewController {
         updateGreeting()
         configureSummaryCards()
         updateWaterIntakeUI()
+        requestHealthKitAuthorization()
     }
     
     func refreshData() {
         updateGreeting()
         updateWaterIntakeUI()
+        fetchHealthData()
     }
     
     func updateGreeting() {
@@ -134,6 +139,67 @@ private extension HomeViewController {
     
     @objc func handleProfileUpdate() {
         updateGreeting()
+    }
+}
+
+// MARK: - HealthKit Integration
+
+private extension HomeViewController {
+    
+    /// Daily step goal for progress calculation
+    var dailyStepGoal: Int { 10000 }
+    
+    func requestHealthKitAuthorization() {
+        guard HealthKitService.shared.isHealthKitAvailable else {
+            stepsLabel.text = "N/A"
+            return
+        }
+        
+        HealthKitService.shared.requestAuthorization { [weak self] success, error in
+            if success {
+                self?.fetchHealthData()
+            } else {
+                self?.stepsLabel.text = "N/A"
+                if let error = error {
+                    print("HealthKit authorization failed: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func fetchHealthData() {
+        fetchTodaySteps()
+    }
+    
+    func fetchTodaySteps() {
+        HealthKitService.shared.fetchTodaySteps { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let steps):
+                self.updateStepsUI(steps: steps)
+            case .failure(let error):
+                print("Failed to fetch steps: \(error.localizedDescription)")
+                self.stepsLabel.text = "N/A"
+            }
+        }
+    }
+    
+    func updateStepsUI(steps: Int) {
+        // Format steps with thousands separator
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formattedSteps = formatter.string(from: NSNumber(value: steps)) ?? "\(steps)"
+        
+        stepsLabel.text = formattedSteps
+        
+        // Update progress ring based on daily goal
+        let progress = min(Double(steps) / Double(dailyStepGoal), 1.0)
+        stepsSummaryCard.configure(
+            mode: progress >= 1.0 ? .achievement : .achievement,
+            progress: Float(progress),
+            thickness: 16
+        )
     }
 }
 
