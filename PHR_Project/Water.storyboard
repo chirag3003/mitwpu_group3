@@ -151,25 +151,33 @@
                                                                                 <rect key="frame" x="60" y="7.9999999999999716" width="257" height="234"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-Zp-XFv">
-                                                                                        <rect key="frame" x="8" y="70" width="241" height="52.333333333333343"/>
+                                                                                        <rect key="frame" x="8" y="70" width="241" height="44"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="36"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of 10 glasses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRw-wl-kqN">
-                                                                                        <rect key="frame" x="8" y="122.33333333333337" width="241" height="21"/>
+                                                                                        <rect key="frame" x="8" y="114" width="241" height="17.333333333333343"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98E-Ie-3O6">
-                                                                                        <rect key="frame" x="8" y="143.33333333333337" width="241" height="20.666666666666657"/>
+                                                                                        <rect key="frame" x="8" y="131.33333333333337" width="241" height="17.666666666666657"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IU-iu-PDI">
+                                                                                        <rect key="frame" x="8" y="149" width="241" height="35"/>
+                                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <buttonConfiguration key="configuration" style="plain"/>
+                                                                                        <connections>
+                                                                                            <segue destination="anA-xG-bmR" kind="presentation" id="YAn-dO-Wcp"/>
+                                                                                        </connections>
+                                                                                    </button>
                                                                                 </subviews>
-                                                                                <edgeInsets key="layoutMargins" top="70" left="8" bottom="70" right="8"/>
+                                                                                <edgeInsets key="layoutMargins" top="70" left="8" bottom="50" right="8"/>
                                                                             </stackView>
                                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="XiF-Kh-6a6">
                                                                                 <rect key="frame" x="317" y="10.3333333333333" width="40" height="229.66666666666663"/>
@@ -242,6 +250,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsv-Xf-FD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1102" y="531"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XYY-By-ifB">
+            <objects>
+                <viewController id="anA-xG-bmR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pXO-Y4-Jg7">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv2-w8-Qhf">
+                                <rect key="frame" x="0.0" y="15" width="393" height="54"/>
+                                <items>
+                                    <navigationItem title="Water measurement" id="Lfk-le-7Vp">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BWM-0M-c2M"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ppK-sd-CAz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pv2-w8-Qhf" firstAttribute="leading" secondItem="pXO-Y4-Jg7" secondAttribute="leading" id="JBI-G8-fdW"/>
+                            <constraint firstAttribute="trailing" secondItem="Pv2-w8-Qhf" secondAttribute="trailing" id="gC8-ag-KoI"/>
+                            <constraint firstItem="Pv2-w8-Qhf" firstAttribute="top" secondItem="pXO-Y4-Jg7" secondAttribute="top" constant="15" id="vVx-C6-rgU"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uNd-jT-YWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2080" y="1268"/>
         </scene>
     </scenes>
     <resources>
