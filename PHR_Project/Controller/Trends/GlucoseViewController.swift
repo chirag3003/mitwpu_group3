@@ -58,21 +58,30 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         }
         
         // 3. The Protocol Implementation: This runs when "Done" is clicked
-        func didAddGlucoseData(point: GlucoseDataPoint) {
-            // A. Add the new point to the ViewModel
-            chartViewModel.dataPoints.append(point)
-            
-            // B. Sort by date (crucial for line charts)
-            chartViewModel.dataPoints.sort { $0.date < $1.date }
-            
-            // C. Update Dashboard Labels (Last Logged, Avg, Min, Max)
-            updateDashboardLabels(latestPoint: point)
-            
-            // D. Refresh the Chart
-            // Since `dataPoints` is @Published, the SwiftUI chart updates automatically!
-            // However, we can force a refresh of the current range logic if needed:
-            // chartViewModel.updateData(for: chartViewModel.currentRange)
+    func didAddGlucoseData(point: GlucoseDataPoint) {
+        // 1. Create a copy of the current data
+        var updatedData = chartViewModel.dataPoints
+        
+        // 2. Remove any "Dummy" data that is too close to the new point (Optional but recommended)
+        // This prevents having two points at almost the same time (e.g., 4:00 PM and 4:05 PM)
+        updatedData.removeAll { existingPoint in
+            let timeDifference = abs(existingPoint.date.timeIntervalSince(point.date))
+            return timeDifference < 300 // Remove points within 5 minutes of the new one
         }
+        
+        // 3. Append the new point
+        updatedData.append(point)
+        
+        // 4. Sort strictly by date
+        updatedData.sort { $0.date < $1.date }
+        
+        // 5. Assign back to the ViewModel in one go
+        // This triggers ONLY ONE redraw, preventing the "glitch/distortion"
+        chartViewModel.dataPoints = updatedData
+        
+        // 6. Update Labels
+        updateDashboardLabels(latestPoint: point)
+    }
         
         func updateDashboardLabels(latestPoint: GlucoseDataPoint) {
             // Update "Last Logged"
