@@ -135,7 +135,7 @@ class WaterIntakeViewController: UIViewController {
     
     // Update month label based on selected date index
     private func updateMonthLabel(for index: Int) {
-        let selectedDate = dates.getDays()[index]
+        //let selectedDate = dates.getDays()[index]
         
         // Extract month from the CalendarDay
         // Assuming CalendarDay has a date property or you can derive it
@@ -262,7 +262,6 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
         )
         
         let selectedDay = dates.getDays()[indexPath.row]
-        print("Selected: \(selectedDay)")
         
         // Update month label when date is selected
         updateMonthLabel(for: indexPath.row)

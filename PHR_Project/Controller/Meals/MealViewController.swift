@@ -11,16 +11,23 @@ class SectionBackground: UICollectionReusableView {
     required init?(coder: NSCoder) { fatalError() }
 }
 
+
+
 class MealViewController: UIViewController {
 
     @IBOutlet weak var monthName: UILabel!
     
+    @IBOutlet weak var tipOneLabel: UILabel!
+    @IBOutlet weak var tipTwoLabel: UILabel!
+    @IBOutlet weak var tipThreeLabel: UILabel!
     @IBOutlet weak var tipOne: UIView!
     @IBOutlet weak var tipTwo: UIView!
     @IBOutlet weak var tipThree: UIView!
     @IBOutlet weak var insightOne: UIView!
+    @IBOutlet weak var insightOneLabel: UILabel!
     
     @IBOutlet weak var insightTwo: UIView!
+    @IBOutlet weak var insightTwoLabel: UILabel!
     @IBOutlet weak var fiberProgress: SemicircularProgressView!
     @IBOutlet weak var proteinProgress: SemicircularProgressView!
     @IBOutlet weak var carbsProgress: SemicircularProgressView!
@@ -33,6 +40,17 @@ class MealViewController: UIViewController {
     var hasScrolledToToday = false
     
     let sectionTitles = ["Breakfast", "Lunch", "Dinner"]
+    
+    let tips: [String] = [
+        "Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability.",
+        "Replacing evening white rice with quinoa or millets reduces glucose spikes.",
+        "Having dinner at least 2 hours before bedtime leads to better fasting glucose."
+    ]
+    
+    let insights: [String] = [
+        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL.",
+        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL."
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +79,19 @@ class MealViewController: UIViewController {
         fiberProgress.addDropShadow()
         
         insightOne.addRoundedCorner(radius: 20)
+        insightOneLabel.text = insights[0]
+        
         insightTwo.addRoundedCorner(radius: 20)
+        insightTwoLabel.text = insights[1]
         
         tipOne.addRoundedCorner(radius: 20)
+        tipOneLabel.text = tips[0]
+        
         tipTwo.addRoundedCorner(radius: 20)
+        tipTwoLabel.text = tips[1]
+        
         tipThree.addRoundedCorner(radius: 20)
+        tipThreeLabel.text = tips[2]
         
         
         
@@ -165,7 +191,7 @@ class MealViewController: UIViewController {
     }
     
     private func updateMonthLabel(for index: Int) {
-        let selectedDate = dates.getDays()[index]
+        //let selectedDate = dates.getDays()[index]
         
         // Extract month from the CalendarDay
         // Assuming CalendarDay has a date property or you can derive it
@@ -318,8 +344,6 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
         
-        let selectedDay = dates.getDays()[indexPath.row]
-        print("Selected: \(selectedDay)")
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
