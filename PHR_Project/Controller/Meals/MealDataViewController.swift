@@ -45,7 +45,25 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
                 // We ensure we don't crash if the arrays have different lengths
                 if indexPath.row < allDetails.count {
                     let selectedDetail = allDetails[indexPath.row]
-                    detailVC.selectedMealDetail = selectedDetail
+                    
+                    // Convert MealDetails to Meal
+                    let convertedMeal = Meal(
+                        id: selectedDetail.meal.id,
+                        name: selectedDetail.meal.name,
+                        detail: nil,
+                        time: selectedDetail.date, // MealDetails has date string, using as time/date holder
+                        image: selectedDetail.mealImage,
+                        type: "Breakfast", // Default
+                        dateRecorded: Date(), // Default
+                        calories: selectedDetail.calories,
+                        protein: selectedDetail.protein,
+                        carbs: selectedDetail.carbs,
+                        fiber: selectedDetail.fiber,
+                        addedBy: selectedDetail.addedBy,
+                        notes: selectedDetail.notes
+                    )
+                    
+                    detailVC.selectedMeal = convertedMeal
                 } else {
                     print("Error: No details found for row \(indexPath.row)")
                 }

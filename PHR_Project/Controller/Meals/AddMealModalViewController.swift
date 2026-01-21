@@ -87,13 +87,19 @@ class AddMealModalViewController: UITableViewController{
                 
                 // 5. Create the Meal Object (UPDATED HERE)
                 let newMeal = Meal(
-                    id: UUID(),                  // ADDED: Generate a unique ID
+                    id: UUID(),
                     name: name,
                     detail: detailString,
                     time: timeString,
                     image: imageName,
                     type: type,
-                    dateRecorded: mealDate.date  // ADDED: Pass the selected date
+                    dateRecorded: mealDate.date,
+                    calories: 0,
+                    protein: 0,
+                    carbs: 0,
+                    fiber: 0,
+                    addedBy: "Self",
+                    notes: nil
                 )
 
                 // 6. Save using the Service (UNCOMMENT THIS)
