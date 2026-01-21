@@ -1,11 +1,15 @@
 import Foundation
+import UIKit
 
 class MealService {
     static let shared = MealService()
-    
+
     private var allMeals: [Meal] = [] {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.mealsUpdated), object: nil)
+            NotificationCenter.default.post(
+                name: NSNotification.Name(NotificationNames.mealsUpdated),
+                object: nil
+            )
         }
     }
 
@@ -15,12 +19,15 @@ class MealService {
 
     func addMeal(_ meal: Meal) {
         allMeals.append(meal)
-        
-        APIService.shared.request(endpoint: "/meals", method: .post, body: meal) { [weak self] (result: Result<Meal, Error>) in
+
+        APIService.shared.request(endpoint: "/meals", method: .post, body: meal)
+        { [weak self] (result: Result<Meal, Error>) in
             switch result {
             case .success(let savedMeal):
                 print("Meal saved to API: \(savedMeal.name)")
-                if let index = self?.allMeals.firstIndex(where: { $0.id == meal.id }) {
+                if let index = self?.allMeals.firstIndex(where: {
+                    $0.id == meal.id
+                }) {
                     self?.allMeals[index].apiID = savedMeal.apiID
                     self?.allMeals[index].userId = savedMeal.userId
                 }
@@ -32,9 +39,12 @@ class MealService {
 
     func deleteMeal(_ meal: Meal) {
         allMeals.removeAll { $0.id == meal.id }
-        
+
         if let apiID = meal.apiID {
-            APIService.shared.request(endpoint: "/meals/\(apiID)", method: .delete) { (result: Result<EmptyResponse, Error>) in
+            APIService.shared.request(
+                endpoint: "/meals/\(apiID)",
+                method: .delete
+            ) { (result: Result<EmptyResponse, Error>) in
                 switch result {
                 case .success:
                     print("Meal deleted from API")
@@ -53,15 +63,29 @@ class MealService {
         case 2: category = "Dinner"
         default: return []
         }
-        return allMeals.filter { $0.type == category }
+
+        let calendar = Calendar.current
+        let today = Date()
+        let formatter = ISO8601DateFormatter()
+
+        return allMeals.filter { meal in
+            guard meal.type == category,
+                case let mealDate = meal.dateRecorded
+            else {
+                return false
+            }
+            return calendar.isDate(mealDate, inSameDayAs: today)
+        }
     }
 
     func getAllMeals() -> [Meal] {
+        print(allMeals)
         return allMeals
     }
 
     func fetchMealsFromAPI() {
-        APIService.shared.request(endpoint: "/meals", method: .get) { [weak self] (result: Result<[Meal], Error>) in
+        APIService.shared.request(endpoint: "/meals", method: .get) {
+            [weak self] (result: Result<[Meal], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let meals):
@@ -78,17 +102,35 @@ class MealService {
     func fetchMealsUsingApiID(apiID: String) -> Meal? {
         return allMeals.first { $0.apiID == apiID }
     }
-    
+
     // MARK: - Image Analysis
-    func analyzeMeal(image: UIImage, completion: @escaping (Result<Meal, Error>) -> Void) {
+    func analyzeMeal(
+        image: UIImage,
+        completion: @escaping (Result<Meal, Error>) -> Void
+    ) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-            completion(.failure(NSError(domain: "ImageConversionError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data"])))
+            completion(
+                .failure(
+                    NSError(
+                        domain: "ImageConversionError",
+                        code: -1,
+                        userInfo: [
+                            NSLocalizedDescriptionKey:
+                                "Failed to convert image to data"
+                        ]
+                    )
+                )
+            )
             return
         }
-        
-        APIService.shared.upload(endpoint: "/meals/analyze", data: imageData, filename: "meal.jpg") { [weak self] (result: Result<AnalysisResponse, Error>) in
+
+        APIService.shared.upload(
+            endpoint: "/meals/analyze",
+            data: imageData,
+            filename: "meal.jpg"
+        ) { [weak self] (result: Result<AnalysisResponse, Error>) in
             guard let self = self else { return }
-            
+
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
@@ -105,11 +147,11 @@ class MealService {
             }
         }
     }
-    
+
     struct AnalysisResponse: Decodable {
         let meal: Meal
         // let analysis: AnalysisDetails // We can add this if needed, but 'meal' has everything required
     }
-    
+
     struct EmptyResponse: Decodable {}
 }
