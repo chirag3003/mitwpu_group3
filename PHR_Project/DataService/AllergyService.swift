@@ -46,17 +46,18 @@ class AllergyService {
             
             switch result {
             case .success(let newAllergy):
-                // Add to local storage
-                self.allergies.append(newAllergy)
-                
-                // Notify UI only after success
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
-                }
+                 print("Allergy added to API: \(newAllergy.apiID ?? "No ID")")
+                 
+                 // Add to local storage only on success
+                 self.allergies.append(newAllergy)
+                 
+                 // Notify UI
+                 DispatchQueue.main.async {
+                     NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                 }
                 
             case .failure(let error):
                 print("Error adding allergy: \(error)")
-                // Optionally notify UI of error?
             }
         }
     }
@@ -78,14 +79,14 @@ class AllergyService {
         }
         
         // 4. Call API to delete
-        // prefer apiID (Server ID), fallback to nothing or log error if missing
+        // prefer apiID (Server ID)
         guard let apiID = allergyToRemove.apiID else {
-            print("Warning: Deleted allergy had no apiID (might be local only)")
+            print("Warning: Deleted allergy had no apiID")
             return 
         }
         
         APIService.shared.request(endpoint: "/allergies/\(apiID)", method: .delete) { (result: Result<EmptyResponse, Error>) in
-             // Handle error if needed (e.g. re-add item?)
+             // Handle error if needed
         }
     }
     
