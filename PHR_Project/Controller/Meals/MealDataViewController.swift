@@ -13,21 +13,30 @@ class MealDataViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var mealTableView: UITableView!
     
-    private var mealData: [MealItem] = []
+    private var mealData: [Meal] = []
     
     
     override func viewDidLoad() {
         navigationItem.rightBarButtonItem = editButtonItem
         super.viewDidLoad()
         
-        mealData = MealDataStore.shared.getMealItem()
+        mealData = MealService.shared.getAllMeals()
         
         //setting up table view
         mealTableView.dataSource = self
         mealTableView.delegate = self
         mealTableView.addRoundedCorner()
         
-        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateMealData),
+            name: NSNotification.Name(NotificationNames.symptomsUpdated),
+            object: nil
+        )
+    }
+    
+    @objc func updateMealData(){
+        mealData = MealService.shared.getAllMeals()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

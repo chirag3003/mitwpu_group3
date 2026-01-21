@@ -59,7 +59,8 @@ class CoreDataManager {
         }
     }
 
-    // MARK: - MEALS
+    // MARK: - MEALS (Removed per API-only refactoring)
+    /*
     func fetchMeals() -> [MealEntity] {
         let request: NSFetchRequest<MealEntity> = MealEntity.fetchRequest()
         return (try? context.fetch(request)) ?? []
@@ -85,6 +86,7 @@ class CoreDataManager {
             saveContext()
         }
     }
+    */
 
     // MARK: - SYMPTOMS
     func fetchSymptoms() -> [SymptomEntity] {
