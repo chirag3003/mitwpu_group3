@@ -1376,6 +1376,9 @@
                                                     <segment title="6M"/>
                                                     <segment title="Y"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="segmentChanged:" destination="sNv-mV-tyz" eventType="valueChanged" id="psf-xz-mFn"/>
+                                                </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNg-22-WDU">
                                                 <rect key="frame" x="16" y="49" width="361" height="380"/>
