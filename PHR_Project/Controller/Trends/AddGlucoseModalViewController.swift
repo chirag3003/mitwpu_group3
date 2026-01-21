@@ -7,11 +7,18 @@
 
 import UIKit
 
+protocol AddGlucoseDelegate: AnyObject {
+    func didAddGlucoseData(point: GlucoseDataPoint)
+}
+
 class AddGlucoseModalViewController: UITableViewController {
 
-   
+    @IBOutlet weak var typeButton: UIButton!
+    weak var delegate: AddGlucoseDelegate?
     
-    @IBOutlet weak var recordTypeButton: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBOutlet weak var glucoseTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +29,26 @@ class AddGlucoseModalViewController: UITableViewController {
    
     // MARK: - Actions
     @IBAction func doneModalButton(_ sender: Any) {
-        dismiss(animated: true)
+        
+        guard let text = glucoseTextField.text, let value = Int(text) else {
+                    // Optional: Show an alert if empty
+                    return
+                }
+
+                // 5. Create the Data Point
+                let newPoint = GlucoseDataPoint(date: datePicker.date, value: value)
+
+                // 6. Send data back to the Main Screen
+                delegate?.didAddGlucoseData(point: newPoint)
+
+                // 7. Close the Modal
+                dismiss(animated: true)
     }
 
     @IBAction func closeModalButton(_ sender: Any) {
+        
         dismiss(animated: true)
     }
-    
-    
-    
     func setupRecordTypeButton() {
         let selectionClosure = { (action: UIAction) in
             print("Record Type Selected: \(action.title)")
@@ -59,9 +77,10 @@ class AddGlucoseModalViewController: UITableViewController {
         let menu = UIMenu(children: actions)
 
         // Assumes your outlet is named 'typeButton'
-        recordTypeButton.menu = menu
-        recordTypeButton.showsMenuAsPrimaryAction = true
-        recordTypeButton.changesSelectionAsPrimaryAction = true
+        typeButton.menu = menu
+        typeButton.showsMenuAsPrimaryAction = true
+        typeButton.changesSelectionAsPrimaryAction = true
     }
-   
+    
 }
+
