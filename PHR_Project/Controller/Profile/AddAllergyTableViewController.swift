@@ -13,18 +13,13 @@ class AddAllergyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // 1. Setup Data Arrays
+        // Setup Data Arrays
         allTextFields = [allergyIngredient, allergyDetailReaction]
 
-        // 2. Setup UI
+        // Setup UI
         setupPullDownButton()
 
-        // 3. Hide Keyboard on Tap
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(dismissKeyboard)
-        )
-        view.addGestureRecognizer(tap)
+        self.addKeyboardDisapperanceGesture()
 
         removeBorder(from: allergyIngredient)
         removeBorder(from: allergyDetailReaction)
@@ -114,10 +109,7 @@ class AddAllergyTableViewController: UITableViewController {
     @IBAction func allergyDetailReaction(_ sender: Any) {}
     @IBAction func intensityButton(_ sender: UIButton) {}
 
-    // MARK: - Helpers
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
+
 
     // MARK: - Table View Overrides
 
