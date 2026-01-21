@@ -302,7 +302,8 @@ private extension HomeViewController {
     }
     
     @objc func stepsCardTapped() {
-        openAppleHealth()
+//        openAppleHealth
+        performSegue(withIdentifier: "stepsSegue", sender: nil)
     }
     
     func openAppleHealth() {
