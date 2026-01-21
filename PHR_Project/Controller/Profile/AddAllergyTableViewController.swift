@@ -57,13 +57,7 @@ class AddAllergyTableViewController: UITableViewController {
         // 1. Validate Ingredient Name
         // We use guard to ensure the user actually wrote something
         guard let name = allergyIngredient.text, !name.isEmpty else {
-            let alert = UIAlertController(
-                title: "Missing Info",
-                message: "Please enter the allergy ingredient.",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
+            self.showAlert(title: "Missing Info", message: "Please enter the allergy ingredient.")
             return
         }
 
