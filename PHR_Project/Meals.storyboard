@@ -564,13 +564,18 @@
                         <outlet property="dateCollectionView" destination="LoX-Yn-QrO" id="r3o-Ov-KHV"/>
                         <outlet property="fiberProgress" destination="dVH-NZ-Qmk" id="YK4-ea-GGb"/>
                         <outlet property="insightOne" destination="csz-JS-Lxp" id="0eO-9e-jQB"/>
+                        <outlet property="insightOneLabel" destination="v2I-pH-HVd" id="2aT-RW-GUV"/>
                         <outlet property="insightTwo" destination="Swa-Iy-eSk" id="f2b-Kf-zxE"/>
+                        <outlet property="insightTwoLabel" destination="dQU-Hp-ZtW" id="I19-Ym-iI1"/>
                         <outlet property="mealCollectionView" destination="V9Q-u8-jW0" id="EMk-1K-lUh"/>
                         <outlet property="monthName" destination="9sg-4B-QWR" id="cA6-4e-1WM"/>
                         <outlet property="proteinProgress" destination="VTa-US-BsZ" id="rHE-Qc-aK2"/>
                         <outlet property="tipOne" destination="gy6-6f-coE" id="ahQ-fm-ibA"/>
+                        <outlet property="tipOneLabel" destination="ov9-K5-7Xx" id="LN1-3M-nFB"/>
                         <outlet property="tipThree" destination="1l1-as-1Vq" id="AQu-PI-2LN"/>
+                        <outlet property="tipThreeLabel" destination="q6k-6s-AEG" id="LTv-A8-Pxw"/>
                         <outlet property="tipTwo" destination="hMF-wG-Jbc" id="Twc-tc-GIR"/>
+                        <outlet property="tipTwoLabel" destination="gye-Ac-Odw" id="mAN-Oy-M4R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c10-1Y-jJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
