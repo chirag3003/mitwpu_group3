@@ -29,6 +29,7 @@ class MealViewController: UIViewController {
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
     var dates: MealDataStore = MealDataStore.shared
+    var selectedDate: Date = Date()
     
     var hasScrolledToToday = false
     
@@ -74,7 +75,7 @@ class MealViewController: UIViewController {
         NotificationCenter.default.addObserver(
                     self,
                     selector: #selector(refreshData),
-                    name: NSNotification.Name("MealsUpdated"),
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
                     object: nil
         )
 
@@ -208,7 +209,7 @@ class MealViewController: UIViewController {
         config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                 
-                let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
+                let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section, on: self?.selectedDate ?? Date())
                 let mealToDelete = mealsInSection[indexPath.row]
                 
                 MealService.shared.deleteMeal(mealToDelete)
@@ -270,7 +271,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
             return dates.getDays().count
         }
         
-        let count = MealService.shared.getMeals(forSection: section).count
+        let count = MealService.shared.getMeals(forSection: section, on: selectedDate).count
         
         return count == 0 ? 1 : count
         
@@ -298,7 +299,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         }
 
-        let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
+        let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section, on: selectedDate)
                 
                 // 1. If empty, show the "No Meals" placeholder
         if mealsInSection.isEmpty {
@@ -316,6 +317,15 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == dateCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            
+            // Calculate selected date
+            // Index 15 is today (offset 0)
+            let daysOffset = indexPath.row - 15
+            if let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date()) {
+                selectedDate = date
+                updateMonthLabel(for: indexPath.row)
+                mealCollectionView.reloadData()
+            }
         }
         
         let selectedDay = dates.getDays()[indexPath.row]

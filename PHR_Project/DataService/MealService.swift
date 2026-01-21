@@ -55,7 +55,7 @@ class MealService {
         }
     }
 
-    func getMeals(forSection section: Int) -> [Meal] {
+    func getMeals(forSection section: Int, on date: Date = Date()) -> [Meal] {
         let category: String
         switch section {
         case 0: category = "Breakfast"
@@ -65,21 +65,18 @@ class MealService {
         }
 
         let calendar = Calendar.current
-        let today = Date()
-        let formatter = ISO8601DateFormatter()
-
-        return allMeals.filter { meal in
-            guard meal.type == category,
-                case let mealDate = meal.dateRecorded
-            else {
+        
+        // Filter
+        let filtered = allMeals.filter { meal in
+            guard meal.type == category else {
                 return false
             }
-            return calendar.isDate(mealDate, inSameDayAs: today)
+            return calendar.isDate(meal.dateRecorded, inSameDayAs: date)
         }
+        return filtered
     }
 
     func getAllMeals() -> [Meal] {
-        print(allMeals)
         return allMeals
     }
 
