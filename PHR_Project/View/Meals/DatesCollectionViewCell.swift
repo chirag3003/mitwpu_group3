@@ -19,9 +19,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     }
     
     override var isSelected: Bool {
-        didSet {oldValue != isSelected {
-                    
-        }
+        didSet {
             updatedAppearance()
         }
     }
