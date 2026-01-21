@@ -74,6 +74,10 @@ class MealService {
             }
         }
     }
+
+    func fetchMealUsingApiID(apiID: String) -> Meal? {
+        return allMeals.first { $0.apiID == apiID }
+    }
     
     struct EmptyResponse: Decodable {}
 }

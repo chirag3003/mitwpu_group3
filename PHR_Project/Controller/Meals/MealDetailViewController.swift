@@ -46,11 +46,14 @@ class MealDetailViewController: UIViewController {
             
             // Image
             if let imagePath = meal.image, !imagePath.isEmpty {
-                 // If it's a URL, we might need async load, but for now assuming local or placeholder logic
-                 // If it's a full URL string, UIImage(named:) won't work.
-                 // Ideally we'd use a library or helper.
-                 // For now, if it matches asset name, it works.
-                 mealImage.image = UIImage(named: imagePath)
+                if let url = URL(string: imagePath), imagePath.lowercased().hasPrefix("http") {
+                    URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+                        guard let self = self, let data = data, error == nil, let image = UIImage(data: data) else { return }
+                        DispatchQueue.main.async {
+                            self.mealImage.image = image
+                        }
+                    }.resume()
+                } 
             }
             mealImage.addRoundedCorner(radius: 10)
             
