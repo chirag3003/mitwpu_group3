@@ -48,7 +48,6 @@ class MealDataStore {
         }
         
         self.days = generateNext30Days()
-        print(days)
         
         
     }
