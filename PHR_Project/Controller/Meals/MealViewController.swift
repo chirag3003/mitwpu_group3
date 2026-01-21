@@ -39,7 +39,7 @@ class MealViewController: UIViewController {
     
     var hasScrolledToToday = false
     
-    let sectionTitles = ["Breakfast", "Lunch", "Dinner"]
+    let sectionTitles = ["Breakfast", "Lunch","Snacks", "Dinner"]
     
     let tips: [String] = [
         "Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability.",
