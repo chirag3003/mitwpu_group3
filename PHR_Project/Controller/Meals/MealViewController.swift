@@ -13,7 +13,8 @@ class SectionBackground: UICollectionReusableView {
 
 class MealViewController: UIViewController {
 
-
+    @IBOutlet weak var monthName: UILabel!
+    
     @IBOutlet weak var tipOne: UIView!
     @IBOutlet weak var tipTwo: UIView!
     @IBOutlet weak var tipThree: UIView!
@@ -42,6 +43,8 @@ class MealViewController: UIViewController {
             createDateLayout(),
             animated: true
         )
+        
+        updateMonthLabel(for: 15)
         
         calorieProgressView.configure(mode:.limitWarning ,progress: 0.49, thickness: UIConstants.ProgressThickness.thick)
         
@@ -159,6 +162,23 @@ class MealViewController: UIViewController {
 
                 return section
             }
+    }
+    
+    private func updateMonthLabel(for index: Int) {
+        let selectedDate = dates.getDays()[index]
+        
+        // Extract month from the CalendarDay
+        // Assuming CalendarDay has a date property or you can derive it
+        let calendar = Calendar.current
+        let today = Date()
+        
+        // Calculate the date based on index (assuming index 15 is today)
+        let daysOffset = index - 15
+        if let targetDate = calendar.date(byAdding: .day, value: daysOffset, to: today) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM" // Full month name
+            monthName.text = dateFormatter.string(from: targetDate)
+        }
     }
 
     private func setupMealCollectionView() {

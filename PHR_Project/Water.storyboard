@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -22,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wFh-uV-9xj">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="736.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BeF-O7-5Y9">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="736.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="December" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9u-OO-bmA">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="13.333333333333334"/>
@@ -117,7 +118,7 @@
                                                         </cells>
                                                     </collectionView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pIg-4y-dy5">
-                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="610.33333333333348"/>
+                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="608.33333333333348"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-LY-L1I" customClass="CircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="15.999999999999972" width="377" height="250.00000000000003"/>
@@ -185,7 +186,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-NJ-fmg">
-                                                                <rect key="frame" x="8" y="276" width="377" height="256.33333333333326"/>
+                                                                <rect key="frame" x="8" y="276" width="377" height="324.33333333333326"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRk-0T-XGd">
                                                                         <rect key="frame" x="8" y="8" width="361" height="14.333333333333336"/>
@@ -211,7 +212,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstItem="VrA-NN-pa0" firstAttribute="leading" secondItem="x41-2d-Xyi" secondAttribute="leading" constant="8" id="4hL-Vg-jcK"/>
                                                                             <constraint firstItem="z7H-Bs-Yc1" firstAttribute="leading" secondItem="VrA-NN-pa0" secondAttribute="trailing" constant="8" id="HP5-Rv-HpV"/>
@@ -240,7 +241,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstItem="oeZ-5Z-QQ5" firstAttribute="leading" secondItem="9Lp-KE-Fjp" secondAttribute="trailing" constant="8" id="Cxz-Dg-EZC"/>
                                                                             <constraint firstAttribute="trailing" secondItem="oeZ-5Z-QQ5" secondAttribute="trailing" constant="8" id="RgP-QV-nxN"/>
@@ -269,7 +270,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="ot5-QS-uuz" secondAttribute="trailing" constant="8" id="Fsg-fA-s2d"/>
                                                                             <constraint firstAttribute="height" constant="70" id="H9m-fv-nKj"/>
@@ -280,22 +281,22 @@
                                                                             <constraint firstItem="ot5-QS-uuz" firstAttribute="top" secondItem="BEi-rN-8vb" secondAttribute="top" constant="13" id="uwA-lX-quT"/>
                                                                         </constraints>
                                                                     </view>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
+                                                                        <rect key="frame" x="8" y="264.33333333333326" width="361" height="60"/>
+                                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="60" id="d8f-lq-XBI"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="Water Intake Settings"/>
+                                                                        <connections>
+                                                                            <segue destination="WWx-cx-2zC" kind="show" id="b6H-qW-6Ba"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="0.0" right="8"/>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
-                                                                <rect key="frame" x="8" y="542.33333333333326" width="377" height="60"/>
-                                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="d8f-lq-XBI"/>
-                                                                </constraints>
-                                                                <color key="tintColor" systemColor="labelColor"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="Water Intake Settings"/>
-                                                                <connections>
-                                                                    <segue destination="WWx-cx-2zC" kind="show" id="b6H-qW-6Ba"/>
-                                                                </connections>
-                                                            </button>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="16" left="8" bottom="8" right="8"/>
                                                     </stackView>
@@ -613,6 +614,9 @@
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="minus" catalog="system" width="128" height="26"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="insights_bg">
+            <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
