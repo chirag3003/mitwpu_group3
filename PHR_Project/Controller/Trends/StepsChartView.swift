@@ -4,7 +4,6 @@ import Charts
 struct StepsChartView: View {
     @ObservedObject var viewModel: StepsViewModel
     @State private var selectedDate: Date?
-    @State private var selectedValue: Int?
     
     var body: some View {
         if #available(iOS 16.0, *) {
@@ -13,17 +12,24 @@ struct StepsChartView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         Chart {
                             ForEach(viewModel.dataPoints) { point in
-                                let xUnit: Calendar.Component = (viewModel.currentRange == .day) ? .hour : .day
                                 
-                                // BAR GRAPH
+                                // ⚡️ FIX: Determine bar width unit based on range
+                                let barUnit: Calendar.Component = {
+                                    switch viewModel.currentRange {
+                                    case .day: return .hour
+                                    case .week, .month: return .day
+                                    case .sixMonth: return .weekOfYear
+                                    case .year: return .month
+                                    }
+                                }()
+                                
                                 BarMark(
-                                    x: .value("Time", point.date, unit: xUnit),
+                                    x: .value("Time", point.date, unit: barUnit),
                                     y: .value("Steps", point.count)
                                 )
-                                .foregroundStyle(Color.blue) // Dark bars like your design
+                                .foregroundStyle(Color.blue)
                                 .cornerRadius(4)
                                 
-                                // Selection Highlight (RuleMark)
                                 if let selectedDate, selectedDate == point.date {
                                     RuleMark(x: .value("Selected", selectedDate))
                                         .foregroundStyle(Color.gray.opacity(0.5))
@@ -38,11 +44,10 @@ struct StepsChartView: View {
                                 }
                             }
                         }
-                        // Dynamic Width Calculation
+                        .id(viewModel.currentRange) // Force redraw on change
                         .frame(width: max(geometry.size.width, calculateWidth(availableWidth: geometry.size.width)))
                         .id("ChartEnd")
                         
-                        // X-Axis Formatting
                         .chartXAxis {
                             AxisMarks(values: .automatic) { _ in
                                 AxisTick()
@@ -51,9 +56,12 @@ struct StepsChartView: View {
                         }
                         .padding(.top)
                     }
-                    .onAppear { scrollProxy.scrollTo("ChartEnd", anchor: .trailing) }
-                    .onChange(of: viewModel.currentRange) { _, _ in
-                        scrollProxy.scrollTo("ChartEnd", anchor: .trailing)
+                    .onChange(of: viewModel.currentRange) { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation {
+                                scrollProxy.scrollTo("ChartEnd", anchor: .trailing)
+                            }
+                        }
                     }
                 }
             }
@@ -62,24 +70,23 @@ struct StepsChartView: View {
         }
     }
     
-    // Formatting Helper
     func xAxisFormat() -> Date.FormatStyle {
         switch viewModel.currentRange {
         case .day: return .dateTime.hour()
         case .week, .month: return .dateTime.day().month()
-        case .sixMonth, .year: return .dateTime.month()
+        case .sixMonth: return .dateTime.month().day()
+        case .year: return .dateTime.month(.abbreviated)
         }
     }
     
     func calculateWidth(availableWidth: CGFloat) -> CGFloat {
         let count = CGFloat(viewModel.dataPoints.count)
-        // Adjust these multipliers to change how "fat" the bars are
         switch viewModel.currentRange {
         case .day: return count * 40
-        case .week: return availableWidth // Fit to screen
-        case .month: return count * 25
-        default: return count * 40
+        case .week: return availableWidth
+        case .month: return count * 20
+        case .sixMonth: return count * 30
+        case .year: return availableWidth
         }
     }
 }
-

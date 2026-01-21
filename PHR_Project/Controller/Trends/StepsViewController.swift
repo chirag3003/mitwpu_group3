@@ -25,39 +25,37 @@ class StepsViewController: UIViewController {
     
     private let viewModel = StepsViewModel()
         private var cancellables = Set<AnyCancellable>()
-        
+            
         override func viewDidLoad() {
             super.viewDidLoad()
             setupStyling()
             setupChart()
-            setupBindings() // 👈 Connect listeners
-            
-            // 3. Ask for Apple Health Permissions
+            setupBindings()
             viewModel.requestAuthorization()
         }
-        
-    // In setupBindings():
+            
         func setupBindings() {
-            // Listen to the specific 'todaySteps' variable now
-            viewModel.$todaySteps
+            viewModel.$mainStatValue
                 .receive(on: RunLoop.main)
-                .sink { [weak self] steps in
-                    self?.totalStepsLabel.text = "\(steps)"
+                .sink { [weak self] value in
+                    self?.totalStepsLabel.text = value
+                }
+                .store(in: &cancellables)
+                
+            viewModel.$mainStatTitle
+                .receive(on: RunLoop.main)
+                .sink { [weak self] title in
+                    self?.totalLabel.text = title
                 }
                 .store(in: &cancellables)
         }
-        
+            
         @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-            switch sender.selectedSegmentIndex {
-            case 0: viewModel.updateData(for: .day)
-            case 1: viewModel.updateData(for: .week)
-            case 2: viewModel.updateData(for: .month)
-            case 3: viewModel.updateData(for: .sixMonth)
-            case 4: viewModel.updateData(for: .year)
-            default: break
-            }
+            // ⚡️ RENAME: Cast to StepsTimeRange
+            guard let range = StepsTimeRange(rawValue: sender.selectedSegmentIndex) else { return }
+            viewModel.updateData(for: range)
         }
-        
+            
         func setupChart() {
             let chartView = StepsChartView(viewModel: viewModel)
             let hostingController = UIHostingController(rootView: chartView)
@@ -70,19 +68,15 @@ class StepsViewController: UIViewController {
             chartContainerView.addSubview(hostingController.view)
             hostingController.didMove(toParent: self)
         }
-        
+            
         func setupStyling() {
-            stepsContainerView.addRoundedCorner()
-            highlightView.addRoundedCorner(radius: 10)
-            firstPatternView.addRoundedCorner(radius: 10)
-            secondPatternView.addRoundedCorner(radius: 10)
-            thirdPatternView.addRoundedCorner(radius: 10)
-            chartContainerView.addRoundedCorner()
-            stepViewStack.setCustomSpacing(-5, after: stepValueStack)
+            // Keep your existing styling code here...
+            stepsContainerView?.addRoundedCorner()
+            highlightView?.addRoundedCorner(radius: 10)
+            firstPatternView?.addRoundedCorner(radius: 10)
+            secondPatternView?.addRoundedCorner(radius: 10)
+            thirdPatternView?.addRoundedCorner(radius: 10)
+            chartContainerView?.addRoundedCorner()
+            stepViewStack?.setCustomSpacing(-5, after: stepValueStack)
         }
-    
-    
-
-    
-
-}
+    }
