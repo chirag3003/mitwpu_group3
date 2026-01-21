@@ -60,12 +60,13 @@ class MealService {
         switch section {
         case 0: category = "Breakfast"
         case 1: category = "Lunch"
-        case 2: category = "Dinner"
+        case 2: category = "Snack"
+        case 3: category = "Dinner"
         default: return []
         }
 
         let calendar = Calendar.current
-        
+
         // Filter
         let filtered = allMeals.filter { meal in
             guard meal.type == category else {
