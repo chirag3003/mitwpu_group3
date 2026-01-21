@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddAllergyProtocol {
+class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var allergies: [Allergy] = []
     
@@ -63,12 +63,6 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     
-    func addAllergy(allergy: Allergy) {
-        AllergyService.shared.addAllergy(allergy)
-        // No need to reload here manually; the Service will post 'AllergiesUpdated' on success,
-        // which triggers refreshData() via the observer.
-    }
-    
 
     /*
     // MARK: - Navigation
@@ -79,12 +73,5 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is AddAllergyTableViewController {
-            let destinationVC = segue.destination as! AddAllergyTableViewController
-            destinationVC.addDelegate = self
-        }
-    }
 
 }

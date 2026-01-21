@@ -1,8 +1,6 @@
 import UIKit
 
-protocol AddAllergyProtocol {
-  func addAllergy(allergy: Allergy)
-}
+
 
 class AddAllergyTableViewController: UITableViewController {
 
@@ -11,7 +9,10 @@ class AddAllergyTableViewController: UITableViewController {
   @IBOutlet weak var allergyDetailReaction: UITextField!
   @IBOutlet weak var intensityButton: UIButton!
 
-  var addDelegate: AddAllergyProtocol?
+
+  
+  // Loader
+  let activityIndicator = UIActivityIndicatorView(style: .large)
 
   // Keep reference to fields for keyboard management if needed
   var allTextFields: [UITextField] = []
@@ -31,6 +32,8 @@ class AddAllergyTableViewController: UITableViewController {
       
       removeBorder(from: allergyIngredient)
       removeBorder(from: allergyDetailReaction)
+      
+      setupLoader()
   }
 
   // MARK: - Setup Logic
@@ -71,15 +74,37 @@ class AddAllergyTableViewController: UITableViewController {
 
     // 2. Gather Data
     let reaction = allergyDetailReaction.text ?? ""
-    let intensity = intensityButton.currentTitle ?? DefaultValues.moderateIntensity
+    let intensity = intensityButton.currentTitle ?? "Moderate"
 
-    //Adding allergy
-    addDelegate?.addAllergy(
-      allergy: Allergy(id: UUID(), name: name, severity: intensity, notes: reaction))
-
-    // 4. Go back to previous screen
-    navigationController?.popViewController(animated: true)
-    //        dismiss(animated: true)
+    // 3. Show Loader
+    showLoader(true)
+    
+    // 4. Call Service
+    let newAllergy = Allergy(id: UUID(), name: name, severity: intensity, notes: reaction)
+    
+    AllergyService.shared.addAllergy(newAllergy) { [weak self] result in
+        guard let self = self else { return }
+        
+        DispatchQueue.main.async {
+            self.showLoader(false)
+            
+            switch result {
+            case .success:
+                // Dismiss on success
+                self.navigationController?.popViewController(animated: true)
+                
+            case .failure(let error):
+                // Show Error
+                let alert = UIAlertController(
+                    title: "Error",
+                    message: "Failed to add allergy: \(error.localizedDescription)",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true)
+            }
+        }
+    }
   }
 
   @IBAction func allergyIngredient(_ sender: UITextField) {}
@@ -118,6 +143,22 @@ class AddAllergyTableViewController: UITableViewController {
         // Disable the Focus Ring (Blue glow)
         if #available(iOS 15.0, *) {
             textField.focusEffect = nil
+        }
+    }
+    
+    func setupLoader() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(activityIndicator)
+    }
+    
+    func showLoader(_ show: Bool) {
+        if show {
+            activityIndicator.startAnimating()
+            view.isUserInteractionEnabled = false
+        } else {
+            activityIndicator.stopAnimating()
+            view.isUserInteractionEnabled = true
         }
     }
     

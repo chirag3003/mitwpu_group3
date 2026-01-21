@@ -34,7 +34,7 @@ class AllergyService {
         }
     }
 
-    func addAllergy(_ allergy: Allergy) {
+    func addAllergy(_ allergy: Allergy, completion: @escaping (Result<Allergy, Error>) -> Void) {
         // Call API
         APIService.shared.request(endpoint: "/allergies", method: .post, body: allergy) { [weak self] (result: Result<Allergy, Error>) in
             guard let self = self else { return }
@@ -47,8 +47,11 @@ class AllergyService {
                  DispatchQueue.main.async {
                      NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
                  }
+                 
+                 completion(.success(newAllergy))
             case .failure(let error):
                 print("Error adding allergy: \(error)")
+                completion(.failure(error))
             }
         }
     }
