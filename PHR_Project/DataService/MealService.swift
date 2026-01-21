@@ -75,8 +75,40 @@ class MealService {
         }
     }
 
-    func fetchMealUsingApiID(apiID: String) -> Meal? {
+    func fetchMealsUsingApiID(apiID: String) -> Meal? {
         return allMeals.first { $0.apiID == apiID }
+    }
+    
+    // MARK: - Image Analysis
+    func analyzeMeal(image: UIImage, completion: @escaping (Result<Meal, Error>) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(.failure(NSError(domain: "ImageConversionError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data"])))
+            return
+        }
+        
+        APIService.shared.upload(endpoint: "/meals/analyze", data: imageData, filename: "meal.jpg") { [weak self] (result: Result<AnalysisResponse, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    // The API returns the saved meal in 'meal' field
+                    let newMeal = response.meal
+                    self.allMeals.append(newMeal)
+                    completion(.success(newMeal))
+                }
+            case .failure(let error):
+                print("Analysis failed: \(error)")
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    struct AnalysisResponse: Decodable {
+        let meal: Meal
+        // let analysis: AnalysisDetails // We can add this if needed, but 'meal' has everything required
     }
     
     struct EmptyResponse: Decodable {}
