@@ -18,25 +18,24 @@ struct GlucoseChartView: View {
                     
                     // 1. Dynamic Unit: Hour for Day View, Day for others
                     let xUnit: Calendar.Component = (viewModel.currentRange == .day) ? .hour : .day
-                    
+                    // Inside your Chart { ForEach(...) } loop:
+
+                    // 1. Update the AreaMark
                     AreaMark(
                         x: .value("Time", point.date, unit: xUnit),
                         y: .value("Value", point.value)
                     )
-                    .interpolationMethod(.catmullRom)
+                    .interpolationMethod(.monotone)  
                     .foregroundStyle(
-                        LinearGradient(
-                            colors: [.blue.opacity(0.3), .blue.opacity(0.0)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
+                        LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.blue.opacity(0.05)]), startPoint: .top, endPoint: .bottom)
                     )
-                    
+
+                    // 2. Update the LineMark
                     LineMark(
                         x: .value("Time", point.date, unit: xUnit),
                         y: .value("Value", point.value)
                     )
-                    .interpolationMethod(.catmullRom)
+                    .interpolationMethod(.monotone)
                     .lineStyle(StrokeStyle(lineWidth: 3))
                     .foregroundStyle(Color.blue)
                 }
@@ -75,3 +74,4 @@ struct GlucoseChartView: View {
         }
     }
 }
+
