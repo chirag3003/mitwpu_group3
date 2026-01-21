@@ -402,36 +402,29 @@ extension MealViewController: CustomCameraDelegate {
     
     
     func didCaptureImage(_ image: UIImage) {
-        print("Custom camera took a picture!")
-        
-        // Show loading indicator
-        let alert = UIAlertController(title: "Analyzing...", message: "Please wait while we analyze your food.", preferredStyle: .alert)
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = .medium
-        loadingIndicator.startAnimating()
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-        
-        MealService.shared.analyzeMeal(image: image) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.dismiss(animated: true) {
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let meal):
-                        print("Analysis complete: \(meal.name)")
-                        // Refresh the collection view to show the new meal
-                        self.mealCollectionView.reloadData()
-                        
-                        // Optional: Navigate to detail view or show success
-                        // For now, just reload is enough as per requirement
-                        
-                    case .failure(let error):
-                        print("Analysis failed: \(error)")
-                        let errorAlert = UIAlertController(title: "Analysis Failed", message: error.localizedDescription, preferredStyle: .alert)
-                        errorAlert.addAction(UIAlertAction(title: "OK", style: .default))
-                        self.present(errorAlert, animated: true)
-                    }
+        // 1. Dismiss the camera first
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            
+            // 2. Show the standard full-screen loader
+            self.showLoader(true)
+            
+            // 3. Start analysis
+            MealService.shared.analyzeMeal(image: image) { [weak self] result in
+                guard let self = self else { return }
+                
+                // 4. Hide loader when done
+                self.showLoader(false)
+                
+                switch result {
+                case .success(let meal):
+                    print("Analysis complete: \(meal.name)")
+                    self.mealCollectionView.reloadData()
+                    self.showAlert(title: "Success", message: "Added \(meal.name)!")
+                    
+                case .failure(let error):
+                    print("Analysis failed: \(error)")
+                    self.showAlert(title: "Analysis Failed", message: error.localizedDescription)
                 }
             }
         }
