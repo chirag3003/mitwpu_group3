@@ -34,7 +34,7 @@ class SymptomService {
         }
     }
 
-    func addSymptom(_ symptom: Symptom) {
+    func addSymptom(_ symptom: Symptom, completion: @escaping (Result<Symptom, Error>) -> Void) {
         APIService.shared.request(endpoint: "/symptoms", method: .post, body: symptom) { [weak self] (result: Result<Symptom, Error>) in
             guard let self = self else { return }
             
@@ -43,8 +43,10 @@ class SymptomService {
                 DispatchQueue.main.async {
                     self.symptoms.append(savedSymptom)
                 }
+                completion(.success(savedSymptom))
             case .failure(let error):
                 print("Error adding symptom to API: \(error)")
+                completion(.failure(error))
             }
         }
     }

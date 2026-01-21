@@ -128,13 +128,7 @@ class AddSymptomTableViewController: UITableViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let type = selectedType, let intensity = selectedIntensity else {
             // Show simple alert
-            let alert = UIAlertController(
-                title: "Missing Info",
-                message: "Please select Type and Intensity",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
+            self.showAlert(title: "Missing Info", message: "Please select Type and Intensity")
             return
         }
 
@@ -157,8 +151,23 @@ class AddSymptomTableViewController: UITableViewController {
             time: timeComponents
         )
         
-        SymptomService.shared.addSymptom(newSymptom)
-        dismiss(animated: true)
+        // Show Loader
+        self.showLoader(true)
+        
+        SymptomService.shared.addSymptom(newSymptom) { [weak self] result in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.showLoader(false)
+                
+                switch result {
+                case .success:
+                     self.dismiss(animated: true)
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: "Failed to add symptom: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 
     // MARK: - Table View Config
