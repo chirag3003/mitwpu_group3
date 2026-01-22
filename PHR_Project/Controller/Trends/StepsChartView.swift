@@ -12,8 +12,7 @@ struct StepsChartView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         ZStack(alignment: .leading) {
                             
-                            // 👻 LAYER 1: The "Ghost" Scroll Targets (Using INDICES)
-                            // We use simple Int indices (0, 1, 2...) which are bulletproof for scrolling
+                            // so that the chart bars align correctly while scrolling, goes to the current record
                             HStack(spacing: 0) {
                                 ForEach(Array(viewModel.dataPoints.enumerated()), id: \.offset) { index, point in
                                     Color.clear
@@ -23,7 +22,7 @@ struct StepsChartView: View {
                             }
                             .frame(height: 1) // Minimal height, just needs to exist
                             
-                            // 📊 LAYER 2: The Actual Chart
+                        // The Actual Chart
                             Chart {
                                 ForEach(viewModel.dataPoints) { point in
                                     
@@ -71,11 +70,11 @@ struct StepsChartView: View {
                     .onAppear {
                         scrollToEnd(proxy: scrollProxy)
                     }
-                    .onChange(of: viewModel.currentRange) { _ in
+                    .onChange(of: viewModel.currentRange) { _, _ in
                         scrollToEnd(proxy: scrollProxy)
                     }
                     // Trigger scroll whenever the data updates (e.g. data loads from HealthKit)
-                    .onChange(of: viewModel.dataPoints.count) { _ in
+                    .onChange(of: viewModel.dataPoints.count) { _, _ in
                         scrollToEnd(proxy: scrollProxy)
                     }
                 }
@@ -85,13 +84,15 @@ struct StepsChartView: View {
         }
     }
     
-    // ⚡️ HELPER: Scroll to the last available data point (Current Time)
+    // Scroll to the last available data point (Current Time)
     func scrollToEnd(proxy: ScrollViewProxy) {
-        // Slight delay to ensure the View is rendered before we try to scroll
+        // Slight delay to ensure the view is rendered before we try to scroll
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             withAnimation {
                 let count = viewModel.dataPoints.count
                 if count > 0 {
+                    
+                    // This is necessary alignment adjusted for the chart to look better
                     // Scroll to the last index (count - 1)
                     // anchor: .trailing aligns the "Now" bar to the right side of the screen
                     // anchor: .center aligns it to the middle

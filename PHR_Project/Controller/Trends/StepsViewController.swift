@@ -51,7 +51,7 @@ class StepsViewController: UIViewController {
         }
             
         @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-            // ⚡️ RENAME: Cast to StepsTimeRange
+           
             guard let range = StepsTimeRange(rawValue: sender.selectedSegmentIndex) else { return }
             viewModel.updateData(for: range)
         }
