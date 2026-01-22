@@ -31,18 +31,45 @@ class AddGlucoseModalViewController: UITableViewController {
     @IBAction func doneModalButton(_ sender: Any) {
         
         guard let text = glucoseTextField.text, let value = Int(text) else {
-                    // Optional: Show an alert if empty
-                    return
+            // Optional: Show an alert if empty
+            return
+        }
+        
+        // Context Handling
+        let contextString = typeButton.menu?.children.first(where: { ($0 as? UIAction)?.state == .on })?.title ?? "Fasting"
+        let context = MealContext(rawValue: contextString)
+        
+        // Date Components
+        let date = datePicker.date
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        let timeOfDay = TimeOfDay(hour: hour, minute: minute)
+        
+        // Create Reading
+        let newReading = GlucoseReading(
+            value: value,
+            dateRecorded: date,
+            time: timeOfDay,
+            mealContext: context,
+            notes: nil
+        )
+        
+        // Call Service
+        GlucoseService.shared.addReading(newReading) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    // Dismiss
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    print("Error adding glucose: \(error)")
+                    let alert = UIAlertController(title: "Error", message: "Failed to add reading.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self?.present(alert, animated: true)
                 }
-
-                // 5. Create the Data Point
-                let newPoint = GlucoseDataPoint(date: datePicker.date, value: value)
-
-                // 6. Send data back to the Main Screen
-                delegate?.didAddGlucoseData(point: newPoint)
-
-                // 7. Close the Modal
-                dismiss(animated: true)
+            }
+        }
     }
 
     @IBAction func closeModalButton(_ sender: Any) {

@@ -33,18 +33,42 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
     
     private let chartViewModel = ChartViewModel()
     override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            // Load data BEFORE setting up the chart
-            chartViewModel.updateData(for: .week)
-            
-            if let segment = chartSegmentControl {
-                segment.selectedSegmentIndex = 1
-            }
-            
-            setupChart()
-            setupStyling()
+        super.viewDidLoad()
+        
+        if let segment = chartSegmentControl {
+            segment.selectedSegmentIndex = 1
         }
+        
+        setupChart()
+        setupStyling()
+        
+        // Listen for updates
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromService), name: NSNotification.Name("GlucoseReadingsUpdated"), object: nil)
+        
+        // Initial Fetch
+        GlucoseService.shared.fetchReadings()
+        updateDataFromService()
+    }
+    
+    @objc func updateDataFromService() {
+        let readings = GlucoseService.shared.getReadings()
+        
+        // Map to GlucoseDataPoint for the existing chart view model
+        let points = readings.map { reading in
+            return GlucoseDataPoint(date: reading.dateRecorded, value: reading.value)
+        }
+        
+        // Sort
+        let sortedPoints = points.sorted { $0.date < $1.date }
+        
+        // Update Chart
+        chartViewModel.dataPoints = sortedPoints
+        
+        // Update Stats labels
+        if let latest = sortedPoints.last {
+            updateDashboardLabels(latestPoint: latest)
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             // Check if the destination is the Add Controller (or a Nav Controller holding it)
@@ -57,30 +81,11 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
             }
         }
         
-        // 3. The Protocol Implementation: This runs when "Done" is clicked
+        // 3. Protocol Implementation (Legacy/Unused but kept for satisfying protocol if needed, or removed if protocol is optional)
     func didAddGlucoseData(point: GlucoseDataPoint) {
-        // 1. Create a copy of the current data
-        var updatedData = chartViewModel.dataPoints
-        
-        // 2. Remove any "Dummy" data that is too close to the new point (Optional but recommended)
-        // This prevents having two points at almost the same time (e.g., 4:00 PM and 4:05 PM)
-        updatedData.removeAll { existingPoint in
-            let timeDifference = abs(existingPoint.date.timeIntervalSince(point.date))
-            return timeDifference < 300 // Remove points within 5 minutes of the new one
-        }
-        
-        // 3. Append the new point
-        updatedData.append(point)
-        
-        // 4. Sort strictly by date
-        updatedData.sort { $0.date < $1.date }
-        
-        // 5. Assign back to the ViewModel in one go
-        // This triggers ONLY ONE redraw, preventing the "glitch/distortion"
-        chartViewModel.dataPoints = updatedData
-        
-        // 6. Update Labels
-        updateDashboardLabels(latestPoint: point)
+        // No-op: Data is now handled via Service + Notification
+        // But we refresh just in case
+        updateDataFromService()
     }
         
         func updateDashboardLabels(latestPoint: GlucoseDataPoint) {
