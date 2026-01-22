@@ -62,24 +62,25 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         // 1. Create a copy of the current data
         var updatedData = chartViewModel.dataPoints
         
-        // 2. Remove any "Dummy" data that is too close to the new point (Optional but recommended)
-        // This prevents having two points at almost the same time (e.g., 4:00 PM and 4:05 PM)
+        //  Remove any "Dummy" data that is too close to the new point
+        // This prevents having two points at almost the same time
+        
         updatedData.removeAll { existingPoint in
             let timeDifference = abs(existingPoint.date.timeIntervalSince(point.date))
             return timeDifference < 300 // Remove points within 5 minutes of the new one
         }
         
-        // 3. Append the new point
+        //  Append the new point
         updatedData.append(point)
         
-        // 4. Sort strictly by date
+        //  Sort strictly by date
         updatedData.sort { $0.date < $1.date }
         
-        // 5. Assign back to the ViewModel in one go
-        // This triggers ONLY ONE redraw, preventing the "glitch/distortion"
+        // Assign back to the ViewModel in one go
+        // a fix for distorted graphs when adding new data
         chartViewModel.dataPoints = updatedData
         
-        // 6. Update Labels
+        //  Update Labels
         updateDashboardLabels(latestPoint: point)
     }
         
@@ -104,15 +105,15 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
     
     @IBAction func timeSegmentChanged(_ sender: UISegmentedControl) {
             switch sender.selectedSegmentIndex {
-            case 0: // Day (D)
+            case 0:
                 chartViewModel.updateData(for: .day)
-            case 1: // Week (W)
+            case 1:
                 chartViewModel.updateData(for: .week)
-            case 2: // Month (M)
+            case 2:
                 chartViewModel.updateData(for: .month)
-            case 3: // 6 Months (6M)
+            case 3:
                 chartViewModel.updateData(for: .sixMonth)
-            case 4: // Year (Y)
+            case 4:
                 chartViewModel.updateData(for: .year)
             default:
                 break

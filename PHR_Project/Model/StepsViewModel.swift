@@ -3,7 +3,7 @@ import HealthKit
 import SwiftUI
 import Combine
 
-// ⚡️ RENAME: Changed name to avoid conflict with Glucose chart
+
 enum StepsTimeRange: Int {
     case day = 0
     case week = 1
@@ -38,7 +38,8 @@ class StepsViewModel: ObservableObject {
         }
     }
     
-    // ⚡️ Updated signature to use StepsTimeRange
+   // use of stepsTimeChange enum
+    
     func updateData(for range: StepsTimeRange) {
         DispatchQueue.main.async { self.currentRange = range }
         
@@ -98,15 +99,15 @@ class StepsViewModel: ObservableObject {
         query.initialResultsHandler = { query, results, error in
             guard let statsCollection = results else { return }
             
-            // ... inside query.initialResultsHandler ...
+          
 
             var newPoints: [StepDataPoint] = []
-            var totalStepsInPeriod: Double = 0 // 1. Change this to Double
+            var totalStepsInPeriod: Double = 0
 
             statsCollection.enumerateStatistics(from: startDate, to: now) { statistics, stop in
                 let count = statistics.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0
                 
-                // 2. Keep 'count' as a Double for the running total
+                // Keep 'count' as a Double for the running total
                 totalStepsInPeriod += count
                 
                 // It is okay to cast to Int for the individual graph bar
@@ -125,7 +126,7 @@ class StepsViewModel: ObservableObject {
                     self.mainStatTitle = "Daily Average"
                     let daysInPeriod = calendar.dateComponents([.day], from: startDate, to: now).day ?? 1
                     
-                    // Use the Double for precise average calculation
+                    // average calculation
                     let average = daysInPeriod > 0 ? Int((totalStepsInPeriod / Double(daysInPeriod)).rounded()) : 0
                     self.mainStatValue = "\(average)"
                 }
