@@ -50,7 +50,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateDataFromService),
-            name: NSNotification.Name("GlucoseReadingsUpdated"),
+            name: NSNotification.Name(NotificationNames.glucoseUpdated),
             object: nil
         )
 

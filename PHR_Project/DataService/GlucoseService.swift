@@ -5,7 +5,7 @@ class GlucoseService {
     
     private var readings: [GlucoseReading] = [] {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("GlucoseReadingsUpdated"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.glucoseUpdated), object: nil)
         }
     }
     

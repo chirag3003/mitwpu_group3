@@ -1421,14 +1421,14 @@
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4A2-s8-K1b">
                                                         <rect key="frame" x="8" y="116.66666666666669" width="345" height="260"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="260" id="oFP-wc-RpF"/>
                                                             <constraint firstAttribute="width" constant="345" id="upo-tp-zFj"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Ira-P9-Ocy" secondAttribute="trailing" id="8cT-S8-kNS"/>
                                                     <constraint firstItem="4A2-s8-K1b" firstAttribute="centerX" secondItem="Ira-P9-Ocy" secondAttribute="centerX" id="Ens-ns-Uno"/>
@@ -1633,7 +1633,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0KC-GB-j7j"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                     </view>
                     <navigationItem key="navigationItem" title="Steps" id="g0o-gd-j55"/>
                     <connections>
@@ -1847,9 +1847,6 @@
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
