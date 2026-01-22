@@ -62,6 +62,17 @@ struct GlucoseReading: Codable {
         self.createdAt = nil
         self.updatedAt = nil
     }
+    
+    // Helper to combine dateRecorded with time
+    var combinedDate: Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: dateRecorded)
+        components.hour = time.hour
+        components.minute = time.minute
+        // Ideally should match user timezone or UTC properly, 
+        // but since API separates them, we assume dateRecorded is the base date.
+        return calendar.date(from: components) ?? dateRecorded
+    }
 }
 
 struct GlucoseStats: Codable {
