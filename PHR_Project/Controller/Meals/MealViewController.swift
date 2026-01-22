@@ -191,10 +191,6 @@ class MealViewController: UIViewController {
     }
     
     private func updateMonthLabel(for index: Int) {
-        //let selectedDate = dates.getDays()[index]
-        
-        // Extract month from the CalendarDay
-        // Assuming CalendarDay has a date property or you can derive it
         let calendar = Calendar.current
         let today = Date()
         
@@ -342,6 +338,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == dateCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            updateMonthLabel(for: indexPath.row) 
         }
         
     }
