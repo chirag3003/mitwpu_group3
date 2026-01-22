@@ -71,11 +71,11 @@ struct StepsChartView: View {
                     .onAppear {
                         scrollToEnd(proxy: scrollProxy)
                     }
-                    .onChange(of: viewModel.currentRange) {
+                    .onChange(of: viewModel.currentRange) { _ in
                         scrollToEnd(proxy: scrollProxy)
                     }
                     // Trigger scroll whenever the data updates (e.g. data loads from HealthKit)
-                    .onChange(of: viewModel.dataPoints.count) {
+                    .onChange(of: viewModel.dataPoints.count) { _ in
                         scrollToEnd(proxy: scrollProxy)
                     }
                 }
