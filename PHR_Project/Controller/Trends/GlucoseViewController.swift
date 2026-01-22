@@ -142,10 +142,10 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
             minView.addDropShadow()
             maxView.addRoundedCorner()
             maxView.addDropShadow()
-            iapView.addRoundedCorner(radius: 10)
-            postDinnerView.addRoundedCorner(radius: 10)
-            exerciseBenefitsView.addRoundedCorner(radius: 10)
-            postDinnerSecondView.addRoundedCorner(radius: 10)
+            iapView.addRoundedCorner(radius: 20)
+            postDinnerView.addRoundedCorner(radius: 20)
+            exerciseBenefitsView.addRoundedCorner(radius: 20)
+            postDinnerSecondView.addRoundedCorner(radius: 20)
             glucoseGraphStack.setCustomSpacing(-5, after: glucoseValueStack)
         }
 }
