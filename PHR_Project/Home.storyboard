@@ -217,7 +217,7 @@
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-l1-y2a">
                                                                                         <rect key="frame" x="30" y="16.333333333333332" width="25" height="21.666666666666668"/>
-                                                                                        <color key="tintColor" red="0.16552732880000001" green="0.17529295380000001" blue="0.1840820312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                        <color key="tintColor" name="water_btn"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="lVu-ho-VvT"/>
                                                                                         </constraints>
@@ -231,7 +231,7 @@
                                                                                     </label>
                                                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhV-ze-kSJ">
                                                                                         <rect key="frame" x="126" y="11.666666666666666" width="25" height="31.000000000000007"/>
-                                                                                        <color key="tintColor" red="0.16552732880000001" green="0.17529295380000001" blue="0.1840820312" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                        <color key="tintColor" name="water_btn"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="25" id="lUb-nW-wap"/>
                                                                                         </constraints>
@@ -1352,7 +1352,7 @@
             </objects>
             <point key="canvasLocation" x="3823.8805970149251" y="-218.30663615560638"/>
         </scene>
-        <!--Steps View Controller-->
+        <!--Steps-->
         <scene sceneID="V6f-D4-43E">
             <objects>
                 <viewController id="sNv-mV-tyz" customClass="StepsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -1475,7 +1475,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="75" id="5n8-Cz-acV"/>
                                                             <constraint firstItem="Ycr-PR-eD6" firstAttribute="top" secondItem="2Vf-Ag-DRc" secondAttribute="top" constant="16" id="CQW-EL-gyF"/>
@@ -1502,7 +1502,7 @@
                                                         <rect key="frame" x="0.0" y="22.333333333333258" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gtn-gI-zei">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="4bJ-tj-4pO"/>
@@ -1525,7 +1525,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="G7B-Sa-hqJ" secondAttribute="bottom" constant="8" id="2Wz-7u-KJn"/>
                                                             <constraint firstItem="jY6-Hv-w0F" firstAttribute="top" secondItem="n9a-kz-Rid" secondAttribute="top" constant="16" id="2dR-Nf-eYJ"/>
@@ -1541,7 +1541,7 @@
                                                         <rect key="frame" x="0.0" y="95.333333333333258" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.downtrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OoP-T6-Dzo">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="1aR-Fp-qaU"/>
@@ -1555,16 +1555,16 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You are burning more calories than usual during your morning walks." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UD-Ni-n93">
-                                                                <rect key="frame" x="56" y="28.333333333333371" width="306" height="28.666666666666671"/>
+                                                                <rect key="frame" x="56" y="28.333333333333371" width="300" height="28.666666666666671"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="306" id="2RI-Ei-7e7"/>
+                                                                    <constraint firstAttribute="width" constant="300" id="2RI-Ei-7e7"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="0UD-Ni-n93" firstAttribute="leading" secondItem="OoP-T6-Dzo" secondAttribute="trailing" constant="8" id="JTL-9x-VeT"/>
                                                             <constraint firstItem="rGe-6e-jUa" firstAttribute="leading" secondItem="OoP-T6-Dzo" secondAttribute="trailing" constant="8" id="NA8-Vg-hyv"/>
@@ -1580,7 +1580,7 @@
                                                         <rect key="frame" x="0.0" y="168.33333333333326" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DEE-Ir-9ah">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="RxC-AJ-yQj"/>
@@ -1603,7 +1603,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="JAD-UA-Tr7" firstAttribute="leading" secondItem="DEE-Ir-9ah" secondAttribute="trailing" constant="8" id="9Ag-o3-3AZ"/>
                                                             <constraint firstItem="DEE-Ir-9ah" firstAttribute="centerY" secondItem="52m-Ul-h5T" secondAttribute="centerY" id="Zrg-IM-caP"/>
@@ -1635,7 +1635,7 @@
                         <viewLayoutGuide key="safeArea" id="0KC-GB-j7j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g0o-gd-j55"/>
+                    <navigationItem key="navigationItem" title="Steps" id="g0o-gd-j55"/>
                     <connections>
                         <outlet property="chartContainerView" destination="4A2-s8-K1b" id="3jf-MP-8ug"/>
                         <outlet property="firstPatternView" destination="n9a-kz-Rid" id="wYV-zm-ns9"/>
@@ -1832,6 +1832,12 @@
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="AppPrimaryBackground">
             <color red="0.84299999475479126" green="0.93699997663497925" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="insights_bg">
+            <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="water_btn">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

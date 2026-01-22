@@ -201,10 +201,6 @@ class MealViewController: UIViewController {
     }
 
     private func updateMonthLabel(for index: Int) {
-        //let selectedDate = dates.getDays()[index]
-
-        // Extract month from the CalendarDay
-        // Assuming CalendarDay has a date property or you can derive it
         let calendar = Calendar.current
         let today = Date()
 
@@ -239,25 +235,16 @@ class MealViewController: UIViewController {
     }
 
     private func createMealLayout() -> UICollectionViewLayout {
-        var config = UICollectionLayoutListConfiguration(
-            appearance: .insetGrouped
-        )
-        config.headerMode = .supplementary
-        config.headerTopPadding = UIConstants.Spacing.medium
-        config.showsSeparators = true
-        config.backgroundColor = .clear
-
-        config.trailingSwipeActionsConfigurationProvider = {
-            [weak self] indexPath in
-            let deleteAction = UIContextualAction(
-                style: .destructive,
-                title: "Delete"
-            ) { action, view, completion in
-
-                let mealsInSection = MealService.shared.getMeals(
-                    forSection: indexPath.section,
-                    on: self?.selectedDate ?? Date()
-                )
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.headerMode = .supplementary
+            config.headerTopPadding = UIConstants.Spacing.medium
+            config.showsSeparators = true
+            config.backgroundColor = .clear
+        
+        config.trailingSwipeActionsConfigurationProvider = { indexPath in
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
+                
+                let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
                 let mealToDelete = mealsInSection[indexPath.row]
 
                 MealService.shared.deleteMeal(mealToDelete)
@@ -385,24 +372,8 @@ extension MealViewController: UICollectionViewDataSource,
         didSelectItemAt indexPath: IndexPath
     ) {
         if collectionView == dateCollectionView {
-            collectionView.scrollToItem(
-                at: indexPath,
-                at: .centeredHorizontally,
-                animated: true
-            )
-
-            // Calculate selected date
-            // Index 15 is today (offset 0)
-            let daysOffset = indexPath.row - 15
-            if let date = Calendar.current.date(
-                byAdding: .day,
-                value: daysOffset,
-                to: Date()
-            ) {
-                selectedDate = date
-                updateMonthLabel(for: indexPath.row)
-                mealCollectionView.reloadData()
-            }
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            updateMonthLabel(for: indexPath.row) 
         }
 
     }
@@ -525,3 +496,4 @@ extension MealViewController: CustomCameraDelegate {
         }
     }
 }
+

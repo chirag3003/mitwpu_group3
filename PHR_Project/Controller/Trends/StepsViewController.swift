@@ -51,7 +51,7 @@ class StepsViewController: UIViewController {
         }
             
         @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-            // ⚡️ RENAME: Cast to StepsTimeRange
+           
             guard let range = StepsTimeRange(rawValue: sender.selectedSegmentIndex) else { return }
             viewModel.updateData(for: range)
         }
@@ -72,10 +72,10 @@ class StepsViewController: UIViewController {
         func setupStyling() {
             // Keep your existing styling code here...
             stepsContainerView?.addRoundedCorner()
-            highlightView?.addRoundedCorner(radius: 10)
-            firstPatternView?.addRoundedCorner(radius: 10)
-            secondPatternView?.addRoundedCorner(radius: 10)
-            thirdPatternView?.addRoundedCorner(radius: 10)
+            highlightView?.addRoundedCorner(radius: 20)
+            firstPatternView?.addRoundedCorner(radius: 20)
+            secondPatternView?.addRoundedCorner(radius: 20)
+            thirdPatternView?.addRoundedCorner(radius: 20)
             chartContainerView?.addRoundedCorner()
             stepViewStack?.setCustomSpacing(-5, after: stepValueStack)
         }
