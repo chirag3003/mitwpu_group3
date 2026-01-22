@@ -1555,9 +1555,9 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You are burning more calories than usual during your morning walks." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UD-Ni-n93">
-                                                                <rect key="frame" x="56" y="28.333333333333371" width="306" height="28.666666666666671"/>
+                                                                <rect key="frame" x="56" y="28.333333333333371" width="300" height="28.666666666666671"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="306" id="2RI-Ei-7e7"/>
+                                                                    <constraint firstAttribute="width" constant="300" id="2RI-Ei-7e7"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <nil key="textColor"/>
