@@ -1352,7 +1352,7 @@
             </objects>
             <point key="canvasLocation" x="3823.8805970149251" y="-218.30663615560638"/>
         </scene>
-        <!--Steps View Controller-->
+        <!--Steps-->
         <scene sceneID="V6f-D4-43E">
             <objects>
                 <viewController id="sNv-mV-tyz" customClass="StepsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -1502,7 +1502,7 @@
                                                         <rect key="frame" x="0.0" y="22.333333333333258" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gtn-gI-zei">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="4bJ-tj-4pO"/>
@@ -1541,7 +1541,7 @@
                                                         <rect key="frame" x="0.0" y="95.333333333333258" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.downtrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OoP-T6-Dzo">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="1aR-Fp-qaU"/>
@@ -1580,7 +1580,7 @@
                                                         <rect key="frame" x="0.0" y="168.33333333333326" width="361" height="65"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DEE-Ir-9ah">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333357"/>
+                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="RxC-AJ-yQj"/>
@@ -1635,7 +1635,7 @@
                         <viewLayoutGuide key="safeArea" id="0KC-GB-j7j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g0o-gd-j55"/>
+                    <navigationItem key="navigationItem" title="Steps" id="g0o-gd-j55"/>
                     <connections>
                         <outlet property="chartContainerView" destination="4A2-s8-K1b" id="3jf-MP-8ug"/>
                         <outlet property="firstPatternView" destination="n9a-kz-Rid" id="wYV-zm-ns9"/>
