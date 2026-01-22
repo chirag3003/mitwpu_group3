@@ -231,7 +231,7 @@ class MealViewController: UIViewController {
             config.showsSeparators = true
             config.backgroundColor = .clear
         
-        config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+        config.trailingSwipeActionsConfigurationProvider = { indexPath in
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                 
                 let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
@@ -436,3 +436,4 @@ extension MealViewController: CustomCameraDelegate {
         }
     }
 }
+
