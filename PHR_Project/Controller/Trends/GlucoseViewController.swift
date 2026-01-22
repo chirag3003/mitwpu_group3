@@ -14,6 +14,16 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
     @IBOutlet weak var chartSegmentControl: UISegmentedControl!
     @IBOutlet weak var glucoseValueStack: UIStackView!
     @IBOutlet weak var glucoseGraphStack: UIStackView!
+    
+    // Empty State View (created programmatically or via storyboard if exists, assuming programmatic for now)
+    private let noDataLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No glucose data logged yet.\nTap + to add a reading."
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .secondaryLabel
+        return label
+    }()
     @IBOutlet weak var postDinnerSecondView: UIView!
     @IBOutlet weak var exerciseBenefitsView: UIView!
     @IBOutlet weak var postDinnerView: UIView!
@@ -41,6 +51,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         
         setupChart()
         setupStyling()
+        setupEmptyState()
         
         // Listen for updates
         NotificationCenter.default.addObserver(self, selector: #selector(updateDataFromService), name: NSNotification.Name("GlucoseReadingsUpdated"), object: nil)
@@ -50,23 +61,76 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         updateDataFromService()
     }
     
+    func setupEmptyState() {
+        view.addSubview(noDataLabel)
+        noDataLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noDataLabel.centerXAnchor.constraint(equalTo: graphView.centerXAnchor),
+            noDataLabel.centerYAnchor.constraint(equalTo: graphView.centerYAnchor)
+        ])
+        noDataLabel.isHidden = true
+    }
+    
     @objc func updateDataFromService() {
+        applyFilter()
+    }
+    
+    func applyFilter() {
         let readings = GlucoseService.shared.getReadings()
+        let calendar = Calendar.current
+        let now = Date()
         
-        // Map to GlucoseDataPoint for the existing chart view model
-        let points = readings.map { reading in
-            return GlucoseDataPoint(date: reading.dateRecorded, value: reading.value)
+        let filteredReadings: [GlucoseReading]
+        
+        let selectedIndex = chartSegmentControl?.selectedSegmentIndex ?? 1
+        
+        switch selectedIndex {
+        case 0: // Day
+            if let start = calendar.date(byAdding: .day, value: -1, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else { filteredReadings = readings }
+        case 1: // Week
+            if let start = calendar.date(byAdding: .day, value: -7, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else { filteredReadings = readings }
+        case 2: // Month
+            if let start = calendar.date(byAdding: .month, value: -1, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else { filteredReadings = readings }
+        case 3: // 6 Months
+            if let start = calendar.date(byAdding: .month, value: -6, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else { filteredReadings = readings }
+        case 4: // Year
+            if let start = calendar.date(byAdding: .year, value: -1, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else { filteredReadings = readings }
+        default:
+            filteredReadings = readings
         }
         
-        // Sort
+        // Map to DataPoints
+        let points = filteredReadings.map { GlucoseDataPoint(date: $0.dateRecorded, value: $0.value) }
         let sortedPoints = points.sorted { $0.date < $1.date }
         
         // Update Chart
         chartViewModel.dataPoints = sortedPoints
         
-        // Update Stats labels
-        if let latest = sortedPoints.last {
-            updateDashboardLabels(latestPoint: latest)
+        // Handle Empty State
+        if sortedPoints.isEmpty {
+            noDataLabel.isHidden = false
+            chartContainerView.isHidden = true // Hide chart to show label clearly
+            // Reset Labels
+            if let l = lastLoggedLabel { l.text = "--" }
+            if let l = averageLabel { l.text = "--" }
+            if let l = minLabel { l.text = "--" }
+            if let l = maxLabel { l.text = "--" }
+        } else {
+            noDataLabel.isHidden = true
+            chartContainerView.isHidden = false
+            if let latest = sortedPoints.last {
+                updateDashboardLabels(latestPoint: latest, allPoints: sortedPoints)
+            }
         }
     }
     
@@ -88,41 +152,29 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         updateDataFromService()
     }
         
-        func updateDashboardLabels(latestPoint: GlucoseDataPoint) {
-            // Update "Last Logged"
-            if let label = lastLoggedLabel {
-                label.text = "\(latestPoint.value)"
-            }
-            
-            // Calculate and Update Stats
-            let values = chartViewModel.dataPoints.map { $0.value }
-            if !values.isEmpty {
-                let avg = values.reduce(0, +) / values.count
-                let min = values.min() ?? 0
-                let max = values.max() ?? 0
-                
-                if let l = averageLabel { l.text = "\(avg)" }
-                if let l = minLabel { l.text = "\(min)" }
-                if let l = maxLabel { l.text = "\(max)" }
-            }
+    func updateDashboardLabels(latestPoint: GlucoseDataPoint, allPoints: [GlucoseDataPoint]) {
+        // Update "Last Logged"
+        if let label = lastLoggedLabel {
+            label.text = "\(latestPoint.value)"
         }
+        
+        // Calculate and Update Stats
+        let values = allPoints.map { $0.value }
+        if !values.isEmpty {
+            let avg = values.reduce(0, +) / values.count
+            let min = values.min() ?? 0
+            let max = values.max() ?? 0
+            
+            if let l = averageLabel { l.text = "\(avg)" }
+            if let l = minLabel { l.text = "\(min)" }
+            if let l = maxLabel { l.text = "\(max)" }
+        }
+    }
     
     @IBAction func timeSegmentChanged(_ sender: UISegmentedControl) {
-            switch sender.selectedSegmentIndex {
-            case 0: // Day (D)
-                chartViewModel.updateData(for: .day)
-            case 1: // Week (W)
-                chartViewModel.updateData(for: .week)
-            case 2: // Month (M)
-                chartViewModel.updateData(for: .month)
-            case 3: // 6 Months (6M)
-                chartViewModel.updateData(for: .sixMonth)
-            case 4: // Year (Y)
-                chartViewModel.updateData(for: .year)
-            default:
-                break
-            }
-        }
+        // Just re-apply the filter on existing data
+        applyFilter()
+    }
 
     func setupChart() {
             let chartView = GlucoseChartView(viewModel: chartViewModel)
