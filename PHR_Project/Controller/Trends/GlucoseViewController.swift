@@ -80,56 +80,73 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         let calendar = Calendar.current
         let now = Date()
         
-        let filteredReadings: [GlucoseReading]
+        var filteredReadings: [GlucoseReading] = []
         
         let selectedIndex = chartSegmentControl?.selectedSegmentIndex ?? 1
         
         switch selectedIndex {
-        case 0: // Day
-            if let start = calendar.date(byAdding: .day, value: -1, to: now) {
-                filteredReadings = readings.filter { $0.dateRecorded >= start }
-            } else { filteredReadings = readings }
-        case 1: // Week
+        case 0: // Day - Since Midnight
+            let start = calendar.startOfDay(for: now)
+            filteredReadings = readings.filter { $0.dateRecorded >= start }
+            chartViewModel.currentRange = .day
+            
+        case 1: // Week - Last 7 Days
             if let start = calendar.date(byAdding: .day, value: -7, to: now) {
                 filteredReadings = readings.filter { $0.dateRecorded >= start }
             } else { filteredReadings = readings }
-        case 2: // Month
+            chartViewModel.currentRange = .week
+            
+        case 2: // Month - Last 30 Days
             if let start = calendar.date(byAdding: .month, value: -1, to: now) {
                 filteredReadings = readings.filter { $0.dateRecorded >= start }
             } else { filteredReadings = readings }
+            chartViewModel.currentRange = .month
+            
         case 3: // 6 Months
             if let start = calendar.date(byAdding: .month, value: -6, to: now) {
                 filteredReadings = readings.filter { $0.dateRecorded >= start }
             } else { filteredReadings = readings }
+            chartViewModel.currentRange = .sixMonth
+            
         case 4: // Year
             if let start = calendar.date(byAdding: .year, value: -1, to: now) {
                 filteredReadings = readings.filter { $0.dateRecorded >= start }
             } else { filteredReadings = readings }
+            chartViewModel.currentRange = .year
+            
         default:
             filteredReadings = readings
+            chartViewModel.currentRange = .week
         }
+        
+        print("Glucose Filter: Index \(selectedIndex), Found \(filteredReadings.count) readings")
         
         // Map to DataPoints
         let points = filteredReadings.map { GlucoseDataPoint(date: $0.dateRecorded, value: $0.value) }
         let sortedPoints = points.sorted { $0.date < $1.date }
         
-        // Update Chart
-        chartViewModel.dataPoints = sortedPoints
-        
-        // Handle Empty State
-        if sortedPoints.isEmpty {
-            noDataLabel.isHidden = false
-            chartContainerView.isHidden = true // Hide chart to show label clearly
-            // Reset Labels
-            if let l = lastLoggedLabel { l.text = "--" }
-            if let l = averageLabel { l.text = "--" }
-            if let l = minLabel { l.text = "--" }
-            if let l = maxLabel { l.text = "--" }
-        } else {
-            noDataLabel.isHidden = true
-            chartContainerView.isHidden = false
-            if let latest = sortedPoints.last {
-                updateDashboardLabels(latestPoint: latest, allPoints: sortedPoints)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            // Update Chart
+            self.chartViewModel.dataPoints = sortedPoints
+            
+            // Handle Empty State
+            if sortedPoints.isEmpty {
+                self.noDataLabel.isHidden = false
+                self.chartContainerView.isHidden = true
+                
+                // Reset Labels
+                self.lastLoggedLabel?.text = "--"
+                self.averageLabel?.text = "--"
+                self.minLabel?.text = "--"
+                self.maxLabel?.text = "--"
+            } else {
+                self.noDataLabel.isHidden = true
+                self.chartContainerView.isHidden = false
+                if let latest = sortedPoints.last {
+                    self.updateDashboardLabels(latestPoint: latest, allPoints: sortedPoints)
+                }
             }
         }
     }
