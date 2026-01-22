@@ -12,7 +12,7 @@
         <!--Documents-->
         <scene sceneID="N92-r6-JNb">
             <objects>
-                <viewController id="5LC-0O-m2i" customClass="DocumentsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="documentsStoryboard" id="5LC-0O-m2i" customClass="DocumentsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aAf-bG-bqg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

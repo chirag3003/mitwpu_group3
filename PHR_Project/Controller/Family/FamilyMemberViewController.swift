@@ -17,8 +17,9 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: UITableView!
     
     // Data Models
-    let accessOptions = ["Documents", "Meal Logs", "Symptom Logs", "Trends"]
-    let sharedOptions = ["Documents", "Meal Logs", "Symptom Logs", "Trends"]
+    let accessOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose"]
+    let sharedOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose"]
+    let sharedOptionsSegue = ["familyDocumentsSegue" , "familyMealsSegue", "familySymptomsSegue", "familyGlucoseSegue"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +125,7 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate, UITable
         if indexPath.section == 1 {
             print("Tapped on \(sharedOptions[indexPath.row])")
             // Navigate to details controller here
+            performSegue(withIdentifier: sharedOptionsSegue[indexPath.row], sender: nil)
         }
     }
 }
