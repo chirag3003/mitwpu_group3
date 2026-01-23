@@ -23,8 +23,9 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QNH-k9-opw">
                                 <rect key="frame" x="0.0" y="7" width="36" height="36"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="banana-pancakes-4" translatesAutoresizingMaskIntoConstraints="NO" id="xgD-58-lWY">
-                                        <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="fork.knife.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xgD-58-lWY">
+                                        <rect key="frame" x="0.0" y="0.66666666666666785" width="36" height="34.666666666666657"/>
+                                        <color key="tintColor" systemColor="placeholderTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="36" id="lNZ-yL-O7o"/>
                                             <constraint firstAttribute="height" constant="36" id="nrl-bl-qzI"/>
@@ -85,7 +86,10 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="banana-pancakes-4" width="650" height="813"/>
+        <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
