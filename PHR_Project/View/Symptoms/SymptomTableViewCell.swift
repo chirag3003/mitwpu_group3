@@ -2,18 +2,19 @@ import UIKit
 
 class SymptomTableViewCell: UITableViewCell {
 
+    // MARK: - Outlets
+
+    // Views
+
     @IBOutlet weak var cardView: UIView!
-
-    @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var subtitleLabel: UILabel!
-
-    @IBOutlet weak var dateLabel: UILabel!
-
-    @IBOutlet weak var timeLabel: UILabel!
-
     @IBOutlet weak var severityView: UIView!
 
+    // Labels
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var severityLabel: UILabel!
 
     override func awakeFromNib() {
@@ -22,6 +23,9 @@ class SymptomTableViewCell: UITableViewCell {
     }
 
     func setupStyle() {
+        
+        // Styling
+        
         cardView.layer.cornerRadius = UIConstants.CornerRadius.large
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = UIConstants.Shadow.defaultOpacity
@@ -35,7 +39,6 @@ class SymptomTableViewCell: UITableViewCell {
     // MARK: - Configuration
     func configure(with symptom: Symptom) {
 
-        // 1. Text Data
         titleLabel.text = symptom.symptomName
         if symptom.notes == nil || symptom.notes == "" {
             subtitleLabel.text = "No notes"
@@ -44,10 +47,10 @@ class SymptomTableViewCell: UITableViewCell {
         }
         severityLabel.text = symptom.intensity
 
-        // 2. Date Formatting (New Logic for "21st Oct 2025")
+        // Date Formatting
         dateLabel.text = formatDateWithOrdinal(date: symptom.dateRecorded)
 
-        // 3. Time Formatting
+        // Time Formatting
         if let dateFromComponents = Calendar.current.date(from: symptom.time) {
             let formatter = DateFormatter()
             formatter.timeStyle = .short
@@ -56,7 +59,7 @@ class SymptomTableViewCell: UITableViewCell {
             timeLabel.text = "--:--"
         }
 
-        // 4. Badge Color Logic
+        // Badge Color Logic
         switch symptom.intensity {
         case "High": severityView.backgroundColor = .systemRed
         case "Medium": severityView.backgroundColor = .systemOrange
@@ -65,7 +68,7 @@ class SymptomTableViewCell: UITableViewCell {
         }
     }
 
-    // Helper Function to create "21st", "2nd", "3rd", "4th"
+    // Function to create "21st", "2nd", "3rd", "4th"
     private func formatDateWithOrdinal(date: Foundation.Date) -> String {
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -79,7 +82,7 @@ class SymptomTableViewCell: UITableViewCell {
         default: numberSuffix = "th"
         }
 
-        // Format the rest (Month Year)
+        // Format Month, Year
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM yyyy"  // "Oct 2025"
 
