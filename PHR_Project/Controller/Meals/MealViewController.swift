@@ -3,7 +3,7 @@ import UIKit
 class SectionBackground: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.secondarySystemBackground
+        backgroundColor = UIColor.tertiarySystemBackground
         layer.cornerRadius = 16
         clipsToBounds = true
 
