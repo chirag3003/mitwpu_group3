@@ -143,11 +143,6 @@ class GenerateHealthViewController: UIViewController {
 
     @IBAction func toggleSelection(_ sender: UISwitch) {
         sender.isSelected.toggle()
-        if sender.isSelected {
-            print("Button turned ON")
-        } else {
-            print("Button turned OFF")
-        }
     }
 
 }

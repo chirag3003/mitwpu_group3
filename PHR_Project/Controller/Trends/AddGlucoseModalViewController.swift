@@ -78,7 +78,6 @@ class AddGlucoseModalViewController: UITableViewController {
     }
     func setupRecordTypeButton() {
         let selectionClosure = { (action: UIAction) in
-            print("Record Type Selected: \(action.title)")
             // Add any logic here to save the selection (e.g., self.selectedType = action.title)
         }
         

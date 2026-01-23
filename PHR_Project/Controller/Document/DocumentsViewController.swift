@@ -232,11 +232,8 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
             let report = reportsData[indexPath.row]
 
-            print("Tapped Report: \(report.title)")  // Debug print
-
             let urlToOpen = dummyPDFLink  // Default to dummy
 
-            print("Opening PDF URL: \(urlToOpen)")  // Debug print
             showPDFPreview(for: urlToOpen)
 
         } else {

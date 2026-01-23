@@ -23,7 +23,6 @@ final class PrescriptionPageViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         loadData()
-        print("Selected Doctor Name: \(selectedDoctorName ?? "None")")
         if let name = selectedDoctorName {
             self.title = name
             self.navigationItem.title = name

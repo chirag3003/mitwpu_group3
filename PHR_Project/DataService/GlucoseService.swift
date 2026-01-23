@@ -34,9 +34,6 @@ class GlucoseService {
     }
     
     func addReading(_ reading: GlucoseReading, completion: @escaping (Result<GlucoseReading, Error>) -> Void) {
-        // Optimistic UI Update (optional, sticking to API-first as per pattern)
-        // readings.append(reading)
-        
         APIService.shared.request(endpoint: "/glucose", method: .post, body: reading) { [weak self] (result: Result<GlucoseReading, Error>) in
             guard let self = self else { return }
             switch result {

@@ -129,10 +129,6 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
             chartViewModel.currentRange = .week
         }
 
-        print(
-            "Glucose Filter: Index \(selectedIndex), Found \(filteredReadings.count) readings"
-        )
-
         // Map to DataPoints
         // Map to DataPoints and Deduplicate (Keep latest value for duplicate timestamps)
         var uniquePointsDict: [Date: Int] = [:]
