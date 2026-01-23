@@ -15,6 +15,7 @@ class SectionBackground: UICollectionReusableView {
 
 class MealViewController: UIViewController, FamilyMemberDataScreen {
 
+    @IBOutlet weak var caloriebgCard: UIView!
     @IBOutlet weak var monthName: UILabel!
 
     @IBOutlet weak var tipOneLabel: UILabel!
@@ -67,7 +68,9 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         )
 
         updateMonthLabel(for: 15)
-
+        
+        caloriebgCard.addRoundedCorner(radius: 20)
+        
         calorieProgressView.configure(
             mode: .limitWarning,
             progress: 0.49,
@@ -79,22 +82,19 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
             thickness: UIConstants.ProgressThickness.thin
         )
         carbsProgress.addRoundedCorner()
-        carbsProgress.addDropShadow()
-
+        
         proteinProgress.configure(
             progress: 0.66,
             thickness: UIConstants.ProgressThickness.thin
         )
         proteinProgress.addRoundedCorner()
-        proteinProgress.addDropShadow()
-
+        
         fiberProgress.configure(
             progress: 0.71,
             thickness: UIConstants.ProgressThickness.thin
         )
         fiberProgress.addRoundedCorner()
-        fiberProgress.addDropShadow()
-
+        
         insightOne.addRoundedCorner(radius: 20)
         insightOneLabel.text = insights[0]
 
