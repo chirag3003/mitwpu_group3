@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+protocol FamilyMemberDataScreen {
+    var familyMember: FamilyMember? { get set }
+}
+
 class FamilyMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var pfpImage: UIImageView!
@@ -126,6 +131,13 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate, UITable
             print("Tapped on \(sharedOptions[indexPath.row])")
             // Navigate to details controller here
             performSegue(withIdentifier: sharedOptionsSegue[indexPath.row], sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass familyMember to destination view controllers if needed
+        if var destination = segue.destination as? FamilyMemberDataScreen {
+            destination.familyMember = self.familyMember
         }
     }
 }
