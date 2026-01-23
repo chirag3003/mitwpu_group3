@@ -244,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gd1-ds-Vt6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901.5267175572519" y="287.32394366197184"/>
+            <point key="canvasLocation" x="1894" y="287"/>
         </scene>
         <!--Select-->
         <scene sceneID="jHJ-9U-rYM">
@@ -719,7 +719,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffj-v4-tY7">
                                                     <rect key="frame" x="8" y="4" width="345" height="55"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g4G-5l-wQe">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g4G-5l-wQe">
                                                             <rect key="frame" x="0.0" y="0.0" width="345" height="55"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lyh-Vv-5Z3">
@@ -732,16 +732,16 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="gGx-yT-kkq">
-                                                                    <rect key="frame" x="59" y="12.666666666666668" width="270" height="30.000000000000004"/>
+                                                                    <rect key="frame" x="61" y="12.666666666666668" width="268" height="30.000000000000004"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-SB-qc2">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="270" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="268" height="18"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Geu-yX-o58">
-                                                                            <rect key="frame" x="0.0" y="17.999999999999996" width="270" height="12"/>
+                                                                            <rect key="frame" x="0.0" y="17.999999999999996" width="268" height="12"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                                             <nil key="highlightedColor"/>

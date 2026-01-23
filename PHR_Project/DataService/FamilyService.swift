@@ -7,10 +7,10 @@ class FamilyService {
 
     private init() {
         familyMembers = [
-            FamilyMember(name: "Ved", imageName: "https://drive.google.com/file/d/1LcEPDDxhZR6i2wA9wFO75791Fg1JwfAW/view?usp=share_link", isMe: false),
-            FamilyMember(name: "Sushant", imageName: "https://drive.google.com/file/d/1TNlQlNRhf6aFEKhTDDBI9IMN7z71qGI6/view?usp=share_link", isMe: false),
-            FamilyMember(name: "Chirag", imageName: "https://drive.google.com/file/d/1Gl6qxbMPs8FVeRFuCid5I1xhoImE4Jak/view?usp=share_link", isMe: false),
-            FamilyMember(name: "Sanchita", imageName: "https://drive.google.com/file/d/1rrCbEMetZk0aHQtbPRnG80pJuE8oYZ5h/view?usp=share_link", isMe: false),
+            FamilyMember(name: "Ved", imageName: "https://phr.chirag.codes/uploads/1769158255033-Ved.png", isMe: false),
+            FamilyMember(name: "Sushant", imageName: "https://phr.chirag.codes/uploads/1769158254993-Sushant.png", isMe: false),
+            FamilyMember(name: "Chirag", imageName: "https://phr.chirag.codes/uploads/1769158255001-Chirag.png", isMe: false),
+            FamilyMember(name: "Sanchita", imageName: "https://phr.chirag.codes/uploads/1769158254962-Sanchita.jpeg", isMe: false),
         ]
     }
     
