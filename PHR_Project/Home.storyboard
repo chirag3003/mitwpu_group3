@@ -606,6 +606,7 @@
                     <navigationItem key="navigationItem" id="mGK-iu-FPE"/>
                     <connections>
                         <outlet property="caloriesCard" destination="ZKT-PM-Iio" id="D7t-aT-WMH"/>
+                        <outlet property="caloriesLabel" destination="Ivq-rQ-FrN" id="nnE-CE-DcT"/>
                         <outlet property="caloriesSummaryCard" destination="ZKT-PM-Iio" id="pyd-ra-otT"/>
                         <outlet property="circularSummariesStack" destination="yiq-2D-VbO" id="YtO-Mt-K1b"/>
                         <outlet property="glassDecrement" destination="ZeR-l1-y2a" id="qec-Le-oJz"/>

@@ -29,8 +29,11 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var glassDecrement: UIImageView!
     @IBOutlet weak var glassIncrement: UIImageView!
     
-    // Calories and Steps
+    // Calories
     @IBOutlet weak var caloriesCard: CircularProgressView!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    
+    // Steps
     @IBOutlet weak var stepsCard: CircularProgressView!
     @IBOutlet weak var stepsLabel: UILabel!
     
