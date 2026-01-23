@@ -5,7 +5,7 @@ class SymptomService {
     
     private var symptoms: [Symptom] = [] {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("SymptomsUpdated"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationNames.symptomsUpdated), object: nil)
         }
     }
 

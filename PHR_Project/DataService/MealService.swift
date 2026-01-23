@@ -1,6 +1,13 @@
 import Foundation
 import UIKit
 
+struct MealStats {
+    let totalCalories: Int
+    let totalCarbs: Int
+    let totalProtein: Int
+    let totalFiber: Int
+}
+
 class MealService {
     static let shared = MealService()
 
@@ -75,6 +82,25 @@ class MealService {
             return calendar.isDate(meal.dateRecorded, inSameDayAs: date)
         }
         return filtered
+    }
+
+    func getMealStatsByDate(on date: Date = Date()) -> MealStats {
+        let calendar = Calendar.current
+        let filtered = allMeals.filter { meal in
+            calendar.isDate(meal.dateRecorded, inSameDayAs: date)
+        }
+        
+        let totalCalories = filtered.reduce(0) { $0 + $1.calories }
+        let totalCarbs = filtered.reduce(0) { $0 + $1.carbs }
+        let totalProtein = filtered.reduce(0) { $0 + $1.protein }
+        let totalFiber = filtered.reduce(0) { $0 + $1.fiber }
+        
+        return MealStats(
+            totalCalories: totalCalories,
+            totalCarbs: totalCarbs,
+            totalProtein: totalProtein,
+            totalFiber: totalFiber
+        )
     }
 
     func getAllMeals() -> [Meal] {
