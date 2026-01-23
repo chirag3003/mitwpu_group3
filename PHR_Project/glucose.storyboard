@@ -539,7 +539,7 @@
                                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                 <color key="tintColor" systemColor="tertiarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="Button">
+                                                <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="View all your glucose logs">
                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                     <directionalEdgeInsets key="contentInsets" top="8" leading="16" bottom="8" trailing="16"/>
                                                 </buttonConfiguration>
