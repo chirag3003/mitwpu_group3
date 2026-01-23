@@ -114,6 +114,8 @@ class FamilyMemberCell: UICollectionViewCell {
                 constant: -4
             ),
         ])
+        
+        containerView.backgroundColor = .tertiarySystemBackground
     }
 
     // MARK: - CLEANUP
