@@ -1,32 +1,31 @@
-//
-//  WaterIntakeViewController.swift
-//  PHR_Project
-//
-//  Created by Sushant Pulipati on 14/01/26.
-//
-
 import UIKit
 
 class WaterIntakeViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var monthName: UILabel!
     @IBOutlet weak var dateCollectionView: UICollectionView!
     
+    //glass value changes
     @IBOutlet weak var glassValue: UILabel!
     @IBOutlet weak var increment: UIImageView!
     @IBOutlet weak var decrement: UIImageView!
     
+    //insights
     @IBOutlet weak var insight1: UIView!
     @IBOutlet weak var insight2: UIView!
     @IBOutlet weak var insight3: UIView!
     
+    // MARK: - Properties
     var dates: MealDataStore = MealDataStore.shared
     var hasScrolledToToday = false
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Setup Collection View
         dateCollectionView.dataSource = self
         dateCollectionView.delegate = self
         dateCollectionView.setCollectionViewLayout(
@@ -34,26 +33,24 @@ class WaterIntakeViewController: UIViewController {
             animated: true
         )
         
+        // View Styling
         insight1.addRoundedCorner(radius: 20)
         insight2.addRoundedCorner(radius: 20)
         insight3.addRoundedCorner(radius: 20)
         
+        // Initial Progress Setup
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thick)
         
         setupWaterIntakeGestures()
-        
-       
         setupNotificationObservers()
-        
-        // Update UI with current water intake
         updateWaterIntakeUI()
         
+        // Initialize header with today's month
         updateMonthLabel(for: 15)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Refresh water intake UI when view appears
         updateWaterIntakeUI()
     }
     
@@ -64,16 +61,11 @@ class WaterIntakeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // Check if we have already scrolled and if we have data
+        // Auto-scroll to "Today" (Index 15) on first load
         if !hasScrolledToToday && dates.getDays().count > 0 {
-            
-            // 1. FORCE the collection view to calculate cell positions right now
             dateCollectionView.layoutIfNeeded()
-            
-            // 2. Define the index for "Today" (Index 15)
             let todayIndex = IndexPath(item: 15, section: 0)
             
-            // 3. Perform the scroll on the main thread to ensure it happens after the visual pass
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
@@ -83,7 +75,6 @@ class WaterIntakeViewController: UIViewController {
                     animated: false
                 )
                 
-                // 4. Select the item visually (highlighting the blue circle)
                 self.dateCollectionView.selectItem(
                     at: todayIndex,
                     animated: false,
@@ -95,6 +86,7 @@ class WaterIntakeViewController: UIViewController {
         }
     }
     
+    // MARK: - Layout Creation
     private func createDateLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {
             (sectionIndex, env) -> NSCollectionLayoutSection? in
@@ -103,18 +95,10 @@ class WaterIntakeViewController: UIViewController {
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .fractionalHeight(1.0)
             )
-            
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            item.contentInsets = NSDirectionalEdgeInsets(
-                top: 8,
-                leading: 8,
-                bottom: 8,
-                trailing: 8
-            )
+            item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
 
-            // 2. Group
-            // Absolute height 100 ensures enough space for Circle + Text
+            // Split width by 7 to show a week at a time
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0/7.0),
                 heightDimension: .absolute(100)
@@ -125,7 +109,6 @@ class WaterIntakeViewController: UIViewController {
                 subitems: [item]
             )
             
-            // 3. Section
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .groupPagingCentered
 
@@ -133,37 +116,30 @@ class WaterIntakeViewController: UIViewController {
         }
     }
     
-    // Update month label based on selected date index
+    // MARK: - UI Logic
     private func updateMonthLabel(for index: Int) {
-        //let selectedDate = dates.getDays()[index]
-        
-        // Extract month from the CalendarDay
-        // Assuming CalendarDay has a date property or you can derive it
         let calendar = Calendar.current
         let today = Date()
         
-        // Calculate the date based on index (assuming index 15 is today)
+        // Offset logic assuming index 15 is current day
         let daysOffset = index - 15
         if let targetDate = calendar.date(byAdding: .day, value: daysOffset, to: today) {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMM" // Full month name
+            dateFormatter.dateFormat = "MMMM"
             monthName.text = dateFormatter.string(from: targetDate)
         }
     }
 }
 
-
+// MARK: - Private Logic Extension
 private extension WaterIntakeViewController {
     
     func setupWaterIntakeGestures() {
         increment.isUserInteractionEnabled = true
         decrement.isUserInteractionEnabled = true
         
-        let incrementTap = UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount))
-        increment.addGestureRecognizer(incrementTap)
-        
-        let decrementTap = UITapGestureRecognizer(target: self, action: #selector(decrementGlassCount))
-        decrement.addGestureRecognizer(decrementTap)
+        increment.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount)))
+        decrement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(decrementGlassCount)))
     }
     
     func setupNotificationObservers() {
@@ -195,16 +171,17 @@ private extension WaterIntakeViewController {
         let count = WaterIntakeService.shared.getGlassCount()
         glassValue.text = "\(count)"
         
-        // Update progress view based on glass count (assuming 8 glasses is the goal)
+        // Calculate progress percentage (Goal = 10 glasses)
         let progress = Float(count) / 10.0
         progressView.configure(
-            mode: progress >= 1.0 ? .achievement : .achievement,
+            mode: .achievement,
             progress: min(progress, 1.0),
             thickness: UIConstants.ProgressThickness.thick
         )
     }
     
     func animateGlassValue() {
+        // Bounce effect when count changes
         UIView.animate(withDuration: 0.1, animations: {
             self.glassValue.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }) { _ in
@@ -213,23 +190,16 @@ private extension WaterIntakeViewController {
             }
         }
     }
-    
 }
 
-
+// MARK: - CollectionView Protocols
 extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dates.getDays().count
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: CellIdentifiers.dateCell,
             for: indexPath
@@ -238,31 +208,20 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
         let date = dates.getDays()[indexPath.row]
         cell.configureCell(date: date)
         
-        if indexPath.row == 15 {
-            cell.isToday = true
-        } else {
-            cell.isToday = false
-        }
+        // Highlight today visually
+        cell.isToday = (indexPath.row == 15)
         
         return cell
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(
             at: indexPath,
             at: .centeredHorizontally,
             animated: true
         )
         
-        let selectedDay = dates.getDays()[indexPath.row]
-        
-        // Update month label when date is selected
         updateMonthLabel(for: indexPath.row)
-        
-        // TODO: Update water intake data for selected date
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
