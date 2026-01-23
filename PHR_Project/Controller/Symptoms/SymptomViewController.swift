@@ -36,7 +36,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSymptoms),
-            name: NSNotification.Name(NotificationNames.mealsUpdated),
+            name: NSNotification.Name(NotificationNames.symptomsUpdated),
             object: nil
         )
 
