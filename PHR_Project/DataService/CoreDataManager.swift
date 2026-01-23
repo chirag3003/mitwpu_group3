@@ -52,34 +52,6 @@ class CoreDataManager {
         }
     }
 
-    // MARK: - MEALS (Removed per API-only refactoring)
-    /*
-    func fetchMeals() -> [MealEntity] {
-        let request: NSFetchRequest<MealEntity> = MealEntity.fetchRequest()
-        return (try? context.fetch(request)) ?? []
-    }
-
-    func addMeal(_ meal: Meal) {
-        let entity = MealEntity(context: context)
-        entity.id = meal.id
-        entity.name = meal.name
-        entity.detail = meal.detail
-        entity.time = meal.time
-        entity.image = meal.image
-        entity.type = meal.type
-        entity.dateRecorded = meal.dateRecorded
-        saveContext()
-    }
-
-    func deleteMeal(id: UUID) {
-        let request: NSFetchRequest<MealEntity> = MealEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        if let result = try? context.fetch(request), let entity = result.first {
-            context.delete(entity)
-            saveContext()
-        }
-    }
-    */
 
     // MARK: - SYMPTOMS
     func fetchSymptoms() -> [SymptomEntity] {

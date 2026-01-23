@@ -49,8 +49,8 @@ class ProfileService {
             let date = calendar.date(from: dateComponents) ?? Date()
 
             return ProfileModel(
-                firstName: "Ved",
-                lastName: "Chavan",
+                firstName: "Chirag",
+                lastName: "Bhalotia",
                 dob: date,
                 sex: "Male",
                 diabetesType: "Type 2",
