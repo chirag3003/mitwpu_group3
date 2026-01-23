@@ -146,8 +146,8 @@ private extension HomeViewController {
     }
     
     func configureSummaryCards() {
-        stepsCard.configure(mode: .achievement, progress: 0.45, thickness: 16)
-        caloriesSummaryCard.configure(mode: .limitWarning, progress: 0.76, thickness: 16)
+        stepsCard.configure(mode: .achievement, progress: 0, thickness: 16)
+        caloriesSummaryCard.configure(mode: .limitWarning, progress: 0, thickness: 16)
     }
     
     @objc func handleProfileUpdate() {
