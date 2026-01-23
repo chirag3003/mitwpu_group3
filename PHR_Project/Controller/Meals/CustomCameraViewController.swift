@@ -1,4 +1,3 @@
-
 //
 //  CustomCameraViewController.swift
 //  PHR_Project
@@ -6,12 +5,10 @@
 //  Created by Sushant Pulipati on 12/12/25.
 //
 
-// CustomCameraViewController.swift
-
 import UIKit
 import AVFoundation
 
-// Protocol to handle the captured image
+// Protocol to handle the captured image and navigation
 protocol CustomCameraDelegate: AnyObject {
     func didCaptureImage(_ image: UIImage)
     func didTapManuallyLog()
@@ -19,17 +16,16 @@ protocol CustomCameraDelegate: AnyObject {
 
 class CustomCameraViewController: UIViewController {
 
-    
+    // MARK: - PROPERTIES
     weak var delegate: CustomCameraDelegate?
-
-   
+    
+    // Camera Session Properties
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer?
     var photoOutput: AVCapturePhotoOutput!
 
-   
-    
-    // 1. Top Bar
+    // MARK: - UI COMPONENTS
+    // Header Controls
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
@@ -46,9 +42,8 @@ class CustomCameraViewController: UIViewController {
         return label
     }()
     
-    // 2. Center Overlay
+    // Scanning Overlay (Viewfinder)
     private let overlayImageView: UIImageView = {
-        // This is the salad icon
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "bowl.fill")
         imageView.tintColor = .black
@@ -57,16 +52,14 @@ class CustomCameraViewController: UIViewController {
     }()
     
     private let bracketImageView: UIImageView = {
-        // This is the blue corner bracket image
         let imageView = UIImageView()
-        
         let config = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight)
         imageView.image = UIImage(systemName: "viewfinder", withConfiguration: config)
-        imageView.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1.0, alpha: 1.0) // Light blue
+        imageView.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1.0, alpha: 1.0)
         return imageView
     }()
 
-    // 3. Bottom Bar
+    // Bottom Controls
     private let bottomBarView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -93,13 +86,12 @@ class CustomCameraViewController: UIViewController {
         return button
     }()
 
-    // --- Lifecycle ---
-
+    // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        setupUI()
         
+        setupUI()
         setupCamera()
         startCamera()
     }
@@ -113,40 +105,37 @@ class CustomCameraViewController: UIViewController {
         return true
     }
 
-    // --- Setup Functions ---
-
+    // MARK: - SETUP FUNCTIONS
+    // Main UI construction
     private func setupUI() {
-        // Add subviews
-        view.addSubview(closeButton)
-        view.addSubview(titleLabel)
-        view.addSubview(bracketImageView)
-        view.addSubview(overlayImageView)
-        view.addSubview(bottomBarView)
-        bottomBarView.addSubview(shutterButton)
-        bottomBarView.addSubview(manuallyLogButton)
+        addSubviews()
+        setupConstraints()
+        setupTargets()
+    }
+
+    // Add elements to view hierarchy
+    private func addSubviews() {
+        [closeButton, titleLabel, bracketImageView, overlayImageView, bottomBarView].forEach { view.addSubview($0) }
+        [shutterButton, manuallyLogButton].forEach { bottomBarView.addSubview($0) }
         
-        // Add targets
-        closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
-        shutterButton.addTarget(self, action: #selector(didTapShutter), for: .touchUpInside)
-        manuallyLogButton.addTarget(self, action: #selector(didTapManuallyLog), for: .touchUpInside)
+        // Prepare for Auto Layout
+        view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        bottomBarView.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+    }
 
-        // Disable Auto Layout masks
-        [closeButton, titleLabel, bracketImageView, overlayImageView, bottomBarView, shutterButton, manuallyLogButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        // Constraints
+    // Camera Layout configuration
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // Top Bar
+            // Top Bar Controls
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            // Center Overlay
+            // Viewfinder (Center)
             bracketImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bracketImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50), // Shift up slightly
+            bracketImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             bracketImageView.widthAnchor.constraint(equalToConstant: 250),
             bracketImageView.heightAnchor.constraint(equalToConstant: 250),
             
@@ -155,112 +144,121 @@ class CustomCameraViewController: UIViewController {
             overlayImageView.widthAnchor.constraint(equalToConstant: 80),
             overlayImageView.heightAnchor.constraint(equalToConstant: 80),
 
-            // Bottom Bar
+            // Bottom Bar Area
             bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomBarView.heightAnchor.constraint(equalToConstant: 200),
             
-            //Shutter button
             shutterButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor),
             shutterButton.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -20),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
             shutterButton.heightAnchor.constraint(equalToConstant: 70),
             
-            // Manually Log Button (UPDATED)
-            // Pin top of manual button to bottom of shutter button
             manuallyLogButton.topAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 20),
-            // Center horizontally
             manuallyLogButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor)
         ])
     }
+
+    // Attach actions to buttons
+    private func setupTargets() {
+        closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
+        shutterButton.addTarget(self, action: #selector(didTapShutter), for: .touchUpInside)
+        manuallyLogButton.addTarget(self, action: #selector(didTapManuallyLog), for: .touchUpInside)
+    }
     
+    // MARK: - CAMERA LOGIC
+    // Configure AVCaptureSession for photo capture
     private func setupCamera() {
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
         
         guard let backCamera = AVCaptureDevice.default(for: .video) else {
-            print("Unable to access back camera! (Are you on Simulator?)")
-                        
-                        
-            view.backgroundColor = .darkGray
+            handleMissingCamera()
             return
         }
         
         do {
-                    let input = try AVCaptureDeviceInput(device: backCamera)
-                    photoOutput = AVCapturePhotoOutput()
-                    
-                    if captureSession.canAddInput(input) && captureSession.canAddOutput(photoOutput) {
-                        captureSession.addInput(input)
-                        captureSession.addOutput(photoOutput)
-                        
-                        // Create the layer
-                        let layer = AVCaptureVideoPreviewLayer(session: captureSession)
-                        layer.videoGravity = .resizeAspectFill
-                        layer.connection?.videoOrientation = .portrait
-                        
-                        // Assign to our property
-                        self.previewLayer = layer
-                        
-                        // Insert preview layer behind all UI elements
-                        view.layer.insertSublayer(layer, at: 0)
-                    }
-                } catch let error {
-                    print("Error unable to initialize back camera:  \(error.localizedDescription)")
-                }
+            let input = try AVCaptureDeviceInput(device: backCamera)
+            photoOutput = AVCapturePhotoOutput()
+            
+            if captureSession.canAddInput(input) && captureSession.canAddOutput(photoOutput) {
+                captureSession.addInput(input)
+                captureSession.addOutput(photoOutput)
+                setupPreviewLayer()
+            }
+        } catch {
+            print("Camera initialization failed: \(error.localizedDescription)")
+        }
     }
-    
+
+    // Initialize the visual preview layer
+    private func setupPreviewLayer() {
+        let layer = AVCaptureVideoPreviewLayer(session: captureSession)
+        layer.videoGravity = .resizeAspectFill
+        layer.connection?.videoOrientation = .portrait
+        self.previewLayer = layer
+        view.layer.insertSublayer(layer, at: 0)
+    }
+
+    // Begin capturing frames (Background thread)
     private func startCamera() {
-        // Start on a background thread to avoid blocking UI
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.captureSession.startRunning()
         }
     }
     
+    // End camera stream
     private func stopCamera() {
          if captureSession.isRunning {
              captureSession.stopRunning()
          }
      }
 
-    // --- Actions ---
+    // Fallback UI for Simulator
+    private func handleMissingCamera() {
+        print("Camera inaccessible. Using Simulator fallback.")
+        view.backgroundColor = .darkGray
+    }
 
+    // MARK: - ACTIONS
     @objc private func didTapClose() {
         dismiss(animated: true)
     }
 
     @objc private func didTapShutter() {
-        // If camera isn't running (Simulator), just simulate a fake capture
-                guard let output = photoOutput else {
-                    print("Simulating capture on Simulator...")
-                    // Create a fake image (e.g. screenshot of the view)
-                    let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
-                    let fakeImage = renderer.image { ctx in
-                        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-                    }
-                    delegate?.didCaptureImage(fakeImage)
-                    dismiss(animated: true)
-                    return
-                }
+        guard let output = photoOutput else {
+            simulateCapture() // Handle Simulator logic
+            return
+        }
 
-                let settings = AVCapturePhotoSettings()
-                output.capturePhoto(with: settings, delegate: self)
+        let settings = AVCapturePhotoSettings()
+        output.capturePhoto(with: settings, delegate: self)
     }
     
     @objc private func didTapManuallyLog() {
         delegate?.didTapManuallyLog()
-        //dismiss(animated: true)
+    }
+
+    // Fake capture logic for testing on Simulator
+    private func simulateCapture() {
+        let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
+        let fakeImage = renderer.image { _ in
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        }
+        delegate?.didCaptureImage(fakeImage)
+        dismiss(animated: true)
     }
 }
 
-// --- AVCapturePhotoCaptureDelegate ---
-
+// MARK: - PHOTO OUTPUT DELEGATE
 extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
+    
+    // Process the raw photo data into a UIImage
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation(),
               let image = UIImage(data: imageData) else {
-            print("Error capturing photo: \(String(describing: error))")
+            print("Capture Error: \(error?.localizedDescription ?? "Unknown error")")
             return
         }
         
