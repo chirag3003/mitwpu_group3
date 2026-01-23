@@ -15,7 +15,7 @@
         <!--Meal Logs-->
         <scene sceneID="L6t-ef-j7F">
             <objects>
-                <viewController id="fdI-9g-pwJ" customClass="MealViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mealLogsStoryboard" id="fdI-9g-pwJ" customClass="MealViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="co1-Ei-3Hz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

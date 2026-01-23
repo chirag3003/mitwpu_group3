@@ -342,10 +342,10 @@
             </objects>
             <point key="canvasLocation" x="869" y="444"/>
         </scene>
-        <!--Settings-->
+        <!--Water Intake Settings-->
         <scene sceneID="B58-jK-rj1">
             <objects>
-                <tableViewController id="WWx-cx-2zC" customClass="WaterSettingsTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="WWx-cx-2zC" userLabel="Water Intake Settings" customClass="WaterSettingsTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="FlH-gb-P0s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -424,7 +424,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Notification" id="GaN-n1-64H">
+                            <tableViewSection headerTitle="Notifications" id="GaN-n1-64H">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iEY-Yh-TSe">
                                         <rect key="frame" x="20" y="213.33333015441895" width="353" height="51"/>
@@ -504,7 +504,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYn-Cd-4S5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2174.8091603053435" y="530.98591549295782"/>
+            <point key="canvasLocation" x="2172" y="520"/>
         </scene>
         <!--Water Info Modal View Controller-->
         <scene sceneID="XYY-By-ifB">

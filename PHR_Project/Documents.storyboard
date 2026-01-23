@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Oer-j2-j1S">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -12,7 +12,7 @@
         <!--Documents-->
         <scene sceneID="N92-r6-JNb">
             <objects>
-                <viewController id="5LC-0O-m2i" customClass="DocumentsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="documentsStoryboard" id="5LC-0O-m2i" customClass="DocumentsViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aAf-bG-bqg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -705,9 +705,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-gB-R8q" userLabel="Prescription Table View">
-                                <rect key="frame" x="16" y="172" width="361" height="680"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-gB-R8q" userLabel="Prescription Table View">
+                                <rect key="frame" x="16" y="196" width="361" height="656"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="linkColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PrescriptionCell" rowHeight="63" id="Pen-Zg-Ob8" customClass="PrescriptionTableViewCell" customModule="PHR_Project" customModuleProvider="target">
@@ -762,7 +761,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="ffj-v4-tY7" firstAttribute="leading" secondItem="WGD-SB-j2H" secondAttribute="leading" constant="8" id="80V-lg-00p"/>
                                                 <constraint firstItem="ffj-v4-tY7" firstAttribute="top" secondItem="WGD-SB-j2H" secondAttribute="top" constant="4" id="Iy7-Wf-CJN"/>
@@ -786,7 +785,7 @@
                             <constraint firstItem="AtO-gB-R8q" firstAttribute="leading" secondItem="4qC-Zp-zY2" secondAttribute="leading" constant="16" id="FIE-9N-6Zo"/>
                             <constraint firstItem="4qC-Zp-zY2" firstAttribute="trailing" secondItem="AtO-gB-R8q" secondAttribute="trailing" constant="16" id="eyH-tp-xBE"/>
                             <constraint firstAttribute="bottom" secondItem="AtO-gB-R8q" secondAttribute="bottom" id="fRw-A2-M2I"/>
-                            <constraint firstItem="AtO-gB-R8q" firstAttribute="top" secondItem="4qC-Zp-zY2" secondAttribute="top" id="meH-yz-Jvs"/>
+                            <constraint firstItem="AtO-gB-R8q" firstAttribute="top" secondItem="4qC-Zp-zY2" secondAttribute="top" constant="24" id="meH-yz-Jvs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5i6-zf-pbA"/>

@@ -8,19 +8,22 @@
 import QuickLook
 import UIKit
 
-class DocumentsViewController: UIViewController {
+class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     // MARK: - IBOutlets
 
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
-    // MARK: - Properties
+    // Properties
 
     private var documentData: [documentsModel] = []
     private var reportsData: [ReportModel] = []
     private var isNewestFirst = true
     private var previewURL: URL?
+    
+    // Family Members
+    var familyMember: FamilyMember?
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -33,6 +36,12 @@ class DocumentsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         loadData()
+        
+        if(familyMember != nil){
+            self.title = "\(familyMember!.name)'s Documents"
+        } else {
+            self.title = "Documents"
+        }
 
     }
 
