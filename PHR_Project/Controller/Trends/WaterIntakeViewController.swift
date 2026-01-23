@@ -178,13 +178,13 @@ private extension WaterIntakeViewController {
     @objc func incrementGlassCount() {
         WaterIntakeService.shared.incrementGlass()
         animateGlassValue()
-        provideHapticFeedback()
+        self.provideHapticFeedback()
     }
     
     @objc func decrementGlassCount() {
         WaterIntakeService.shared.decrementGlass()
         animateGlassValue()
-        provideHapticFeedback()
+        self.provideHapticFeedback()
     }
     
     @objc func handleWaterIntakeUpdate() {
@@ -214,10 +214,6 @@ private extension WaterIntakeViewController {
         }
     }
     
-    func provideHapticFeedback() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
-    }
 }
 
 
