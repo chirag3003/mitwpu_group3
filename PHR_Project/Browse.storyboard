@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JUi-mT-25y">
-    <device id="retina6_12" orientation="portrait" appearance="dark"/>
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,7 +14,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="gBd-li-Po7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="browse_cell" textLabel="key-c2-RAk" imageView="f3C-Zh-RWQ" style="IBUITableViewCellStyleDefault" id="QzL-qs-3YN">
                                 <rect key="frame" x="20" y="38" width="353" height="51"/>
@@ -45,10 +45,31 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Search" id="bw1-z3-jdw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Wx7-SI-SaO" kind="show" identifier="stepsSegue" id="dBw-Hs-vXP"/>
+                        <segue destination="6CJ-54-KP3" kind="show" identifier="glucoseSegue" id="zzr-pE-Vwi"/>
+                        <segue destination="8iG-Ga-buL" kind="show" identifier="waterSegue" id="U8K-pf-xJC"/>
+                        <segue destination="PeM-jV-2Us" kind="show" identifier="familySegue" id="N9g-UY-BBg"/>
+                        <segue destination="jF0-ib-fPa" kind="show" identifier="allergySegue" id="DAr-vU-7Wz"/>
+                        <segue destination="ypO-Gm-zaC" kind="show" identifier="mealLogsSegue" id="iR3-q9-dQ0"/>
+                        <segue destination="3x7-Z9-TK7" kind="show" identifier="summarySegue" id="ZNl-0Q-F78"/>
+                        <segue destination="MUM-vs-fUG" kind="show" identifier="documentsSegue" id="UIU-yL-CSX"/>
+                        <segue destination="NMc-Xk-TmZ" kind="show" identifier="browseSymptomsSegue" id="hVJ-gm-xSh"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1A-fJ-Kxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="801" y="800"/>
+        </scene>
+        <!--stepsStoryboard-->
+        <scene sceneID="fcA-M6-fX9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="stepsStoryboard" id="Wx7-SI-SaO" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wlw-rO-yF7"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="45j-rG-1pH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1507" y="629"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="o5T-ew-C9a">
@@ -70,11 +91,91 @@
             </objects>
             <point key="canvasLocation" x="-127.48091603053435" y="805.63380281690149"/>
         </scene>
+        <!--glucoseStoryboard-->
+        <scene sceneID="g4g-Co-Ufb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="glucose" referencedIdentifier="glucoseStoryboard" id="6CJ-54-KP3" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="LFB-4F-Xmm"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rqm-Zh-mDd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="698"/>
+        </scene>
+        <!--waterStoryboard-->
+        <scene sceneID="7Q4-xH-cnH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Water" referencedIdentifier="waterStoryboard" id="8iG-Ga-buL" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="5bH-PT-BdP"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wqV-Tt-IyR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="743"/>
+        </scene>
+        <!--familyStoryboard-->
+        <scene sceneID="XL1-8P-HJi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Family" referencedIdentifier="familyStoryboard" id="PeM-jV-2Us" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="GwD-NP-KKB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oT0-Nz-dFA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="813"/>
+        </scene>
+        <!--allergyStoryboard-->
+        <scene sceneID="BpL-dZ-wQC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="allergyStoryboard" id="jF0-ib-fPa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="yS4-nB-Xeg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H69-0D-X62" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="915"/>
+        </scene>
+        <!--mealLogsStoryboard-->
+        <scene sceneID="Mao-gQ-eGy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="mealLogsStoryboard" id="ypO-Gm-zaC" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ttk-wc-ch4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Mf-KZ-p50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1505" y="976"/>
+        </scene>
+        <!--summaryStoryboard-->
+        <scene sceneID="0e4-RC-d6H">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="summaryStoryboard" id="3x7-Z9-TK7" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="X62-g5-apX"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OdV-mJ-gnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="1046"/>
+        </scene>
+        <!--documentsStoryboard-->
+        <scene sceneID="uUT-Ue-pgj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="documentsStoryboard" id="MUM-vs-fUG" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="xlX-0D-IyB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iXO-GD-4Qf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1505" y="1141"/>
+        </scene>
+        <!--symptomsStoryboard-->
+        <scene sceneID="RKY-PN-fks">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Symptoms" referencedIdentifier="symptomsStoryboard" id="NMc-Xk-TmZ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="jhA-B5-cbG"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KOR-Dc-TWY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="1240"/>
+        </scene>
     </scenes>
     <resources>
         <image name="profile" width="3178" height="3178"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
