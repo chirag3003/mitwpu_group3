@@ -5,13 +5,13 @@ class FamilyMemberCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-            // 1. Make the shrinkage more obvious (0.90 instead of 0.95)
+
             let scale: CGFloat = isHighlighted ? 0.90 : 1.0
             let alpha: CGFloat = isHighlighted ? 0.7 : 1.0
 
-            // 2. Use Spring Animation for better visibility on quick taps
+            // Spring Animation
             UIView.animate(
-                withDuration: 0.5,  // Longer duration for the spring to settle
+                withDuration: 0.5,  // Duration for the spring to settle
                 delay: 0,
                 usingSpringWithDamping: 0.5,
                 initialSpringVelocity: 3,
@@ -27,11 +27,11 @@ class FamilyMemberCell: UICollectionViewCell {
             )
         }
     }
+
     // MARK: - UI Components
 
-    // CHANGED: Use CircleView instead of UIView
     private let containerView: CircleView = {
-        let view = CircleView()  // <--- Use custom class
+        let view = CircleView()  // Custom UIView for circular shape
         view.backgroundColor = .tertiarySystemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -42,7 +42,7 @@ class FamilyMemberCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.tintColor = .darkGray
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true  // Ensure image respects the container's bounds
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -56,6 +56,7 @@ class FamilyMemberCell: UICollectionViewCell {
     }()
 
     // MARK: - Init
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -64,13 +65,14 @@ class FamilyMemberCell: UICollectionViewCell {
     required init?(coder: NSCoder) { fatalError() }
 
     // MARK: - Layout Logic
+
     private func setupUI() {
         contentView.addSubview(containerView)
         containerView.addSubview(imageView)
         contentView.addSubview(nameLabel)
 
         NSLayoutConstraint.activate([
-            // 1. Container (The Circle)
+            // Container (The Circle)
             containerView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: 4
@@ -78,17 +80,17 @@ class FamilyMemberCell: UICollectionViewCell {
             containerView.centerXAnchor.constraint(
                 equalTo: contentView.centerXAnchor
             ),
-            // Use 0.8 multiplier to ensure it doesn't touch edges
+            // So that edges are not touched
             containerView.widthAnchor.constraint(
                 equalTo: contentView.widthAnchor,
                 multiplier: 0.8
             ),
-            // Aspect Ratio 1:1 is CRITICAL for a perfect circle
+            // Aspect Ratio for an exact circle
             containerView.heightAnchor.constraint(
                 equalTo: containerView.widthAnchor
             ),
 
-            // 2. Image inside Container (Fill completely)
+            // Image inside Container
             imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             imageView.leadingAnchor.constraint(
                 equalTo: containerView.leadingAnchor
@@ -100,7 +102,7 @@ class FamilyMemberCell: UICollectionViewCell {
                 equalTo: containerView.bottomAnchor
             ),
 
-            // 3. Name Label
+            // Name Label
             nameLabel.topAnchor.constraint(
                 equalTo: containerView.bottomAnchor,
                 constant: 8
@@ -137,7 +139,8 @@ class FamilyMemberCell: UICollectionViewCell {
 class CircleView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
-        // This ensures that WHENEVER this view changes size, it recalculates the circle
+        // Size auto reshaping
+
         self.layer.cornerRadius = self.bounds.height / 2
         self.layer.masksToBounds = true
     }

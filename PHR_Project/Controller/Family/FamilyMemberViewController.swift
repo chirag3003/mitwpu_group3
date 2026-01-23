@@ -7,7 +7,7 @@ protocol FamilyMemberDataScreen {
 class FamilyMemberViewController: UIViewController {
     var familyMember: FamilyMember?
 
-    // MARK: IB Outlets
+    // MARK: Outlets
     @IBOutlet weak var pfpImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
