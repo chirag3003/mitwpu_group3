@@ -8,12 +8,9 @@
 import UIKit
 import HealthKit
 
-/// Main dashboard screen displaying health summaries, water intake tracking,
-/// and quick access to meal/symptom logging.
 final class HomeViewController: UIViewController {
     
     // MARK: - IBOutlets
-    
     // Header
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var greetingsLabel: UILabel!
@@ -73,7 +70,6 @@ final class HomeViewController: UIViewController {
 }
 
 // MARK: - Setup
-
 private extension HomeViewController {
     
     func setupUI() {
@@ -131,7 +127,6 @@ private extension HomeViewController {
 }
 
 // MARK: - Data Loading
-
 private extension HomeViewController {
     
     func loadData() {
@@ -184,12 +179,9 @@ private extension HomeViewController {
             label.text = "\(stats.totalCalories)"
         }
         
-        // Update Progress (Assuming 2000 kcal goal for now)
         let goal = 2000
         let progress = min(Double(stats.totalCalories) / Double(goal), 1.0)
-        
-        // Update the card if it exists (using caloriesSummaryCard based on viewDidLoad usage)
-        caloriesSummaryCard?.configure(mode: .limitWarning, progress: Float(progress), thickness: 16)
+        caloriesSummaryCard.configure(mode: .limitWarning, progress: Float(progress), thickness: 16)
     }
     
     @objc func handleGlucoseUpdate() {
@@ -210,7 +202,6 @@ private extension HomeViewController {
 }
 
 // MARK: - HealthKit Integration
-
 private extension HomeViewController {
     
     /// Daily step goal for progress calculation
@@ -271,9 +262,7 @@ private extension HomeViewController {
 }
 
 // MARK: - Water Intake
-
 private extension HomeViewController {
-    
     func setupWaterIntakeGestures() {
         let incrementTap = UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount))
         glassIncrement.addGestureRecognizer(incrementTap)
@@ -315,7 +304,6 @@ private extension HomeViewController {
 // MARK: - Glucose Card Navigation
 
 private extension HomeViewController {
-    
     func setupGlucoseCardGesture() {
         glucoseCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(glucoseCardTapped))
@@ -330,7 +318,6 @@ private extension HomeViewController {
 // MARK: - Water Intake Card Navigation
 
 private extension HomeViewController {
-    
     func setupWaterIntakeCardGesture() {
         waterIntakeCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(waterIntakeCardTapped))
@@ -345,7 +332,6 @@ private extension HomeViewController {
 // MARK: - Calories Card Navigation
 
 private extension HomeViewController {
-    
     func setupCaloriesCardGesture() {
         caloriesCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(caloriesCardTapped))
@@ -358,9 +344,7 @@ private extension HomeViewController {
 }
 
 // MARK: - Steps Card Navigation
-
 private extension HomeViewController {
-    
     func setupStepsCardGesture() {
         stepsCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stepsCardTapped))
@@ -368,42 +352,19 @@ private extension HomeViewController {
     }
     
     @objc func stepsCardTapped() {
-//        openAppleHealth
         performSegue(withIdentifier: "stepsSegue", sender: nil)
-    }
-    
-    func openAppleHealth() {
-        // Apple Health URL scheme
-        guard let healthURL = URL(string: "x-apple-health://") else { return }
-        
-        if UIApplication.shared.canOpenURL(healthURL) {
-            UIApplication.shared.open(healthURL, options: [:], completionHandler: nil)
-        } else {
-            // Fallback: Show alert if Health app is not available
-            let alert = UIAlertController(
-                title: "Health App Unavailable",
-                message: "The Apple Health app is not available on this device.",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
     }
 }
 
 // MARK: - IBActions
-
 extension HomeViewController {
-    
     @IBAction func onNotificationClose(_ sender: Any) {
         dismissNotificationView()
     }
 }
 
 // MARK: - Helpers
-
 private extension HomeViewController {
-    
     func dismissNotificationView() {
         UIView.animate(withDuration: 0.3, animations: {
             self.notificationView.alpha = 0
@@ -411,10 +372,5 @@ private extension HomeViewController {
             self.notificationView.isHidden = true
             self.notificationView.alpha = 1
         }
-    }
-    
-    func provideHapticFeedback() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
     }
 }
