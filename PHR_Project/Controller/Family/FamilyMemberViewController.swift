@@ -4,11 +4,10 @@ protocol FamilyMemberDataScreen {
     var familyMember: FamilyMember? { get set }
 }
 
-class FamilyMemberViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
-{
+class FamilyMemberViewController: UIViewController {
     var familyMember: FamilyMember?
 
+    // MARK: IB Outlets
     @IBOutlet weak var pfpImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +23,7 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // table view
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -31,15 +31,21 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate,
         // Set member details
         nameLabel.text = familyMember?.name ?? "Family Member"
 
-        //UI Changes
+        // profile image changes
         pfpImage.addFullRoundedCorner()
         pfpImage.setImageFromURL(url: familyMember?.imageName ?? "")
-        
-
     }
 
-    // MARK: - Table View Data Source
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if var destination = segue.destination as? FamilyMemberDataScreen {
+            destination.familyMember = self.familyMember
+        }
+    }
+}
 
+// MARK: Table View
+extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
+{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2  // Section 0: Allow Access To, Section 1: Shared With You
     }
@@ -53,7 +59,7 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate,
             return sharedOptions.count
         }
     }
-    
+
     // MARK: Table View Header
     func tableView(
         _ tableView: UITableView,
@@ -162,13 +168,6 @@ class FamilyMemberViewController: UIViewController, UITableViewDelegate,
                 withIdentifier: sharedOptionsSegue[indexPath.row],
                 sender: nil
             )
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Pass familyMember to destination view controllers if needed
-        if var destination = segue.destination as? FamilyMemberDataScreen {
-            destination.familyMember = self.familyMember
         }
     }
 }

@@ -37,7 +37,6 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var symptomLogCard: UIView!
 
     // MARK: - Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
