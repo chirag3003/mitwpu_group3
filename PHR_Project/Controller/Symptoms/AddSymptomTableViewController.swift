@@ -1,10 +1,3 @@
-//
-//  AddSymptomTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 03/12/25.
-//
-
 import UIKit
 
 class AddSymptomTableViewController: UITableViewController {

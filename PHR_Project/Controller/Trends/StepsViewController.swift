@@ -1,10 +1,3 @@
-//
-//  StepsViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 21/01/26.
-//
-
 import Combine
 import SwiftUI
 import UIKit

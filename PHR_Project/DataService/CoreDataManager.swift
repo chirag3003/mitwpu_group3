@@ -1,10 +1,3 @@
-//
-//  CoreDataManager.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 13/01/26.
-//
-
 import Foundation
 import CoreData
 import UIKit

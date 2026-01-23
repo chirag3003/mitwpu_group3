@@ -1,10 +1,3 @@
-//
-//  SymptomModel.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 28/11/25.
-//
-
 import Foundation
 
 // 1. Delete the 'struct CustomDate' block entirely. You don't need it.

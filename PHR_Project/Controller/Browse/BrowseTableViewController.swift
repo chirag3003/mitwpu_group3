@@ -1,10 +1,3 @@
-//
-//  BrowseTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 08/12/25.
-//
-
 import UIKit
 
 class BrowseTableViewController: UITableViewController, UISearchResultsUpdating

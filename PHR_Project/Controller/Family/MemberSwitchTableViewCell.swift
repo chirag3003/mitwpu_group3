@@ -1,10 +1,3 @@
-//
-//  MemberSwitchTableViewCell.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 12/01/26.
-//
-
 import UIKit
 
 class MemberSwitchTableViewCell: UITableViewCell {

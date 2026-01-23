@@ -1,10 +1,3 @@
-//
-//  SymptomViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 28/11/25.
-//
-
 import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate,

@@ -1,10 +1,3 @@
-//
-//  AllergyViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 27/11/25.
-//
-
 import UIKit
 
 class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {

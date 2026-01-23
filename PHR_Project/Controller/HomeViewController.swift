@@ -1,10 +1,3 @@
-//
-//  HomeViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 14/11/25.
-//
-
 import HealthKit
 import UIKit
 

@@ -1,10 +1,3 @@
-//
-//  ChartViewModel.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 20/01/26.
-//
-
 import Foundation
 import SwiftUI
 import Combine

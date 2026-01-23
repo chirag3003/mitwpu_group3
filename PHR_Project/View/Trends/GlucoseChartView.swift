@@ -1,10 +1,3 @@
-//
-//  GlucoseChartView.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 20/01/26.
-//
-
 import Charts
 import SwiftUI
 
