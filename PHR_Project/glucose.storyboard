@@ -179,7 +179,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4gk-Wt-hru">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="969"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="982.66666666666663"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wEy-bj-nfZ">
                                                 <rect key="frame" x="16" y="8" width="361" height="32"/>
@@ -535,11 +535,14 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="16" right="0.0"/>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUQ-Gy-5V7">
-                                                <rect key="frame" x="16" y="924.66666666666674" width="361" height="36.333333333333371"/>
+                                                <rect key="frame" x="16" y="924.66666666666674" width="361" height="50"/>
                                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="6t2-ZI-8A6"/>
+                                                </constraints>
                                                 <color key="tintColor" systemColor="tertiarySystemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="View all your glucose logs">
+                                                <buttonConfiguration key="configuration" style="filled" imagePlacement="trailing" title="View all Glucose Logs" cornerStyle="capsule">
                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                     <directionalEdgeInsets key="contentInsets" top="8" leading="16" bottom="8" trailing="16"/>
                                                 </buttonConfiguration>
@@ -705,10 +708,10 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

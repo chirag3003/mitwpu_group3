@@ -393,7 +393,7 @@
         <!--Generate Health Report-->
         <scene sceneID="ebq-8P-9AX">
             <objects>
-                <viewController id="d5W-Zj-Kq5" customClass="GenerateHealthViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="summaryStoryboard" id="d5W-Zj-Kq5" customClass="GenerateHealthViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="57O-Ey-2Ex">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

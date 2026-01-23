@@ -3,7 +3,7 @@ import UIKit
 class SectionBackground: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.secondarySystemBackground
+        backgroundColor = UIColor.tertiarySystemBackground
         layer.cornerRadius = 16
         clipsToBounds = true
 
@@ -15,8 +15,15 @@ class SectionBackground: UICollectionReusableView {
 
 class MealViewController: UIViewController, FamilyMemberDataScreen {
 
+    @IBOutlet weak var caloriebgCard: UIView!
     @IBOutlet weak var monthName: UILabel!
 
+    @IBOutlet weak var fiberLabel: UILabel!
+    @IBOutlet weak var proteinLabel: UILabel!
+    @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    
+    
     @IBOutlet weak var tipOneLabel: UILabel!
     @IBOutlet weak var tipTwoLabel: UILabel!
     @IBOutlet weak var tipThreeLabel: UILabel!
@@ -67,7 +74,9 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         )
 
         updateMonthLabel(for: 15)
-
+        
+        caloriebgCard.addRoundedCorner(radius: 20)
+        
         calorieProgressView.configure(
             mode: .limitWarning,
             progress: 0.49,
@@ -79,22 +88,22 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
             thickness: UIConstants.ProgressThickness.thin
         )
         carbsProgress.addRoundedCorner()
-        carbsProgress.addDropShadow()
-
+        
         proteinProgress.configure(
             progress: 0.66,
             thickness: UIConstants.ProgressThickness.thin
         )
         proteinProgress.addRoundedCorner()
-        proteinProgress.addDropShadow()
-
+        
         fiberProgress.configure(
             progress: 0.71,
             thickness: UIConstants.ProgressThickness.thin
         )
         fiberProgress.addRoundedCorner()
-        fiberProgress.addDropShadow()
-
+        
+        // Initial Stats Update
+        updateStats()
+        
         insightOne.addRoundedCorner(radius: 20)
         insightOneLabel.text = insights[0]
 
@@ -128,6 +137,43 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         }
 
     }
+    
+    // MARK: - Update Stats
+    
+    func updateStats() {
+        let stats = MealService.shared.getMealStatsByDate(on: selectedDate)
+        
+        caloriesLabel.text = "\(stats.totalCalories)"
+        carbsLabel.text = "\(stats.totalCarbs)"
+        proteinLabel.text = "\(stats.totalProtein)"
+        fiberLabel.text = "\(stats.totalFiber)"
+        
+        let calorieGoal: Double = 2000
+        let carbsGoal: Double = 220
+        let proteinGoal: Double = 90
+        let fiberGoal: Double = 35
+        
+        calorieProgressView.configure(
+            mode: .limitWarning,
+            progress: Float(min(Double(stats.totalCalories) / calorieGoal, 1.0)),
+            thickness: UIConstants.ProgressThickness.thick
+        )
+        
+        carbsProgress.configure(
+            progress: Float(min(Double(stats.totalCarbs) / carbsGoal, 1.0)),
+            thickness: UIConstants.ProgressThickness.thin
+        )
+        
+        proteinProgress.configure(
+            progress: Float(min(Double(stats.totalProtein) / proteinGoal, 1.0)),
+            thickness: UIConstants.ProgressThickness.thin
+        )
+        
+        fiberProgress.configure(
+            progress: Float(min(Double(stats.totalFiber) / fiberGoal, 1.0)),
+            thickness: UIConstants.ProgressThickness.thin
+        )
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -137,6 +183,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     @objc func refreshData() {
         DispatchQueue.main.async {
             self.mealCollectionView.reloadData()
+            self.updateStats()
         }
     }
 
@@ -386,7 +433,15 @@ extension MealViewController: UICollectionViewDataSource,
     ) {
         if collectionView == dateCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            updateMonthLabel(for: indexPath.row) 
+            updateMonthLabel(for: indexPath.row)
+            
+            // Calculate selected date (Index 15 is today)
+            let daysOffset = indexPath.row - 15
+            if let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date()) {
+                selectedDate = date
+                mealCollectionView.reloadData()
+                updateStats()
+            }
         }
 
     }
