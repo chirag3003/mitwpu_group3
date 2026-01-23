@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class FamilyViewController: UIViewController, UICollectionViewDelegate,
     UICollectionViewDataSource
 {
@@ -61,8 +60,12 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             // 0.33 fractional width = 3 columns
             let itemSize = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(UIConstants.CollectionLayout.oneThirdWidth),
-                    heightDimension: .fractionalHeight(UIConstants.CollectionLayout.fullWidth)
+                    widthDimension: .fractionalWidth(
+                        UIConstants.CollectionLayout.oneThirdWidth
+                    ),
+                    heightDimension: .fractionalHeight(
+                        UIConstants.CollectionLayout.fullWidth
+                    )
                 )
             )
             itemSize.contentInsets = NSDirectionalEdgeInsets(
@@ -73,8 +76,12 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             )
 
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
-                heightDimension: .absolute(UIConstants.CollectionLayout.memberItemHeight)
+                widthDimension: .fractionalWidth(
+                    UIConstants.CollectionLayout.fullWidth
+                ),
+                heightDimension: .absolute(
+                    UIConstants.CollectionLayout.memberItemHeight
+                )
             )
 
             let group = NSCollectionLayoutGroup.horizontal(
@@ -92,8 +99,12 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             section.interGroupSpacing = UIConstants.Spacing.medium
 
             let headerSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(UIConstants.CollectionLayout.fullWidth),
-                heightDimension: .estimated(UIConstants.CollectionLayout.headerHeight)
+                widthDimension: .fractionalWidth(
+                    UIConstants.CollectionLayout.fullWidth
+                ),
+                heightDimension: .estimated(
+                    UIConstants.CollectionLayout.headerHeight
+                )
             )
 
             let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -170,10 +181,11 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
         // 2. Get the specific member data
         let selectedMember = familyData[indexPath.row]
-        performSegue(withIdentifier: SegueIdentifiers.goToMemberDetails, sender: selectedMember)
+        performSegue(
+            withIdentifier: SegueIdentifiers.goToMemberDetails,
+            sender: selectedMember
+        )
     }
-
-   
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifiers.goToMemberDetails {
@@ -186,4 +198,3 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         }
     }
 }
-

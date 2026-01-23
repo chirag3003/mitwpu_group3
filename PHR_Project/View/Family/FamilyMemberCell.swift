@@ -29,7 +29,7 @@ class FamilyMemberCell: UICollectionViewCell {
     // CHANGED: Use CircleView instead of UIView
     private let containerView: CircleView = {
         let view = CircleView()  // <--- Use custom class
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .tertiarySystemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -114,8 +114,6 @@ class FamilyMemberCell: UICollectionViewCell {
                 constant: -4
             ),
         ])
-        
-        containerView.backgroundColor = .tertiarySystemBackground
     }
 
     // MARK: - CLEANUP
