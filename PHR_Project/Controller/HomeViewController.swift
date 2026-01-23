@@ -56,53 +56,7 @@ final class HomeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-}
-
-// MARK: - Setup
-extension HomeViewController {
-
-    fileprivate func setupUI() {
-        configureCardAppearance()
-        configureHeaderAppearance()
-        configureStackSpacing()
-    }
-
-    fileprivate func configureCardAppearance() {
-        notificationView.addRoundedCorner(
-            radius: UIConstants.CornerRadius.medium
-        )
-        mealLogCardView.addRoundedCorner()
-        symptomLogCard.addRoundedCorner()
-    }
-
-    fileprivate func configureHeaderAppearance() {
-        headerView.applyLiquidGlassEffect()
-        headerView.layer.zPosition = 2
-    }
-
-    fileprivate func configureStackSpacing() {
-        mainStack.setCustomSpacing(
-            UIConstants.Spacing.large,
-            after: notificationView
-        )
-        mainStack.setCustomSpacing(
-            UIConstants.Spacing.large,
-            after: circularSummariesStack
-        )
-    }
-
-    fileprivate func setupGestures() {
-        setupWaterIntakeGestures()
-        setupGlucoseCardGesture()
-        setupWaterIntakeCardGesture()
-        setupCaloriesCardGesture()
-        setupStepsCardGesture()
-    }
-
-    fileprivate func setupNotificationObservers() {
+    private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleProfileUpdate),
@@ -124,86 +78,119 @@ extension HomeViewController {
             object: nil
         )
     }
+
+    private func setupUI() {
+        // Card corner radius
+        notificationView.addRoundedCorner(
+            radius: UIConstants.CornerRadius.medium
+        )
+        mealLogCardView.addRoundedCorner()
+        symptomLogCard.addRoundedCorner()
+
+        // header view design
+        headerView.applyLiquidGlassEffect()
+        headerView.layer.zPosition = 2
+
+        // stack custom spacing
+        mainStack.setCustomSpacing(
+            UIConstants.Spacing.large,
+            after: notificationView
+        )
+        mainStack.setCustomSpacing(
+            UIConstants.Spacing.large,
+            after: circularSummariesStack
+        )
+    }
+
+    // MARK: IB Actions
+    @IBAction func onNotificationClose(_ sender: Any) {
+        UIView.animate(
+            withDuration: 0.3,
+            animations: {
+                self.notificationView.alpha = 0
+            }
+        ) { _ in
+            self.notificationView.isHidden = true
+            self.notificationView.alpha = 1
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 // MARK: - Data Loading
 extension HomeViewController {
 
-    fileprivate func loadData() {
+    /// Refreshes all dashboard UI elements with latest data
+    private func updateAllUI() {
         updateGreeting()
-        configureSummaryCards()
-        configureSummaryCards()
         updateWaterIntakeUI()
         updateGlucoseUI()
         updateCaloriesUI()
-        requestHealthKitAuthorization()
-        updateGlucoseUI()
-        requestHealthKitAuthorization()
     }
 
-    fileprivate func refreshData() {
-        updateGreeting()
-        func refreshData() {
-            updateGreeting()
-            updateWaterIntakeUI()
-            updateGlucoseUI()
-            updateCaloriesUI()
-            fetchHealthData()
-        }
-        updateGlucoseUI()
+    private func loadData() {
+        updateAllUI()
+        requestHealthKitAuthorization()
+        configureSummaryCards()
+    }
+
+    private func refreshData() {
+        updateAllUI()
         fetchHealthData()
     }
 
-    fileprivate func updateGreeting() {
+    private func updateGreeting() {
         let firstName = ProfileService.shared.getProfile().firstName
-        let hour = Calendar.current.component(.hour, from: Date())
-        let greeting: String
-        switch hour {
-        case 0..<12: greeting = "Good Morning"
-        case 12..<17: greeting = "Good Afternoon"
-        default: greeting = "Good Evening"
-        }
-        greetingsLabel.text = "\(greeting), \(firstName)"
+        greetingsLabel.text = "\(Date().greetingText), \(firstName)"
     }
 
-    fileprivate func configureSummaryCards() {
-        stepsCard.configure(mode: .achievement, progress: 0, thickness: 16)
+    private func configureSummaryCards() {
+        stepsCard.configure(
+            mode: .achievement,
+            progress: 0,
+            thickness: HealthGoals.progressThickness
+        )
         caloriesSummaryCard.configure(
             mode: .limitWarning,
             progress: 0,
-            thickness: 16
+            thickness: HealthGoals.progressThickness
         )
     }
 
-    @objc fileprivate func handleProfileUpdate() {
+    @objc private func handleProfileUpdate() {
         updateGreeting()
     }
 
-    @objc fileprivate func handleMealsUpdate() {
+    @objc private func handleMealsUpdate() {
         updateCaloriesUI()
     }
 
-    fileprivate func updateCaloriesUI() {
+    private func updateCaloriesUI() {
         let stats = MealService.shared.getMealStatsByDate(on: Date())
 
         if let label = caloriesLabel {
             label.text = "\(stats.totalCalories)"
         }
 
-        let goal = 2000
-        let progress = min(Double(stats.totalCalories) / Double(goal), 1.0)
+        let progress = min(
+            Double(stats.totalCalories) / Double(HealthGoals.dailyCalories),
+            1.0
+        )
         caloriesSummaryCard.configure(
             mode: .limitWarning,
             progress: Float(progress),
-            thickness: 16
+            thickness: HealthGoals.progressThickness
         )
     }
 
-    @objc fileprivate func handleGlucoseUpdate() {
+    @objc private func handleGlucoseUpdate() {
         updateGlucoseUI()
     }
 
-    fileprivate func updateGlucoseUI() {
+    private func updateGlucoseUI() {
         let readings = GlucoseService.shared.getReadings()
         // Sort by combinedDate to ensure we get the absolute latest
         let sortedReadings = readings.sorted {
@@ -220,11 +207,7 @@ extension HomeViewController {
 
 // MARK: - HealthKit Integration
 extension HomeViewController {
-
-    /// Daily step goal for progress calculation
-    fileprivate var dailyStepGoal: Int { 10000 }
-
-    fileprivate func requestHealthKitAuthorization() {
+    private func requestHealthKitAuthorization() {
         guard HealthKitService.shared.isHealthKitAvailable else {
             stepsLabel.text = "N/A"
             return
@@ -236,20 +219,18 @@ extension HomeViewController {
                 self?.fetchHealthData()
             } else {
                 self?.stepsLabel.text = "N/A"
-                if let error = error {
-                    print(
-                        "HealthKit authorization failed: \(error.localizedDescription)"
-                    )
-                }
+                print(
+                    "HealthKit authorization failed: \(error?.localizedDescription ?? "")"
+                )
             }
         }
     }
 
-    fileprivate func fetchHealthData() {
+    private func fetchHealthData() {
         fetchTodaySteps()
     }
 
-    fileprivate func fetchTodaySteps() {
+    private func fetchTodaySteps() {
         HealthKitService.shared.fetchTodaySteps { [weak self] result in
             guard let self = self else { return }
 
@@ -263,7 +244,7 @@ extension HomeViewController {
         }
     }
 
-    fileprivate func updateStepsUI(steps: Int) {
+    private func updateStepsUI(steps: Int) {
         // Format steps with thousands separator
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -273,18 +254,18 @@ extension HomeViewController {
         stepsLabel.text = formattedSteps
 
         // Update progress ring based on daily goal
-        let progress = min(Double(steps) / Double(dailyStepGoal), 1.0)
+        let progress = min(Double(steps) / Double(HealthGoals.dailySteps), 1.0)
         stepsCard.configure(
-            mode: progress >= 1.0 ? .achievement : .achievement,
+            mode: .achievement,
             progress: Float(progress),
-            thickness: 16
+            thickness: HealthGoals.progressThickness
         )
     }
 }
 
 // MARK: - Water Intake
 extension HomeViewController {
-    fileprivate func setupWaterIntakeGestures() {
+    private func setupWaterIntakeGestures() {
         let incrementTap = UITapGestureRecognizer(
             target: self,
             action: #selector(incrementGlassCount)
@@ -298,26 +279,26 @@ extension HomeViewController {
         glassDecrement.addGestureRecognizer(decrementTap)
     }
 
-    @objc fileprivate func incrementGlassCount() {
+    @objc private func incrementGlassCount() {
         WaterIntakeService.shared.incrementGlass()
         updateWaterIntakeUI()
         animateGlassValue()
         provideHapticFeedback()
     }
 
-    @objc fileprivate func decrementGlassCount() {
+    @objc private func decrementGlassCount() {
         WaterIntakeService.shared.decrementGlass()
         updateWaterIntakeUI()
         animateGlassValue()
         provideHapticFeedback()
     }
 
-    fileprivate func updateWaterIntakeUI() {
+    private func updateWaterIntakeUI() {
         let count = WaterIntakeService.shared.getGlassCount()
         glassValue.text = "\(count)"
     }
 
-    fileprivate func animateGlassValue() {
+    private func animateGlassValue() {
         UIView.animate(
             withDuration: 0.1,
             animations: {
@@ -334,91 +315,49 @@ extension HomeViewController {
     }
 }
 
-// MARK: - Glucose Card Navigation
-
+// MARK: - Card Navigation
 extension HomeViewController {
-    fileprivate func setupGlucoseCardGesture() {
-        glucoseCard.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
+
+    private func setupGestures() {
+        //Glucose
+        setupCardNavigation(
+            for: glucoseCard,
             action: #selector(glucoseCardTapped)
         )
-        glucoseCard.addGestureRecognizer(tapGesture)
-    }
-
-    @objc fileprivate func glucoseCardTapped() {
-        performSegue(withIdentifier: "glucoseSegue", sender: self)
-    }
-}
-
-// MARK: - Water Intake Card Navigation
-
-extension HomeViewController {
-    fileprivate func setupWaterIntakeCardGesture() {
-        waterIntakeCard.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
+        // Water Intake
+        setupCardNavigation(
+            for: waterIntakeCard,
             action: #selector(waterIntakeCardTapped)
         )
-        waterIntakeCard.addGestureRecognizer(tapGesture)
-    }
-
-    @objc fileprivate func waterIntakeCardTapped() {
-        performSegue(withIdentifier: "waterIntakeSegue", sender: self)
-    }
-}
-
-// MARK: - Calories Card Navigation
-
-extension HomeViewController {
-    fileprivate func setupCaloriesCardGesture() {
-        caloriesCard.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
+        // Calories
+        setupCardNavigation(
+            for: caloriesCard,
             action: #selector(caloriesCardTapped)
         )
-        caloriesCard.addGestureRecognizer(tapGesture)
+        // Steps
+        setupCardNavigation(for: stepsCard, action: #selector(stepsCardTapped))
     }
 
-    @objc fileprivate func caloriesCardTapped() {
+    /// Sets up tap gesture for a card that navigates to a detail screen
+    private func setupCardNavigation(for view: UIView, action: Selector) {
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: action)
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func glucoseCardTapped() {
+        performSegue(withIdentifier: "glucoseSegue", sender: self)
+    }
+
+    @objc private func waterIntakeCardTapped() {
+        performSegue(withIdentifier: "waterIntakeSegue", sender: self)
+    }
+
+    @objc private func caloriesCardTapped() {
         performSegue(withIdentifier: "mealSegue", sender: self)
     }
-}
 
-// MARK: - Steps Card Navigation
-extension HomeViewController {
-    fileprivate func setupStepsCardGesture() {
-        stepsCard.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(
-            target: self,
-            action: #selector(stepsCardTapped)
-        )
-        stepsCard.addGestureRecognizer(tapGesture)
-    }
-
-    @objc fileprivate func stepsCardTapped() {
+    @objc private func stepsCardTapped() {
         performSegue(withIdentifier: "stepsSegue", sender: nil)
-    }
-}
-
-// MARK: - IBActions
-extension HomeViewController {
-    @IBAction func onNotificationClose(_ sender: Any) {
-        dismissNotificationView()
-    }
-}
-
-// MARK: - Helpers
-extension HomeViewController {
-    fileprivate func dismissNotificationView() {
-        UIView.animate(
-            withDuration: 0.3,
-            animations: {
-                self.notificationView.alpha = 0
-            }
-        ) { _ in
-            self.notificationView.isHidden = true
-            self.notificationView.alpha = 1
-        }
     }
 }
