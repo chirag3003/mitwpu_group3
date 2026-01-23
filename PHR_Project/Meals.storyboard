@@ -3,6 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -13,7 +15,7 @@
         <!--Meal Logs-->
         <scene sceneID="L6t-ef-j7F">
             <objects>
-                <viewController id="fdI-9g-pwJ" customClass="MealViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mealLogsStoryboard" id="fdI-9g-pwJ" customClass="MealViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="co1-Ei-3Hz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.666666666666675" width="361" height="8.3333333333333321"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -339,7 +341,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="v2I-pH-HVd" firstAttribute="leading" secondItem="3qU-nS-MQE" secondAttribute="trailing" constant="8" id="2C4-BO-bY2"/>
                                                             <constraint firstItem="v2I-pH-HVd" firstAttribute="centerY" secondItem="3qU-nS-MQE" secondAttribute="centerY" id="ALH-gy-Kga"/>
@@ -368,7 +370,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="zVg-HR-SYe" firstAttribute="leading" secondItem="Swa-Iy-eSk" secondAttribute="leading" constant="8" id="9Xd-7U-7ig"/>
                                                             <constraint firstItem="dQU-Hp-ZtW" firstAttribute="leading" secondItem="zVg-HR-SYe" secondAttribute="trailing" constant="8" id="I7L-AI-xes"/>
@@ -452,7 +454,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="jAa-2K-pqu" firstAttribute="leading" secondItem="gy6-6f-coE" secondAttribute="leading" constant="8" id="DH6-ds-r3i"/>
                                                             <constraint firstAttribute="trailing" secondItem="ov9-K5-7Xx" secondAttribute="trailing" constant="8" id="GEB-hJ-0Jc"/>
@@ -481,7 +483,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="gye-Ac-Odw" firstAttribute="leading" secondItem="mQF-yh-7j9" secondAttribute="trailing" constant="8" id="BeP-UW-VCi"/>
                                                             <constraint firstItem="gye-Ac-Odw" firstAttribute="top" secondItem="hMF-wG-Jbc" secondAttribute="top" constant="13" id="Etx-gf-ato"/>
@@ -510,7 +512,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="q6k-6s-AEG" firstAttribute="centerY" secondItem="ghu-lS-ac1" secondAttribute="centerY" id="0SR-db-b5G"/>
                                                             <constraint firstItem="q6k-6s-AEG" firstAttribute="leading" secondItem="ghu-lS-ac1" secondAttribute="trailing" constant="8" id="F98-hA-JKS"/>
@@ -563,12 +565,18 @@
                         <outlet property="dateCollectionView" destination="LoX-Yn-QrO" id="r3o-Ov-KHV"/>
                         <outlet property="fiberProgress" destination="dVH-NZ-Qmk" id="YK4-ea-GGb"/>
                         <outlet property="insightOne" destination="csz-JS-Lxp" id="0eO-9e-jQB"/>
+                        <outlet property="insightOneLabel" destination="v2I-pH-HVd" id="2aT-RW-GUV"/>
                         <outlet property="insightTwo" destination="Swa-Iy-eSk" id="f2b-Kf-zxE"/>
+                        <outlet property="insightTwoLabel" destination="dQU-Hp-ZtW" id="I19-Ym-iI1"/>
                         <outlet property="mealCollectionView" destination="V9Q-u8-jW0" id="EMk-1K-lUh"/>
+                        <outlet property="monthName" destination="9sg-4B-QWR" id="cA6-4e-1WM"/>
                         <outlet property="proteinProgress" destination="VTa-US-BsZ" id="rHE-Qc-aK2"/>
                         <outlet property="tipOne" destination="gy6-6f-coE" id="ahQ-fm-ibA"/>
+                        <outlet property="tipOneLabel" destination="ov9-K5-7Xx" id="LN1-3M-nFB"/>
                         <outlet property="tipThree" destination="1l1-as-1Vq" id="AQu-PI-2LN"/>
+                        <outlet property="tipThreeLabel" destination="q6k-6s-AEG" id="LTv-A8-Pxw"/>
                         <outlet property="tipTwo" destination="hMF-wG-Jbc" id="Twc-tc-GIR"/>
+                        <outlet property="tipTwoLabel" destination="gye-Ac-Odw" id="mAN-Oy-M4R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c10-1Y-jJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -746,7 +754,7 @@
                                                     <state key="normal" title="Select"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBl-4q-ujt">
-                                                    <rect key="frame" x="16" y="15" width="78.333333333333329" height="20.333333333333329"/>
+                                                    <rect key="frame" x="16" y="15.333333333333334" width="78.333333333333329" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -879,11 +887,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pNR-g6-w17">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="809"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banana-pancakes-4" translatesAutoresizingMaskIntoConstraints="NO" id="5eU-dE-U7g">
-                                                <rect key="frame" x="16" y="16" width="361" height="350"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5eU-dE-U7g">
+                                                <rect key="frame" x="16" y="16.666666666666657" width="361" height="348.66666666666674"/>
+                                                <color key="tintColor" systemColor="placeholderTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="hTN-6v-aGQ"/>
                                                 </constraints>
+                                                <imageReference key="image" image="fork.knife.circle.fill" catalog="system" symbolScale="default"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXe-Gq-MzL">
                                                 <rect key="frame" x="16" y="381" width="361" height="30"/>
@@ -1243,15 +1254,21 @@
     </scenes>
     <resources>
         <image name="arrowtriangle.down.fill" catalog="system" width="128" height="120"/>
-        <image name="banana-pancakes-4" width="650" height="813"/>
         <image name="bolt.square.fill" catalog="system" width="128" height="114"/>
         <image name="chart.line.uptrend.xyaxis" catalog="system" width="128" height="102"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="fork.knife.circle" catalog="system" width="128" height="123"/>
+        <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>
         <image name="info.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="insights_bg">
+            <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

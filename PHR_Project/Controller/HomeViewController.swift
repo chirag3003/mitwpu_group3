@@ -8,22 +8,17 @@
 import UIKit
 import HealthKit
 
-/// Main dashboard screen displaying health summaries, water intake tracking,
-/// and quick access to meal/symptom logging.
 final class HomeViewController: UIViewController {
     
     // MARK: - IBOutlets
-    
     // Header
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var notificationView: UIView!
     
     // Summary Cards
-    @IBOutlet weak var glucoseCard: SummaryCardView!
     @IBOutlet weak var circularSummariesStack: UIStackView!
     @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
-    @IBOutlet weak var stepsSummaryCard: CircularProgressView!
     
     // Water Intake
     @IBOutlet weak var waterIntakeCard: SummaryCardView!
@@ -31,10 +26,17 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var glassDecrement: UIImageView!
     @IBOutlet weak var glassIncrement: UIImageView!
     
-    // Calories and Steps
+    // Calories
     @IBOutlet weak var caloriesCard: CircularProgressView!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    
+    // Steps
     @IBOutlet weak var stepsCard: CircularProgressView!
     @IBOutlet weak var stepsLabel: UILabel!
+    
+    // Glucose
+    @IBOutlet weak var glucoseCard: SummaryCardView!
+    @IBOutlet weak var glucoseLabel: UILabel!
     
     // Quick Actions
     @IBOutlet weak var mainStack: UIStackView!
@@ -68,7 +70,6 @@ final class HomeViewController: UIViewController {
 }
 
 // MARK: - Setup
-
 private extension HomeViewController {
     
     func setupUI() {
@@ -108,23 +109,48 @@ private extension HomeViewController {
             name: NSNotification.Name(NotificationNames.profileUpdated),
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleMealsUpdate),
+            name: NSNotification.Name(NotificationNames.mealsUpdated),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleGlucoseUpdate),
+            name: NSNotification.Name(NotificationNames.glucoseUpdated),
+            object: nil
+        )
     }
 }
 
 // MARK: - Data Loading
-
 private extension HomeViewController {
     
     func loadData() {
         updateGreeting()
         configureSummaryCards()
+        configureSummaryCards()
         updateWaterIntakeUI()
+        updateGlucoseUI()
+        updateCaloriesUI()
+        requestHealthKitAuthorization()
+        updateGlucoseUI()
         requestHealthKitAuthorization()
     }
     
     func refreshData() {
         updateGreeting()
+    func refreshData() {
+        updateGreeting()
         updateWaterIntakeUI()
+        updateGlucoseUI()
+        updateCaloriesUI()
+        fetchHealthData()
+    }
+        updateGlucoseUI()
         fetchHealthData()
     }
     
@@ -134,17 +160,48 @@ private extension HomeViewController {
     }
     
     func configureSummaryCards() {
-        stepsSummaryCard.configure(mode: .achievement, progress: 0.45, thickness: 16)
-        caloriesSummaryCard.configure(mode: .limitWarning, progress: 0.76, thickness: 16)
+        stepsCard.configure(mode: .achievement, progress: 0, thickness: 16)
+        caloriesSummaryCard.configure(mode: .limitWarning, progress: 0, thickness: 16)
     }
     
     @objc func handleProfileUpdate() {
         updateGreeting()
     }
+    
+    @objc func handleMealsUpdate() {
+        updateCaloriesUI()
+    }
+    
+    func updateCaloriesUI() {
+        let stats = MealService.shared.getMealStatsByDate(on: Date())
+        
+        if let label = caloriesLabel {
+            label.text = "\(stats.totalCalories)"
+        }
+        
+        let goal = 2000
+        let progress = min(Double(stats.totalCalories) / Double(goal), 1.0)
+        caloriesSummaryCard.configure(mode: .limitWarning, progress: Float(progress), thickness: 16)
+    }
+    
+    @objc func handleGlucoseUpdate() {
+        updateGlucoseUI()
+    }
+    
+    func updateGlucoseUI() {
+        let readings = GlucoseService.shared.getReadings()
+        // Sort by combinedDate to ensure we get the absolute latest
+        let sortedReadings = readings.sorted { $0.combinedDate < $1.combinedDate }
+        
+        if let latest = sortedReadings.last {
+            glucoseLabel.text = "\(latest.value)"
+        } else {
+            glucoseLabel.text = "--"
+        }
+    }
 }
 
 // MARK: - HealthKit Integration
-
 private extension HomeViewController {
     
     /// Daily step goal for progress calculation
@@ -196,7 +253,7 @@ private extension HomeViewController {
         
         // Update progress ring based on daily goal
         let progress = min(Double(steps) / Double(dailyStepGoal), 1.0)
-        stepsSummaryCard.configure(
+        stepsCard.configure(
             mode: progress >= 1.0 ? .achievement : .achievement,
             progress: Float(progress),
             thickness: 16
@@ -205,9 +262,7 @@ private extension HomeViewController {
 }
 
 // MARK: - Water Intake
-
 private extension HomeViewController {
-    
     func setupWaterIntakeGestures() {
         let incrementTap = UITapGestureRecognizer(target: self, action: #selector(incrementGlassCount))
         glassIncrement.addGestureRecognizer(incrementTap)
@@ -249,7 +304,6 @@ private extension HomeViewController {
 // MARK: - Glucose Card Navigation
 
 private extension HomeViewController {
-    
     func setupGlucoseCardGesture() {
         glucoseCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(glucoseCardTapped))
@@ -264,7 +318,6 @@ private extension HomeViewController {
 // MARK: - Water Intake Card Navigation
 
 private extension HomeViewController {
-    
     func setupWaterIntakeCardGesture() {
         waterIntakeCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(waterIntakeCardTapped))
@@ -279,7 +332,6 @@ private extension HomeViewController {
 // MARK: - Calories Card Navigation
 
 private extension HomeViewController {
-    
     func setupCaloriesCardGesture() {
         caloriesCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(caloriesCardTapped))
@@ -292,9 +344,7 @@ private extension HomeViewController {
 }
 
 // MARK: - Steps Card Navigation
-
 private extension HomeViewController {
-    
     func setupStepsCardGesture() {
         stepsCard.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stepsCardTapped))
@@ -302,41 +352,19 @@ private extension HomeViewController {
     }
     
     @objc func stepsCardTapped() {
-        openAppleHealth()
-    }
-    
-    func openAppleHealth() {
-        // Apple Health URL scheme
-        guard let healthURL = URL(string: "x-apple-health://") else { return }
-        
-        if UIApplication.shared.canOpenURL(healthURL) {
-            UIApplication.shared.open(healthURL, options: [:], completionHandler: nil)
-        } else {
-            // Fallback: Show alert if Health app is not available
-            let alert = UIAlertController(
-                title: "Health App Unavailable",
-                message: "The Apple Health app is not available on this device.",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
+        performSegue(withIdentifier: "stepsSegue", sender: nil)
     }
 }
 
 // MARK: - IBActions
-
 extension HomeViewController {
-    
     @IBAction func onNotificationClose(_ sender: Any) {
         dismissNotificationView()
     }
 }
 
 // MARK: - Helpers
-
 private extension HomeViewController {
-    
     func dismissNotificationView() {
         UIView.animate(withDuration: 0.3, animations: {
             self.notificationView.alpha = 0
@@ -344,10 +372,5 @@ private extension HomeViewController {
             self.notificationView.isHidden = true
             self.notificationView.alpha = 1
         }
-    }
-    
-    func provideHapticFeedback() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
     }
 }

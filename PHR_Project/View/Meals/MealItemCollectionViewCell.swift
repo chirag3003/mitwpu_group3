@@ -25,7 +25,7 @@ class MealItemCollectionViewCell: UICollectionViewCell {
     
     func setup(with meal: Meal) {
             mealName.text = meal.name
-            mealQty.text = meal.detail
+            mealQty.text = meal.detail ?? ""
             mealTime.text = meal.time
     }
     

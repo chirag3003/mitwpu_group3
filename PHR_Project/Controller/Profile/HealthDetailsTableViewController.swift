@@ -11,6 +11,7 @@ class HealthDetailsTableViewController: UITableViewController,
     UITextFieldDelegate
 {
 
+
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
     @IBOutlet weak var dobInput: UIDatePicker!
@@ -274,6 +275,7 @@ class HealthDetailsTableViewController: UITableViewController,
         )
 
         ProfileService.shared.setProfile(to: profile)
+        
     }
 
     // MARK: - Disable Delete Functionality

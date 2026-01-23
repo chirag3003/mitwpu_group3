@@ -27,8 +27,7 @@ class MealDetailViewController: UIViewController {
     
     @IBOutlet weak var notesText: UILabel!
     
-    //private var mealDetails: [MealDetails] = []
-    var selectedMealDetail: MealDetails?
+    var selectedMeal: Meal?
     
     
     @IBOutlet weak var notesView: UIView!
@@ -36,29 +35,29 @@ class MealDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         mealDetailTableView.dataSource = self
         mealDetailTableView.delegate = self
-
         
         setupUI()
-        
     }
     
     func setupUI() {
-            // CHANGE 2: Safely unwrap the selected meal.
-            // If it's nil (error), we return so the app doesn't crash.
-            guard let meal = selectedMealDetail else { return }
+            guard let meal = selectedMeal else { return }
             
-            // Use 'meal' instead of 'mealDetails[0]'
-            let image = meal.mealImage
-            // Safe check for empty image string
-            if !image.isEmpty {
-                mealImage.image = UIImage(named: image)
+            // Image
+            if let imagePath = meal.image, !imagePath.isEmpty {
+                if let url = URL(string: imagePath), imagePath.lowercased().hasPrefix("http") {
+                    URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+                        guard let self = self, let data = data, error == nil, let image = UIImage(data: data) else { return }
+                        DispatchQueue.main.async {
+                            self.mealImage.image = image
+                        }
+                    }.resume()
+                } 
             }
             mealImage.addRoundedCorner(radius: 10)
             
-            mealName.text = meal.meal.name
+            mealName.text = meal.name
             
             mealDetailTableView.addRoundedCorner()
             
@@ -77,7 +76,7 @@ class MealDetailViewController: UIViewController {
             notesView.addRoundedCorner(radius: 20)
             
             notesText.addRoundedCorner(radius: 10)
-            notesText.text = meal.notes
+            notesText.text = meal.notes ?? "No notes"
         }
    
 }
@@ -95,11 +94,15 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "meal_detail_cell", for: indexPath) as! MealDetailTableViewCell
         
-        guard let meal = selectedMealDetail else { return cell }
+        guard let meal = selectedMeal else { return cell }
         
         if indexPath.row == 0 {
             cell.dataLabel?.text = "Date"
-            cell.dataValue?.text = meal.date
+            
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            cell.dataValue?.text = formatter.string(from: meal.dateRecorded)
+            
         } else if indexPath.row == 1 {
             cell.dataLabel?.text = "Added by"
             cell.dataValue?.text = meal.addedBy
@@ -107,6 +110,4 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
-    
 }

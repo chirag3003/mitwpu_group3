@@ -248,7 +248,7 @@
         <!--Symptom View Controller-->
         <scene sceneID="V2g-PB-xwX">
             <objects>
-                <viewController id="HTY-CY-Yfj" customClass="SymptomViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="symptomsStoryboard" id="HTY-CY-Yfj" customClass="SymptomViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gEW-RQ-WS0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -391,6 +391,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="symptomTableView" destination="Fdo-kZ-rCq" id="mna-yR-RPs"/>
+                        <outlet property="titleLabel" destination="0ck-0o-LoU" id="iAu-43-QJ8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7zq-bt-XJu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

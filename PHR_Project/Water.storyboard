@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wBF-RD-8gu">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
@@ -22,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wFh-uV-9xj">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="736.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BeF-O7-5Y9">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="736.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="December" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9u-OO-bmA">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="13.333333333333334"/>
@@ -65,7 +66,7 @@
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtR-pY-5kO">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="58" height="40"/>
-                                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -117,7 +118,7 @@
                                                         </cells>
                                                     </collectionView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pIg-4y-dy5">
-                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="610.33333333333348"/>
+                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="608.33333333333348"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-LY-L1I" customClass="CircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="15.999999999999972" width="377" height="250.00000000000003"/>
@@ -127,34 +128,34 @@
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="M54-sc-y29">
                                                                                 <rect key="frame" x="20" y="16.333333333333329" width="40" height="217.33333333333337"/>
-                                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="tintColor" name="water_btn"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="40" id="35k-Go-Ggm"/>
                                                                                 </constraints>
                                                                             </imageView>
-                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pEy-9t-9Xc">
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pEy-9t-9Xc">
                                                                                 <rect key="frame" x="60" y="8" width="257" height="234"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-Zp-XFv">
-                                                                                        <rect key="frame" x="8" y="70" width="241" height="51.666666666666657"/>
+                                                                                        <rect key="frame" x="8" y="70" width="241" height="45.666666666666657"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="42"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of 10 glasses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRw-wl-kqN">
-                                                                                        <rect key="frame" x="8" y="121.66666666666669" width="241" height="12.333333333333343"/>
+                                                                                        <rect key="frame" x="8" y="120.66666666666669" width="241" height="10.666666666666657"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500/2500 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98E-Ie-3O6">
-                                                                                        <rect key="frame" x="8" y="134" width="241" height="14.666666666666657"/>
-                                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                                                        <rect key="frame" x="8" y="136.33333333333337" width="241" height="13"/>
+                                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IU-iu-PDI">
-                                                                                        <rect key="frame" x="8" y="148.66666666666669" width="241" height="35.333333333333343"/>
+                                                                                        <rect key="frame" x="8" y="154.33333333333337" width="241" height="29.666666666666657"/>
                                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                                                         <connections>
@@ -166,7 +167,7 @@
                                                                             </stackView>
                                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="XiF-Kh-6a6">
                                                                                 <rect key="frame" x="317" y="10.333333333333329" width="40" height="229.66666666666669"/>
-                                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="tintColor" name="water_btn"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="40" id="0Ap-fb-orj"/>
                                                                                 </constraints>
@@ -185,7 +186,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-NJ-fmg">
-                                                                <rect key="frame" x="8" y="276" width="377" height="256.33333333333326"/>
+                                                                <rect key="frame" x="8" y="276" width="377" height="324.33333333333326"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRk-0T-XGd">
                                                                         <rect key="frame" x="8" y="8" width="361" height="14.333333333333336"/>
@@ -211,7 +212,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstItem="VrA-NN-pa0" firstAttribute="leading" secondItem="x41-2d-Xyi" secondAttribute="leading" constant="8" id="4hL-Vg-jcK"/>
                                                                             <constraint firstItem="z7H-Bs-Yc1" firstAttribute="leading" secondItem="VrA-NN-pa0" secondAttribute="trailing" constant="8" id="HP5-Rv-HpV"/>
@@ -240,7 +241,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstItem="oeZ-5Z-QQ5" firstAttribute="leading" secondItem="9Lp-KE-Fjp" secondAttribute="trailing" constant="8" id="Cxz-Dg-EZC"/>
                                                                             <constraint firstAttribute="trailing" secondItem="oeZ-5Z-QQ5" secondAttribute="trailing" constant="8" id="RgP-QV-nxN"/>
@@ -269,7 +270,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.75686274509999996" green="0.86666666670000003" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" name="insights_bg"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="ot5-QS-uuz" secondAttribute="trailing" constant="8" id="Fsg-fA-s2d"/>
                                                                             <constraint firstAttribute="height" constant="70" id="H9m-fv-nKj"/>
@@ -280,22 +281,22 @@
                                                                             <constraint firstItem="ot5-QS-uuz" firstAttribute="top" secondItem="BEi-rN-8vb" secondAttribute="top" constant="13" id="uwA-lX-quT"/>
                                                                         </constraints>
                                                                     </view>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
+                                                                        <rect key="frame" x="8" y="264.33333333333326" width="361" height="60"/>
+                                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="60" id="d8f-lq-XBI"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="Water Intake Settings"/>
+                                                                        <connections>
+                                                                            <segue destination="WWx-cx-2zC" kind="show" id="b6H-qW-6Ba"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="0.0" right="8"/>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
-                                                                <rect key="frame" x="8" y="542.33333333333326" width="377" height="60"/>
-                                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="d8f-lq-XBI"/>
-                                                                </constraints>
-                                                                <color key="tintColor" systemColor="labelColor"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="Water Intake Settings"/>
-                                                                <connections>
-                                                                    <segue destination="WWx-cx-2zC" kind="show" id="b6H-qW-6Ba"/>
-                                                                </connections>
-                                                            </button>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="16" left="8" bottom="8" right="8"/>
                                                     </stackView>
@@ -339,16 +340,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsv-Xf-FD1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102" y="531"/>
+            <point key="canvasLocation" x="869" y="444"/>
         </scene>
-        <!--Settings-->
+        <!--Water Intake Settings-->
         <scene sceneID="B58-jK-rj1">
             <objects>
-                <tableViewController id="WWx-cx-2zC" customClass="WaterSettingsTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="FlH-gb-P0s">
+                <tableViewController id="WWx-cx-2zC" userLabel="Water Intake Settings" customClass="WaterSettingsTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="FlH-gb-P0s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                         <sections>
                             <tableViewSection headerTitle="Daily Goal" id="Wac-vh-Tfe">
@@ -423,7 +424,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Notification" id="GaN-n1-64H">
+                            <tableViewSection headerTitle="Notifications" id="GaN-n1-64H">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iEY-Yh-TSe">
                                         <rect key="frame" x="20" y="213.33333015441895" width="353" height="51"/>
@@ -503,7 +504,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYn-Cd-4S5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2174.8091603053435" y="530.98591549295782"/>
+            <point key="canvasLocation" x="2172" y="520"/>
         </scene>
         <!--Water Info Modal View Controller-->
         <scene sceneID="XYY-By-ifB">
@@ -613,6 +614,12 @@
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="minus" catalog="system" width="128" height="26"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="insights_bg">
+            <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="water_btn">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

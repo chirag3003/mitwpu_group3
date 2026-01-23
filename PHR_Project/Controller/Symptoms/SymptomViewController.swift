@@ -8,14 +8,17 @@
 import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
+    UITableViewDataSource, FamilyMemberDataScreen
 {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var symptomTableView: UITableView!
 
     var symptomsData: [Symptom] = []
     
     var isDeleting = false
+    
+    var familyMember: FamilyMember?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +36,16 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSymptoms),
-            name: NSNotification.Name(NotificationNames.symptomsUpdated),
+            name: NSNotification.Name(NotificationNames.mealsUpdated),
             object: nil
         )
+
+        if(familyMember != nil){
+            self.titleLabel.text = "\(familyMember!.name)'s Symptoms"
+        } else {
+            self.titleLabel.text = "Symptoms"
+        }
+        
     }
 
     // MARK: - TableView Methods

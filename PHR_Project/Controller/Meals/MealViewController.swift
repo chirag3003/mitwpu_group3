@@ -6,20 +6,28 @@ class SectionBackground: UICollectionReusableView {
         backgroundColor = UIColor.secondarySystemBackground
         layer.cornerRadius = 16
         clipsToBounds = true
-        
+
     }
     required init?(coder: NSCoder) { fatalError() }
 }
 
-class MealViewController: UIViewController {
 
 
+class MealViewController: UIViewController, FamilyMemberDataScreen {
+
+    @IBOutlet weak var monthName: UILabel!
+
+    @IBOutlet weak var tipOneLabel: UILabel!
+    @IBOutlet weak var tipTwoLabel: UILabel!
+    @IBOutlet weak var tipThreeLabel: UILabel!
     @IBOutlet weak var tipOne: UIView!
     @IBOutlet weak var tipTwo: UIView!
     @IBOutlet weak var tipThree: UIView!
     @IBOutlet weak var insightOne: UIView!
-    
+    @IBOutlet weak var insightOneLabel: UILabel!
+
     @IBOutlet weak var insightTwo: UIView!
+    @IBOutlet weak var insightTwoLabel: UILabel!
     @IBOutlet weak var fiberProgress: SemicircularProgressView!
     @IBOutlet weak var proteinProgress: SemicircularProgressView!
     @IBOutlet weak var carbsProgress: SemicircularProgressView!
@@ -28,10 +36,25 @@ class MealViewController: UIViewController {
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
     var dates: MealDataStore = MealDataStore.shared
+    var selectedDate: Date = Date()
+
+    
+    var familyMember: FamilyMember?
     
     var hasScrolledToToday = false
-    
-    let sectionTitles = ["Breakfast", "Lunch", "Dinner"]
+
+    let sectionTitles = ["Breakfast", "Lunch", "Snacks", "Dinner"]
+
+    let tips: [String] = [
+        "Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability.",
+        "Replacing evening white rice with quinoa or millets reduces glucose spikes.",
+        "Having dinner at least 2 hours before bedtime leads to better fasting glucose.",
+    ]
+
+    let insights: [String] = [
+        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL.",
+        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL.",
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,123 +65,169 @@ class MealViewController: UIViewController {
             createDateLayout(),
             animated: true
         )
-        
-        calorieProgressView.configure(mode:.limitWarning ,progress: 0.49, thickness: UIConstants.ProgressThickness.thick)
-        
-        carbsProgress.configure(progress: 0.81, thickness: UIConstants.ProgressThickness.thin)
-        carbsProgress.addRoundedCorner()
-        carbsProgress.addDropShadow()
-        
-        proteinProgress.configure(progress: 0.66, thickness: UIConstants.ProgressThickness.thin)
-        proteinProgress.addRoundedCorner()
-        proteinProgress.addDropShadow()
-        
-        fiberProgress.configure(progress: 0.71, thickness: UIConstants.ProgressThickness.thin)
-        fiberProgress.addRoundedCorner()
-        fiberProgress.addDropShadow()
-        
-        insightOne.addRoundedCorner(radius: 20)
-        insightTwo.addRoundedCorner(radius: 20)
-        
-        tipOne.addRoundedCorner(radius: 20)
-        tipTwo.addRoundedCorner(radius: 20)
-        tipThree.addRoundedCorner(radius: 20)
-        
-        
-        
-        setupMealCollectionView()
-        
-        NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(refreshData),
-                    name: NSNotification.Name("MealsUpdated"),
-                    object: nil
+
+        updateMonthLabel(for: 15)
+
+        calorieProgressView.configure(
+            mode: .limitWarning,
+            progress: 0.49,
+            thickness: UIConstants.ProgressThickness.thick
         )
 
+        carbsProgress.configure(
+            progress: 0.81,
+            thickness: UIConstants.ProgressThickness.thin
+        )
+        carbsProgress.addRoundedCorner()
+        carbsProgress.addDropShadow()
+
+        proteinProgress.configure(
+            progress: 0.66,
+            thickness: UIConstants.ProgressThickness.thin
+        )
+        proteinProgress.addRoundedCorner()
+        proteinProgress.addDropShadow()
+
+        fiberProgress.configure(
+            progress: 0.71,
+            thickness: UIConstants.ProgressThickness.thin
+        )
+        fiberProgress.addRoundedCorner()
+        fiberProgress.addDropShadow()
+
+        insightOne.addRoundedCorner(radius: 20)
+        insightOneLabel.text = insights[0]
+
+        insightTwo.addRoundedCorner(radius: 20)
+        insightTwoLabel.text = insights[1]
+
+        tipOne.addRoundedCorner(radius: 20)
+        tipOneLabel.text = tips[0]
+
+        tipTwo.addRoundedCorner(radius: 20)
+        tipTwoLabel.text = tips[1]
+
+        tipThree.addRoundedCorner(radius: 20)
+        tipThreeLabel.text = tips[2]
+
+        setupMealCollectionView()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshData),
+            name: NSNotification.Name(NotificationNames.mealsUpdated),
+            object: nil
+        )
+        
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Meal Logs"
+        }
+        else
+        {
+            self.title = "Meal Logs"
+        }
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            mealCollectionView.reloadData()
-        }
-    
+        super.viewWillAppear(animated)
+        mealCollectionView.reloadData()
+    }
+
     @objc func refreshData() {
-            DispatchQueue.main.async {
-                self.mealCollectionView.reloadData()
-            }
+        DispatchQueue.main.async {
+            self.mealCollectionView.reloadData()
         }
-    
+    }
+
     //To align the today's date to the center of the scroll
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-            
-            // Check if we have already scrolled and if we have data
-            if !hasScrolledToToday && dates.getDays().count > 0 {
-                
-                // 1. FORCE the collection view to calculate cell positions right now
-                dateCollectionView.layoutIfNeeded()
-                
-                // 2. Define the index for "Today" (Index 15)
-                let todayIndex = IndexPath(item: 15, section: 0)
-                
-                // 3. Perform the scroll on the main thread to ensure it happens after the visual pass
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    
-                    self.dateCollectionView.scrollToItem(
-                        at: todayIndex,
-                        at: .centeredHorizontally,
-                        animated: false
-                    )
-                    
-                    // 4. Select the item visually (highlighting the blue circle)
-                    self.dateCollectionView.selectItem(
-                        at: todayIndex,
-                        animated: false,
-                        scrollPosition: .centeredHorizontally
-                    )
-                    
-                    self.hasScrolledToToday = true
-                }
+        super.viewDidLayoutSubviews()
+
+        // Check if we have already scrolled and if we have data
+        if !hasScrolledToToday && dates.getDays().count > 0 {
+
+            // 1. FORCE the collection view to calculate cell positions right now
+            dateCollectionView.layoutIfNeeded()
+
+            // 2. Define the index for "Today" (Index 15)
+            let todayIndex = IndexPath(item: 15, section: 0)
+
+            // 3. Perform the scroll on the main thread to ensure it happens after the visual pass
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                self.dateCollectionView.scrollToItem(
+                    at: todayIndex,
+                    at: .centeredHorizontally,
+                    animated: false
+                )
+
+                // 4. Select the item visually (highlighting the blue circle)
+                self.dateCollectionView.selectItem(
+                    at: todayIndex,
+                    animated: false,
+                    scrollPosition: .centeredHorizontally
+                )
+
+                self.hasScrolledToToday = true
             }
         }
-    
+    }
+
     private func createDateLayout() -> UICollectionViewLayout {
-            return UICollectionViewCompositionalLayout {
-                (sectionIndex, env) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout {
+            (sectionIndex, env) -> NSCollectionLayoutSection? in
 
-                let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                item.contentInsets = NSDirectionalEdgeInsets(
-                    top: 8,
-                    leading: 8,
-                    bottom: 8,
-                    trailing: 8
-                )
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
 
-                // 2. Group
-                // Absolute height 150 ensures enough space for Circle + Text
-                let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0/7.0),
-                    heightDimension: .absolute(100)
-                )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: groupSize,
-                    subitems: [item]
-                    //count: 7  // This divides the screen width by 7 automatically
-                )
-                // 3. Section
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPagingCentered
+            item.contentInsets = NSDirectionalEdgeInsets(
+                top: 8,
+                leading: 8,
+                bottom: 8,
+                trailing: 8
+            )
 
-                return section
-            }
+            // 2. Group
+            // Absolute height 150 ensures enough space for Circle + Text
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0 / 7.0),
+                heightDimension: .absolute(100)
+            )
+
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+                //count: 7  // This divides the screen width by 7 automatically
+            )
+            // 3. Section
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .groupPagingCentered
+
+            return section
+        }
+    }
+
+    private func updateMonthLabel(for index: Int) {
+        let calendar = Calendar.current
+        let today = Date()
+
+        // Calculate the date based on index (assuming index 15 is today)
+        let daysOffset = index - 15
+        if let targetDate = calendar.date(
+            byAdding: .day,
+            value: daysOffset,
+            to: today
+        ) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM"  // Full month name
+            monthName.text = dateFormatter.string(from: targetDate)
+        }
     }
 
     private func setupMealCollectionView() {
@@ -167,7 +236,7 @@ class MealViewController: UIViewController {
             mealNib,
             forCellWithReuseIdentifier: "MealCell"
         )
-        
+
         mealCollectionView.register(
             NoMealsCollectionViewCell.self,
             forCellWithReuseIdentifier: "NoMealsCell"
@@ -185,63 +254,65 @@ class MealViewController: UIViewController {
             config.showsSeparators = true
             config.backgroundColor = .clear
         
-        config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+        config.trailingSwipeActionsConfigurationProvider = { indexPath in
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completion in
                 
                 let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
                 let mealToDelete = mealsInSection[indexPath.row]
-                
+
                 MealService.shared.deleteMeal(mealToDelete)
-                
+
                 completion(true)
             }
-            
+
             deleteAction.backgroundColor = .systemRed
-            
+
             return UISwipeActionsConfiguration(actions: [deleteAction])
         }
 
-            let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
-                
-                let section = NSCollectionLayoutSection.list(
-                    using: config,
-                    layoutEnvironment: env
-                )
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
 
-                section.contentInsets = NSDirectionalEdgeInsets(
-                    top: UIConstants.Padding.medium,
-                    leading: 0,
-                    bottom: UIConstants.Padding.medium,
-                    trailing: 0
-                )
-
-                let background = NSCollectionLayoutDecorationItem.background(
-                    elementKind: "section-background"
-                )
-                
-                background.contentInsets = NSDirectionalEdgeInsets(
-                    top: UIConstants.Spacing.extraSmall,
-                    leading: 0,
-                    bottom: UIConstants.Spacing.extraSmall,
-                    trailing: 0
-                )
-
-                section.decorationItems = [background]
-
-                return section
-            }
-
-            // Register the decoration view
-            layout.register(
-                SectionBackground.self,
-                forDecorationViewOfKind: "section-background"
+            let section = NSCollectionLayoutSection.list(
+                using: config,
+                layoutEnvironment: env
             )
 
-            return layout
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: UIConstants.Padding.medium,
+                leading: 0,
+                bottom: UIConstants.Padding.medium,
+                trailing: 0
+            )
+
+            let background = NSCollectionLayoutDecorationItem.background(
+                elementKind: "section-background"
+            )
+
+            background.contentInsets = NSDirectionalEdgeInsets(
+                top: UIConstants.Spacing.extraSmall,
+                leading: 0,
+                bottom: UIConstants.Spacing.extraSmall,
+                trailing: 0
+            )
+
+            section.decorationItems = [background]
+
+            return section
         }
+
+        // Register the decoration view
+        layout.register(
+            SectionBackground.self,
+            forDecorationViewOfKind: "section-background"
+        )
+
+        return layout
+    }
 }
 
-extension MealViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MealViewController: UICollectionViewDataSource,
+    UICollectionViewDelegate
+{
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -249,14 +320,20 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == dateCollectionView {
             return dates.getDays().count
         }
-        
-        let count = MealService.shared.getMeals(forSection: section).count
-        
+
+        let count = MealService.shared.getMeals(
+            forSection: section,
+            on: selectedDate
+        ).count
+
         return count == 0 ? 1 : count
-        
+
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
 
         if collectionView == dateCollectionView {
             let cell =
@@ -267,39 +344,51 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
 
             let date = dates.getDays()[indexPath.row]
             cell.configureCell(date: date)
-            
+
             if indexPath.row == 15 {
                 cell.isToday = true
             } else {
                 cell.isToday = false
             }
-            
 
             return cell
         }
 
-        let mealsInSection = MealService.shared.getMeals(forSection: indexPath.section)
-                
-                // 1. If empty, show the "No Meals" placeholder
+        let mealsInSection = MealService.shared.getMeals(
+            forSection: indexPath.section,
+            on: selectedDate
+        )
+
+        // 1. If empty, show the "No Meals" placeholder
         if mealsInSection.isEmpty {
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoMealsCell", for: indexPath) as! NoMealsCollectionViewCell
-                    return cell
+            let cell =
+                collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "NoMealsCell",
+                    for: indexPath
+                ) as! NoMealsCollectionViewCell
+            return cell
         }
-                
-                // 2. If not empty, show the actual meal
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.mealCell, for: indexPath) as! MealItemCollectionViewCell
+
+        // 2. If not empty, show the actual meal
+        let cell =
+            collectionView.dequeueReusableCell(
+                withReuseIdentifier: CellIdentifiers.mealCell,
+                for: indexPath
+            ) as! MealItemCollectionViewCell
         let meal = mealsInSection[indexPath.row]
         cell.setup(with: meal)
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         if collectionView == dateCollectionView {
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            updateMonthLabel(for: indexPath.row) 
         }
-        
-        let selectedDay = dates.getDays()[indexPath.row]
-        print("Selected: \(selectedDay)")
+
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -321,7 +410,7 @@ extension MealViewController: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: CellIdentifiers.sectionHeader,
                 for: indexPath
             ) as! MealSectionHeaderView
-        
+
         header.sectionLabel.text = sectionTitles[indexPath.section]
         return header
     }
@@ -335,60 +424,89 @@ class NoMealsCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupView() {
         label.text = "No meals logged yet"
         label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
 }
 
 extension MealViewController: CustomCameraDelegate {
-    
-    
+
     @IBAction func addMealCamera(_ sender: Any) {
         // Create the custom camera VC
         let customCameraVC = CustomCameraViewController()
-        
+
         // Set the delegate to 'self' so we get the results back
         customCameraVC.delegate = self
-        
+
         // Present it full screen
         customCameraVC.modalPresentationStyle = .fullScreen
         present(customCameraVC, animated: true)
     }
-    
-    
+
     func didCaptureImage(_ image: UIImage) {
-        print("Custom camera took a picture!")
-        
-        
-        
+        // 1. Dismiss the camera first
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+
+            // 2. Show the standard full-screen loader
+            self.showLoader(true)
+
+            // 3. Start analysis
+            MealService.shared.analyzeMeal(image: image) { [weak self] result in
+                guard let self = self else { return }
+
+                // 4. Hide loader when done
+                self.showLoader(false)
+
+                switch result {
+                case .success(let meal):
+                    print("Analysis complete: \(meal.name)")
+                    self.mealCollectionView.reloadData()
+                    self.showAlert(
+                        title: "Success",
+                        message: "Added \(meal.name)!"
+                    )
+
+                case .failure(let error):
+                    print("Analysis failed: \(error)")
+                    self.showAlert(
+                        title: "Analysis Failed",
+                        message: error.localizedDescription
+                    )
+                }
+            }
+        }
     }
-    
+
     func didTapManuallyLog() {
         print("User chose to manually log")
         dismiss(animated: true) { [weak self] in
-            
+
             // 2. ONLY after the camera is gone, try to present the new screen
             guard let self = self else { return }
-            
+
             let storyboard = UIStoryboard(name: "Meals", bundle: nil)
-            let manualVC = storyboard.instantiateViewController(withIdentifier: "AddMealScreenNav")
+            let manualVC = storyboard.instantiateViewController(
+                withIdentifier: "AddMealScreenNav"
+            )
             manualVC.modalPresentationStyle = .pageSheet
             self.present(manualVC, animated: true, completion: nil)
         }
     }
 }
+

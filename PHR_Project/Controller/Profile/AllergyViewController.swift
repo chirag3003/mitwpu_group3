@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddAllergyProtocol {
+class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var allergies: [Allergy] = []
     
@@ -25,8 +25,13 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
-
         
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("AllergiesUpdated"), object: nil)
+    }
+    
+    @objc func refreshData() {
+        self.allergies = AllergyService.shared.fetchAllergies()
+        self.allergiesTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,7 +53,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
             if editingStyle == .delete {
                 
                 // 1. Delete from Service (Database)
-                AllergyService.shared.deleteAllergy(at: indexPath.row)
+                AllergyService.shared.deleteAllergy(at: indexPath.row, notify: false)
                 
                 // 2. Update Local Array (So the view controller knows it's gone)
                 allergies.remove(at: indexPath.row)
@@ -57,12 +62,6 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
-    
-    func addAllergy(allergy: Allergy) {
-        AllergyService.shared.addAllergy(allergy)
-        allergies = AllergyService.shared.fetchAllergies()
-        allergiesTableView.reloadData()
-    }
     
 
     /*
@@ -74,12 +73,5 @@ class AllergyViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Pass the selected object to the new view controller.
     }
     */
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is AddAllergyTableViewController {
-            let destinationVC = segue.destination as! AddAllergyTableViewController
-            destinationVC.addDelegate = self
-        }
-    }
 
 }

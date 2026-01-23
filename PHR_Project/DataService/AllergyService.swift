@@ -3,61 +3,91 @@ import Foundation
 class AllergyService {
     static let shared = AllergyService()
     
-    private var allergies: [Allergy] = [] {
-        didSet {
-            // Notification if needed
-        }
-    }
+    private var allergies: [Allergy] = []
 
     private init() {
-        loadAllergies()
+        // Initial fetch from API
+        fetchAllergiesFromAPI()
     }
 
+    // 1. Synchronous Return for UI (Returns Cached Data)
     func fetchAllergies() -> [Allergy] {
         return allergies
     }
-
-    func addAllergy(_ allergy: Allergy) {
-        CoreDataManager.shared.addAllergy(allergy)
-        allergies.append(allergy)
+    
+    // 2. Asynchronous API Call
+    func fetchAllergiesFromAPI() {
+        APIService.shared.request(endpoint: "/allergies", method: .get) { [weak self] (result: Result<[Allergy], Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetchedAllergies):
+                self.allergies = fetchedAllergies
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                }
+                
+            case .failure(let error):
+                print("Error fetching allergies: \(error)")
+            }
+        }
     }
 
-    func removeAllergy(_ allergy: Allergy) {
-        guard let id = allergy.id else { return }
-        
-        CoreDataManager.shared.deleteAllergy(id: id)
-        allergies.removeAll { $0.id == id }
-    }
-
-    private func loadAllergies() {
-        let entities = CoreDataManager.shared.fetchAllergies()
-        
-        self.allergies = entities.map { entity in
-            return Allergy(
-                id: entity.id,
-                name: entity.name ?? "Unknown",
-                severity: entity.severity ?? "Mild",
-                notes: entity.notes
-            )
+    func addAllergy(_ allergy: Allergy, completion: @escaping (Result<Allergy, Error>) -> Void) {
+        // Call API
+        APIService.shared.request(endpoint: "/allergies", method: .post, body: allergy) { [weak self] (result: Result<Allergy, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let newAllergy):
+                 self.allergies.append(newAllergy)
+                
+                 // Notify UI
+                 DispatchQueue.main.async {
+                     NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                 }
+                 
+                 completion(.success(newAllergy))
+            case .failure(let error):
+                print("Error adding allergy: \(error)")
+                completion(.failure(error))
+            }
         }
     }
     
     // Fixing a code of delete allergy method
 
-    func deleteAllergy(at index: Int) {
-        // 1. Check if index is valid
+    func deleteAllergy(at index: Int, notify: Bool = true) {
         guard index < allergies.count else { return }
         
-        // 2. Get the item to remove
         let allergyToRemove = allergies[index]
         
-        // 3. Remove from Core Data using its ID
-        if let id = allergyToRemove.id {
-             CoreDataManager.shared.deleteAllergy(id: id)
+        guard let apiID = allergyToRemove.apiID else {
+            print("Warning: Deleted allergy had no apiID")
+            return 
         }
         
-        // 4. Remove from local array
-        allergies.remove(at: index)
+        APIService.shared.request(endpoint: "/allergies/\(apiID)", method: .delete) { [weak self] (result: Result<EmptyResponse, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                self.allergies.removeAll(where: { $0.apiID == apiID })
+                
+                // Update UI
+                if notify {
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name("AllergiesUpdated"), object: nil)
+                    }
+                }
+            case .failure(let error):
+                print("Error deleting allergy: \(error)")
+            }
+        }
     }
+    
+    // Helper struct for empty JSON responses
+    struct EmptyResponse: Decodable {}
     
 }

@@ -8,9 +8,9 @@ Data services use the singleton pattern for global access:
 - `ProfileService.shared` - User profile management
 - `AllergyService.shared` - Allergy data management  
 - `SymptomService.shared` - Symptom tracking
-- `MealDataStore.shared` - Meal logging
+- `MealService.shared` - Meal logging
 
-We are using UserDefaults in each service to ensure data persistance between restarts
+We are using CoreData in each service to ensure data persistance between restarts
 
 ### Communication Pattern
 Services notify controllers of data changes via `NotificationCenter`:

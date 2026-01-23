@@ -25,34 +25,33 @@ class DatesCollectionViewCell: UICollectionViewCell {
     }
     
     private func updatedAppearance() {
+        // Define the dynamic color for unselected state
+        let unselectedColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
+            if traitCollection.userInterfaceStyle == .dark {
+                // Your requested hex #6FAAE6 for Dark Mode
+                return UIColor(red: 111/255, green: 170/255, blue: 220/255, alpha: 1.0)
+            } else {
+                // Your existing Light Mode color
+                return UIColor(red: 190/255, green: 226/255, blue: 255/255, alpha: 1.0)
+            }
+        }
+
         if isSelected {
-            viewDateCell.backgroundColor = UIColor(
-                red: 101/255,
-                green: 187/255,
-                blue: 255/255,
-                alpha: 1
-            )
+            viewDateCell.backgroundColor = UIColor(red: 101/255, green: 187/255, blue: 255/255, alpha: 1)
+            viewDateCell.layer.borderWidth = 0 // Clear border if selected
             dateLabel.textColor = .label
             dayCell.textColor = .label
             
-        }else if isToday{
-//            viewDateCell.backgroundColor = UIColor(
-//                red: 101/255,
-//                green: 187/255,
-//                blue: 255/255,
-//                alpha: 1
-//            )
-            dayCell.textColor = .label
+        } else if isToday {
+            viewDateCell.backgroundColor = unselectedColor
             viewDateCell.layer.borderWidth = 1
-            viewDateCell.layer.borderColor = UIColor.black.cgColor
+            viewDateCell.layer.borderColor = UIColor.label.cgColor // Use .label so it's white in dark mode
+            dateLabel.textColor = .label
+            dayCell.textColor = .label
             
         } else {
-            viewDateCell.backgroundColor = UIColor(
-                red: 190/255,
-                green: 226/255,
-                blue: 255/255,
-                alpha: 1
-                )
+            viewDateCell.backgroundColor = unselectedColor
+            viewDateCell.layer.borderWidth = 0
             dateLabel.textColor = .secondaryLabel
             dayCell.textColor = .secondaryLabel
         }
