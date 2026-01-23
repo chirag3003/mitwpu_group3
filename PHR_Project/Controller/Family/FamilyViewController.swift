@@ -1,15 +1,12 @@
-//
-//  FamilyViewController.swift
-//  PHR_Project
-//
-//  Created by Sushant Pulipati on 24/11/25.
-//
+
 
 import UIKit
 
 class FamilyViewController: UIViewController, UICollectionViewDelegate,
     UICollectionViewDataSource
 {
+
+    // MARK: - Outlets
 
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -28,7 +25,7 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
     private func setupCollectionView() {
         collectionView.delaysContentTouches = false
-        
+
         // Register cell
         collectionView.register(
             FamilyMemberCell.self,
@@ -52,12 +49,12 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     }
 
     // MARK: - Compositional Layout
+
     private func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {
             (sectionIndex, env) -> NSCollectionLayoutSection? in
 
-            // 1. Item
-            // 0.33 fractional width = 3 columns
+            // 0.33 fractional width for 3 columns
             let itemSize = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(
@@ -119,6 +116,7 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     }
 
     // MARK: - DataSource
+
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -144,7 +142,8 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         return cell
     }
 
-    // MARK: - Header Config
+    // MARK: - Header Configuration
+
     func collectionView(
         _ collectionView: UICollectionView,
         viewForSupplementaryElementOfKind kind: String,
@@ -162,24 +161,19 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                 return UICollectionReusableView()
             }
 
-            // Add target for the button if needed
-            //                header.addButton.addTarget(self, action: #selector(didTapAddMember), for: .touchUpInside)
-
             return header
         }
         return UICollectionReusableView()
     }
 
-    // Add this inside FamilyViewController
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        // 1. Deselect the item immediately (standard iOS behavior)
+        // Deselect the item immediately
         collectionView.deselectItem(at: indexPath, animated: true)
 
-        // 2. Get the specific member data
+        // Get specific member data
         let selectedMember = familyData[indexPath.row]
         performSegue(
             withIdentifier: SegueIdentifiers.goToMemberDetails,

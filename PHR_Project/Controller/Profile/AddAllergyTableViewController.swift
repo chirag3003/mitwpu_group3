@@ -3,6 +3,7 @@ import UIKit
 class AddAllergyTableViewController: UITableViewController {
 
     // MARK: - Outlets
+
     @IBOutlet weak var allergyIngredient: UITextField!
     @IBOutlet weak var allergyDetailReaction: UITextField!
     @IBOutlet weak var intensityButton: UIButton!
@@ -26,6 +27,7 @@ class AddAllergyTableViewController: UITableViewController {
     }
 
     // MARK: - Setup Logic
+
     func setupPullDownButton() {
         let optionClosure: UIActionHandler = { action in
             print("User selected intensity: \(action.title)")
@@ -33,7 +35,6 @@ class AddAllergyTableViewController: UITableViewController {
 
         // Define options
         let option1 = UIAction(title: "Low", handler: optionClosure)
-        // We keep Moderate as the default selection for the BUTTON so it's not empty
         let option2 = UIAction(
             title: "Moderate",
             state: .on,
@@ -49,26 +50,27 @@ class AddAllergyTableViewController: UITableViewController {
         intensityButton.changesSelectionAsPrimaryAction = true
     }
 
-    // MARK: - Actions
+    // MARK: Actions
 
-    // Connect this to your 'Done' or 'Save' bar button item
     @IBAction func saveTapped(_ sender: UIBarButtonItem) {
 
-        // 1. Validate Ingredient Name
-        // We use guard to ensure the user actually wrote something
+        // Alert for empty fields
         guard let name = allergyIngredient.text, !name.isEmpty else {
-            self.showAlert(title: "Missing Info", message: "Please enter the allergy ingredient.")
+            self.showAlert(
+                title: "Missing Info",
+                message: "Please enter the allergy ingredient."
+            )
             return
         }
 
-        // 2. Gather Data
+        // Gather Data
         let reaction = allergyDetailReaction.text ?? ""
         let intensity = intensityButton.currentTitle ?? "Moderate"
 
-        // 3. Show Loader
+        // Show Loader
         showLoader(true)
 
-        // 4. Call Service
+        // Call Service
         let newAllergy = Allergy(
             id: UUID(),
             name: name,
@@ -84,11 +86,10 @@ class AddAllergyTableViewController: UITableViewController {
 
                 switch result {
                 case .success:
-                    // Dismiss on success
+
                     self.navigationController?.popViewController(animated: true)
 
                 case .failure(let error):
-                    // Show Error
                     self.showAlert(
                         title: "Error",
                         message:
@@ -103,11 +104,9 @@ class AddAllergyTableViewController: UITableViewController {
     @IBAction func allergyDetailReaction(_ sender: Any) {}
     @IBAction func intensityButton(_ sender: UIButton) {}
 
-
-
     // MARK: - Table View Overrides
 
-    // Returns .none to ensure no delete/edit UI ever appears
+    // Delete/edit UI does not appear
     override func tableView(
         _ tableView: UITableView,
         editingStyleForRowAt indexPath: IndexPath
@@ -128,7 +127,7 @@ class AddAllergyTableViewController: UITableViewController {
         textField.borderStyle = .none
         textField.backgroundColor = .clear
 
-        // Force the layer to be clean
+        // Force the layer to be clean (initially it was having some sort of border)
         textField.layer.borderWidth = 0
         textField.layer.borderColor = UIColor.clear.cgColor
 

@@ -10,7 +10,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         let segueIdentifier: String?
     }
 
-    // 1. Data Source
+    // Data Source
     let categories: [Category] = [
         Category(
             name: "Steps",
@@ -71,7 +71,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     // Filtered data for search
     var filteredCategories: [Category] = []
 
-    // 2. The Search Controller (Standard Apple UI)
+    // Search Controller like Apple UI
     let searchController = UISearchController(searchResultsController: nil)
 
     // Helper to check if searching
@@ -89,16 +89,16 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     }
 
     func setupSearchController() {
-        // 1. connect delegate
+        // Connect Delegate
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Categories"
 
-        // 2. Add to Navigation Item (This puts it in the large title area like Apple Health)
+        // Add to Navigation Item (Large Title style)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
 
-        // 3. Prevent the search bar from hiding the Tab Bar
+        // Prevent the search bar from hiding the Tab Bar
         definesPresentationContext = true
     }
 
@@ -156,7 +156,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         tableView.deselectRow(at: indexPath, animated: true)
 
         let selectedCategory = categories[indexPath.row]
-        // Navigate to details controller if segue identifier exists
+
         if let segueIdentifier = selectedCategory.segueIdentifier {
             performSegue(withIdentifier: segueIdentifier, sender: nil)
         }
