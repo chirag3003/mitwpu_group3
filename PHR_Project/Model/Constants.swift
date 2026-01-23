@@ -117,3 +117,12 @@ enum DefaultValues {
     static let defaultTableRowHeight: CGFloat = 65.0
     static let defaultSectionSpacing: CGFloat = 10.0
 }
+
+// MARK: - Health Goals
+
+enum HealthGoals {
+    static let dailyCalories = 2000
+    static let dailySteps = 10000
+    static let maxWaterGlasses = 10
+    static let progressThickness: CGFloat = 16
+}
