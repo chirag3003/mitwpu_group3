@@ -2,7 +2,9 @@ import Combine
 import SwiftUI
 import UIKit
 
-class GlucoseViewController: UIViewController, AddGlucoseDelegate {
+class GlucoseViewController: UIViewController, AddGlucoseDelegate,
+    FamilyMemberDataScreen
+{
 
     @IBOutlet weak var chartSegmentControl: UISegmentedControl!
     @IBOutlet weak var glucoseValueStack: UIStackView!
@@ -34,6 +36,8 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
 
     @IBOutlet weak var maxLabel: UILabel!
 
+    var familyMember: FamilyMember?
+
     private let chartViewModel = ChartViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +61,13 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
         // Initial Fetch
         GlucoseService.shared.fetchReadings()
         updateDataFromService()
+
+        //Setting up family member details
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Glucose"
+        } else {
+            self.title = "Glucose"
+        }
     }
 
     func setupEmptyState() {
@@ -137,8 +148,10 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate {
             // This ensures readings at different times on the same day are distinct.
             uniquePointsDict[reading.combinedDate] = reading.value
         }
-        
-        let uniquePoints = uniquePointsDict.map { GlucoseDataPoint(date: $0.key, value: $0.value) }
+
+        let uniquePoints = uniquePointsDict.map {
+            GlucoseDataPoint(date: $0.key, value: $0.value)
+        }
         let sortedPoints = uniquePoints.sorted { $0.date < $1.date }
 
         DispatchQueue.main.async { [weak self] in
