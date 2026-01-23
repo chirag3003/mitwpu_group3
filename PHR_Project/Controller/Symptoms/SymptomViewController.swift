@@ -1,10 +1,3 @@
-//
-//  SymptomViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 28/11/25.
-//
-
 import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate,
@@ -24,14 +17,14 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
         // data setup
         symptomsData = SymptomService.shared.getSymptoms()
-
+        
+        // table view setup
         symptomTableView.dataSource = self
         symptomTableView.delegate = self
 
         // UI Cleanup
         symptomTableView.separatorStyle = .none
-        //            symptomTableView.backgroundColor = .systemGroupedBackground
-        //            view.backgroundColor = .systemGroupedBackground
+        
         //setting up event listeners
         NotificationCenter.default.addObserver(
             self,
@@ -41,9 +34,9 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         )
 
         if(familyMember != nil){
-            self.titleLabel.text = "\(familyMember!.name)'s Symptoms"
+            self.title = "\(familyMember!.name)'s Symptoms"
         } else {
-            self.titleLabel.text = "Symptoms"
+            self.title = "Symptoms"
         }
         
     }

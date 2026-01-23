@@ -1,10 +1,3 @@
-//
-//  CoreDataManager.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 13/01/26.
-//
-
 import Foundation
 import CoreData
 import UIKit
@@ -59,7 +52,8 @@ class CoreDataManager {
         }
     }
 
-    // MARK: - MEALS
+    // MARK: - MEALS (Removed per API-only refactoring)
+    /*
     func fetchMeals() -> [MealEntity] {
         let request: NSFetchRequest<MealEntity> = MealEntity.fetchRequest()
         return (try? context.fetch(request)) ?? []
@@ -85,6 +79,7 @@ class CoreDataManager {
             saveContext()
         }
     }
+    */
 
     // MARK: - SYMPTOMS
     func fetchSymptoms() -> [SymptomEntity] {

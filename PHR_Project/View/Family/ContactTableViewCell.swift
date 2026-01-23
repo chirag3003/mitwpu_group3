@@ -1,10 +1,3 @@
-//
-//  ContactTableViewCell.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 25/11/25.
-//
-
 import UIKit
 
 class ContactTableViewCell: UITableViewCell {

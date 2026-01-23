@@ -1,10 +1,3 @@
-//
-//  BrowseTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 08/12/25.
-//
-
 import UIKit
 
 class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
@@ -14,34 +7,64 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         let name: String
         let icon: String
         let color: UIColor
+        let segueIdentifier: String?
     }
 
     // 1. Data Source
     let categories: [Category] = [
-        Category(name: "Activity", icon: "flame.fill", color: .systemOrange),
-        Category(name: "Glucose", icon: "heart.fill", color: .systemRed),
-        Category(name: "Water Intake", icon: "drop.fill", color: .systemBlue),
-        Category(name: "Medications", icon: "pills.fill", color: .systemCyan),
-        Category(name: "Allergy", icon: "allergens.fill", color: .systemTeal),
         Category(
-            name: "Nutrition",
+            name: "Steps",
+            icon: "flame.fill",
+            color: .systemOrange,
+            segueIdentifier: "stepsSegue"
+        ),
+        Category(
+            name: "Glucose",
+            icon: "heart.fill",
+            color: .systemRed,
+            segueIdentifier: "glucoseSegue"
+        ),
+        Category(
+            name: "Water Intake",
+            icon: "drop.fill",
+            color: .systemBlue,
+            segueIdentifier: "waterSegue"
+        ),
+        Category(
+            name: "Your Family",
+            icon: "person.fill",
+            color: .systemCyan,
+            segueIdentifier: "familySegue"
+        ),
+        Category(
+            name: "Allergy",
+            icon: "allergens.fill",
+            color: .systemTeal,
+            segueIdentifier: "allergySegue"
+        ),
+        Category(
+            name: "Meal Logs",
             icon: "fork.knife.circle",
-            color: .systemGreen
+            color: .systemGreen,
+            segueIdentifier: "mealLogsSegue"
         ),
         Category(
             name: "Generate Summary",
             icon: "list.bullet.clipboard.fill",
-            color: .systemPurple
+            color: .systemPurple,
+            segueIdentifier: "summarySegue"
         ),
         Category(
-            name: "Notifications",
-            icon: "lightbulb.max.fill",
-            color: .systemBlue
+            name: "Documents",
+            icon: "document.fill",
+            color: .systemBlue,
+            segueIdentifier: "documentsSegue"
         ),
         Category(
             name: "Symptoms",
             icon: "waveform.path.ecg",
-            color: .systemYellow
+            color: .systemYellow,
+            segueIdentifier: "browseSymptomsSegue"
         ),
     ]
 
@@ -105,7 +128,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         let cell = tableView.dequeueReusableCell(
             withIdentifier: CellIdentifiers.browseCell,
             for: indexPath
-            
+
         )
 
         let item: Category
@@ -124,6 +147,19 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         cell.contentConfiguration = content
         cell.selectionStyle = .none
         return cell
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let selectedCategory = categories[indexPath.row]
+        // Navigate to details controller if segue identifier exists
+        if let segueIdentifier = selectedCategory.segueIdentifier {
+            performSegue(withIdentifier: segueIdentifier, sender: nil)
+        }
     }
 
     // MARK: - Search Logic

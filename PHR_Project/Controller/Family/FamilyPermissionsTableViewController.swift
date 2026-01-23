@@ -1,10 +1,3 @@
-//
-//  FamilyPermissionsTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 17/12/25.
-//
-
 import UIKit
 
 class FamilyPermissionsTableViewController: UITableViewController {

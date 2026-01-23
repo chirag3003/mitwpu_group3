@@ -2,22 +2,25 @@ import UIKit
 
 class FamilyMemberCell: UICollectionViewCell {
     static let identifier = "FamilyMemberCell"
-    
+
     override var isHighlighted: Bool {
         didSet {
             // 1. Make the shrinkage more obvious (0.90 instead of 0.95)
             let scale: CGFloat = isHighlighted ? 0.90 : 1.0
             let alpha: CGFloat = isHighlighted ? 0.7 : 1.0
-            
+
             // 2. Use Spring Animation for better visibility on quick taps
             UIView.animate(
-                withDuration: 0.5, // Longer duration for the spring to settle
+                withDuration: 0.5,  // Longer duration for the spring to settle
                 delay: 0,
-                usingSpringWithDamping: 0.5, // 0.0 = very bouncy, 1.0 = stiff
+                usingSpringWithDamping: 0.5,
                 initialSpringVelocity: 3,
                 options: [.allowUserInteraction, .beginFromCurrentState],
                 animations: {
-                    self.containerView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                    self.containerView.transform = CGAffineTransform(
+                        scaleX: scale,
+                        y: scale
+                    )
                     self.containerView.alpha = alpha
                 },
                 completion: nil
@@ -29,7 +32,7 @@ class FamilyMemberCell: UICollectionViewCell {
     // CHANGED: Use CircleView instead of UIView
     private let containerView: CircleView = {
         let view = CircleView()  // <--- Use custom class
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .tertiarySystemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -116,16 +119,13 @@ class FamilyMemberCell: UICollectionViewCell {
         ])
     }
 
-    // MARK: - CLEANUP
-    // Remove the override layoutSubviews() from here completely.
-    // The CircleView class handles it now.
-
     func configure(with member: FamilyMember) {
         nameLabel.text = member.name
-
-        if let image = UIImage(named: member.imageName) {
-            imageView.image = image
+        if member.imageName.hasPrefix("https") {
             imageView.transform = .identity
+            imageView.setImageFromURL(url: member.imageName)
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
         } else {
             imageView.image = UIImage(systemName: "person.fill")
             imageView.contentMode = .center

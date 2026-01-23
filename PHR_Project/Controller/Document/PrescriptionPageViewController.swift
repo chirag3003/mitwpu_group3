@@ -14,178 +14,175 @@ final class PrescriptionPageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     var selectedDoctorName: String?
-    // MARK: - Properties
-    private var prescriptions: [PrescriptionModel] = []
-    private var previewURL: URL?
+     // MARK: - Properties
+     private var prescriptions: [PrescriptionModel] = []
+     private var previewURL: URL?
 
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableView()
-        loadData()
-        print("Selected Doctor Name: \(selectedDoctorName ?? "None")")
-        if let name = selectedDoctorName {
-            self.title = name
-            self.navigationItem.title = name
-        }
-    }
+     // MARK: - Lifecycle
+     override func viewDidLoad() {
+         super.viewDidLoad()
+         setupTableView()
+         loadData()
+         if let name = selectedDoctorName {
+             self.title = name
+             self.navigationItem.title = name
+         }
+     }
 
-    // MARK: - Setup
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        tableView.showsVerticalScrollIndicator = false
-    }
+     // MARK: - Setup
+     private func setupTableView() {
+         tableView.delegate = self
+         tableView.dataSource = self
+         tableView.separatorStyle = .none
+         tableView.backgroundColor = .clear
+         tableView.showsVerticalScrollIndicator = false
+     }
 
-    private func loadData() {
-        prescriptions = getAllData().document.prescriptionData
-        tableView.reloadData()
-    }
-}
+     private func loadData() {
+         // UPDATED: Use PrescriptionService instead of getAllData()
+         if let doctorName = selectedDoctorName {
+             // Filter by doctor if a specific doctor was selected
+             prescriptions = PrescriptionService.shared.getPrescriptionsByDoctor(doctorName)
+         } else {
+             // Show all prescriptions if no doctor was selected
+             prescriptions = PrescriptionService.shared.getAllPrescriptionData()
+         }
+         tableView.reloadData()
+     }
+ }
 
-// MARK: - UITableViewDataSource
-extension PrescriptionPageViewController: UITableViewDataSource {
+ // MARK: - UITableViewDataSource
+ extension PrescriptionPageViewController: UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
-        return prescriptions.count
-    }
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+         -> Int
+     {
+         return prescriptions.count
+     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: PrescriptionTableViewCell.reuseIdentifier,
-                for: indexPath
-            ) as? PrescriptionTableViewCell
-        else {
-            return UITableViewCell()
-        }
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+         -> UITableViewCell
+     {
+         guard
+             let cell = tableView.dequeueReusableCell(
+                 withIdentifier: PrescriptionTableViewCell.reuseIdentifier,
+                 for: indexPath
+             ) as? PrescriptionTableViewCell
+         else {
+             return UITableViewCell()
+         }
 
-        let prescription = prescriptions[indexPath.row]
-        cell.configure(with: prescription)
-        return cell
-    }
+         let prescription = prescriptions[indexPath.row]
+         cell.configure(with: prescription)
+         return cell
+     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "prescriptionsSegue" {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "prescriptionsSegue" {
 
-        }
-    }
-}
+         }
+     }
+ }
 
-// MARK: - UITableViewDelegate
-extension PrescriptionPageViewController: UITableViewDelegate {
+ // MARK: - UITableViewDelegate
+ extension PrescriptionPageViewController: UITableViewDelegate {
 
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
-        tableView.deselectRow(at: indexPath, animated: true)
+     func tableView(
+         _ tableView: UITableView,
+         didSelectRowAt indexPath: IndexPath
+     ) {
+         tableView.deselectRow(at: indexPath, animated: true)
 
-        let prescription = prescriptions[indexPath.row]
+         let prescription = prescriptions[indexPath.row]
 
-        guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
-            showAlert(
-                title: "Unavailable",
-                message: "No PDF link found for this item."
-            )
-            return
-        }
+         guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
+             showAlert(
+                 title: "Unavailable",
+                 message: "No PDF link found for this item."
+             )
+             return
+         }
 
-        downloadAndPreviewPDF(from: urlString)
-    }
-}
+         downloadAndPreviewPDF(from: urlString)
+     }
+ }
 
-// MARK: - PDF Preview
-extension PrescriptionPageViewController: QLPreviewControllerDataSource {
+ // MARK: - PDF Preview
+ extension PrescriptionPageViewController: QLPreviewControllerDataSource {
 
-    private func downloadAndPreviewPDF(from urlString: String) {
-        guard let url = URL(string: urlString) else {
-            showAlert(title: "Error", message: "Invalid URL")
-            return
-        }
+     private func downloadAndPreviewPDF(from urlString: String) {
+         guard let url = URL(string: urlString) else {
+             showAlert(title: "Error", message: "Invalid URL")
+             return
+         }
 
-        let loadingVC = createLoadingAlert()
-        present(loadingVC, animated: true)
+         let loadingVC = createLoadingAlert()
+         present(loadingVC, animated: true)
 
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            DispatchQueue.main.async {
-                loadingVC.dismiss(animated: true) {
-                    self?.handleDownloadResult(data: data, error: error)
-                }
-            }
-        }.resume()
-    }
+         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+             DispatchQueue.main.async {
+                 loadingVC.dismiss(animated: true) {
+                     self?.handleDownloadResult(data: data, error: error)
+                 }
+             }
+         }.resume()
+     }
 
-    private func handleDownloadResult(data: Data?, error: Error?) {
-        if let error = error {
-            showAlert(
-                title: "Download Failed",
-                message: error.localizedDescription
-            )
-            return
-        }
+     private func handleDownloadResult(data: Data?, error: Error?) {
+         if let error = error {
+             showAlert(
+                 title: "Download Failed",
+                 message: error.localizedDescription
+             )
+             return
+         }
 
-        guard let data = data else {
-            showAlert(title: "Error", message: "No data received")
-            return
-        }
+         guard let data = data else {
+             showAlert(title: "Error", message: "No data received")
+             return
+         }
 
-        do {
-            let fileName = "prescription_\(UUID().uuidString).pdf"
-            let tempURL = FileManager.default.temporaryDirectory
-                .appendingPathComponent(fileName)
-            try data.write(to: tempURL)
-            previewURL = tempURL
+         do {
+             let fileName = "prescription_\(UUID().uuidString).pdf"
+             let tempURL = FileManager.default.temporaryDirectory
+                 .appendingPathComponent(fileName)
+             try data.write(to: tempURL)
+             previewURL = tempURL
 
-            let previewController = QLPreviewController()
-            previewController.dataSource = self
-            present(previewController, animated: true)
-        } catch {
-            showAlert(title: "Error", message: "Could not save the PDF file.")
-        }
-    }
+             let previewController = QLPreviewController()
+             previewController.dataSource = self
+             present(previewController, animated: true)
+         } catch {
+             showAlert(title: "Error", message: "Could not save the PDF file.")
+         }
+     }
 
-    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return previewURL != nil ? 1 : 0
-    }
+     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+         return previewURL != nil ? 1 : 0
+     }
 
-    func previewController(
-        _ controller: QLPreviewController,
-        previewItemAt index: Int
-    ) -> QLPreviewItem {
-        return (previewURL ?? URL(fileURLWithPath: "")) as NSURL
-    }
-}
+     func previewController(
+         _ controller: QLPreviewController,
+         previewItemAt index: Int
+     ) -> QLPreviewItem {
+         return (previewURL ?? URL(fileURLWithPath: "")) as NSURL
+     }
+ }
 
-// MARK: - Helpers
-extension PrescriptionPageViewController {
+ // MARK: - Helpers
+ extension PrescriptionPageViewController {
 
-    private func createLoadingAlert() -> UIAlertController {
-        let alert = UIAlertController(
-            title: "Downloading...",
-            message: "\n\n",
-            preferredStyle: .alert
-        )
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.center = CGPoint(x: 135, y: 65.5)
-        spinner.startAnimating()
-        alert.view.addSubview(spinner)
-        return alert
-    }
+     private func createLoadingAlert() -> UIAlertController {
+         let alert = UIAlertController(
+             title: "Downloading...",
+             message: "\n\n",
+             preferredStyle: .alert
+         )
+         let spinner = UIActivityIndicatorView(style: .medium)
+         spinner.center = CGPoint(x: 135, y: 65.5)
+         spinner.startAnimating()
+         alert.view.addSubview(spinner)
+         return alert
+     }
 
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-}
+ }
