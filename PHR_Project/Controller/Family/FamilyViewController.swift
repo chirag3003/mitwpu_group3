@@ -23,13 +23,13 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     }
 
     private func setupData() {
-        // Mock Data based on your screenshot
-        familyData = getAllData().family.members
+        familyData = FamilyService.shared.getAllMembers()
     }
 
     private func setupCollectionView() {
         collectionView.delaysContentTouches = false
-        // 1. Register Code-based Views
+        
+        // Register cell
         collectionView.register(
             FamilyMemberCell.self,
             forCellWithReuseIdentifier: FamilyMemberCell.identifier
@@ -43,11 +43,11 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             withReuseIdentifier: FamilyHeaderView.identifier
         )
 
-        // 2. Set Delegates
+        // Set Delegates
         collectionView.dataSource = self
         collectionView.delegate = self
 
-        // 3. Apply Compositional Layout
+        // Apply Compositional Layout
         collectionView.collectionViewLayout = createLayout()
     }
 
