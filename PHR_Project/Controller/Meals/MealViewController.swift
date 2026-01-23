@@ -13,7 +13,7 @@ class SectionBackground: UICollectionReusableView {
 
 
 
-class MealViewController: UIViewController {
+class MealViewController: UIViewController, FamilyMemberDataScreen {
 
     @IBOutlet weak var monthName: UILabel!
     
@@ -36,6 +36,8 @@ class MealViewController: UIViewController {
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
     var dates: MealDataStore = MealDataStore.shared
+    
+    var familyMember: FamilyMember?
     
     var hasScrolledToToday = false
     
@@ -103,6 +105,14 @@ class MealViewController: UIViewController {
                     name: NSNotification.Name("MealsUpdated"),
                     object: nil
         )
+        
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Meal Logs"
+        }
+        else
+        {
+            self.title = "Meal Logs"
+        }
 
     }
     
