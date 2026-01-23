@@ -12,7 +12,7 @@
         <!--Family-->
         <scene sceneID="yb3-6W-3KM">
             <objects>
-                <viewController title="Family" id="gyh-HG-7mE" customClass="FamilyViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="familyStoryboard" title="Family" id="gyh-HG-7mE" customClass="FamilyViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="meu-fe-w8O">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -35,7 +35,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
             name: "Water Intake",
             icon: "drop.fill",
             color: .systemBlue,
-            segueIdentifier: "waterIntakeSegue"
+            segueIdentifier: "waterSegue"
         ),
         Category(
             name: "Your Family",
@@ -50,10 +50,10 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
             segueIdentifier: "allergySegue"
         ),
         Category(
-            name: "Nutrition",
+            name: "Meal Logs",
             icon: "fork.knife.circle",
             color: .systemGreen,
-            segueIdentifier: "nutritionSegue"
+            segueIdentifier: "mealLogsSegue"
         ),
         Category(
             name: "Generate Summary",
@@ -62,16 +62,16 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
             segueIdentifier: "summarySegue"
         ),
         Category(
-            name: "Notifications",
-            icon: "lightbulb.max.fill",
+            name: "Documents",
+            icon: "document.fill",
             color: .systemBlue,
-            segueIdentifier: "notificationsSegue"
+            segueIdentifier: "documentsSegue"
         ),
         Category(
             name: "Symptoms",
             icon: "waveform.path.ecg",
             color: .systemYellow,
-            segueIdentifier: "symptomsSegue"
+            segueIdentifier: "browseSymptomsSegue"
         ),
     ]
 

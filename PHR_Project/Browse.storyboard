@@ -51,10 +51,10 @@
                         <segue destination="8iG-Ga-buL" kind="show" identifier="waterSegue" id="U8K-pf-xJC"/>
                         <segue destination="PeM-jV-2Us" kind="show" identifier="familySegue" id="N9g-UY-BBg"/>
                         <segue destination="jF0-ib-fPa" kind="show" identifier="allergySegue" id="DAr-vU-7Wz"/>
-                        <segue destination="ypO-Gm-zaC" kind="show" identifier="nutritionSegue" id="iR3-q9-dQ0"/>
+                        <segue destination="ypO-Gm-zaC" kind="show" identifier="mealLogsSegue" id="iR3-q9-dQ0"/>
                         <segue destination="3x7-Z9-TK7" kind="show" identifier="summarySegue" id="ZNl-0Q-F78"/>
-                        <segue destination="MUM-vs-fUG" kind="show" identifier="notificationsSegue" id="UIU-yL-CSX"/>
-                        <segue destination="NMc-Xk-TmZ" kind="show" identifier="symptomsSegue" id="hVJ-gm-xSh"/>
+                        <segue destination="MUM-vs-fUG" kind="show" identifier="documentsSegue" id="UIU-yL-CSX"/>
+                        <segue destination="NMc-Xk-TmZ" kind="show" identifier="browseSymptomsSegue" id="hVJ-gm-xSh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1A-fJ-Kxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -111,60 +111,60 @@
             </objects>
             <point key="canvasLocation" x="1506" y="743"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--familyStoryboard-->
         <scene sceneID="XL1-8P-HJi">
             <objects>
-                <viewControllerPlaceholder id="PeM-jV-2Us" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Family" referencedIdentifier="familyStoryboard" id="PeM-jV-2Us" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="GwD-NP-KKB"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oT0-Nz-dFA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1506" y="813"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--allergyStoryboard-->
         <scene sceneID="BpL-dZ-wQC">
             <objects>
-                <viewControllerPlaceholder id="jF0-ib-fPa" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="allergyStoryboard" id="jF0-ib-fPa" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="yS4-nB-Xeg"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H69-0D-X62" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1506" y="915"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--mealLogsStoryboard-->
         <scene sceneID="Mao-gQ-eGy">
             <objects>
-                <viewControllerPlaceholder id="ypO-Gm-zaC" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Meals" referencedIdentifier="mealLogsStoryboard" id="ypO-Gm-zaC" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ttk-wc-ch4"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Mf-KZ-p50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1505" y="976"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--summaryStoryboard-->
         <scene sceneID="0e4-RC-d6H">
             <objects>
-                <viewControllerPlaceholder id="3x7-Z9-TK7" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="summaryStoryboard" id="3x7-Z9-TK7" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="X62-g5-apX"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdV-mJ-gnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1506" y="1046"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--documentsStoryboard-->
         <scene sceneID="uUT-Ue-pgj">
             <objects>
-                <viewControllerPlaceholder id="MUM-vs-fUG" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="documentsStoryboard" id="MUM-vs-fUG" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="xlX-0D-IyB"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXO-GD-4Qf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1505" y="1141"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--symptomsStoryboard-->
         <scene sceneID="RKY-PN-fks">
             <objects>
-                <viewControllerPlaceholder id="NMc-Xk-TmZ" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Symptoms" referencedIdentifier="symptomsStoryboard" id="NMc-Xk-TmZ" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="jhA-B5-cbG"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOR-Dc-TWY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
