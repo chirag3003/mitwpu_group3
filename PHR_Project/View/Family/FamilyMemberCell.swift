@@ -121,10 +121,11 @@ class FamilyMemberCell: UICollectionViewCell {
 
     func configure(with member: FamilyMember) {
         nameLabel.text = member.name
-
         if member.imageName.hasPrefix("https") {
             imageView.transform = .identity
             imageView.setImageFromURL(url: member.imageName)
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
         } else {
             imageView.image = UIImage(systemName: "person.fill")
             imageView.contentMode = .center
