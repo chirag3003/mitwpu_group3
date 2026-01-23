@@ -15,6 +15,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
+
     // Properties
 
     private var documentData: [documentsModel] = []
@@ -54,9 +55,9 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
 
     private func loadData() {
-        let allData = getAllData()
-        documentData = allData.document.prescriptions
-        reportsData = allData.document.reports
+        // UPDATED: Use DocumentService instead of getAllData()
+        documentData = DocumentService.shared.getAllPrescriptions()
+        reportsData = DocumentService.shared.getAllReports()
     }
 
     // MARK: - Actions
@@ -252,7 +253,6 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    // Add this to DocumentsViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         // 1. Check Identifier
