@@ -20,10 +20,8 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var notificationView: UIView!
     
     // Summary Cards
-    @IBOutlet weak var glucoseCard: SummaryCardView!
     @IBOutlet weak var circularSummariesStack: UIStackView!
     @IBOutlet weak var caloriesSummaryCard: CircularProgressView!
-    @IBOutlet weak var stepsSummaryCard: CircularProgressView!
     
     // Water Intake
     @IBOutlet weak var waterIntakeCard: SummaryCardView!
@@ -35,6 +33,10 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var caloriesCard: CircularProgressView!
     @IBOutlet weak var stepsCard: CircularProgressView!
     @IBOutlet weak var stepsLabel: UILabel!
+    
+    // Glucose
+    @IBOutlet weak var glucoseCard: SummaryCardView!
+    @IBOutlet weak var glucoseLabel: UILabel!
     
     // Quick Actions
     @IBOutlet weak var mainStack: UIStackView!
@@ -108,6 +110,13 @@ private extension HomeViewController {
             name: NSNotification.Name(NotificationNames.profileUpdated),
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleGlucoseUpdate),
+            name: NSNotification.Name(NotificationNames.glucoseUpdated),
+            object: nil
+        )
     }
 }
 
@@ -118,13 +127,16 @@ private extension HomeViewController {
     func loadData() {
         updateGreeting()
         configureSummaryCards()
+        configureSummaryCards()
         updateWaterIntakeUI()
+        updateGlucoseUI()
         requestHealthKitAuthorization()
     }
     
     func refreshData() {
         updateGreeting()
         updateWaterIntakeUI()
+        updateGlucoseUI()
         fetchHealthData()
     }
     
@@ -134,12 +146,28 @@ private extension HomeViewController {
     }
     
     func configureSummaryCards() {
-        stepsSummaryCard.configure(mode: .achievement, progress: 0.45, thickness: 16)
+        stepsCard.configure(mode: .achievement, progress: 0.45, thickness: 16)
         caloriesSummaryCard.configure(mode: .limitWarning, progress: 0.76, thickness: 16)
     }
     
     @objc func handleProfileUpdate() {
         updateGreeting()
+    }
+    
+    @objc func handleGlucoseUpdate() {
+        updateGlucoseUI()
+    }
+    
+    func updateGlucoseUI() {
+        let readings = GlucoseService.shared.getReadings()
+        // Sort by combinedDate to ensure we get the absolute latest
+        let sortedReadings = readings.sorted { $0.combinedDate < $1.combinedDate }
+        
+        if let latest = sortedReadings.last {
+            glucoseLabel.text = "\(latest.value)"
+        } else {
+            glucoseLabel.text = "--"
+        }
     }
 }
 
@@ -196,7 +224,7 @@ private extension HomeViewController {
         
         // Update progress ring based on daily goal
         let progress = min(Double(steps) / Double(dailyStepGoal), 1.0)
-        stepsSummaryCard.configure(
+        stepsCard.configure(
             mode: progress >= 1.0 ? .achievement : .achievement,
             progress: Float(progress),
             thickness: 16
