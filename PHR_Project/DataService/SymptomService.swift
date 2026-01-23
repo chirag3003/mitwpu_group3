@@ -65,13 +65,8 @@ class SymptomService {
     func deleteSymptom(at index: Int) {
         guard index < symptoms.count else { return }
 
-        symptoms.remove(at: index)
-
         let symptomToRemove = symptoms[index]
         guard let apiID = symptomToRemove.apiID else {
-            print(
-                "Warning: Symptom has no apiID, cannot delete from server (local only?)"
-            )
             return
         }
 
@@ -81,6 +76,8 @@ class SymptomService {
         ) { (result: Result<EmptyResponse, Error>) in
             if case .failure(let error) = result {
                 print("Error deleting symptom from API: \(error)")
+            } else {
+                self.symptoms.remove(at: index)
             }
         }
     }
