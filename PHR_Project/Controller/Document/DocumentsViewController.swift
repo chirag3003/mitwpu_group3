@@ -25,7 +25,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     
     // Family Members
     var familyMember: FamilyMember?
-
+    // Date Formattter for sorting
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMM yyyy"
@@ -37,7 +37,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         super.viewDidLoad()
         setupTableView()
         loadData()
-        
+    // Set title based on family member
         if(familyMember != nil){
             self.title = "\(familyMember!.name)'s Documents"
         } else {
@@ -55,7 +55,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
 
     private func loadData() {
-        // UPDATED: Use DocumentService instead of getAllData()
+        //Fetch data from services
         documentData = DocumentService.shared.getAllPrescriptions()
         reportsData = DocumentService.shared.getAllReports()
     }
@@ -65,17 +65,17 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBAction func onDataSwitch(_ sender: Any) {
         documentTableView.reloadData()
     }
-
+     // Toggle sort order
     @IBAction func didTapFilterButton() {
         isNewestFirst.toggle()
         sortData()
-
+    // Haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
 
     // MARK: - Sorting
-
+    // Sort based on selected segment
     private func sortData() {
         if dataSegment.selectedSegmentIndex == 0 {
             documentData.sort {
@@ -105,7 +105,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
             return
         }
 
-        // 1. Show Loading Indicator
+        //  Show Loading Indicator
         let loadingAlert = UIAlertController(
             title: nil,
             message: "Loading PDF...",
@@ -115,7 +115,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         loadingIndicator.startAnimating()
         loadingAlert.view.addSubview(loadingIndicator)
-
+        // Constraints for loading indicator
         NSLayoutConstraint.activate([
             loadingIndicator.centerYAnchor.constraint(
                 equalTo: loadingAlert.view.centerYAnchor
@@ -129,7 +129,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
         present(loadingAlert, animated: true)
 
-        // 2. Download Data
+        // Download PDF
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             DispatchQueue.main.async {
                 // Dismiss loader first
@@ -150,7 +150,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
                     }
 
                     do {
-                        // 3. Save with UNIQUE Name to prevent caching old files
+                        // Save PDF to temp directory with unique name
                         let uniqueFileName = "report_\(UUID().uuidString).pdf"
                         let tempURL = FileManager.default.temporaryDirectory
                             .appendingPathComponent(uniqueFileName)
@@ -158,7 +158,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
                         try data.write(to: tempURL)
                         self.previewURL = tempURL
 
-                        // 4. Present Preview
+                        // Show PDF preview
                         let previewController = QLPreviewController()
                         previewController.dataSource = self
                         self.present(previewController, animated: true)
@@ -190,6 +190,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
+        // Return count based on selected segment
         return dataSegment.selectedSegmentIndex == 0
             ? documentData.count : reportsData.count
     }
@@ -204,7 +205,9 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
     {
+        // Configure cell based on segment
         if dataSegment.selectedSegmentIndex == 0 {
+            // Documents cell
             let cell =
                 tableView.dequeueReusableCell(
                     withIdentifier: CellIdentifiers.doctorCell,
@@ -214,6 +217,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         } else {
+            // Reports cell
             let cell =
                 tableView.dequeueReusableCell(
                     withIdentifier: CellIdentifiers.reportCell,
@@ -229,14 +233,11 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        // 1. Deselect the row so it doesn't stay gray
+        
         tableView.deselectRow(at: indexPath, animated: true)
-
-        // 2. Check which segment is selected (Documents vs Reports)
         if dataSegment.selectedSegmentIndex == 1 {
-            // MARK: - Reports Segment (Open PDF)
-
-            // This is a reliable test PDF from W3C
+            
+            // Reports - Open PDF
             let dummyPDFLink =
                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 
@@ -247,7 +248,8 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             showPDFPreview(for: urlToOpen)
 
         } else {
-            // MARK: - Documents Segment (Navigate to next screen)
+            // Documents - Navigate to prescriptions
+            
             let document = documentData[indexPath.row]
             performSegue(withIdentifier: "prescriptionsSegue", sender: document)
         }
@@ -255,15 +257,15 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        // 1. Check Identifier
+        
         if segue.identifier == "prescriptionsSegue" {
 
-            // 2. Get Destination VC
+            
             if let destinationVC = segue.destination
                 as? PrescriptionPageViewController
             {
 
-                // 3. Get Selected Row
+                // Pass selected doctor name
                 if let document = sender as? documentsModel {
 
                     destinationVC.selectedDoctorName = document.title

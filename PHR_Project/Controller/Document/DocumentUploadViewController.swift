@@ -8,9 +8,11 @@
 import UIKit
 
 class DocumentUploadViewController: UIViewController {
+    //  MARK: -IBOutlets
     
     @IBOutlet weak var scanFileView: UIView!
     @IBOutlet weak var uploadDocumentView: UIView!
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         
@@ -20,7 +22,7 @@ class DocumentUploadViewController: UIViewController {
         scanFileView.addRoundedSides()
         uploadDocumentView.addRoundedSides()
     }
-    
+    //MARK: - ACTIONS
     
 @IBAction func CloseModalButton(_ sender: Any) {
         dismiss(animated: true)
@@ -28,23 +30,21 @@ class DocumentUploadViewController: UIViewController {
     }
 }
 
-
+// MARK: - CustomDocumentScannerDelegate
 extension DocumentUploadViewController: CustomDocumentScannerDelegate {
     
     
     
     @IBAction func addDocumentCamera(_ sender: Any) {
-        // Create the custom camera VC
+        // Initialize custom camera scanner
         let customCameraVC = CustomDocumentScannerViewController()
-        
-        // Set the delegate to 'self' so we get the results back
         customCameraVC.delegate = self
         
-        // Present it full screen
+        // Present camera full screen
         customCameraVC.modalPresentationStyle = .fullScreen
         present(customCameraVC, animated: true)
     }
-    
+        // Handle Capture Document Image
     func didCaptureDocument(_ image: UIImage) {
         print("Document scanned by camera")
     }

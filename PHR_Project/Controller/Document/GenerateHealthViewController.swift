@@ -12,42 +12,49 @@ class GenerateHealthViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var scrollView: UIScrollView!
+    //Container Views
     @IBOutlet weak var dateInputView: UIView!
     @IBOutlet weak var TypeOfVisitView: UIView!
-
     @IBOutlet weak var DataFields: UIView!
-    @IBOutlet weak var fromDatePicker: UIDatePicker!
+    @IBOutlet weak var AdditionalNotes: UIView!
 
+    //Input Controls
+    @IBOutlet weak var fromDatePicker: UIDatePicker!
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var TextField: UITextField!
-    @IBOutlet weak var AdditionalNotes: UIView!
+   
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
-
+        // Add rounded corners to container views
         dateInputView.addRoundedCorner()
         TypeOfVisitView.addRoundedCorner()
         DataFields.addRoundedCorner()
         AdditionalNotes.addRoundedCorner()
-
+        
+        // Dismiss keyboard on background tap
         setupHideKeyboardOnTap()
-
+        
+        // Style notes text field
         notesTextField.addRoundedCorner(radius: 8)
         notesTextField.borderStyle = .none
+        
+        // Style standard text field
         TextField.borderStyle = .none
         TextField.layer.cornerRadius = 8.0
         TextField.layer.masksToBounds = true
-
+        
+        // Add left padding to standard text field
         let paddingView = UIView(
             frame: CGRect(x: 0, y: 0, width: 10, height: TextField.frame.height)
         )
         TextField.leftView = paddingView
         TextField.leftViewMode = .always
 
-        // Add padding for UITextField
+        // Add horizontal padding to notes text field
         let notesLeftPadding = UIView(
             frame: CGRect(
                 x: 0,
@@ -68,14 +75,15 @@ class GenerateHealthViewController: UIViewController {
         notesTextField.leftViewMode = .always
         notesTextField.rightView = notesRightPadding
         notesTextField.rightViewMode = .always
+        // Align text to top with vertical padding
         notesTextField.contentVerticalAlignment = .top
-        // Nudge text down a bit to simulate top padding in UITextField
+        
         notesTextField.layer.sublayerTransform = CATransform3DMakeTranslation(
             0,
             6,
             0
         )
-
+        // Register for keyboard notifications
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -93,14 +101,14 @@ class GenerateHealthViewController: UIViewController {
     // MARK: - Keyboard Handling
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        // 1. Get the size of the keyboard
+        //  Get keyboard height
         guard
             let keyboardSize =
                 (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
                 as? NSValue)?.cgRectValue
         else { return }
 
-        // 2. Add "Padding" to the bottom of the scroll view equal to the keyboard height
+        //  Adjust scroll view bottom inset to account for keyboard
         let contentInsets = UIEdgeInsets(
             top: 0.0,
             left: 0.0,
@@ -112,7 +120,7 @@ class GenerateHealthViewController: UIViewController {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        // 1. Reset the padding to zero when keyboard disappears
+        // Reset scroll view insets when keyboard dismisses
         let contentInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
@@ -121,12 +129,14 @@ class GenerateHealthViewController: UIViewController {
     // MARK: - Cleanup
 
     deinit {
+        //Remove keyboard observers
         NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Helpers
 
     func setupHideKeyboardOnTap() {
+        //Add tap gesture to dismiss keyboard
         let tap = UITapGestureRecognizer(
             target: self,
             action: #selector(handleBackgroundTap)
