@@ -436,8 +436,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp Image 2025-12-15 at 17.09.58" translatesAutoresizingMaskIntoConstraints="NO" id="P95-D6-pmE">
-                                            <rect key="frame" x="22" y="7.6666666666666643" width="75" height="75"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P95-D6-pmE">
+                                            <rect key="frame" x="22" y="11.000000000000002" width="75" height="68.666666666666657"/>
+                                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="75" id="WzB-Jl-0Kk"/>
                                                 <constraint firstAttribute="height" constant="75" id="eVx-bx-ubr"/>
@@ -619,10 +621,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="WhatsApp Image 2025-12-15 at 17.09.58" width="2854" height="3213"/>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
