@@ -36,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -577,8 +577,11 @@
                     <connections>
                         <outlet property="calorieProgressView" destination="Qpg-dM-Br1" id="1vp-cG-pV9"/>
                         <outlet property="caloriebgCard" destination="BJj-R4-bZH" id="OQO-AD-iEp"/>
+                        <outlet property="caloriesLabel" destination="eNf-xa-Lg7" id="2Yw-rQ-lzQ"/>
+                        <outlet property="carbsLabel" destination="Xq5-d0-wTf" id="SFH-MG-w1W"/>
                         <outlet property="carbsProgress" destination="uY3-Gt-tlu" id="2cL-Qy-P6t"/>
                         <outlet property="dateCollectionView" destination="LoX-Yn-QrO" id="r3o-Ov-KHV"/>
+                        <outlet property="fiberLabel" destination="rw5-31-7hf" id="ojQ-Uf-TUW"/>
                         <outlet property="fiberProgress" destination="dVH-NZ-Qmk" id="YK4-ea-GGb"/>
                         <outlet property="insightOne" destination="csz-JS-Lxp" id="0eO-9e-jQB"/>
                         <outlet property="insightOneLabel" destination="v2I-pH-HVd" id="2aT-RW-GUV"/>
@@ -586,6 +589,7 @@
                         <outlet property="insightTwoLabel" destination="dQU-Hp-ZtW" id="I19-Ym-iI1"/>
                         <outlet property="mealCollectionView" destination="V9Q-u8-jW0" id="EMk-1K-lUh"/>
                         <outlet property="monthName" destination="9sg-4B-QWR" id="cA6-4e-1WM"/>
+                        <outlet property="proteinLabel" destination="kzs-hs-VZc" id="lNv-8n-Z7s"/>
                         <outlet property="proteinProgress" destination="VTa-US-BsZ" id="rHE-Qc-aK2"/>
                         <outlet property="tipOne" destination="gy6-6f-coE" id="ahQ-fm-ibA"/>
                         <outlet property="tipOneLabel" destination="ov9-K5-7Xx" id="LN1-3M-nFB"/>
