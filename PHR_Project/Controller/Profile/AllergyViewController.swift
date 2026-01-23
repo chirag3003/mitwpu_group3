@@ -6,15 +6,14 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
 
     var allergies: [Allergy] = []
 
+    // MARK: - Outlets
+
     @IBOutlet weak var allergiesTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //setting up data
         allergies = AllergyService.shared.fetchAllergies()
-
-        // Do any additional setup after loading the view.
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
 

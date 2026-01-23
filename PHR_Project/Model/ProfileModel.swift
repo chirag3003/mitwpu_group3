@@ -1,9 +1,8 @@
 import Foundation
 
-
 struct ProfileModel: Codable {
-    var apiID: String?  // MongoDB _id
-    var userId: String? // MongoDB userId
+    var apiID: String?
+    var userId: String?
     var firstName: String
     var lastName: String
     var dob: Foundation.Date
@@ -12,7 +11,7 @@ struct ProfileModel: Codable {
     var bloodType: String
     var height: Int
     var weight: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case apiID = "_id"
         case userId
