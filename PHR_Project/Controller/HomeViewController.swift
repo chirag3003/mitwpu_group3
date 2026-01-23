@@ -116,6 +116,13 @@ private extension HomeViewController {
         
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(handleMealsUpdate),
+            name: NSNotification.Name(NotificationNames.mealsUpdated),
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(handleGlucoseUpdate),
             name: NSNotification.Name(NotificationNames.glucoseUpdated),
             object: nil
@@ -133,12 +140,21 @@ private extension HomeViewController {
         configureSummaryCards()
         updateWaterIntakeUI()
         updateGlucoseUI()
+        updateCaloriesUI()
+        requestHealthKitAuthorization()
+        updateGlucoseUI()
         requestHealthKitAuthorization()
     }
     
     func refreshData() {
         updateGreeting()
+    func refreshData() {
+        updateGreeting()
         updateWaterIntakeUI()
+        updateGlucoseUI()
+        updateCaloriesUI()
+        fetchHealthData()
+    }
         updateGlucoseUI()
         fetchHealthData()
     }
@@ -155,6 +171,25 @@ private extension HomeViewController {
     
     @objc func handleProfileUpdate() {
         updateGreeting()
+    }
+    
+    @objc func handleMealsUpdate() {
+        updateCaloriesUI()
+    }
+    
+    func updateCaloriesUI() {
+        let stats = MealService.shared.getMealStatsByDate(on: Date())
+        
+        if let label = caloriesLabel {
+            label.text = "\(stats.totalCalories)"
+        }
+        
+        // Update Progress (Assuming 2000 kcal goal for now)
+        let goal = 2000
+        let progress = min(Double(stats.totalCalories) / Double(goal), 1.0)
+        
+        // Update the card if it exists (using caloriesSummaryCard based on viewDidLoad usage)
+        caloriesSummaryCard?.configure(mode: .limitWarning, progress: Float(progress), thickness: 16)
     }
     
     @objc func handleGlucoseUpdate() {
