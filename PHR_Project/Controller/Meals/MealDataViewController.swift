@@ -15,6 +15,7 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var mealTableView: UITableView!
 
     private var mealData: [Meal] = []
+    private var isDeleting = false
 
     override func viewDidLoad() {
         navigationItem.rightBarButtonItem = editButtonItem
@@ -30,13 +31,16 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateMealData),
-            name: NSNotification.Name(NotificationNames.symptomsUpdated),
+            name: NSNotification.Name(NotificationNames.mealsUpdated),
             object: nil
         )
     }
 
     @objc func updateMealData() {
+        // Skip reload if we're in the middle of an animated delete
+        guard !isDeleting else { return }
         mealData = MealService.shared.getAllMeals()
+        mealTableView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -91,10 +95,18 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-
         if editingStyle == .delete {
+            let mealToDelete = mealData[indexPath.row]
+            
+            isDeleting = true
+            
             mealData.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            MealService.shared.deleteMeal(mealToDelete)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.isDeleting = false
+            }
         }
     }
 

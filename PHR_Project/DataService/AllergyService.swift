@@ -72,8 +72,6 @@ class AllergyService {
         }
     }
 
-    // Delete Allergy
-
     func deleteAllergy(at index: Int, notify: Bool = true) {
         guard index < allergies.count else { return }
 

@@ -45,8 +45,6 @@ class MealService {
     }
 
     func deleteMeal(_ meal: Meal) {
-        allMeals.removeAll { $0.id == meal.id }
-
         if let apiID = meal.apiID {
             APIService.shared.request(
                 endpoint: "/meals/\(apiID)",
@@ -54,7 +52,7 @@ class MealService {
             ) { (result: Result<EmptyResponse, Error>) in
                 switch result {
                 case .success:
-                    print("Meal deleted from API")
+                    allMeals.removeAll { $0.apiID == meal.apiID }
                 case .failure(let error):
                     print("Error deleting meal from API: \(error)")
                 }
@@ -89,12 +87,12 @@ class MealService {
         let filtered = allMeals.filter { meal in
             calendar.isDate(meal.dateRecorded, inSameDayAs: date)
         }
-        
+
         let totalCalories = filtered.reduce(0) { $0 + $1.calories }
         let totalCarbs = filtered.reduce(0) { $0 + $1.carbs }
         let totalProtein = filtered.reduce(0) { $0 + $1.protein }
         let totalFiber = filtered.reduce(0) { $0 + $1.fiber }
-        
+
         return MealStats(
             totalCalories: totalCalories,
             totalCarbs: totalCarbs,
