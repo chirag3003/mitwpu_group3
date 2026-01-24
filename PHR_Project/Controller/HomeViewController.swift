@@ -266,6 +266,10 @@ extension HomeViewController {
 // MARK: - Water Intake
 extension HomeViewController {
     private func setupWaterIntakeGestures() {
+        // Enable user interaction on the increment/decrement image views
+        glassIncrement.isUserInteractionEnabled = true
+        glassDecrement.isUserInteractionEnabled = true
+
         let incrementTap = UITapGestureRecognizer(
             target: self,
             action: #selector(incrementGlassCount)
@@ -324,11 +328,16 @@ extension HomeViewController {
             for: glucoseCard,
             action: #selector(glucoseCardTapped)
         )
-        // Water Intake
-        setupCardNavigation(
-            for: waterIntakeCard,
+        // Water Intake - Setup button gestures first
+        setupWaterIntakeGestures()
+        // Setup card navigation for water intake, but allow touches to pass through to buttons
+        let waterIntakeTap = UITapGestureRecognizer(
+            target: self,
             action: #selector(waterIntakeCardTapped)
         )
+        waterIntakeTap.cancelsTouchesInView = false
+        waterIntakeCard.isUserInteractionEnabled = true
+        waterIntakeCard.addGestureRecognizer(waterIntakeTap)
         // Calories
         setupCardNavigation(
             for: caloriesCard,
