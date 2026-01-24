@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -23,10 +24,10 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wFh-uV-9xj">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="728.66666666666663"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BeF-O7-5Y9">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="734.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="728.66666666666663"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="December" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9u-OO-bmA">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="13.333333333333334"/>
@@ -118,7 +119,7 @@
                                                         </cells>
                                                     </collectionView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pIg-4y-dy5">
-                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="608.33333333333348"/>
+                                                        <rect key="frame" x="0.0" y="126.33333333333331" width="393" height="602.33333333333348"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-LY-L1I" customClass="CircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="15.999999999999972" width="377" height="250.00000000000003"/>
@@ -185,8 +186,8 @@
                                                                     <constraint firstAttribute="height" constant="250" id="kld-Zk-SlO"/>
                                                                 </constraints>
                                                             </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-NJ-fmg">
-                                                                <rect key="frame" x="8" y="276" width="377" height="324.33333333333326"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="mRr-NJ-fmg">
+                                                                <rect key="frame" x="8" y="276" width="377" height="318.33333333333326"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRk-0T-XGd">
                                                                         <rect key="frame" x="8" y="8" width="361" height="14.333333333333336"/>
@@ -195,7 +196,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x41-2d-Xyi">
-                                                                        <rect key="frame" x="8" y="30.333333333333258" width="361" height="70"/>
+                                                                        <rect key="frame" x="8" y="31.333333333333258" width="361" height="70"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your intake drops 30% on weekends; try keeping a bottle in the car for Saturday errands." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7H-Bs-Yc1">
                                                                                 <rect key="frame" x="46" y="13" width="307" height="44"/>
@@ -224,7 +225,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyU-C8-zTC">
-                                                                        <rect key="frame" x="8" y="108.33333333333326" width="361" height="70"/>
+                                                                        <rect key="frame" x="8" y="110.33333333333326" width="361" height="70"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your lowest water logs align with the days you reported feeling tired; hydration is your best energy booster." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeZ-5Z-QQ5">
                                                                                 <rect key="frame" x="46" y="13" width="307" height="44"/>
@@ -253,7 +254,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-rN-8vb">
-                                                                        <rect key="frame" x="8" y="186.33333333333326" width="361" height="70"/>
+                                                                        <rect key="frame" x="8" y="189.33333333333326" width="361" height="70"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're drinking 60% of your water after 8 PM; shifting this earlier may improve your sleep and fasting glucose" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ot5-QS-uuz">
                                                                                 <rect key="frame" x="46" y="13" width="307" height="44"/>
@@ -282,14 +283,16 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
-                                                                        <rect key="frame" x="8" y="264.33333333333326" width="361" height="60"/>
+                                                                        <rect key="frame" x="8" y="268.33333333333326" width="361" height="50"/>
                                                                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="60" id="d8f-lq-XBI"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="d8f-lq-XBI"/>
                                                                         </constraints>
                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" imagePlacement="trailing" title="Water Intake Settings"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Water Intake Settings" cornerStyle="capsule">
+                                                                            <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <segue destination="WWx-cx-2zC" kind="show" id="b6H-qW-6Ba"/>
                                                                         </connections>
@@ -349,7 +352,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="FlH-gb-P0s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                         <sections>
                             <tableViewSection headerTitle="Daily Goal" id="Wac-vh-Tfe">
@@ -388,6 +391,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="2G7-I4-8D4" secondAttribute="trailing" constant="16" id="th0-V1-CrS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ud9-Sa-lrX">
                                         <rect key="frame" x="20" y="106.33333206176758" width="353" height="51"/>
@@ -421,6 +425,7 @@
                                                 <constraint firstItem="y23-Rx-M5p" firstAttribute="centerY" secondItem="Dcd-3h-ra5" secondAttribute="centerY" id="aNI-8v-QJF"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -450,6 +455,7 @@
                                                 <constraint firstItem="4jA-98-PPe" firstAttribute="centerY" secondItem="dtZ-Uu-VfX" secondAttribute="centerY" id="qM4-RY-s3g"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ndo-l6-hf2">
                                         <rect key="frame" x="20" y="264.33333015441895" width="353" height="51"/>
@@ -485,6 +491,7 @@
                                                 <constraint firstItem="N93-D7-sGC" firstAttribute="centerY" secondItem="x0o-S0-fIA" secondAttribute="centerY" id="p5X-Xg-1Wp"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -628,6 +635,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tertiarySystemGroupedBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
