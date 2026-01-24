@@ -36,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -439,7 +439,7 @@
                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="yoB-JZ-3kr" kind="show" id="NAE-5s-Uwy"/>
+                                                    <segue destination="B2L-17-APl" kind="show" id="24q-4G-Rlp"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Yd-K1-PJ4">
@@ -602,51 +602,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c10-1Y-jJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2516.7938931297708" y="-224.64788732394368"/>
-        </scene>
-        <!--Meal Logs-->
-        <scene sceneID="QqV-kg-d1O">
-            <objects>
-                <viewController id="yoB-JZ-3kr" customClass="MealDataViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="URc-91-Kx2">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="d26-qD-foI">
-                                <rect key="frame" x="16" y="192" width="361" height="543"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meal_cell" id="ST9-aF-Yw0">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ST9-aF-Yw0" id="faq-hL-qw9">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                        <connections>
-                                            <segue destination="yME-rt-RRZ" kind="show" id="H2D-hn-cnM"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="FvY-gg-FDg"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <constraints>
-                            <constraint firstItem="d26-qD-foI" firstAttribute="centerX" secondItem="URc-91-Kx2" secondAttribute="centerX" id="SM1-Zl-Dnk"/>
-                            <constraint firstItem="d26-qD-foI" firstAttribute="leading" secondItem="FvY-gg-FDg" secondAttribute="leading" constant="16" id="bSD-3J-UZr"/>
-                            <constraint firstItem="d26-qD-foI" firstAttribute="bottom" secondItem="FvY-gg-FDg" secondAttribute="bottom" id="lNS-g0-uXR"/>
-                            <constraint firstItem="d26-qD-foI" firstAttribute="top" secondItem="FvY-gg-FDg" secondAttribute="top" constant="20" id="s9u-Lj-arl"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Meal Logs" id="o1o-53-i2I"/>
-                    <connections>
-                        <outlet property="mealTableView" destination="d26-qD-foI" id="riE-0m-bpz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T5E-zo-B2l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3380.5970149253731" y="-226.54462242562929"/>
         </scene>
         <!--Add Meal-->
         <scene sceneID="oFn-DB-Wbl">
@@ -1148,7 +1103,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DcT-mt-lUG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4249.6183206106871" y="-227.46478873239437"/>
+            <point key="canvasLocation" x="4158" y="-225"/>
+        </scene>
+        <!--Meal Data View Controller-->
+        <scene sceneID="LIh-mu-Yyd">
+            <objects>
+                <tableViewController id="B2L-17-APl" customClass="MealDataViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="fVB-nm-Sjm">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meal_cell" id="Btl-0b-lYD">
+                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Btl-0b-lYD" id="1hN-Ol-nCb">
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                <connections>
+                                    <segue destination="yME-rt-RRZ" kind="show" id="G0T-Z3-ujm"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="B2L-17-APl" id="8hd-hm-irO"/>
+                            <outlet property="delegate" destination="B2L-17-APl" id="cn7-fh-qF6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="a8A-iy-kJ3"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fG5-J0-Xwt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3315" y="-225"/>
         </scene>
         <!--Calorie Info View Controller-->
         <scene sceneID="fHv-In-MMw">

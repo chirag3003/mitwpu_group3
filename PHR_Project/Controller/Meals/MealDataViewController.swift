@@ -8,11 +8,9 @@
 import Foundation
 import UIKit
 
-class MealDataViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
+class MealDataViewController: UITableViewController
 {
 
-    @IBOutlet weak var mealTableView: UITableView!
 
     private var mealData: [Meal] = []
     private var isDeleting = false
@@ -24,9 +22,9 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         mealData = MealService.shared.getAllMeals()
 
         //setting up table view
-        mealTableView.dataSource = self
-        mealTableView.delegate = self
-        mealTableView.addRoundedCorner()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.addRoundedCorner()
 
         NotificationCenter.default.addObserver(
             self,
@@ -40,14 +38,14 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         // Skip reload if we're in the middle of an animated delete
         guard !isDeleting else { return }
         mealData = MealService.shared.getAllMeals()
-        mealTableView.reloadData()
+        tableView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let detailVC = segue.destination as? MealDetailViewController,
             let cell = sender as? UITableViewCell,
-            let indexPath = mealTableView.indexPath(for: cell)
+            let indexPath = tableView.indexPath(for: cell)
         {
             // We ensure we don't crash if the arrays have different lengths
             if indexPath.row < mealData.count {
@@ -59,11 +57,11 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         }
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
         return mealData.count
@@ -71,10 +69,10 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        mealTableView.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(
@@ -90,7 +88,7 @@ class MealDataViewController: UIViewController, UITableViewDelegate,
         return cell
     }
 
-    func tableView(
+    override func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
