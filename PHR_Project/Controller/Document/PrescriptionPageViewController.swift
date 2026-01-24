@@ -1,10 +1,3 @@
-//
-//  PrescriptionPageViewController.swift
-//  PHR_Project
-//
-//  Created by SDC-USER on 10/12/25.
-//
-
 import QuickLook
 import UIKit
 
@@ -75,12 +68,6 @@ final class PrescriptionPageViewController: UIViewController {
          let prescription = prescriptions[indexPath.row]
          cell.configure(with: prescription)
          return cell
-     }
-
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "prescriptionsSegue" {
-
-         }
      }
  }
 
