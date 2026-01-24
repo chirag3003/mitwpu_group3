@@ -52,7 +52,7 @@ class MealService {
             ) { (result: Result<EmptyResponse, Error>) in
                 switch result {
                 case .success:
-                    allMeals.removeAll { $0.apiID == meal.apiID }
+                    self.allMeals.removeAll { $0.apiID == meal.apiID }
                 case .failure(let error):
                     print("Error deleting meal from API: \(error)")
                 }
