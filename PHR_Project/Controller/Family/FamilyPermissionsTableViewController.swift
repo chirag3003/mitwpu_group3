@@ -5,7 +5,7 @@ class FamilyPermissionsTableViewController: UITableViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var readWriteSwitch: UISwitch!
-    @IBOutlet weak var readOnlySwitch: UISwitch!
+   
     @IBOutlet weak var documentsSwitch: UISwitch!
     @IBOutlet weak var mealLogsSwitch: UISwitch!
     @IBOutlet weak var symptomLogsSwitch: UISwitch!
@@ -16,36 +16,13 @@ class FamilyPermissionsTableViewController: UITableViewController {
 
         // 1. Set Default State
         readWriteSwitch.isOn = true
-        readOnlySwitch.isOn = false
+        
 
-        // 2. Add targets to listen for switch changes (for the toggle logic)
-        readWriteSwitch.addTarget(
-            self,
-            action: #selector(readWriteToggled(_:)),
-            for: .valueChanged
-        )
-        readOnlySwitch.addTarget(
-            self,
-            action: #selector(readOnlyToggled(_:)),
-            for: .valueChanged
-        )
+        
     }
 
     // Toggle restriction
 
-    @objc func readWriteToggled(_ sender: UISwitch) {
-
-        if sender.isOn {
-            readOnlySwitch.setOn(false, animated: true)
-        }
-    }
-
-    @objc func readOnlyToggled(_ sender: UISwitch) {
-
-        if sender.isOn {
-            readWriteSwitch.setOn(false, animated: true)
-        }
-    }
 
     // MARK: - Actions
 
