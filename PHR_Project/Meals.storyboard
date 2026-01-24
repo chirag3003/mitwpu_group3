@@ -36,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -203,14 +203,14 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY3-Gt-tlu" customClass="SemicircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="117" height="120"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-d0-wTf">
-                                                                        <rect key="frame" x="30.000000000000004" y="44.000000000000057" width="45.333333333333343" height="28.666666666666671"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-d0-wTf">
+                                                                        <rect key="frame" x="35" y="44.000000000000057" width="45.333333333333343" height="28.666666666666671"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yq-EA-Rav">
-                                                                        <rect key="frame" x="75.333333333333329" y="52.333333333333314" width="8.3333333333333286" height="15.666666666666671"/>
+                                                                        <rect key="frame" x="80.333333333333329" y="52.333333333333314" width="8.3333333333333286" height="15.666666666666671"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -232,7 +232,7 @@
                                                                 <constraints>
                                                                     <constraint firstItem="thx-Ph-MWl" firstAttribute="centerX" secondItem="uY3-Gt-tlu" secondAttribute="centerX" id="6wj-20-ICl"/>
                                                                     <constraint firstItem="9Yq-EA-Rav" firstAttribute="centerY" secondItem="uY3-Gt-tlu" secondAttribute="centerY" id="S2f-VR-JRZ"/>
-                                                                    <constraint firstItem="Xq5-d0-wTf" firstAttribute="leading" secondItem="uY3-Gt-tlu" secondAttribute="leading" constant="30" id="VyM-ZF-04f"/>
+                                                                    <constraint firstItem="Xq5-d0-wTf" firstAttribute="leading" secondItem="uY3-Gt-tlu" secondAttribute="leading" constant="35" id="VyM-ZF-04f"/>
                                                                     <constraint firstAttribute="bottom" secondItem="VxP-Od-eGx" secondAttribute="bottom" constant="8" id="Woo-4j-pBi"/>
                                                                     <constraint firstItem="VxP-Od-eGx" firstAttribute="leading" secondItem="uY3-Gt-tlu" secondAttribute="leading" constant="20" id="e3n-Rv-cZJ"/>
                                                                     <constraint firstItem="thx-Ph-MWl" firstAttribute="top" secondItem="Xq5-d0-wTf" secondAttribute="bottom" id="gYC-pE-ddA"/>
@@ -243,7 +243,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTa-US-BsZ" customClass="SemicircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="122" y="0.0" width="117" height="120"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzs-hs-VZc">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzs-hs-VZc">
                                                                         <rect key="frame" x="40" y="44.000000000000057" width="33" height="28.666666666666671"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
                                                                         <nil key="textColor"/>
@@ -283,7 +283,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVH-NZ-Qmk" customClass="SemicircularProgressView" customModule="PHR_Project" customModuleProvider="target">
                                                                 <rect key="frame" x="244" y="0.0" width="117" height="120"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rw5-31-7hf">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rw5-31-7hf">
                                                                         <rect key="frame" x="40" y="44.000000000000057" width="31" height="28.666666666666671"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
                                                                         <nil key="textColor"/>
