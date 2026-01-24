@@ -707,7 +707,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AtO-gB-R8q" userLabel="Prescription Table View">
                                 <rect key="frame" x="16" y="196" width="361" height="656"/>
-                                <color key="sectionIndexBackgroundColor" systemColor="linkColor"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PrescriptionCell" rowHeight="63" id="Pen-Zg-Ob8" customClass="PrescriptionTableViewCell" customModule="PHR_Project" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="361" height="63"/>
@@ -769,6 +770,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ffj-v4-tY7" secondAttribute="trailing" constant="8" id="deD-gc-ATj"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <connections>
                                             <outlet property="containerView" destination="ffj-v4-tY7" id="CqX-ey-Ued"/>
                                             <outlet property="iconImageView" destination="lyh-Vv-5Z3" id="Ylp-eJ-kJT"/>
