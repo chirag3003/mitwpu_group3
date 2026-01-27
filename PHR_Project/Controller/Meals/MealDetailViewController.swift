@@ -9,101 +9,111 @@ import UIKit
 
 class MealDetailViewController: UIViewController {
 
-    @IBOutlet weak var calorieCard: UIView!
-
-    @IBOutlet weak var calorieCardValue: UILabel!
-    @IBOutlet weak var mealDetailTableView: UITableView!
-    @IBOutlet weak var mealName: UILabel!
+    // MARK: - IB OUTLETS
+    // Header & Media
     @IBOutlet weak var mealImage: UIImageView!
-
-    @IBOutlet weak var carbsCardDetail: UILabel!
+    @IBOutlet weak var mealName: UILabel!
+    
+    // Nutrition Cards
+    @IBOutlet weak var calorieCard: UIView!
     @IBOutlet weak var carbsCard: UIView!
-
-    @IBOutlet weak var proteinCardDetail: UILabel!
     @IBOutlet weak var proteinCard: UIView!
-
-    @IBOutlet weak var fiberCardDetail: UILabel!
     @IBOutlet weak var fiberCard: UIView!
+    
+    // Nutrition Labels
+    @IBOutlet weak var calorieCardValue: UILabel!
+    @IBOutlet weak var carbsCardDetail: UILabel!
+    @IBOutlet weak var proteinCardDetail: UILabel!
+    @IBOutlet weak var fiberCardDetail: UILabel!
 
+    // Information Table & Notes
+    @IBOutlet weak var mealDetailTableView: UITableView!
+    @IBOutlet weak var notesView: UIView!
     @IBOutlet weak var notesText: UILabel!
 
+    // MARK: - PROPERTIES
     var selectedMeal: Meal?
 
-    @IBOutlet weak var notesView: UIView!
-
+    // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupTableView()
+        setupComponentStyles()
+        populateMealDetails()
+    }
+
+    // MARK: - SETUP
+    // Configure table view delegates and appearance
+    private func setupTableView() {
         mealDetailTableView.dataSource = self
         mealDetailTableView.delegate = self
-
-        setupUI()
+        mealDetailTableView.addRoundedCorner()
     }
 
-    func setupUI() {
+    // Apply corner radii and visual styling to all cards
+    private func setupComponentStyles() {
+        let standardRadius: CGFloat = 10
+        
+        mealImage.addRoundedCorner(radius: standardRadius)
+        calorieCard.addRoundedCorner(radius: standardRadius)
+        carbsCard.addRoundedCorner(radius: standardRadius)
+        proteinCard.addRoundedCorner(radius: standardRadius)
+        fiberCard.addRoundedCorner(radius: standardRadius)
+        
+        notesView.addRoundedCorner(radius: 20)
+        notesText.addRoundedCorner(radius: standardRadius)
+    }
+
+    // Bind meal data to UI elements
+    private func populateMealDetails() {
         guard let meal = selectedMeal else { return }
 
-        // Image
+        // Set meal image if valid URL exists
         if let imagePath = meal.image, !imagePath.isEmpty,
-            imagePath.lowercased().hasPrefix("https")
-        {
+           imagePath.lowercased().hasPrefix("https") {
             mealImage.setImageFromURL(url: imagePath)
         }
-        mealImage.addRoundedCorner(radius: 10)
 
+        // Display basic meal info
         mealName.text = meal.name
-
-        mealDetailTableView.addRoundedCorner()
-
-        calorieCard.addRoundedCorner(radius: 10)
-        calorieCardValue.text = "\(meal.calories)kcal"
-
-        carbsCard.addRoundedCorner(radius: 10)
-        carbsCardDetail.text = "\(meal.carbs)g"
-
-        proteinCard.addRoundedCorner(radius: 10)
-        proteinCardDetail.text = "\(meal.protein)g"
-
-        fiberCard.addRoundedCorner(radius: 10)
-        fiberCardDetail.text = "\(meal.fiber)g"
-
-        notesView.addRoundedCorner(radius: 20)
-
-        notesText.addRoundedCorner(radius: 10)
         notesText.text = meal.notes ?? "No notes"
-    }
 
+        // Update nutrition values
+        calorieCardValue.text = "\(meal.calories)kcal"
+        carbsCardDetail.text = "\(meal.carbs)g"
+        proteinCardDetail.text = "\(meal.protein)g"
+        fiberCardDetail.text = "\(meal.fiber)g"
+    }
 }
 
+// MARK: - TABLE VIEW DATA SOURCE
 extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: "meal_detail_cell",
-                for: indexPath
-            ) as! MealDetailTableViewCell
+    // Configure cells for meal metadata (Date and Contributor)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "meal_detail_cell",
+            for: indexPath
+        ) as! MealDetailTableViewCell
 
         guard let meal = selectedMeal else { return cell }
 
         if indexPath.row == 0 {
             cell.dataLabel?.text = "Date"
-
+            
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             cell.dataValue?.text = formatter.string(from: meal.dateRecorded)
-
+            
         } else if indexPath.row == 1 {
             cell.dataLabel?.text = "Added by"
             cell.dataValue?.text = meal.addedBy

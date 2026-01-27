@@ -21,6 +21,25 @@ class AddDetailsTableViewController: UITableViewController {
     
 
     @IBAction func doneButton(_ sender: Any) {
+        
+        guard let name = firstName.text, !name.isEmpty else {
+            self.showAlert(
+                title: "Missing info",
+                message: "Please enter first name"
+            )
+            return
+        }
+        
+        guard let name2 = lastName.text, !name2.isEmpty else {
+            self.showAlert(
+                title: "Missing info",
+                message: "Please enter last name"
+            )
+            return
+        }
+        
+        
+        view.endEditing(true)
         dismiss(animated: true)
     }
     @IBAction func closeButton(_ sender: Any) {

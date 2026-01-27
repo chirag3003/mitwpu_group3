@@ -36,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>

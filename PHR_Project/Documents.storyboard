@@ -252,11 +252,11 @@
             <objects>
                 <viewController storyboardIdentifier="DocumentUploadViewController" id="KTK-me-Pwj" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IDV-w5-Iap">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M12-CE-tOZ">
-                                <rect key="frame" x="0.0" y="172" width="393" height="180"/>
+                                <rect key="frame" x="0.0" y="70" width="393" height="180"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-pH-e9b">
                                         <rect key="frame" x="16" y="8" width="361" height="78"/>
@@ -265,7 +265,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="78"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-9f-p4c">
-                                                        <rect key="frame" x="16" y="25.999999999999989" width="25" height="25.333333333333339"/>
+                                                        <rect key="frame" x="16" y="26.000000000000004" width="25" height="25.333333333333339"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="Svb-y5-ike"/>
@@ -297,7 +297,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="78"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="spv-gd-mCO">
-                                                        <rect key="frame" x="16" y="27.666666666666686" width="25" height="23"/>
+                                                        <rect key="frame" x="16" y="27.666666666666657" width="25" height="23"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="038-id-2I1"/>
@@ -355,26 +355,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfu-Ww-4BM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5834.3511450381675" y="286.61971830985919"/>
-        </scene>
-        <!--Documents-->
-        <scene sceneID="jTH-Qa-AMr">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Oer-j2-j1S" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Documents" image="document.fill" catalog="system" id="X66-yS-AFL"/>
-                    <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="av2-1D-Hvb">
-                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5LC-0O-m2i" kind="relationship" relationship="rootViewController" id="uv5-fU-fEF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tN1-zF-T3h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="974.80916030534343" y="287.32394366197184"/>
         </scene>
         <!--Add Details-->
         <scene sceneID="Xmd-oL-5Di">
@@ -470,7 +450,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMV-Rf-rk3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5807" y="-413"/>
+            <point key="canvasLocation" x="5834" y="-413"/>
         </scene>
         <!--Generate Health Report-->
         <scene sceneID="ebq-8P-9AX">
@@ -874,14 +854,20 @@
                             <constraint firstItem="AtO-gB-R8q" firstAttribute="top" secondItem="4qC-Zp-zY2" secondAttribute="top" constant="24" id="meH-yz-Jvs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5i6-zf-pbA"/>
+                    <navigationItem key="navigationItem" id="5i6-zf-pbA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vLF-pN-9iX">
+                            <connections>
+                                <segue destination="Nvd-hi-o2q" kind="presentation" id="6CD-uL-gat"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="AtO-gB-R8q" id="Djq-99-fXm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6J-QT-bFO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1894" y="1098"/>
+            <point key="canvasLocation" x="1767" y="1049"/>
         </scene>
         <!--Health Report View Controller-->
         <scene sceneID="v8h-B8-DCy">
@@ -976,7 +962,7 @@
                 <navigationController storyboardIdentifier="DocumentUploadNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="Nvd-hi-o2q" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="s52-u7-89Z">
-                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1005,6 +991,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8AI-0c-EHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4907.6335877862593" y="-413.38028169014086"/>
+        </scene>
+        <!--Documents-->
+        <scene sceneID="jTH-Qa-AMr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Oer-j2-j1S" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Documents" image="document.fill" catalog="system" id="X66-yS-AFL"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="av2-1D-Hvb">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5LC-0O-m2i" kind="relationship" relationship="rootViewController" id="uv5-fU-fEF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tN1-zF-T3h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749" y="271"/>
         </scene>
     </scenes>
     <resources>
