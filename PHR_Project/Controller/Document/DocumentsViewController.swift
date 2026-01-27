@@ -279,7 +279,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             let dummyPDFLink =
                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 
-            let report = reportsData[indexPath.row]
+            _ = reportsData[indexPath.row]
 
             let urlToOpen = dummyPDFLink  // Default to dummy
 
