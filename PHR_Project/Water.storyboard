@@ -328,7 +328,7 @@
                             <constraint firstItem="WWb-8M-1Fq" firstAttribute="leading" secondItem="bf2-VG-H5o" secondAttribute="leading" id="oX0-za-Kd8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Water Intake" id="ZD9-yP-LPc"/>
+                    <navigationItem key="navigationItem" title="Water Intake" largeTitleDisplayMode="never" id="ZD9-yP-LPc"/>
                     <connections>
                         <outlet property="dateCollectionView" destination="BzS-vD-r2V" id="2se-Zn-tL9"/>
                         <outlet property="decrement" destination="M54-sc-y29" id="0tk-ty-iPB"/>
