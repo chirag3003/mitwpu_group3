@@ -222,7 +222,7 @@
                             <constraint firstItem="Zuv-yf-uiD" firstAttribute="leading" secondItem="cyb-lH-JbM" secondAttribute="leading" constant="16" id="sCy-rK-Iyf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Documents" id="hge-zJ-hdc">
+                    <navigationItem key="navigationItem" title="Documents" largeTitleDisplayMode="never" id="hge-zJ-hdc">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="WJd-Jj-YZl">
                                 <connections>
@@ -704,7 +704,7 @@
                             <constraint firstItem="2rM-dz-H76" firstAttribute="trailing" secondItem="CZX-dk-kbG" secondAttribute="trailing" id="WuU-kA-r9l"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Generate Health Report" id="dKG-Mh-8vi"/>
+                    <navigationItem key="navigationItem" title="Generate Health Report" largeTitleDisplayMode="never" id="dKG-Mh-8vi"/>
                     <connections>
                         <outlet property="AdditionalNotes" destination="k8h-24-rUw" id="mm9-8w-DLe"/>
                         <outlet property="DataFields" destination="mP7-c7-DNo" id="gIg-vt-BAu"/>
@@ -897,7 +897,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uqd-L1-Ag8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4753.4351145038163" y="1107.7464788732395"/>
+            <point key="canvasLocation" x="4753" y="1098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LUe-Aw-5q5">
@@ -915,7 +915,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azs-Bx-vxt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3826.7175572519081" y="1107.7464788732395"/>
+            <point key="canvasLocation" x="3828" y="1098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NQH-y9-Jcv">

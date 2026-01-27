@@ -373,7 +373,7 @@
                             <constraint firstItem="Fdo-kZ-rCq" firstAttribute="leading" secondItem="z6U-NP-AZK" secondAttribute="leading" id="nhe-S1-DWu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Symptoms" id="87d-lJ-Av9">
+                    <navigationItem key="navigationItem" title="Symptoms" largeTitleDisplayMode="never" id="87d-lJ-Av9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kcw-yM-33y">
                             <connections>
                                 <segue destination="XQq-SV-fEX" kind="presentation" id="uz0-Rf-ldV"/>
