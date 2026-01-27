@@ -10,7 +10,7 @@ import UIKit
 class DocumentUploadViewController: UIViewController {
     //  MARK: -IBOutlets
     
-    @IBOutlet weak var scanFileView: UIView!
+   // @IBOutlet weak var scanFileView: UIView!
     @IBOutlet weak var uploadDocumentView: UIView!
     // MARK: - Lifecycle
     
@@ -19,8 +19,8 @@ class DocumentUploadViewController: UIViewController {
         super.viewDidLoad()
         
         //Adding rounded corners
-        scanFileView.addRoundedSides()
-        uploadDocumentView.addRoundedSides()
+       // scanFileView.addRoundedSides()
+        uploadDocumentView.addRoundedCorner()
     }
     //MARK: - ACTIONS
     
@@ -31,23 +31,23 @@ class DocumentUploadViewController: UIViewController {
 }
 
 // MARK: - CustomDocumentScannerDelegate
-extension DocumentUploadViewController: CustomDocumentScannerDelegate {
-    
-    
-    
-    @IBAction func addDocumentCamera(_ sender: Any) {
-        // Initialize custom camera scanner
-        let customCameraVC = CustomDocumentScannerViewController()
-        customCameraVC.delegate = self
-        
-        // Present camera full screen
-        customCameraVC.modalPresentationStyle = .fullScreen
-        present(customCameraVC, animated: true)
-    }
-        // Handle Capture Document Image
-    func didCaptureDocument(_ image: UIImage) {
-        print("Document scanned by camera")
-    }
-    
-    
-}
+//extension DocumentUploadViewController: CustomDocumentScannerDelegate {
+//    
+//    
+//    
+//    @IBAction func addDocumentCamera(_ sender: Any) {
+//        // Initialize custom camera scanner
+//        let customCameraVC = CustomDocumentScannerViewController()
+//        customCameraVC.delegate = self
+//        
+//        // Present camera full screen
+//        customCameraVC.modalPresentationStyle = .fullScreen
+//        present(customCameraVC, animated: true)
+//    }
+//        // Handle Capture Document Image
+//    func didCaptureDocument(_ image: UIImage) {
+//        print("Document scanned by camera")
+//    }
+//    
+//    
+//}
