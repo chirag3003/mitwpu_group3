@@ -818,7 +818,7 @@
                     <navigationItem key="navigationItem" id="5i6-zf-pbA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vLF-pN-9iX">
                             <connections>
-                                <segue destination="Nvd-hi-o2q" kind="presentation" id="6CD-uL-gat"/>
+                                <segue destination="Nvd-hi-o2q" kind="presentation" id="Mp1-xG-Y7r"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
