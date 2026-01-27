@@ -7,11 +7,11 @@
 
 import UIKit
 
-class DocumentUploadViewController: UIViewController {
+class DocumentUploadViewController: UITableViewController   {
     //  MARK: -IBOutlets
     
    // @IBOutlet weak var scanFileView: UIView!
-    @IBOutlet weak var uploadDocumentView: UIView!
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -20,9 +20,12 @@ class DocumentUploadViewController: UIViewController {
         
         //Adding rounded corners
        // scanFileView.addRoundedSides()
-        uploadDocumentView.addRoundedCorner()
+        //uploadDocumentView.addRoundedCorner()
     }
     //MARK: - ACTIONS
+    @IBAction func doneButton(_ sender: Any) {
+        dismiss(animated: true)
+    }
     
 @IBAction func CloseModalButton(_ sender: Any) {
         dismiss(animated: true)

@@ -247,76 +247,6 @@
             </objects>
             <point key="canvasLocation" x="1894" y="287"/>
         </scene>
-        <!--Select-->
-        <scene sceneID="jHJ-9U-rYM">
-            <objects>
-                <viewController storyboardIdentifier="DocumentUploadViewController" id="KTK-me-Pwj" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IDV-w5-Iap">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M12-CE-tOZ">
-                                <rect key="frame" x="0.0" y="70" width="393" height="94"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-pH-e9b">
-                                        <rect key="frame" x="16" y="8" width="361" height="78"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rkF-RW-kyO">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="78"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-9f-p4c">
-                                                        <rect key="frame" x="16" y="26.000000000000004" width="25" height="25.333333333333339"/>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="Svb-y5-ike"/>
-                                                            <constraint firstAttribute="width" constant="25" id="dkN-3K-LEb"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFA-4K-rwY">
-                                                        <rect key="frame" x="57" y="22.000000000000004" width="288" height="34.333333333333343"/>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Upload Document"/>
-                                                    </button>
-                                                </subviews>
-                                                <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="rkF-RW-kyO" firstAttribute="leading" secondItem="UZG-pH-e9b" secondAttribute="leading" id="4Qo-MS-UrH"/>
-                                            <constraint firstItem="rkF-RW-kyO" firstAttribute="top" secondItem="UZG-pH-e9b" secondAttribute="top" id="6a3-JX-Udy"/>
-                                            <constraint firstAttribute="trailing" secondItem="rkF-RW-kyO" secondAttribute="trailing" id="RJd-ih-8iF"/>
-                                            <constraint firstAttribute="bottom" secondItem="rkF-RW-kyO" secondAttribute="bottom" id="b6g-5o-17F"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="90c-6c-br9"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <constraints>
-                            <constraint firstItem="M12-CE-tOZ" firstAttribute="trailing" secondItem="90c-6c-br9" secondAttribute="trailing" id="GI9-TQ-eaS"/>
-                            <constraint firstItem="M12-CE-tOZ" firstAttribute="top" secondItem="90c-6c-br9" secondAttribute="top" id="pgk-RS-LEl"/>
-                            <constraint firstItem="M12-CE-tOZ" firstAttribute="leading" secondItem="90c-6c-br9" secondAttribute="leading" id="qoC-Fs-FtD"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Select" id="rRz-xy-Nfr">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dZ0-1h-nab">
-                            <connections>
-                                <action selector="CloseModalButton:" destination="KTK-me-Pwj" id="Mgc-vV-bc8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="uploadDocumentView" destination="UZG-pH-e9b" id="U9I-n4-3d2"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jfu-Ww-4BM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5834.3511450381675" y="286.61971830985919"/>
-        </scene>
         <!--Add Details-->
         <scene sceneID="Xmd-oL-5Di">
             <objects>
@@ -818,7 +748,7 @@
                     <navigationItem key="navigationItem" id="5i6-zf-pbA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vLF-pN-9iX">
                             <connections>
-                                <segue destination="Nvd-hi-o2q" kind="presentation" id="Mp1-xG-Y7r"/>
+                                <segue destination="uIj-tR-Lho" kind="presentation" id="GJo-0p-vUn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -918,24 +848,6 @@
             <point key="canvasLocation" x="3828" y="1098"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="NQH-y9-Jcv">
-            <objects>
-                <navigationController storyboardIdentifier="DocumentUploadNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="Nvd-hi-o2q" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s52-u7-89Z">
-                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="KTK-me-Pwj" kind="relationship" relationship="rootViewController" id="NUb-EX-jdK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Km9-x0-r0C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4907.6335877862593" y="286.61971830985919"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="eh0-dI-aDN">
             <objects>
                 <navigationController storyboardIdentifier="AddDetailsNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="LLm-pB-vWM" sceneMemberID="viewController">
@@ -952,6 +864,125 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8AI-0c-EHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4907.6335877862593" y="-413.38028169014086"/>
+        </scene>
+        <!--Select-->
+        <scene sceneID="WeK-hD-uTw">
+            <objects>
+                <tableViewController id="h7u-RI-fjW" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="7Dd-Ta-UuQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <sections>
+                            <tableViewSection id="GRt-mK-fZk">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="tGL-GD-OXF">
+                                        <rect key="frame" x="20" y="18" width="353" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGL-GD-OXF" id="coE-bk-sAz">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ian-Sw-lgk">
+                                                    <rect key="frame" x="16" y="15" width="75.666666666666671" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HMX-zI-tlS">
+                                                    <rect key="frame" x="156.66666666666663" y="14.666666666666664" width="176.33333333333337" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="HMX-zI-tlS" firstAttribute="width" secondItem="coE-bk-sAz" secondAttribute="width" multiplier="0.5" id="IvX-4r-8hr"/>
+                                                <constraint firstItem="HMX-zI-tlS" firstAttribute="centerY" secondItem="coE-bk-sAz" secondAttribute="centerY" id="ZJO-SD-5z6"/>
+                                                <constraint firstItem="ian-Sw-lgk" firstAttribute="leading" secondItem="coE-bk-sAz" secondAttribute="leadingMargin" id="fU7-Rs-s1f"/>
+                                                <constraint firstAttribute="trailing" secondItem="HMX-zI-tlS" secondAttribute="trailing" constant="20" symbolic="YES" id="jSh-xj-ER2"/>
+                                                <constraint firstItem="ian-Sw-lgk" firstAttribute="centerY" secondItem="coE-bk-sAz" secondAttribute="centerY" id="oOT-6c-6By"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="tOe-Gn-hkV">
+                                        <rect key="frame" x="20" y="69" width="353" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tOe-Gn-hkV" id="qxh-9J-ePQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Upload" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axE-ah-FaV">
+                                                    <rect key="frame" x="15.999999999999993" y="15" width="114.33333333333331" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="PAO-Br-DJp">
+                                                    <rect key="frame" x="160.66666666666663" y="8.3333333333333321" width="176.33333333333337" height="34.333333333333343"/>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="PAO-Br-DJp" secondAttribute="trailing" constant="16" id="0Zz-Xo-yNc"/>
+                                                <constraint firstItem="PAO-Br-DJp" firstAttribute="width" secondItem="qxh-9J-ePQ" secondAttribute="width" multiplier="0.5" id="1BV-TT-1RG"/>
+                                                <constraint firstItem="axE-ah-FaV" firstAttribute="leading" secondItem="qxh-9J-ePQ" secondAttribute="leadingMargin" id="1Uj-qw-v0T"/>
+                                                <constraint firstItem="axE-ah-FaV" firstAttribute="centerY" secondItem="qxh-9J-ePQ" secondAttribute="centerY" id="6tW-4e-40P"/>
+                                                <constraint firstItem="PAO-Br-DJp" firstAttribute="centerY" secondItem="qxh-9J-ePQ" secondAttribute="centerY" id="dfJ-Mc-8ci"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="KZf-Lp-S2H">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="6aW-Mr-iSi">
+                                        <rect key="frame" x="20" y="156" width="353" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6aW-Mr-iSi" id="ckS-cv-7Ay">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hnm-Ug-FBp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="wD2-rm-kgK"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="25"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Hnm-Ug-FBp" secondAttribute="trailing" id="Aa9-wu-rrF"/>
+                                                <constraint firstItem="Hnm-Ug-FBp" firstAttribute="leading" secondItem="ckS-cv-7Ay" secondAttribute="leading" id="aFc-Dt-sRw"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hnm-Ug-FBp" secondAttribute="bottom" id="cwm-GA-JdI"/>
+                                                <constraint firstItem="Hnm-Ug-FBp" firstAttribute="top" secondItem="ckS-cv-7Ay" secondAttribute="top" id="tKa-je-5rr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="h7u-RI-fjW" id="XCc-qS-6bI"/>
+                            <outlet property="delegate" destination="h7u-RI-fjW" id="JeV-UC-zBF"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select" id="6fn-2z-cbU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kep-Dp-JdL">
+                            <connections>
+                                <action selector="CloseModalButton:" destination="h7u-RI-fjW" id="Cf5-fe-dmI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="FKi-Nz-iLv">
+                            <connections>
+                                <action selector="doneButton:" destination="h7u-RI-fjW" id="t8w-uG-UsQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iJq-2B-3Pw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5820.6106870229005" y="291.54929577464787"/>
         </scene>
         <!--Documents-->
         <scene sceneID="jTH-Qa-AMr">
@@ -972,6 +1003,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tN1-zF-T3h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749" y="271"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Bcb-bk-hih">
+            <objects>
+                <navigationController storyboardIdentifier="DocumentUploadNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="uIj-tR-Lho" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0kS-tO-r8i">
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="h7u-RI-fjW" kind="relationship" relationship="rootViewController" id="grH-LP-gTp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VH3-tk-92I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4893.8931297709923" y="291.54929577464787"/>
         </scene>
     </scenes>
     <resources>
