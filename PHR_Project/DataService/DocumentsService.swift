@@ -88,6 +88,52 @@ class DocumentService {
             }
         }
     }
+    
+    // MARK: - Upload Methods
+    
+    func uploadPrescription(fileData: Data, fileName: String, doctorId: String, date: Date, completion: @escaping (Bool) -> Void) {
+        APIService.shared.uploadDocument(
+            fileData: fileData,
+            fileName: fileName,
+            mimeType: "application/pdf",
+            documentType: "Prescription",
+            docDoctorId: doctorId,
+            title: nil,
+            date: date
+        ) { [weak self] (result: Result<Document, Error>) in
+            switch result {
+            case .success(let doc):
+                self?.documents.append(doc)
+                NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+                completion(true)
+            case .failure(let error):
+                print("Error uploading prescription: \(error)")
+                completion(false)
+            }
+        }
+    }
+    
+    func uploadReport(fileData: Data, fileName: String, title: String, date: Date, completion: @escaping (Bool) -> Void) {
+        APIService.shared.uploadDocument(
+            fileData: fileData,
+            fileName: fileName,
+            mimeType: "application/pdf",
+            documentType: "Report",
+            docDoctorId: nil,
+            title: title,
+            date: date
+        ) { [weak self] (result: Result<Document, Error>) in
+            switch result {
+            case .success(let doc):
+                self?.documents.append(doc)
+                NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+                completion(true)
+            case .failure(let error):
+                print("Error uploading report: \(error)")
+                completion(false)
+            }
+        }
+    }
 }
 
 // MARK: - PrescriptionService (Legacy Compatibility)
