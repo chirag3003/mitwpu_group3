@@ -1,25 +1,28 @@
 import UIKit
 
+    // MARK: - HealthReportViewController
 class HealthReportViewController: UIViewController {
 
     // MARK: - IBOutlets
 
     @IBOutlet weak var pdfPreviewView: PdfPreviewUIView!
+    // Navigation/Toolbar buttons.
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    // Store your health report data
+    
+    // MARK: - Properties
     var healthReportData: String = "Wade Wilson's Health Report"
-    var reportURL: URL?  // If you have a PDF or document
+    
+    // The local file URL where the generated PDF is stored.
+    var reportURL: URL?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
 
-        // Load a sample PDF for preview
-        // pdfPreviewView.setPdf(
-        //     url: "https://cdn1.lalpathlabs.com/live/reports/Z615.pdf"
-        // )
+        
+      
         
         // Generate PDF and preview it
         if let generatedPdfURL = generateHealthReportPDF() {
@@ -27,28 +30,28 @@ class HealthReportViewController: UIViewController {
             pdfPreviewView.setPdf(url: generatedPdfURL.path)
         }
     }
-
+    // Basic UI configuration
     func setupUI() {
-        // Configure share button appearance if needed
+        
         shareButton.tintColor = .systemBlue
     }
-
+    // MARK: - IBActions
+    // Triggered when the user taps the Share icon
     @IBAction func shareButtonTapped(_ sender: Any) {
         presentShareSheet()
     }
-
+    // Dismisses the view controller modally
     @IBAction func closeButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     // MARK: - Share Sheet Implementation
+    // Configures and presents the UIActivityViewController
     func presentShareSheet() {
         var itemsToShare: [Any] = []
-
-        // Prefer a PDF so you get preview + Markup
         let pdfURL = reportURL ?? generateHealthReportPDF()
-
+       // Determine what content to share.
         if let pdfURL {
-            // Copy to a predictable, readable filename for better presentation
+            //Renaming  the file for the recipient
             let destination = FileManager.default.temporaryDirectory
                 .appendingPathComponent("Wade_Wilson_Health_Report.pdf")
             do {
@@ -61,28 +64,28 @@ class HealthReportViewController: UIViewController {
                 }
                 itemsToShare.append(destination)
             } catch {
-                // Fallback to text if copy fails
+                //Error Handling
                 itemsToShare.append("Wade Wilson’s Health Report - Summary")
             }
         } else {
-            // Final fallback: plain text
+            
             itemsToShare.append(
                 "Wade Wilson’s Health Report - Summary\n\nYour health data goes here..."
             )
         }
 
-        // Provide a subject for Mail via UIActivityItemSource
+       // Email Subject Support
         let subjectProvider = MailSubjectProvider(
             subject: "Wade Wilson’s Health Report"
         )
         itemsToShare.append(subjectProvider)
-
+       // Initialize the Activity View Controller
         let activityVC = UIActivityViewController(
             activityItems: itemsToShare,
             applicationActivities: nil
         )
 
-        // Keep the full sheet (don’t exclude)
+       // Ensuring all standard share types
         activityVC.excludedActivityTypes = []
 
         // iPad popover
@@ -100,7 +103,7 @@ class HealthReportViewController: UIViewController {
                 popover.permittedArrowDirections = []
             }
         }
-
+        //Capturing the result of the share action
         activityVC.completionWithItemsHandler = {
             activityType,
             completed,
@@ -115,7 +118,7 @@ class HealthReportViewController: UIViewController {
         present(activityVC, animated: true)
     }
 
-    // Handle what happens after sharing
+    // Handles what happens after sharing
     func handleShareCompletion(activityType: UIActivity.ActivityType?) {
         guard let activityType = activityType else { return }
 
@@ -134,11 +137,11 @@ class HealthReportViewController: UIViewController {
     }
 }
 
-// MARK: - Extension for creating PDF from Health Report (Example)
+// MARK: - PDF Generation Extension
 extension HealthReportViewController {
 
     func generateHealthReportPDF() -> URL? {
-        // Create a PDF from your health data
+        // Creating a PDF
         let pdfMetaData = [
             kCGPDFContextCreator: "Health App",
             kCGPDFContextAuthor: "Wade Wilson",
@@ -148,13 +151,13 @@ extension HealthReportViewController {
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
 
-        let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)  // A4 size
+        let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
 
         let data = renderer.pdfData { (context) in
             context.beginPage()
 
-            // Draw your health report content here
+            // health report content here
             let titleAttributes = [
                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)
             ]
@@ -188,10 +191,11 @@ extension HealthReportViewController {
         }
     }
 }
-
+// MARK: - MailSubjectProvider
 final class MailSubjectProvider: NSObject, UIActivityItemSource {
     private let subject: String
     init(subject: String) { self.subject = subject }
+    // MARK: UIActivityItemSource Methods
 
     func activityViewControllerPlaceholderItem(
         _ activityViewController: UIActivityViewController

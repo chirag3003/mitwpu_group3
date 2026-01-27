@@ -14,6 +14,7 @@ class MealDataViewController: UIViewController {
 
     // MARK: - PROPERTIES
     private var mealData: [Meal] = []
+    private var isDeleting = false
 
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -73,6 +74,8 @@ class MealDataViewController: UIViewController {
     // MARK: - ACTIONS
     // Refresh data and UI when notification is received
     @objc func updateMealData() {
+        // Skip reload if we're in the middle of an animated delete
+        guard !isDeleting else { return }
         mealData = MealService.shared.getAllMeals()
         mealTableView.reloadData()
     }
@@ -87,7 +90,7 @@ class MealDataViewController: UIViewController {
 // MARK: - TABLE VIEW DATA SOURCE & DELEGATE
 extension MealDataViewController: UITableViewDataSource, UITableViewDelegate {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -115,6 +118,10 @@ extension MealDataViewController: UITableViewDataSource, UITableViewDelegate {
     // Handle row deletion
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let mealToDelete = mealData[indexPath.row]
+            
+            isDeleting = true
+            
             mealData.remove(at: indexPath.row)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
