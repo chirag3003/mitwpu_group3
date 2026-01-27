@@ -17,7 +17,7 @@ class DocumentUploadViewController: UIViewController {
         
         //Adding rounded corners
        // scanFileView.addRoundedSides()
-        uploadDocumentView.addRoundedCorner()
+        uploadDocumentView.addRoundedCorner(radius: 20)
     }
     //MARK: - ACTIONS
     
