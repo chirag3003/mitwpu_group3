@@ -1,16 +1,9 @@
-//
-//  GenerateHealthReport.swift
-//  PHR_Project
-//
-//  Created by SDC-USER on 27/11/25.
-//
-
 import UIKit
 
 class DocumentUploadViewController: UIViewController {
     //  MARK: -IBOutlets
     
-    @IBOutlet weak var scanFileView: UIView!
+   // @IBOutlet weak var scanFileView: UIView!
     @IBOutlet weak var uploadDocumentView: UIView!
     
     // Store scanned image data
@@ -23,8 +16,8 @@ class DocumentUploadViewController: UIViewController {
         super.viewDidLoad()
         
         //Adding rounded corners
-        scanFileView.addRoundedSides()
-        uploadDocumentView.addRoundedSides()
+       // scanFileView.addRoundedSides()
+        uploadDocumentView.addRoundedCorner()
     }
     //MARK: - ACTIONS
     

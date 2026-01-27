@@ -77,12 +77,28 @@ class CustomCameraViewController: UIViewController {
     
     private let manuallyLogButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Manually Log", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.layer.cornerRadius = 18
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.filled()
+            config.title = "Manually Log"
+            config.baseForegroundColor = .white
+            config.baseBackgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
+            config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+            button.configuration = config
+            button.layer.cornerRadius = 18
+            button.layer.masksToBounds = true
+            // Apply font using attributed title for UIButton.Configuration
+            var attributedTitle = AttributedString("Manually Log")
+            attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+            button.configuration?.attributedTitle = attributedTitle
+        } else {
+            // Fallback for iOS < 15
+            button.setTitle("Manually Log", for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+            button.layer.cornerRadius = 18
+            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        }
         return button
     }()
 
@@ -196,7 +212,17 @@ class CustomCameraViewController: UIViewController {
     private func setupPreviewLayer() {
         let layer = AVCaptureVideoPreviewLayer(session: captureSession)
         layer.videoGravity = .resizeAspectFill
-        layer.connection?.videoOrientation = .portrait
+        if let connection = layer.connection {
+            if #available(iOS 17.0, *) {
+                // Set rotation angle equivalent to portrait (0 degrees)
+                connection.videoRotationAngle = 0
+            } else {
+                // Fallback for iOS < 17
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .portrait
+                }
+            }
+        }
         self.previewLayer = layer
         view.layer.insertSublayer(layer, at: 0)
     }
@@ -267,3 +293,4 @@ extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
         dismiss(animated: true)
     }
 }
+
