@@ -28,6 +28,7 @@ class DocDoctorService {
             
             switch result {
             case .success(let fetched):
+                print("FETCHED", fetched)
                 self.doctors = fetched
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: NSNotification.Name("DoctorsUpdated"), object: nil)

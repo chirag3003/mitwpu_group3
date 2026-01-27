@@ -6,7 +6,9 @@ final class PrescriptionPageViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
 
-    var selectedDoctorName: String?
+    var selectedDoctor: DocDoctor?   // Doctor passed from DocumentsViewController
+    var selectedDoctorName: String?  // Legacy compatibility
+    
      // MARK: - Properties
      private var prescriptions: [PrescriptionModel] = []
      private var previewURL: URL?
@@ -16,11 +18,18 @@ final class PrescriptionPageViewController: UIViewController {
          super.viewDidLoad()
          setupTableView()
          loadData()
+         
          // Set navigation title to doctor name
-         if let name = selectedDoctorName {
+         if let doctor = selectedDoctor {
+             self.title = doctor.name
+             self.navigationItem.title = doctor.name
+         } else if let name = selectedDoctorName {
              self.title = name
              self.navigationItem.title = name
          }
+         
+         // Listen for document updates
+         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
      }
 
      // MARK: - Setup
@@ -33,15 +42,23 @@ final class PrescriptionPageViewController: UIViewController {
      }
 
      private func loadData() {
-         // Load prescriptions filtered by doctor or all if no doctor selected
-         if let doctorName = selectedDoctorName {
-             
+         // Load prescriptions filtered by doctor
+         if let doctor = selectedDoctor, let doctorId = doctor.apiID {
+             // Fetch prescriptions for this specific doctor from API
+             prescriptions = DocumentService.shared.getDocumentsByDoctor(doctorId: doctorId)
+                 .filter { $0.documentType == .prescription }
+                 .map { $0.asLegacyPrescriptionModel }
+         } else if let doctorName = selectedDoctorName {
+             // Legacy: filter by name
              prescriptions = PrescriptionService.shared.getPrescriptionsByDoctor(doctorName)
          } else {
-             
              prescriptions = PrescriptionService.shared.getAllPrescriptionData()
          }
          tableView.reloadData()
+     }
+     
+     @objc private func refreshData() {
+         loadData()
      }
  }
 
