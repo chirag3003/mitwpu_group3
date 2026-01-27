@@ -1111,7 +1111,7 @@
                             <constraint firstItem="0HV-kh-br4" firstAttribute="leading" secondItem="6U5-WF-tPL" secondAttribute="leading" id="wSc-l3-eFb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Allergies" id="bjG-9E-axq">
+                    <navigationItem key="navigationItem" title="Allergies" largeTitleDisplayMode="never" id="bjG-9E-axq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="70X-Yz-LYH">
                             <connections>
                                 <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
@@ -1613,7 +1613,7 @@
                         <viewLayoutGuide key="safeArea" id="0KC-GB-j7j"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Steps" id="g0o-gd-j55"/>
+                    <navigationItem key="navigationItem" title="Steps" largeTitleDisplayMode="never" id="g0o-gd-j55"/>
                     <connections>
                         <outlet property="chartContainerView" destination="4A2-s8-K1b" id="3jf-MP-8ug"/>
                         <outlet property="firstPatternView" destination="n9a-kz-Rid" id="wYV-zm-ns9"/>

@@ -565,7 +565,7 @@
                             <constraint firstAttribute="bottom" secondItem="eXY-66-yVK" secondAttribute="bottom" id="qdN-x2-koT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Meal Logs" id="QqG-n6-fMR">
+                    <navigationItem key="navigationItem" title="Meal Logs" largeTitleDisplayMode="never" id="QqG-n6-fMR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6kq-rG-S8S">
                             <connections>
                                 <action selector="addMealCamera:" destination="fdI-9g-pwJ" id="Jam-dU-h8s"/>

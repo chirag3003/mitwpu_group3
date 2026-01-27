@@ -49,7 +49,7 @@
                             <constraint firstItem="kke-Td-769" firstAttribute="leading" secondItem="uxF-rI-HX1" secondAttribute="leading" id="xwr-gZ-fkr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="lf9-hg-h6Y">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1">
                             <connections>
                                 <segue destination="k7P-vK-TfR" kind="show" id="GLN-1G-fq7"/>

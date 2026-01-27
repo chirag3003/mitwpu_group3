@@ -574,7 +574,7 @@
                             <constraint firstAttribute="bottom" secondItem="qVM-ww-At6" secondAttribute="bottom" id="tIO-rw-QAy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Glucose" id="qL4-3U-Xx8">
+                    <navigationItem key="navigationItem" title="Glucose" largeTitleDisplayMode="never" id="qL4-3U-Xx8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bil-cf-ODI">
                             <connections>
                                 <segue destination="gov-aW-0ZX" kind="presentation" id="Gnk-3J-NGB"/>
