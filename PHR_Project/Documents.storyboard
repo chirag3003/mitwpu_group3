@@ -256,7 +256,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="M12-CE-tOZ">
-                                <rect key="frame" x="0.0" y="70" width="393" height="180"/>
+                                <rect key="frame" x="0.0" y="70" width="393" height="94"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-pH-e9b">
                                         <rect key="frame" x="16" y="8" width="361" height="78"/>
@@ -290,45 +290,7 @@
                                             <constraint firstAttribute="bottom" secondItem="rkF-RW-kyO" secondAttribute="bottom" id="b6g-5o-17F"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RO2-tb-Nya">
-                                        <rect key="frame" x="16" y="94" width="361" height="78"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-3z-1TJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="78"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="spv-gd-mCO">
-                                                        <rect key="frame" x="16" y="27.666666666666657" width="25" height="23"/>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="038-id-2I1"/>
-                                                            <constraint firstAttribute="width" constant="25" id="ecT-mE-cQ1"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiz-0f-L4h">
-                                                        <rect key="frame" x="57" y="22.000000000000004" width="288" height="34.333333333333343"/>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Scan File"/>
-                                                        <connections>
-                                                            <action selector="addDocumentCamera:" destination="KTK-me-Pwj" eventType="touchUpInside" id="fff-q1-qJ6"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="MYN-3z-1TJ" firstAttribute="leading" secondItem="RO2-tb-Nya" secondAttribute="leading" id="AOj-Cr-j86"/>
-                                            <constraint firstItem="MYN-3z-1TJ" firstAttribute="top" secondItem="RO2-tb-Nya" secondAttribute="top" id="MUx-pG-slA"/>
-                                            <constraint firstAttribute="bottom" secondItem="MYN-3z-1TJ" secondAttribute="bottom" id="REb-3D-RvF"/>
-                                            <constraint firstAttribute="trailing" secondItem="MYN-3z-1TJ" secondAttribute="trailing" id="ceL-sU-kfH"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="fh3-g0-Ud8"/>
-                                </constraints>
                                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                             </stackView>
                         </subviews>
@@ -348,7 +310,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="scanFileView" destination="RO2-tb-Nya" id="95u-0x-gpd"/>
                         <outlet property="uploadDocumentView" destination="UZG-pH-e9b" id="U9I-n4-3d2"/>
                     </connections>
                 </viewController>
@@ -1017,7 +978,6 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="document.fill" catalog="system" width="115" height="128"/>
-        <image name="document.viewfinder.fill" catalog="system" width="128" height="115"/>
         <image name="folder.fill" catalog="system" width="128" height="96"/>
         <image name="line.3.horizontal.decrease" catalog="system" width="128" height="73"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
