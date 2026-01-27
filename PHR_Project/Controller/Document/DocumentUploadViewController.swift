@@ -1,13 +1,9 @@
 import UIKit
 
-class DocumentUploadViewController: UIViewController {
+class DocumentUploadViewController: UITableViewController   {
     //  MARK: -IBOutlets
     
    // @IBOutlet weak var scanFileView: UIView!
-    @IBOutlet weak var uploadDocumentView: UIView!
-    
-    // Store scanned image data
-    private var scannedImageData: Data?
     
     // MARK: - Lifecycle
     
@@ -17,9 +13,12 @@ class DocumentUploadViewController: UIViewController {
         
         //Adding rounded corners
        // scanFileView.addRoundedSides()
-        uploadDocumentView.addRoundedCorner(radius: 20)
+        //uploadDocumentView.addRoundedCorner()
     }
     //MARK: - ACTIONS
+    @IBAction func doneButton(_ sender: Any) {
+        dismiss(animated: true)
+    }
     
 @IBAction func CloseModalButton(_ sender: Any) {
         dismiss(animated: true)
