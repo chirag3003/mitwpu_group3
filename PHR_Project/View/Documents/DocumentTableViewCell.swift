@@ -39,6 +39,11 @@ class DocumentTableViewCell: UITableViewCell {
         
     }
     
+    // Configure with DocDoctor from API
+    func configure(with doctor: DocDoctor) {
+        doctorLabel.text = doctor.name
+        updatedLable.text = ""  // No date info in DocDoctor model
+    }
     
 
 }

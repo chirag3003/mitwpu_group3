@@ -22,7 +22,7 @@ class AddDetailsTableViewController: UITableViewController {
 
     @IBAction func doneButton(_ sender: Any) {
         
-        guard let name = firstName.text, !name.isEmpty else {
+        guard let firstName = firstName.text, !firstName.isEmpty else {
             self.showAlert(
                 title: "Missing info",
                 message: "Please enter first name"
@@ -30,7 +30,7 @@ class AddDetailsTableViewController: UITableViewController {
             return
         }
         
-        guard let name2 = lastName.text, !name2.isEmpty else {
+        guard let lastName = lastName.text, !lastName.isEmpty else {
             self.showAlert(
                 title: "Missing info",
                 message: "Please enter last name"
@@ -38,6 +38,11 @@ class AddDetailsTableViewController: UITableViewController {
             return
         }
         
+        // Combine first and last name for doctor's full name
+        let fullName = "Dr. \(firstName) \(lastName)"
+        
+        // Create doctor via API
+        DocDoctorService.shared.createDoctor(name: fullName)
         
         view.endEditing(true)
         dismiss(animated: true)

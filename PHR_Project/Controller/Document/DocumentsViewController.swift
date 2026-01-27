@@ -19,7 +19,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     // Properties
 
-    private var documentData: [documentsModel] = []
+    private var doctorsData: [DocDoctor] = []  // Doctors who wrote prescriptions
     private var reportsData: [ReportModel] = []
     private var isNewestFirst = true
     private var previewURL: URL?
@@ -44,7 +44,10 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         } else {
             self.title = "Documents"
         }
-
+        
+        // Listen for API data updates
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DoctorsUpdated"), object: nil)
     }
 
     // MARK: - Setup
@@ -56,9 +59,16 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
 
     private func loadData() {
-        //Fetch data from services
-        documentData = DocumentService.shared.getAllPrescriptions()
+        // Fetch doctors and reports from services
+        doctorsData = DocDoctorService.shared.getDoctors()
         reportsData = DocumentService.shared.getAllReports()
+    }
+    
+    @objc private func refreshData() {
+        doctorsData = DocDoctorService.shared.getDoctors()
+        reportsData = DocumentService.shared.getAllReports()
+        print("Refereshed Data", doctorsData)
+        documentTableView.reloadData()
     }
     private func setupPlusButton() {
         // Add target action to plus button
@@ -116,9 +126,9 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     // Sort based on selected segment
     private func sortData() {
         if dataSegment.selectedSegmentIndex == 0 {
-            documentData.sort {
-                compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
-            }
+//            doctorsData.sort {
+//                compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
+//            }
         } else {
             reportsData.sort {
                 compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
@@ -230,7 +240,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     {
         // Return count based on selected segment
         return dataSegment.selectedSegmentIndex == 0
-            ? documentData.count : reportsData.count
+            ? doctorsData.count : reportsData.count
     }
 
     func tableView(
@@ -245,13 +255,14 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     {
         // Configure cell based on segment
         if dataSegment.selectedSegmentIndex == 0 {
-            // Documents cell
+            // Doctors cell
             let cell =
                 tableView.dequeueReusableCell(
                     withIdentifier: CellIdentifiers.doctorCell,
                     for: indexPath
                 ) as! DocumentTableViewCell
-            cell.configure(with: documentData[indexPath.row])
+            let doctor = doctorsData[indexPath.row]
+            cell.configure(with: doctor)
             cell.selectionStyle = .none
             return cell
         } else {
@@ -279,34 +290,25 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             let dummyPDFLink =
                 "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 
-            let report = reportsData[indexPath.row]
+            _ = reportsData[indexPath.row]
 
             let urlToOpen = dummyPDFLink  // Default to dummy
 
             showPDFPreview(for: urlToOpen)
 
         } else {
-            // Documents - Navigate to prescriptions
-            
-            let document = documentData[indexPath.row]
-            performSegue(withIdentifier: "prescriptionsSegue", sender: document)
+            // Doctors - Navigate to prescriptions for this doctor
+            let doctor = doctorsData[indexPath.row]
+            performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        
         if segue.identifier == "prescriptionsSegue" {
-
-            
-            if let destinationVC = segue.destination
-                as? PrescriptionPageViewController
-            {
-
-                // Pass selected doctor name
-                if let document = sender as? documentsModel {
-
-                    destinationVC.selectedDoctorName = document.title
+            if let destinationVC = segue.destination as? PrescriptionPageViewController {
+                // Pass selected doctor info
+                if let doctor = sender as? DocDoctor {
+                    destinationVC.selectedDoctor = doctor
                 }
             }
         }

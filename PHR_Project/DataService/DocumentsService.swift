@@ -10,70 +10,146 @@ import Foundation
 class DocumentService {
     static let shared = DocumentService()
     
-    private var prescriptions: [documentsModel] = []
-    private var reports: [ReportModel] = []
+    private var documents: [Document] = []
     
     private init() {
-        prescriptions = [
-            documentsModel(id: UUID(), title: "Dr. Abhishek Khare", lastUpdatedAt: "18 Nov 2025"),
-            documentsModel(id: UUID(), title: "Dr. Rutuja Khare", lastUpdatedAt: "7 Nov 2025")
-        ]
-        
-        reports = [
-            ReportModel(id: UUID(), title: "HbA1c", lastUpdatedAt: "15 Nov 2025"),
-            ReportModel(id: UUID(), title: "Sugar", lastUpdatedAt: "16 Jan 2025")
-        ]
+        fetchDocumentsFromAPI()
     }
     
+    // MARK: - Public Accessors
+    
+    func getAllDocuments() -> [Document] {
+        return documents
+    }
+    
+    func getPrescriptions() -> [Document] {
+        return documents.filter { $0.documentType == .prescription }
+    }
+    
+    func getReports() -> [Document] {
+        return documents.filter { $0.documentType == .report }
+    }
+    
+    func getDocumentsByDoctor(doctorId: String) -> [Document] {
+        return documents.filter { $0.docDoctor?.apiID == doctorId || $0.docDoctorId == doctorId }
+    }
+    
+    // MARK: - Legacy Compatibility Methods
+    
+    /// Returns list of unique doctors from prescriptions (for UI doctor list)
     func getAllPrescriptions() -> [documentsModel] {
-        return prescriptions
+        let prescriptions = getPrescriptions()
+        
+        // Group by doctor and get unique doctors
+        var seenDoctors = Set<String>()
+        var doctorList: [documentsModel] = []
+        
+        for doc in prescriptions {
+            if let doctorId = doc.docDoctor?.apiID, !seenDoctors.contains(doctorId) {
+                seenDoctors.insert(doctorId)
+                doctorList.append(doc.asLegacyDocumentsModel)
+            }
+        }
+        
+        return doctorList
     }
     
     func getAllReports() -> [ReportModel] {
-        return reports
+        return getReports().map { $0.asLegacyReportModel }
     }
     
+    // MARK: - API Methods
+    
+    func fetchDocumentsFromAPI() {
+        APIService.shared.request(endpoint: "/documents", method: .get) { [weak self] (result: Result<[Document], Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let fetched):
+                self.documents = fetched
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+                }
+            case .failure(let error):
+                print("Error fetching documents: \(error)")
+            }
+        }
+    }
+    
+    func deleteDocument(id: String) {
+        // Optimistic delete
+        documents.removeAll { $0.apiID == id }
+        NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+        
+        struct EmptyResponse: Decodable {}
+        APIService.shared.request(endpoint: "/documents/\(id)", method: .delete) { (result: Result<EmptyResponse, Error>) in
+            if case .failure(let error) = result {
+                print("Error deleting document: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Upload Methods
+    
+    func uploadPrescription(fileData: Data, fileName: String, doctorId: String, date: Date, completion: @escaping (Bool) -> Void) {
+        APIService.shared.uploadDocument(
+            fileData: fileData,
+            fileName: fileName,
+            mimeType: "application/pdf",
+            documentType: "Prescription",
+            docDoctorId: doctorId,
+            title: nil,
+            date: date
+        ) { [weak self] (result: Result<Document, Error>) in
+            switch result {
+            case .success(let doc):
+                self?.documents.append(doc)
+                NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+                completion(true)
+            case .failure(let error):
+                print("Error uploading prescription: \(error)")
+                completion(false)
+            }
+        }
+    }
+    
+    func uploadReport(fileData: Data, fileName: String, title: String, date: Date, completion: @escaping (Bool) -> Void) {
+        APIService.shared.uploadDocument(
+            fileData: fileData,
+            fileName: fileName,
+            mimeType: "application/pdf",
+            documentType: "Report",
+            docDoctorId: nil,
+            title: title,
+            date: date
+        ) { [weak self] (result: Result<Document, Error>) in
+            switch result {
+            case .success(let doc):
+                self?.documents.append(doc)
+                NotificationCenter.default.post(name: NSNotification.Name("DocumentsUpdated"), object: nil)
+                completion(true)
+            case .failure(let error):
+                print("Error uploading report: \(error)")
+                completion(false)
+            }
+        }
+    }
 }
+
+// MARK: - PrescriptionService (Legacy Compatibility)
 
 class PrescriptionService {
     static let shared = PrescriptionService()
     
-    private var prescriptionData: [PrescriptionModel] = []
-    
-    private init() {
-        prescriptionData = [
-            PrescriptionModel(
-                id: UUID(),
-                title: "HbA1c Report",
-                doctorName: "Dr. Abhishek Khare",
-                lastUpdatedAt: "16 Nov 2025",
-                fileSize: "6MB",
-                pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            ),
-            PrescriptionModel(
-                id: UUID(),
-                title: "TSH Report",
-                doctorName: "Dr. Rutuja Khare",
-                lastUpdatedAt: "17 Nov 2025",
-                fileSize: "8MB",
-                pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            ),
-            PrescriptionModel(
-                id: UUID(),
-                title: "CMP Report",
-                doctorName: "Dr. Abhishek Khare",
-                lastUpdatedAt: "18 Nov 2025",
-                fileSize: "4MB",
-                pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-            )
-        ]
-    }
+    private init() {}
     
     func getAllPrescriptionData() -> [PrescriptionModel] {
-        return prescriptionData
+        return DocumentService.shared.getPrescriptions().map { $0.asLegacyPrescriptionModel }
     }
     
     func getPrescriptionsByDoctor(_ doctorName: String) -> [PrescriptionModel] {
-        return prescriptionData.filter { $0.doctorName == doctorName }
+        return DocumentService.shared.getPrescriptions()
+            .filter { $0.docDoctor?.name == doctorName }
+            .map { $0.asLegacyPrescriptionModel }
     }
 }
