@@ -206,7 +206,7 @@ final class MailSubjectProvider: NSObject, UIActivityItemSource {
     func activityViewController(
         _ activityViewController: UIActivityViewController,
         itemForActivityType activityType: UIActivity.ActivityType?
-    ) -> Any {
+    ) -> Any? {
         return ""
     }
 
