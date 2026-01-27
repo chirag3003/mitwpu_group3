@@ -44,7 +44,9 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         } else {
             self.title = "Documents"
         }
-
+        
+        // Listen for API data updates
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
     }
 
     // MARK: - Setup
@@ -59,6 +61,12 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         //Fetch data from services
         documentData = DocumentService.shared.getAllPrescriptions()
         reportsData = DocumentService.shared.getAllReports()
+    }
+    
+    @objc private func refreshData() {
+        documentData = DocumentService.shared.getAllPrescriptions()
+        reportsData = DocumentService.shared.getAllReports()
+        documentTableView.reloadData()
     }
     private func setupPlusButton() {
         // Add target action to plus button
