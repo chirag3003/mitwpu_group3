@@ -12,6 +12,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     // MARK: - IBOutlets
 
+    @IBOutlet weak var plusButton: UIBarButtonItem!
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
@@ -59,7 +60,11 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         documentData = DocumentService.shared.getAllPrescriptions()
         reportsData = DocumentService.shared.getAllReports()
     }
-
+    private func setupPlusButton() {
+        // Add target action to plus button
+        plusButton.target = self
+        plusButton.action = #selector(didTapPlusButton)
+    }
     // MARK: - Actions
 
     @IBAction func onDataSwitch(_ sender: Any) {
@@ -73,6 +78,39 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
+    
+    @IBAction func didTapPlusButton(_ sender: Any) {
+        if dataSegment.selectedSegmentIndex == 0 {
+            // Prescriptions segment - Show Add Details modal
+            showAddDetailsModal()
+        } else {
+            // Reports segment - Show Document Upload modal
+            showDocumentUploadModal()
+        }
+    }
+    
+    
+    
+    // MARK: - Navigation
+    
+    private func showAddDetailsModal() {
+        // Present Add Details Table View Controller
+        let storyboard = UIStoryboard(name: "Documents", bundle: nil)
+        if let navController = storyboard.instantiateViewController(withIdentifier: "AddDetailsNavViewController") as? UINavigationController {
+            navController.modalPresentationStyle = .pageSheet
+            present(navController, animated: true)
+        }
+    }
+    
+    private func showDocumentUploadModal() {
+        // Present Document Upload View Controller
+        let storyboard = UIStoryboard(name: "Documents", bundle: nil)
+        if let uploadVC = storyboard.instantiateViewController(withIdentifier: "DocumentUploadNavViewController") as? UINavigationController {
+            uploadVC.modalPresentationStyle = .pageSheet
+            present(uploadVC, animated: true)
+        }
+    }
+
 
     // MARK: - Sorting
     // Sort based on selected segment
