@@ -1,16 +1,9 @@
-//
-//  PrescriptionPageViewController.swift
-//  PHR_Project
-//
-//  Created by SDC-USER on 10/12/25.
-//
-
 import QuickLook
 import UIKit
 
 final class PrescriptionPageViewController: UIViewController {
 
-    // MARK: - IBOutlets (Connect in Interface Builder)
+    // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
 
     var selectedDoctorName: String?
@@ -23,6 +16,7 @@ final class PrescriptionPageViewController: UIViewController {
          super.viewDidLoad()
          setupTableView()
          loadData()
+         // Set navigation title to doctor name
          if let name = selectedDoctorName {
              self.title = name
              self.navigationItem.title = name
@@ -39,12 +33,12 @@ final class PrescriptionPageViewController: UIViewController {
      }
 
      private func loadData() {
-         // UPDATED: Use PrescriptionService instead of getAllData()
+         // Load prescriptions filtered by doctor or all if no doctor selected
          if let doctorName = selectedDoctorName {
-             // Filter by doctor if a specific doctor was selected
+             
              prescriptions = PrescriptionService.shared.getPrescriptionsByDoctor(doctorName)
          } else {
-             // Show all prescriptions if no doctor was selected
+             
              prescriptions = PrescriptionService.shared.getAllPrescriptionData()
          }
          tableView.reloadData()
@@ -76,12 +70,6 @@ final class PrescriptionPageViewController: UIViewController {
          cell.configure(with: prescription)
          return cell
      }
-
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "prescriptionsSegue" {
-
-         }
-     }
  }
 
  // MARK: - UITableViewDelegate
@@ -94,6 +82,8 @@ final class PrescriptionPageViewController: UIViewController {
          tableView.deselectRow(at: indexPath, animated: true)
 
          let prescription = prescriptions[indexPath.row]
+         
+         // Validate PDF URL exists
 
          guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
              showAlert(
@@ -115,9 +105,10 @@ final class PrescriptionPageViewController: UIViewController {
              showAlert(title: "Error", message: "Invalid URL")
              return
          }
-
+         // Show loading indicator
          let loadingVC = createLoadingAlert()
          present(loadingVC, animated: true)
+         // Download PDF data
 
          URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
              DispatchQueue.main.async {
@@ -129,6 +120,7 @@ final class PrescriptionPageViewController: UIViewController {
      }
 
      private func handleDownloadResult(data: Data?, error: Error?) {
+         // Handle download errors
          if let error = error {
              showAlert(
                  title: "Download Failed",
@@ -143,12 +135,13 @@ final class PrescriptionPageViewController: UIViewController {
          }
 
          do {
+             // Saving  PDF to temp directory with another unique name
              let fileName = "prescription_\(UUID().uuidString).pdf"
              let tempURL = FileManager.default.temporaryDirectory
                  .appendingPathComponent(fileName)
              try data.write(to: tempURL)
              previewURL = tempURL
-
+             // Present PDF preview
              let previewController = QLPreviewController()
              previewController.dataSource = self
              present(previewController, animated: true)
@@ -173,6 +166,7 @@ final class PrescriptionPageViewController: UIViewController {
  extension PrescriptionPageViewController {
 
      private func createLoadingAlert() -> UIAlertController {
+         // Create loading alert with spinner
          let alert = UIAlertController(
              title: "Downloading...",
              message: "\n\n",
