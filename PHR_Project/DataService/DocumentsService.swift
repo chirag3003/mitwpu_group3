@@ -32,6 +32,7 @@ class DocumentService {
     func getAllReports() -> [ReportModel] {
         return reports
     }
+    
 }
 
 class PrescriptionService {
