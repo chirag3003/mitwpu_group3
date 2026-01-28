@@ -47,8 +47,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xw-jM-EW0">
                                                     <rect key="frame" x="8" y="4" width="345" height="55"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pRe-Oz-iEl">
-                                                            <rect key="frame" x="1" y="0.0" width="345" height="55"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pRe-Oz-iEl">
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="55"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tew-VD-BHQ">
                                                                     <rect key="frame" x="16" y="11.666666666666664" width="35" height="32"/>
@@ -982,6 +982,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="reportDatePicker" destination="PAO-Br-DJp" id="giM-qv-J5h"/>
+                        <outlet property="reportNameLabel" destination="HMX-zI-tlS" id="Obo-fU-YXp"/>
+                        <outlet property="uploadFileButton" destination="Hnm-Ug-FBp" id="Fml-Yz-a0K"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJq-2B-3Pw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1084,6 +1089,9 @@
                                                     <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="8">
                                                         <color key="baseForegroundColor" systemColor="linkColor"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="uploadFileButtonTapped:" destination="y1b-wP-vAh" eventType="touchUpInside" id="jDh-Sb-KhA"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1108,7 +1116,16 @@
                                 <action selector="closeButton:" destination="y1b-wP-vAh" id="I6Y-8Y-d8a"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="jR6-B9-Uv9">
+                            <connections>
+                                <action selector="doneButton:" destination="y1b-wP-vAh" id="26Y-kx-OIV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="prescriptionDatePicker" destination="Maz-d4-UZU" id="0Kg-Lw-ys9"/>
+                        <outlet property="uploadFileButton" destination="hAr-zT-3Ij" id="65j-aZ-ac9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvI-BZ-rfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
