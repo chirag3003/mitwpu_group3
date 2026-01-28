@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -941,14 +942,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hnm-Ug-FBp">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hnm-Ug-FBp">
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="wD2-rm-kgK"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="25"/>
+                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="8">
+                                                        <color key="baseForegroundColor" name="AccentColor"/>
+                                                    </buttonConfiguration>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1031,23 +1034,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <sections>
+                            <tableViewSection id="XWo-2j-u25">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="OZk-WN-TlH">
+                                        <rect key="frame" x="20" y="18" width="353" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OZk-WN-TlH" id="xTF-Ai-xRe">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prescription date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcV-jM-jY8">
+                                                    <rect key="frame" x="16" y="15" width="129.66666666666666" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-d4-UZU">
+                                                    <rect key="frame" x="160.66666666666663" y="8.3333333333333321" width="176.33333333333337" height="34.333333333333343"/>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fcV-jM-jY8" firstAttribute="leading" secondItem="xTF-Ai-xRe" secondAttribute="leadingMargin" id="6QL-Ka-IdD"/>
+                                                <constraint firstItem="Maz-d4-UZU" firstAttribute="width" secondItem="xTF-Ai-xRe" secondAttribute="width" multiplier="0.5" id="7hX-ma-k09"/>
+                                                <constraint firstAttribute="trailing" secondItem="Maz-d4-UZU" secondAttribute="trailing" constant="16" id="DSV-kg-ems"/>
+                                                <constraint firstItem="fcV-jM-jY8" firstAttribute="centerY" secondItem="xTF-Ai-xRe" secondAttribute="centerY" id="Jok-dO-1xX"/>
+                                                <constraint firstItem="Maz-d4-UZU" firstAttribute="centerY" secondItem="xTF-Ai-xRe" secondAttribute="centerY" id="zyN-1t-vVS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="VDs-UP-nBu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="rQ1-4L-Ma5">
-                                        <rect key="frame" x="20" y="18" width="353" height="61"/>
+                                        <rect key="frame" x="20" y="105" width="353" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rQ1-4L-Ma5" id="m5x-IS-l8V">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAr-zT-3Ij">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAr-zT-3Ij">
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="vFg-Lk-ch9"/>
                                                     </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" systemColor="tertiarySystemBackgroundColor"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="25"/>
+                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="8">
+                                                        <color key="baseForegroundColor" name="AccentColor"/>
+                                                    </buttonConfiguration>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1105,6 +1140,9 @@
         <image name="line.3.horizontal.decrease" catalog="system" width="128" height="73"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="117" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
