@@ -952,6 +952,9 @@
                                                     <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="8">
                                                         <color key="baseForegroundColor" systemColor="linkColor"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="uploadFileButtonTapped:" destination="h7u-RI-fjW" eventType="touchUpInside" id="muS-UA-iCI"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
