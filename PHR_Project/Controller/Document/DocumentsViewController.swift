@@ -16,7 +16,6 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
-
     // Properties
 
     private var doctorsData: [DocDoctor] = []  // Doctors who wrote prescriptions
@@ -24,7 +23,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     private var isNewestFirst = true
     private var previewURL: URL?
     private var isDeleting = false
-    
+
     // Family Members
     var familyMember: FamilyMember?
     // Date Formattter for sorting
@@ -39,16 +38,26 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         super.viewDidLoad()
         setupTableView()
         loadData()
-    // Set title based on family member
-        if(familyMember != nil){
+        // Set title based on family member
+        if familyMember != nil {
             self.title = "\(familyMember!.name)'s Documents"
         } else {
             self.title = "Documents"
         }
-        
+
         // Listen for API data updates
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DoctorsUpdated"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshData),
+            name: NSNotification.Name("DocumentsUpdated"),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshData),
+            name: NSNotification.Name("DoctorsUpdated"),
+            object: nil
+        )
     }
 
     // MARK: - Setup
@@ -64,7 +73,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         doctorsData = DocDoctorService.shared.getDoctors()
         reportsData = DocumentService.shared.getAllReports()
     }
-    
+
     @objc private func refreshData() {
         doctorsData = DocDoctorService.shared.getDoctors()
         reportsData = DocumentService.shared.getAllReports()
@@ -81,15 +90,15 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBAction func onDataSwitch(_ sender: Any) {
         documentTableView.reloadData()
     }
-     // Toggle sort order
+    // Toggle sort order
     @IBAction func didTapFilterButton() {
         isNewestFirst.toggle()
         sortData()
-    // Haptic feedback
+        // Haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
-    
+
     @IBAction func didTapPlusButton(_ sender: Any) {
         if dataSegment.selectedSegmentIndex == 0 {
             // Prescriptions segment - Show Add Details modal
@@ -99,37 +108,38 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
             showDocumentUploadModal()
         }
     }
-    
-    
-    
+
     // MARK: - Navigation
-    
+
     private func showAddDetailsModal() {
         // Present Add Details Table View Controller
         let storyboard = UIStoryboard(name: "Documents", bundle: nil)
-        if let navController = storyboard.instantiateViewController(withIdentifier: "AddDetailsNavViewController") as? UINavigationController {
+        if let navController = storyboard.instantiateViewController(
+            withIdentifier: "AddDetailsNavViewController"
+        ) as? UINavigationController {
             navController.modalPresentationStyle = .pageSheet
             present(navController, animated: true)
         }
     }
-    
+
     private func showDocumentUploadModal() {
         // Present Document Upload View Controller
         let storyboard = UIStoryboard(name: "Documents", bundle: nil)
-        if let uploadVC = storyboard.instantiateViewController(withIdentifier: "DocumentUploadNavViewController") as? UINavigationController {
+        if let uploadVC = storyboard.instantiateViewController(
+            withIdentifier: "DocumentUploadNavViewController"
+        ) as? UINavigationController {
             uploadVC.modalPresentationStyle = .pageSheet
             present(uploadVC, animated: true)
         }
     }
 
-
     // MARK: - Sorting
     // Sort based on selected segment
     private func sortData() {
         if dataSegment.selectedSegmentIndex == 0 {
-//            doctorsData.sort {
-//                compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
-//            }
+            //            doctorsData.sort {
+            //                compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
+            //            }
         } else {
             reportsData.sort {
                 compareByDate($0.lastUpdatedAt, $1.lastUpdatedAt)
@@ -283,19 +293,14 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        
+
         tableView.deselectRow(at: indexPath, animated: true)
         if dataSegment.selectedSegmentIndex == 1 {
-            
+
             // Reports - Open PDF
-            let dummyPDFLink =
-                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-
-            _ = reportsData[indexPath.row]
-
-            let urlToOpen = dummyPDFLink  // Default to dummy
-
-            showPDFPreview(for: urlToOpen)
+            if let urlToOpen = reportsData[indexPath.row].pdfUrl {
+                showPDFPreview(for: urlToOpen)
+            }
 
         } else {
             // Doctors - Navigate to prescriptions for this doctor
@@ -303,9 +308,9 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
         }
     }
-    
+
     // MARK: - Delete Functionality
-    
+
     func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,
@@ -313,22 +318,19 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         if editingStyle == .delete {
             isDeleting = true
-            
+
             if dataSegment.selectedSegmentIndex == 0 {
-                
+
                 doctorsData.remove(at: indexPath.row)
-                
-                
+
             } else {
-                
+
                 reportsData.remove(at: indexPath.row)
-               
+
             }
-            
-           
+
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.isDeleting = false
             }
@@ -337,7 +339,9 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "prescriptionsSegue" {
-            if let destinationVC = segue.destination as? PrescriptionPageViewController {
+            if let destinationVC = segue.destination
+                as? PrescriptionPageViewController
+            {
                 // Pass selected doctor info
                 if let doctor = sender as? DocDoctor {
                     destinationVC.selectedDoctor = doctor
