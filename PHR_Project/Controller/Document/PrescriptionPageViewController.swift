@@ -60,6 +60,31 @@ final class PrescriptionPageViewController: UIViewController {
      @objc private func refreshData() {
          loadData()
      }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Check if navigating to PrescriptionUploadTableViewController
+        if let navController = segue.destination as? UINavigationController,
+           let uploadVC = navController.topViewController as? PrescriptionUploadTableViewController {
+            
+            print("✅ Preparing segue to PrescriptionUploadTableViewController")
+            
+            // Pass the doctor information
+            uploadVC.selectedDoctor = selectedDoctor
+            uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
+            
+            print("🔍 Passed doctor: \(uploadVC.selectedDoctor?.name ?? "nil")")
+            print("🔍 Passed doctorName: \(uploadVC.doctorName ?? "nil")")
+        }
+        // You can also check for other segues here if needed
+        else if let uploadVC = segue.destination as? PrescriptionUploadTableViewController {
+            print("✅ Found direct PrescriptionUploadTableViewController")
+            
+            uploadVC.selectedDoctor = selectedDoctor
+            uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
+        }
+    }
+    
+    
  }
 
  // MARK: - UITableViewDataSource

@@ -3,7 +3,7 @@ import UIKit
 class DocumentUploadViewController: UITableViewController   {
     //  MARK: -IBOutlets
     
-   // @IBOutlet weak var scanFileView: UIView!
+
     
     // MARK: - Lifecycle
     

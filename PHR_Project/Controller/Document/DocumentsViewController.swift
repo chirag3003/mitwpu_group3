@@ -23,6 +23,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     private var reportsData: [ReportModel] = []
     private var isNewestFirst = true
     private var previewURL: URL?
+    private var isDeleting = false
     
     // Family Members
     var familyMember: FamilyMember?
@@ -300,6 +301,37 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             // Doctors - Navigate to prescriptions for this doctor
             let doctor = doctorsData[indexPath.row]
             performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
+        }
+    }
+    
+    // MARK: - Delete Functionality
+    
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            isDeleting = true
+            
+            if dataSegment.selectedSegmentIndex == 0 {
+                
+                doctorsData.remove(at: indexPath.row)
+                
+                
+            } else {
+                
+                reportsData.remove(at: indexPath.row)
+               
+            }
+            
+           
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.isDeleting = false
+            }
         }
     }
 

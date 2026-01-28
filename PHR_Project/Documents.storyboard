@@ -748,7 +748,7 @@
                     <navigationItem key="navigationItem" id="5i6-zf-pbA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vLF-pN-9iX">
                             <connections>
-                                <segue destination="uIj-tR-Lho" kind="presentation" id="GJo-0p-vUn"/>
+                                <segue destination="Uez-Y2-Dp6" kind="presentation" id="EIR-mt-oL5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -870,7 +870,7 @@
             <objects>
                 <tableViewController id="h7u-RI-fjW" customClass="DocumentUploadViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="7Dd-Ta-UuQ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <sections>
@@ -883,8 +883,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ian-Sw-lgk">
-                                                    <rect key="frame" x="16" y="15" width="75.666666666666671" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ian-Sw-lgk">
+                                                    <rect key="frame" x="16.000000000000007" y="15" width="100.66666666666669" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1010,7 +1010,7 @@
                 <navigationController storyboardIdentifier="DocumentUploadNavViewController" automaticallyAdjustsScrollViewInsets="NO" id="uIj-tR-Lho" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0kS-tO-r8i">
-                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1021,6 +1021,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VH3-tk-92I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4893.8931297709923" y="291.54929577464787"/>
+        </scene>
+        <!--Prescription Upload Table View Controller-->
+        <scene sceneID="n5L-Ye-6AJ">
+            <objects>
+                <tableViewController storyboardIdentifier="PrescriptionUploadTableViewController" id="y1b-wP-vAh" customClass="PrescriptionUploadTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="JVr-LV-vXQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <sections>
+                            <tableViewSection id="VDs-UP-nBu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="rQ1-4L-Ma5">
+                                        <rect key="frame" x="20" y="18" width="353" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rQ1-4L-Ma5" id="m5x-IS-l8V">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAr-zT-3Ij">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="vFg-Lk-ch9"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="filled" image="square.and.arrow.up.fill" catalog="system" title="Upload Document" imagePadding="25"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="hAr-zT-3Ij" secondAttribute="trailing" id="CvK-cV-Dtz"/>
+                                                <constraint firstAttribute="bottom" secondItem="hAr-zT-3Ij" secondAttribute="bottom" id="FXD-4k-Sg5"/>
+                                                <constraint firstItem="hAr-zT-3Ij" firstAttribute="leading" secondItem="m5x-IS-l8V" secondAttribute="leading" id="fVi-7e-0hR"/>
+                                                <constraint firstItem="hAr-zT-3Ij" firstAttribute="top" secondItem="m5x-IS-l8V" secondAttribute="top" id="gKC-jt-9T5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="y1b-wP-vAh" id="c6y-pr-qWP"/>
+                            <outlet property="delegate" destination="y1b-wP-vAh" id="qhl-aZ-Ker"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="vH6-Yq-NFe">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="b2O-lb-ABb">
+                            <connections>
+                                <action selector="closeButton:" destination="y1b-wP-vAh" id="I6Y-8Y-d8a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RvI-BZ-rfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2960" y="1799"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OU6-Yw-ZJg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Uez-Y2-Dp6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Aj5-Ut-0JS">
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y1b-wP-vAh" kind="relationship" relationship="rootViewController" id="Si4-T3-H4n"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aM9-tC-EjV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2228" y="1799"/>
         </scene>
     </scenes>
     <resources>
