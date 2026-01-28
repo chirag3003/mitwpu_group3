@@ -8,27 +8,23 @@ class FamilyService {
     private init() {
         familyMembers = [
             FamilyMember(
+                name: "Chirag",
+                imageName: "https://phr.chirag.codes/uploads/1769583482384-Chirag.png",
+                isMe: false
+            ),
+            FamilyMember(
                 name: "Ved",
-                imageName:
-                    "https://phr.chirag.codes/uploads/1769158255033-Ved.png",
+                imageName: "https://phr.chirag.codes/uploads/1769583482463-Ved.png",
                 isMe: false
             ),
             FamilyMember(
                 name: "Sushant",
-                imageName:
-                    "https://phr.chirag.codes/uploads/1769158254993-Sushant.png",
-                isMe: false
-            ),
-            FamilyMember(
-                name: "Chirag",
-                imageName:
-                    "https://phr.chirag.codes/uploads/1769158255001-Chirag.png",
+                imageName: "https://phr.chirag.codes/uploads/1769583482454-Sushant.png",
                 isMe: false
             ),
             FamilyMember(
                 name: "Sanchita",
-                imageName:
-                    "https://phr.chirag.codes/uploads/1769158254962-Sanchita.jpeg",
+                imageName: "https://phr.chirag.codes/uploads/1769583482442-Sanchita.jpeg",
                 isMe: false
             ),
         ]
