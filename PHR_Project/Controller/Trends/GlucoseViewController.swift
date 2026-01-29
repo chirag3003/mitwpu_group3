@@ -53,6 +53,9 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     var familyMember: FamilyMember?
 
     private let chartViewModel = ChartViewModel()
+    
+    // Insights data from API
+    private var glucoseInsights: GlucoseInsightsResponse?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,6 +66,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         setupChart()
         setupStyling()
         setupEmptyState()
+        setupInsightCards()
 
         // Listen for updates
         NotificationCenter.default.addObserver(
@@ -75,12 +79,65 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         // Initial Fetch
         GlucoseService.shared.fetchReadings()
         updateDataFromService()
+        
+        // Fetch AI insights from API
+        fetchGlucoseInsights()
 
         //Setting up family member details
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Glucose"
         } else {
             self.title = "Glucose"
+        }
+    }
+    
+    // MARK: - Insights API
+    
+    private func setupInsightCards() {
+        // Show first cards with loading placeholder, hide second pattern
+        hightlight1View.isHidden = false
+        highlight1Title.text = "Loading Insights..."
+        highlight1Description.text = "Analyzing your glucose data"
+        
+        pattern1View.isHidden = false
+        pattern1Title.text = "Loading Patterns..."
+        pattern1Description.text = "Detecting glucose patterns"
+        
+        pattern2View.isHidden = true
+    }
+    
+    private func fetchGlucoseInsights() {
+        InsightsService.shared.fetchGlucoseInsights { [weak self] response in
+            guard let self = self, let insights = response else { return }
+            
+            self.glucoseInsights = insights
+            self.updateInsightsUI(with: insights)
+        }
+    }
+    
+    private func updateInsightsUI(with response: GlucoseInsightsResponse) {
+        // Update highlight card with first insight
+        if response.insights.count >= 1 {
+            let insight = response.insights[0]
+            highlight1Title.text = insight.title
+            highlight1Description.text = insight.description
+            hightlight1View.backgroundColor = insight.type.color.withAlphaComponent(0.15)
+            hightlight1View.isHidden = false
+        }
+        
+        // Update pattern cards
+        if response.patterns.count >= 1 {
+            let pattern = response.patterns[0]
+            pattern1Title.text = pattern.pattern
+            pattern1Description.text = "\(pattern.frequency)\n\(pattern.recommendation)"
+            pattern1View.isHidden = false
+        }
+        
+        if response.patterns.count >= 2 {
+            let pattern = response.patterns[1]
+            pattern2Title.text = pattern.pattern
+            pattern2Description.text = "\(pattern.frequency)\n\(pattern.recommendation)"
+            pattern2View.isHidden = false
         }
     }
 
