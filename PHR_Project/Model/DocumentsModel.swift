@@ -122,6 +122,7 @@ extension Document {
     var asLegacyReportModel: ReportModel {
         return ReportModel(
             id: UUID(),
+            apiID: apiID,
             title: title ?? "Report",
             lastUpdatedAt: formattedDate,
             pdfUrl: fileUrl
@@ -139,6 +140,7 @@ struct documentsModel: Codable {
 
 struct ReportModel {
     let id: UUID
+    var apiID: String?  // API ID for delete operations
     let title: String
     let lastUpdatedAt: String
     var pdfUrl: String?

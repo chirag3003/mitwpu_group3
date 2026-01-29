@@ -320,17 +320,16 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             isDeleting = true
 
             if dataSegment.selectedSegmentIndex == 0 {
-
-                doctorsData.remove(at: indexPath.row)
-
+                let doctor = doctorsData[indexPath.row]
+                if let doctorId = doctor.apiID {
+                    DocDoctorService.shared.deleteDoctor(id: doctorId)
+                }
             } else {
-
-                reportsData.remove(at: indexPath.row)
-
+                let report = reportsData[indexPath.row]
+                if let reportId = report.apiID {
+                    DocumentService.shared.deleteDocument(id: reportId)
+                }
             }
-
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.isDeleting = false
             }
