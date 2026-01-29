@@ -57,14 +57,19 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     var hasScrolledToToday = false
 
     let sectionTitles = ["Breakfast", "Lunch", "Snacks", "Dinner"]
-    let tips: [String] = [
-        "Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability.",
-        "Replacing evening white rice with quinoa or millets reduces glucose spikes.",
-        "Having dinner at least 2 hours before bedtime leads to better fasting glucose.",
+    
+    // Insights data from API
+    private var mealInsights: MealInsightsResponse?
+    
+    // Placeholder text for loading state
+    private let defaultTips: [String] = [
+        "Loading tips...",
+        "Loading tips...",
+        "Loading tips...",
     ]
-    let insights: [String] = [
-        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL.",
-        "Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL.",
+    private let defaultInsights: [String] = [
+        "Loading insights...",
+        "Loading insights...",
     ]
 
     // MARK: Lifecycle
@@ -82,6 +87,9 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         updateTitle()
         updateMonthLabel(for: 15)
         updateStats()
+        
+        // Fetch AI insights from API
+        fetchMealInsights()
     }
 
     // Refresh meal list when returning to screen
@@ -156,22 +164,61 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     //Populate insight cards with text
     private func setupInsightCards() {
         insightOne.addRoundedCorner(radius: 20)
-        insightOneLabel.text = insights[0]
+        insightOneLabel.text = defaultInsights[0]
 
         insightTwo.addRoundedCorner(radius: 20)
-        insightTwoLabel.text = insights[1]
+        insightTwoLabel.text = defaultInsights[1]
     }
 
     //Populate tip cards with suggestions
     private func setupTipCards() {
         tipOne.addRoundedCorner(radius: 20)
-        tipOneLabel.text = tips[0]
+        tipOneLabel.text = defaultTips[0]
 
         tipTwo.addRoundedCorner(radius: 20)
-        tipTwoLabel.text = tips[1]
+        tipTwoLabel.text = defaultTips[1]
 
         tipThree.addRoundedCorner(radius: 20)
-        tipThreeLabel.text = tips[2]
+        tipThreeLabel.text = defaultTips[2]
+    }
+    
+    // MARK: - Insights API
+    
+    //Fetch meal insights from API and update UI
+    private func fetchMealInsights() {
+        InsightsService.shared.fetchMealInsights { [weak self] response in
+            guard let self = self, let insights = response else { return }
+            
+            self.mealInsights = insights
+            self.updateInsightsUI(with: insights)
+        }
+    }
+    
+    //Update insight and tip cards with API data
+    private func updateInsightsUI(with response: MealInsightsResponse) {
+        // Update insight cards
+        if response.insights.count >= 1 {
+            insightOneLabel.text = response.insights[0].description
+            insightOne.backgroundColor = response.insights[0].type.color.withAlphaComponent(0.15)
+        }
+        if response.insights.count >= 2 {
+            insightTwoLabel.text = response.insights[1].description
+            insightTwo.backgroundColor = response.insights[1].type.color.withAlphaComponent(0.15)
+        }
+        
+        // Update tip cards
+        if response.tips.count >= 1 {
+            tipOneLabel.text = response.tips[0].description
+            tipOne.backgroundColor = response.tips[0].priority.color.withAlphaComponent(0.15)
+        }
+        if response.tips.count >= 2 {
+            tipTwoLabel.text = response.tips[1].description
+            tipTwo.backgroundColor = response.tips[1].priority.color.withAlphaComponent(0.15)
+        }
+        if response.tips.count >= 3 {
+            tipThreeLabel.text = response.tips[2].description
+            tipThree.backgroundColor = response.tips[2].priority.color.withAlphaComponent(0.15)
+        }
     }
 
     //Listen for meal changes from other screens
