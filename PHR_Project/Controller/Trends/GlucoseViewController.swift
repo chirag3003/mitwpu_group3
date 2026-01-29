@@ -19,10 +19,24 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         label.textColor = .secondaryLabel
         return label
     }()
-    @IBOutlet weak var postDinnerSecondView: UIView!
-    @IBOutlet weak var exerciseBenefitsView: UIView!
-    @IBOutlet weak var postDinnerView: UIView!
-    @IBOutlet weak var iapView: UIView!
+    
+    //Pattern2
+    @IBOutlet weak var pattern2Description: UILabel!
+    @IBOutlet weak var pattern2Title: UILabel!
+    @IBOutlet weak var pattern2View: UIView!
+    
+    //Pattern
+    @IBOutlet weak var pattern1Description: UILabel!
+    @IBOutlet weak var pattern1Title: UILabel!
+    @IBOutlet weak var pattern1View: UIView!
+    
+    //Highlights
+    @IBOutlet weak var highlight1Description: UILabel!
+    @IBOutlet weak var highlight1Title: UILabel!
+    @IBOutlet weak var hightlight1View: UIView!
+    
+    
+    
     @IBOutlet weak var maxView: UIView!
     @IBOutlet weak var minView: UIView!
     @IBOutlet weak var avgView: UIView!
@@ -254,10 +268,9 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         minView.addDropShadow()
         maxView.addRoundedCorner()
         maxView.addDropShadow()
-        iapView.addRoundedCorner(radius: 20)
-        postDinnerView.addRoundedCorner(radius: 20)
-        exerciseBenefitsView.addRoundedCorner(radius: 20)
-        postDinnerSecondView.addRoundedCorner(radius: 20)
+        hightlight1View.addRoundedCorner(radius: 20)
+        pattern1View.addRoundedCorner(radius: 20)
+        pattern2View.addRoundedCorner(radius: 20)
         glucoseGraphStack.setCustomSpacing(-5, after: glucoseValueStack)
     }
 }
