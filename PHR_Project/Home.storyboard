@@ -1343,7 +1343,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ub-sl-SkY">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="819.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="829.66666666666663"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kEQ-D4-BZz">
                                                 <rect key="frame" x="16" y="8" width="361" height="32"/>
@@ -1417,7 +1417,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pz7-sL-BJv">
-                                                <rect key="frame" x="16" y="439" width="361" height="113.33333333333337"/>
+                                                <rect key="frame" x="16" y="439" width="361" height="108.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Highlights" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Fo-eG-lM8">
                                                         <rect key="frame" x="0.0" y="8" width="361" height="14.333333333333336"/>
@@ -1426,10 +1426,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Vf-Ag-DRc">
-                                                        <rect key="frame" x="0.0" y="30.333333333333371" width="361" height="75"/>
+                                                        <rect key="frame" x="0.0" y="30.333333333333371" width="361" height="70"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dE1-5g-9p5">
-                                                                <rect key="frame" x="8" y="19.333333333333293" width="40" height="37"/>
+                                                                <rect key="frame" x="8" y="16.666666666666664" width="40" height="37"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="Vgk-2E-u0I"/>
@@ -1442,10 +1442,9 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You averaged a healthy 4864 steps a day over the last 7 days." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2P-hI-ijb">
-                                                                <rect key="frame" x="56" y="28.333333333333258" width="306" height="35"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You averaged a healthy 4864 steps a day over the last 7 days." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2P-hI-ijb">
+                                                                <rect key="frame" x="56" y="32.333333333333258" width="306" height="28.666666666666671"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="on9-ee-nwb"/>
                                                                     <constraint firstAttribute="width" constant="306" id="zuW-k4-A4G"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
@@ -1455,12 +1454,12 @@
                                                         </subviews>
                                                         <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="75" id="5n8-Cz-acV"/>
+                                                            <constraint firstAttribute="height" constant="70" id="5n8-Cz-acV"/>
                                                             <constraint firstItem="Ycr-PR-eD6" firstAttribute="top" secondItem="2Vf-Ag-DRc" secondAttribute="top" constant="16" id="CQW-EL-gyF"/>
                                                             <constraint firstItem="D2P-hI-ijb" firstAttribute="leading" secondItem="dE1-5g-9p5" secondAttribute="trailing" constant="8" id="Fnu-ZD-vOh"/>
                                                             <constraint firstItem="dE1-5g-9p5" firstAttribute="leading" secondItem="2Vf-Ag-DRc" secondAttribute="leading" constant="8" id="aQP-rx-0dL"/>
                                                             <constraint firstItem="dE1-5g-9p5" firstAttribute="centerY" secondItem="2Vf-Ag-DRc" secondAttribute="centerY" id="ohb-gT-MFA"/>
-                                                            <constraint firstItem="D2P-hI-ijb" firstAttribute="top" secondItem="Ycr-PR-eD6" secondAttribute="bottom" constant="-2" id="x2F-37-NnW"/>
+                                                            <constraint firstItem="D2P-hI-ijb" firstAttribute="top" secondItem="Ycr-PR-eD6" secondAttribute="bottom" constant="2" id="x2F-37-NnW"/>
                                                             <constraint firstItem="Ycr-PR-eD6" firstAttribute="leading" secondItem="dE1-5g-9p5" secondAttribute="trailing" constant="8" id="zK6-yt-gIH"/>
                                                         </constraints>
                                                     </view>
@@ -1468,7 +1467,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yPn-ok-3Dr">
-                                                <rect key="frame" x="16" y="562.33333333333337" width="361" height="249.33333333333337"/>
+                                                <rect key="frame" x="16" y="557.33333333333337" width="361" height="264.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detected Pattern" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-Qf-9AO">
                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="14.333333333333334"/>
@@ -1477,10 +1476,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-kz-Rid">
-                                                        <rect key="frame" x="0.0" y="22.333333333333258" width="361" height="65"/>
+                                                        <rect key="frame" x="0.0" y="22.333333333333258" width="361" height="70"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gtn-gI-zei">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
+                                                                <rect key="frame" x="8" y="16.333333333333332" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="4bJ-tj-4pO"/>
@@ -1488,13 +1487,13 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're walking more than you do on a typical day." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-Hv-w0F">
-                                                                <rect key="frame" x="56" y="16" width="296.66666666666669" height="10.333333333333336"/>
+                                                                <rect key="frame" x="56" y="16" width="296.66666666666669" height="14.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You have already recorded 5472 steps today, more than your average of 4864 steps." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7B-Sa-hqJ">
-                                                                <rect key="frame" x="56" y="28.333333333333371" width="306" height="28.666666666666671"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You have already recorded 5472 steps today, more than your average of 4864 steps." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7B-Sa-hqJ">
+                                                                <rect key="frame" x="56" y="32.333333333333371" width="306" height="29.666666666666671"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="306" id="Wn3-kG-Ohv"/>
                                                                 </constraints>
@@ -1510,16 +1509,16 @@
                                                             <constraint firstItem="G7B-Sa-hqJ" firstAttribute="leading" secondItem="Gtn-gI-zei" secondAttribute="trailing" constant="8" id="EX0-yd-q2t"/>
                                                             <constraint firstItem="G7B-Sa-hqJ" firstAttribute="top" secondItem="jY6-Hv-w0F" secondAttribute="bottom" constant="2" id="M3S-sQ-whI"/>
                                                             <constraint firstItem="Gtn-gI-zei" firstAttribute="leading" secondItem="n9a-kz-Rid" secondAttribute="leading" constant="8" id="VMa-ff-1Je"/>
-                                                            <constraint firstAttribute="height" constant="65" id="Y9W-eh-jV4"/>
+                                                            <constraint firstAttribute="height" constant="70" id="Y9W-eh-jV4"/>
                                                             <constraint firstItem="jY6-Hv-w0F" firstAttribute="leading" secondItem="Gtn-gI-zei" secondAttribute="trailing" constant="8" id="cBR-sQ-5EE"/>
                                                             <constraint firstItem="Gtn-gI-zei" firstAttribute="centerY" secondItem="n9a-kz-Rid" secondAttribute="centerY" id="vgS-ph-wyo"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZB-Kg-wh7">
-                                                        <rect key="frame" x="0.0" y="95.333333333333258" width="361" height="65"/>
+                                                        <rect key="frame" x="0.0" y="100.33333333333326" width="361" height="70"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.downtrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OoP-T6-Dzo">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
+                                                                <rect key="frame" x="8" y="16.333333333333332" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="1aR-Fp-qaU"/>
@@ -1527,13 +1526,13 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise Benefits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGe-6e-jUa">
-                                                                <rect key="frame" x="55.999999999999993" y="16" width="104.33333333333331" height="10.333333333333336"/>
+                                                                <rect key="frame" x="55.999999999999993" y="16" width="104.33333333333331" height="14.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You are burning more calories than usual during your morning walks." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UD-Ni-n93">
-                                                                <rect key="frame" x="56" y="28.333333333333371" width="300" height="28.666666666666671"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You are burning more calories than usual during your morning walks." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UD-Ni-n93">
+                                                                <rect key="frame" x="56" y="32.333333333333371" width="300" height="29.666666666666671"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="300" id="2RI-Ei-7e7"/>
                                                                 </constraints>
@@ -1550,15 +1549,15 @@
                                                             <constraint firstItem="0UD-Ni-n93" firstAttribute="top" secondItem="rGe-6e-jUa" secondAttribute="bottom" constant="2" id="bt9-Zt-4Fq"/>
                                                             <constraint firstItem="OoP-T6-Dzo" firstAttribute="centerY" secondItem="SZB-Kg-wh7" secondAttribute="centerY" id="ifs-ex-lwd"/>
                                                             <constraint firstItem="rGe-6e-jUa" firstAttribute="top" secondItem="SZB-Kg-wh7" secondAttribute="top" constant="16" id="pPZ-kR-wNI"/>
-                                                            <constraint firstAttribute="height" constant="65" id="vgf-NK-vS3"/>
+                                                            <constraint firstAttribute="height" constant="70" id="vgf-NK-vS3"/>
                                                             <constraint firstItem="OoP-T6-Dzo" firstAttribute="leading" secondItem="SZB-Kg-wh7" secondAttribute="leading" constant="8" id="wbM-Yd-RZ2"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52m-Ul-h5T">
-                                                        <rect key="frame" x="0.0" y="168.33333333333326" width="361" height="65"/>
+                                                        <rect key="frame" x="0.0" y="178.33333333333326" width="361" height="70"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DEE-Ir-9ah">
-                                                                <rect key="frame" x="8" y="14.000000000000075" width="40" height="37.333333333333343"/>
+                                                                <rect key="frame" x="8" y="16.333333333333332" width="40" height="37.333333333333343"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="RxC-AJ-yQj"/>
@@ -1571,8 +1570,8 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are averaging 3% more steps in 2026 as compared to 2025" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAD-UA-Tr7">
-                                                                <rect key="frame" x="56" y="30.333333333333371" width="306" height="28.666666666666671"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You are averaging 3% more steps in 2026 as compared to 2025" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAD-UA-Tr7">
+                                                                <rect key="frame" x="56" y="32.333333333333371" width="306" height="28.666666666666671"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="306" id="6e5-Vf-GRU"/>
                                                                 </constraints>
@@ -1585,8 +1584,8 @@
                                                         <constraints>
                                                             <constraint firstItem="JAD-UA-Tr7" firstAttribute="leading" secondItem="DEE-Ir-9ah" secondAttribute="trailing" constant="8" id="9Ag-o3-3AZ"/>
                                                             <constraint firstItem="DEE-Ir-9ah" firstAttribute="centerY" secondItem="52m-Ul-h5T" secondAttribute="centerY" id="Zrg-IM-caP"/>
-                                                            <constraint firstAttribute="height" constant="65" id="bC4-f4-jwM"/>
-                                                            <constraint firstItem="JAD-UA-Tr7" firstAttribute="top" secondItem="2Gu-Vb-5cR" secondAttribute="bottom" id="efO-UN-Lvz"/>
+                                                            <constraint firstAttribute="height" constant="70" id="bC4-f4-jwM"/>
+                                                            <constraint firstItem="JAD-UA-Tr7" firstAttribute="top" secondItem="2Gu-Vb-5cR" secondAttribute="bottom" constant="2" id="efO-UN-Lvz"/>
                                                             <constraint firstItem="2Gu-Vb-5cR" firstAttribute="top" secondItem="52m-Ul-h5T" secondAttribute="top" constant="16" id="nR0-b6-7R7"/>
                                                             <constraint firstItem="2Gu-Vb-5cR" firstAttribute="leading" secondItem="DEE-Ir-9ah" secondAttribute="trailing" constant="8" id="uTM-WA-ay7"/>
                                                             <constraint firstItem="DEE-Ir-9ah" firstAttribute="leading" secondItem="52m-Ul-h5T" secondAttribute="leading" constant="8" id="vQf-l2-ZTS"/>
