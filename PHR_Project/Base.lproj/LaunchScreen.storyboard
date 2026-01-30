@@ -3,7 +3,6 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +25,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="AppPrimaryBackground"/>
+                        <color key="backgroundColor" red="0.20784313725490194" green="0.21911622580000001" blue="0.2301025689" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="foT-j7-FK6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4K1-Fl-edy"/>
                             <constraint firstItem="foT-j7-FK6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zfT-qt-tFk"/>
@@ -40,8 +39,5 @@
     </scenes>
     <resources>
         <image name="DiabetEase" width="497" height="497"/>
-        <namedColor name="AppPrimaryBackground">
-            <color red="0.84299999475479126" green="0.93699997663497925" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>
