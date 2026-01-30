@@ -535,6 +535,47 @@
             </objects>
             <point key="canvasLocation" x="737" y="463"/>
         </scene>
+        <!--Family List Table View Controller-->
+        <scene sceneID="0a8-f1-Tul">
+            <objects>
+                <tableViewController id="fK8-mj-G7x" customClass="FamilyListTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="iIg-Xe-Cf9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="familyListItem" textLabel="n0P-Te-Die" style="IBUITableViewCellStyleDefault" id="Z46-cG-Ka0">
+                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z46-cG-Ka0" id="b7L-ca-dDx">
+                                    <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="51"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n0P-Te-Die">
+                                            <rect key="frame" x="16" y="0.0" width="298.66666666666669" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fK8-mj-G7x" id="Z0y-lT-zeE"/>
+                            <outlet property="delegate" destination="fK8-mj-G7x" id="wPw-CC-xrD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="XpC-bx-UUi"/>
+                    <connections>
+                        <segue destination="gyh-HG-7mE" kind="show" identifier="familyDetailSegue" id="jgF-FY-62o"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vNd-Oi-dLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-599" y="-875"/>
+        </scene>
         <!--documentsStoryboard-->
         <scene sceneID="IX5-Wb-YXe">
             <objects>
@@ -568,7 +609,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gyh-HG-7mE" kind="relationship" relationship="rootViewController" id="fMe-SA-VfG"/>
+                        <segue destination="fK8-mj-G7x" kind="relationship" relationship="rootViewController" id="GwL-SN-pWh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w45-w6-lVn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
