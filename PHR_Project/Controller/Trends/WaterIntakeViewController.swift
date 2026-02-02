@@ -15,7 +15,6 @@ class WaterIntakeViewController: UIViewController {
     //insights
     @IBOutlet weak var insight1: UIView!
     @IBOutlet weak var insight2: UIView!
-    @IBOutlet weak var insight3: UIView!
     
     // MARK: - Properties
     var dates: MealDataStore = MealDataStore.shared
@@ -36,7 +35,7 @@ class WaterIntakeViewController: UIViewController {
         // View Styling
         insight1.addRoundedCorner(radius: 20)
         insight2.addRoundedCorner(radius: 20)
-        insight3.addRoundedCorner(radius: 20)
+        
         
         // Initial Progress Setup
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thick)
