@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="z13-QE-Zdq">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1246"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1252"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qzy-jd-DE0">
                                                 <rect key="frame" x="16" y="0.0" width="361" height="126.33333333333333"/>
@@ -328,7 +328,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VPR-Ib-D8i">
-                                                <rect key="frame" x="16" y="476.33333333333331" width="361" height="178.33333333333331"/>
+                                                <rect key="frame" x="16" y="476.33333333333331" width="361" height="184.33333333333331"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insights and Patterns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjJ-Wo-vTZ">
                                                         <rect key="frame" x="0.0" y="8" width="361" height="14.333333333333336"/>
@@ -337,16 +337,16 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="csz-JS-Lxp">
-                                                        <rect key="frame" x="0.0" y="30.333333333333258" width="361" height="70"/>
+                                                        <rect key="frame" x="0.0" y="30.333333333333258" width="361" height="73"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2I-pH-HVd">
-                                                                <rect key="frame" x="56" y="13" width="297" height="44"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2I-pH-HVd">
+                                                                <rect key="frame" x="56" y="15" width="297" height="43"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3qU-nS-MQE">
-                                                                <rect key="frame" x="8" y="16.666666666666664" width="40" height="37"/>
+                                                                <rect key="frame" x="8" y="18.333333333333407" width="40" height="37"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="WcT-Wm-Iie"/>
@@ -358,24 +358,25 @@
                                                         <constraints>
                                                             <constraint firstItem="v2I-pH-HVd" firstAttribute="leading" secondItem="3qU-nS-MQE" secondAttribute="trailing" constant="8" id="2C4-BO-bY2"/>
                                                             <constraint firstItem="v2I-pH-HVd" firstAttribute="centerY" secondItem="3qU-nS-MQE" secondAttribute="centerY" id="ALH-gy-Kga"/>
-                                                            <constraint firstItem="v2I-pH-HVd" firstAttribute="top" secondItem="csz-JS-Lxp" secondAttribute="top" constant="13" id="DDy-yg-jTJ"/>
+                                                            <constraint firstItem="v2I-pH-HVd" firstAttribute="top" secondItem="csz-JS-Lxp" secondAttribute="top" constant="15" id="DDy-yg-jTJ"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="G71-Lw-Aml"/>
                                                             <constraint firstItem="3qU-nS-MQE" firstAttribute="centerY" secondItem="csz-JS-Lxp" secondAttribute="centerY" id="Z57-gC-42R"/>
                                                             <constraint firstAttribute="trailing" secondItem="v2I-pH-HVd" secondAttribute="trailing" constant="8" id="a5O-y3-wnf"/>
-                                                            <constraint firstAttribute="height" constant="70" id="bYS-nK-hIf"/>
+                                                            <constraint firstAttribute="bottom" secondItem="v2I-pH-HVd" secondAttribute="bottom" constant="15" id="sbh-ew-hZz"/>
                                                             <constraint firstItem="3qU-nS-MQE" firstAttribute="leading" secondItem="csz-JS-Lxp" secondAttribute="leading" constant="8" id="uS4-V0-T4z"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Swa-Iy-eSk">
-                                                        <rect key="frame" x="0.0" y="108.33333333333326" width="361" height="70"/>
+                                                        <rect key="frame" x="0.0" y="111.33333333333326" width="361" height="73"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQU-Hp-ZtW">
-                                                                <rect key="frame" x="56" y="13" width="297" height="44"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your average post-lunch glucose this week was 165 mg/dL — higher than your breakfast average of 135 mg/dL." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQU-Hp-ZtW">
+                                                                <rect key="frame" x="56" y="15" width="297" height="43"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zVg-HR-SYe">
-                                                                <rect key="frame" x="8" y="16.666666666666664" width="40" height="37"/>
+                                                                <rect key="frame" x="8" y="18.333333333333407" width="40" height="37"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="YUk-s1-bdy"/>
@@ -387,10 +388,11 @@
                                                         <constraints>
                                                             <constraint firstItem="zVg-HR-SYe" firstAttribute="leading" secondItem="Swa-Iy-eSk" secondAttribute="leading" constant="8" id="9Xd-7U-7ig"/>
                                                             <constraint firstItem="dQU-Hp-ZtW" firstAttribute="leading" secondItem="zVg-HR-SYe" secondAttribute="trailing" constant="8" id="I7L-AI-xes"/>
+                                                            <constraint firstAttribute="bottom" secondItem="dQU-Hp-ZtW" secondAttribute="bottom" constant="15" id="aX5-0g-b71"/>
                                                             <constraint firstAttribute="trailing" secondItem="dQU-Hp-ZtW" secondAttribute="trailing" constant="8" id="e9c-Kf-0Y9"/>
-                                                            <constraint firstItem="dQU-Hp-ZtW" firstAttribute="top" secondItem="Swa-Iy-eSk" secondAttribute="top" constant="13" id="knm-10-YGo"/>
+                                                            <constraint firstItem="dQU-Hp-ZtW" firstAttribute="top" secondItem="Swa-Iy-eSk" secondAttribute="top" constant="15" id="knm-10-YGo"/>
                                                             <constraint firstItem="dQU-Hp-ZtW" firstAttribute="centerY" secondItem="zVg-HR-SYe" secondAttribute="centerY" id="mi2-ev-3Mo"/>
-                                                            <constraint firstAttribute="height" constant="70" id="yVe-rN-XYJ"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="mtv-CT-TaE"/>
                                                             <constraint firstItem="zVg-HR-SYe" firstAttribute="centerY" secondItem="Swa-Iy-eSk" secondAttribute="centerY" id="zSI-zL-BQB"/>
                                                         </constraints>
                                                     </view>
@@ -398,7 +400,7 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
                                             </stackView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V9Q-u8-jW0" customClass="MealItemCollectionView" customModule="PHR_Project" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="674.66666666666663" width="361" height="225"/>
+                                                <rect key="frame" x="16" y="680.66666666666663" width="361" height="225"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hhl-Ik-poF">
                                                     <size key="itemSize" width="128" height="128"/>
@@ -428,7 +430,7 @@
                                                 </collectionReusableView>
                                             </collectionView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-ej-efk">
-                                                <rect key="frame" x="16" y="919.66666666666674" width="361" height="50"/>
+                                                <rect key="frame" x="16" y="925.66666666666674" width="361" height="50"/>
                                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="qe9-bt-6ea"/>
@@ -443,7 +445,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Yd-K1-PJ4">
-                                                <rect key="frame" x="16" y="989.66666666666686" width="361" height="256.33333333333337"/>
+                                                <rect key="frame" x="16" y="995.66666666666686" width="361" height="256.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOu-wp-ZJc">
                                                         <rect key="frame" x="0.0" y="8" width="361" height="14.333333333333336"/>
@@ -454,8 +456,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gy6-6f-coE">
                                                         <rect key="frame" x="0.0" y="30.333333333333258" width="361" height="70"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ov9-K5-7Xx">
-                                                                <rect key="frame" x="46" y="13" width="307" height="44"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding 10 grams of protein(eg paneer or eggs) to breakfast improves glucose stability" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ov9-K5-7Xx">
+                                                                <rect key="frame" x="46" y="15" width="307" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -474,17 +476,18 @@
                                                             <constraint firstItem="jAa-2K-pqu" firstAttribute="leading" secondItem="gy6-6f-coE" secondAttribute="leading" constant="8" id="DH6-ds-r3i"/>
                                                             <constraint firstAttribute="trailing" secondItem="ov9-K5-7Xx" secondAttribute="trailing" constant="8" id="GEB-hJ-0Jc"/>
                                                             <constraint firstItem="ov9-K5-7Xx" firstAttribute="leading" secondItem="jAa-2K-pqu" secondAttribute="trailing" constant="8" id="Lca-26-6eS"/>
-                                                            <constraint firstAttribute="height" constant="70" id="XBX-bP-i0f"/>
                                                             <constraint firstItem="ov9-K5-7Xx" firstAttribute="centerY" secondItem="jAa-2K-pqu" secondAttribute="centerY" id="Y9Q-TX-K81"/>
-                                                            <constraint firstItem="ov9-K5-7Xx" firstAttribute="top" secondItem="gy6-6f-coE" secondAttribute="top" constant="13" id="ryG-S4-1bq"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="lFU-7k-M2y"/>
+                                                            <constraint firstItem="ov9-K5-7Xx" firstAttribute="top" secondItem="gy6-6f-coE" secondAttribute="top" constant="15" id="ryG-S4-1bq"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ov9-K5-7Xx" secondAttribute="bottom" constant="15" id="sfb-xB-5FY"/>
                                                             <constraint firstItem="jAa-2K-pqu" firstAttribute="centerY" secondItem="gy6-6f-coE" secondAttribute="centerY" id="zj8-kR-Gwe"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMF-wG-Jbc">
                                                         <rect key="frame" x="0.0" y="108.33333333333326" width="361" height="70"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replacing evening white rice with quinoa or millets reduces glucose spikes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gye-Ac-Odw">
-                                                                <rect key="frame" x="46" y="13" width="307" height="44"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replacing evening white rice with quinoa or millets reduces glucose spikes" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gye-Ac-Odw">
+                                                                <rect key="frame" x="46" y="15" width="307" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -500,9 +503,10 @@
                                                         </subviews>
                                                         <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="2Ku-WE-DUE"/>
                                                             <constraint firstItem="gye-Ac-Odw" firstAttribute="leading" secondItem="mQF-yh-7j9" secondAttribute="trailing" constant="8" id="BeP-UW-VCi"/>
-                                                            <constraint firstItem="gye-Ac-Odw" firstAttribute="top" secondItem="hMF-wG-Jbc" secondAttribute="top" constant="13" id="Etx-gf-ato"/>
-                                                            <constraint firstAttribute="height" constant="70" id="Ogz-nr-9qT"/>
+                                                            <constraint firstItem="gye-Ac-Odw" firstAttribute="top" secondItem="hMF-wG-Jbc" secondAttribute="top" constant="15" id="Etx-gf-ato"/>
+                                                            <constraint firstAttribute="bottom" secondItem="gye-Ac-Odw" secondAttribute="bottom" constant="15" id="UAX-rq-2lf"/>
                                                             <constraint firstAttribute="trailing" secondItem="gye-Ac-Odw" secondAttribute="trailing" constant="8" id="dRP-DA-0UV"/>
                                                             <constraint firstItem="mQF-yh-7j9" firstAttribute="leading" secondItem="hMF-wG-Jbc" secondAttribute="leading" constant="8" id="hso-tk-aGO"/>
                                                             <constraint firstItem="gye-Ac-Odw" firstAttribute="centerY" secondItem="mQF-yh-7j9" secondAttribute="centerY" id="qfg-2E-0Lp"/>
@@ -512,8 +516,8 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1l1-as-1Vq">
                                                         <rect key="frame" x="0.0" y="186.33333333333326" width="361" height="70"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Having dinner at least 2 hours before bedtime leads to better fasting glucose " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6k-6s-AEG">
-                                                                <rect key="frame" x="46" y="13" width="307" height="44"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Having dinner at least 2 hours before bedtime leads to better fasting glucose " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6k-6s-AEG">
+                                                                <rect key="frame" x="46" y="15" width="307" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -530,10 +534,11 @@
                                                         <color key="backgroundColor" name="insights_bg"/>
                                                         <constraints>
                                                             <constraint firstItem="q6k-6s-AEG" firstAttribute="centerY" secondItem="ghu-lS-ac1" secondAttribute="centerY" id="0SR-db-b5G"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="6DY-ny-oIF"/>
                                                             <constraint firstItem="q6k-6s-AEG" firstAttribute="leading" secondItem="ghu-lS-ac1" secondAttribute="trailing" constant="8" id="F98-hA-JKS"/>
                                                             <constraint firstItem="ghu-lS-ac1" firstAttribute="centerY" secondItem="1l1-as-1Vq" secondAttribute="centerY" id="N4t-yJ-Qbj"/>
-                                                            <constraint firstAttribute="height" constant="70" id="Std-jq-rlA"/>
-                                                            <constraint firstItem="q6k-6s-AEG" firstAttribute="top" secondItem="1l1-as-1Vq" secondAttribute="top" constant="13" id="dJe-O6-6yY"/>
+                                                            <constraint firstItem="q6k-6s-AEG" firstAttribute="top" secondItem="1l1-as-1Vq" secondAttribute="top" constant="15" id="dJe-O6-6yY"/>
+                                                            <constraint firstAttribute="bottom" secondItem="q6k-6s-AEG" secondAttribute="bottom" constant="15" id="eFc-Vo-THn"/>
                                                             <constraint firstItem="ghu-lS-ac1" firstAttribute="leading" secondItem="1l1-as-1Vq" secondAttribute="leading" constant="8" id="lTh-qq-y7m"/>
                                                             <constraint firstAttribute="trailing" secondItem="q6k-6s-AEG" secondAttribute="trailing" constant="8" id="v2M-UY-JLQ"/>
                                                         </constraints>
