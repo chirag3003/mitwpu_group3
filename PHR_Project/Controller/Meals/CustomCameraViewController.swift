@@ -16,6 +16,11 @@ protocol CustomCameraDelegate: AnyObject {
 
 class CustomCameraViewController: UIViewController {
 
+    
+    // Add this inside CustomCameraViewController class
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
     // MARK: - PROPERTIES
     weak var delegate: CustomCameraDelegate?
     
@@ -114,7 +119,25 @@ class CustomCameraViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // 1. Ensure the layer fills the screen
         previewLayer?.frame = view.layer.bounds
+        
+        // 2. FORCE THE ORIENTATION HERE
+        // This method runs after the view appears, so the connection is guaranteed to exist.
+        if let connection = previewLayer?.connection {
+            if #available(iOS 17.0, *) {
+                // Prefer the modern rotation angle API on iOS 17+
+                if connection.isVideoRotationAngleSupported(90) {
+                    connection.videoRotationAngle = 90
+                }
+            } else {
+                // Fallback for iOS < 17 using deprecated orientation API
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .portrait
+                }
+            }
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -209,20 +232,12 @@ class CustomCameraViewController: UIViewController {
     }
 
     // Initialize the visual preview layer
+    // In CustomCameraViewController.swift
+
     private func setupPreviewLayer() {
         let layer = AVCaptureVideoPreviewLayer(session: captureSession)
         layer.videoGravity = .resizeAspectFill
-        if let connection = layer.connection {
-            if #available(iOS 17.0, *) {
-                // Set rotation angle equivalent to portrait (0 degrees)
-                connection.videoRotationAngle = 0
-            } else {
-                // Fallback for iOS < 17
-                if connection.isVideoOrientationSupported {
-                    connection.videoOrientation = .portrait
-                }
-            }
-        }
+        
         self.previewLayer = layer
         view.layer.insertSublayer(layer, at: 0)
     }
