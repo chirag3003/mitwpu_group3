@@ -4,7 +4,7 @@ class ProfileService {
 
     static let shared = ProfileService()
 
-    // keep data in memory so the app can access it instantly without fetching every time
+    // Keep data in memory so the app can access it instantly without fetching every time
     private(set) var data: ProfileModel
 
     private init() {
