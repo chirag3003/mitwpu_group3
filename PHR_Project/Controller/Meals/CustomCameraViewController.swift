@@ -1,9 +1,4 @@
-//
-//  CustomCameraViewController.swift
-//  PHR_Project
-//
-//  Created by Sushant Pulipati on 12/12/25.
-//
+
 
 import UIKit
 import AVFoundation
@@ -17,7 +12,7 @@ protocol CustomCameraDelegate: AnyObject {
 class CustomCameraViewController: UIViewController {
 
     
-    // Add this inside CustomCameraViewController class
+    // MARK: - ORIENTATION
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -81,30 +76,19 @@ class CustomCameraViewController: UIViewController {
     }()
     
     private let manuallyLogButton: UIButton = {
-        let button = UIButton(type: .system)
-        if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.filled()
-            config.title = "Manually Log"
-            config.baseForegroundColor = .white
-            config.baseBackgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
-            config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-            button.configuration = config
-            button.layer.cornerRadius = 18
-            button.layer.masksToBounds = true
-            // Apply font using attributed title for UIButton.Configuration
-            var attributedTitle = AttributedString("Manually Log")
-            attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-            button.configuration?.attributedTitle = attributedTitle
-        } else {
-            // Fallback for iOS < 15
-            button.setTitle("Manually Log", for: .normal)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-            button.layer.cornerRadius = 18
-            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        }
-        return button
+        var config = UIButton.Configuration.filled()
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemGray.withAlphaComponent(0.5)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+        config.cornerStyle = .fixed               
+        config.background.cornerRadius = 18
+        
+        // One-liner for Font
+        config.attributedTitle = AttributedString("Manually Log", attributes: AttributeContainer([
+            .font: UIFont.systemFont(ofSize: 16, weight: .medium)
+        ]))
+        
+        return UIButton(configuration: config)
     }()
 
     // MARK: - LIFECYCLE
@@ -120,11 +104,10 @@ class CustomCameraViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // 1. Ensure the layer fills the screen
+        // Ensure the layer fills the screen
         previewLayer?.frame = view.layer.bounds
         
-        // 2. FORCE THE ORIENTATION HERE
-        // This method runs after the view appears, so the connection is guaranteed to exist.
+        // Orientation restrictions
         if let connection = previewLayer?.connection {
             if #available(iOS 17.0, *) {
                 // Prefer the modern rotation angle API on iOS 17+
@@ -232,7 +215,6 @@ class CustomCameraViewController: UIViewController {
     }
 
     // Initialize the visual preview layer
-    // In CustomCameraViewController.swift
 
     private func setupPreviewLayer() {
         let layer = AVCaptureVideoPreviewLayer(session: captureSession)
