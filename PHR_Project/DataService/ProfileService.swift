@@ -4,7 +4,7 @@ class ProfileService {
 
     static let shared = ProfileService()
 
-    // We keep data in memory so the app can access it instantly without fetching every time
+    // keep data in memory so the app can access it instantly without fetching every time
     private(set) var data: ProfileModel
 
     private init() {
@@ -20,8 +20,6 @@ class ProfileService {
         if let userEntity = CoreDataManager.shared.fetchUserProfile() {
 
             // Convert Core Data Entity to ProfileModel Struct
-
-            // We will interpret '0' or 'Not Set' strings as integer
 
             let heightInt = Int(userEntity.height ?? "") ?? 0
             let weightInt = Int(userEntity.weight ?? "") ?? 0
