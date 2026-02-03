@@ -123,7 +123,7 @@ final class HomeViewController: UIViewController {
 // MARK: - Data Loading
 extension HomeViewController {
 
-    /// Refreshes all dashboard UI elements with latest data
+    //Refreshes all dashboard UI elements with latest data
     private func updateAllUI() {
         updateGreeting()
         updateWaterIntakeUI()

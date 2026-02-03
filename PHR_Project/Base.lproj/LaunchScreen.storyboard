@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiabetEase" translatesAutoresizingMaskIntoConstraints="NO" id="foT-j7-FK6">
-                                <rect key="frame" x="46.666666666666657" y="276" width="300" height="300"/>
+                                <rect key="frame" x="71.666666666666686" y="280" width="250" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="moy-WS-OHN"/>
-                                    <constraint firstAttribute="width" constant="300" id="tEI-Eh-iC3"/>
+                                    <constraint firstAttribute="width" constant="250" id="tEI-Eh-iC3"/>
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.20784313725490194" green="0.21911622580000001" blue="0.2301025689" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="foT-j7-FK6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="162" id="09G-ON-bc8"/>
                             <constraint firstItem="foT-j7-FK6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4K1-Fl-edy"/>
-                            <constraint firstItem="foT-j7-FK6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zfT-qt-tFk"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,5 +40,8 @@
     </scenes>
     <resources>
         <image name="DiabetEase" width="497" height="497"/>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

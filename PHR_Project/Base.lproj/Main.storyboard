@@ -29,44 +29,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="qtS-Zd-ryI">
-                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="756.33333333333348"/>
+                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="818.33333333333348"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nZK-hV-jzp">
-                                        <rect key="frame" x="16" y="8" width="370" height="358"/>
+                                        <rect key="frame" x="16" y="8" width="370" height="400"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiabetEase" translatesAutoresizingMaskIntoConstraints="NO" id="HPD-Ds-d3g">
-                                                <rect key="frame" x="60" y="8" width="250" height="300"/>
+                                                <rect key="frame" x="60" y="100" width="250" height="300"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="WOD-YF-ffA"/>
                                                 </constraints>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                             </imageView>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="60" bottom="50" right="60"/>
+                                        <edgeInsets key="layoutMargins" top="100" left="60" bottom="0.0" right="60"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YT6-sY-4Nr">
-                                        <rect key="frame" x="16" y="396" width="370" height="108.33333333333331"/>
+                                        <rect key="frame" x="16" y="438" width="370" height="128.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RZ-DR-tSB">
-                                                <rect key="frame" x="0.0" y="30" width="370" height="54"/>
+                                                <rect key="frame" x="0.0" y="50" width="370" height="54"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your journey starts from here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LI6-12-5kQ">
-                                                <rect key="frame" x="0.0" y="89" width="370" height="19.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="109" width="370" height="19.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="30" left="0.0" bottom="0.0" right="0.0"/>
+                                        <edgeInsets key="layoutMargins" top="50" left="0.0" bottom="0.0" right="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-km-Sps">
-                                        <rect key="frame" x="16" y="534.33333333333337" width="370" height="146"/>
+                                        <rect key="frame" x="16" y="596.33333333333337" width="370" height="146"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRs-68-h6G">
-                                                <rect key="frame" x="0.0" y="8" width="370" height="60"/>
+                                                <rect key="frame" x="16" y="8" width="338" height="60"/>
                                                 <color key="backgroundColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="hss-d5-PIQ"/>
@@ -81,7 +81,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egq-CQ-mHp">
-                                                <rect key="frame" x="0.0" y="78" width="370" height="60"/>
+                                                <rect key="frame" x="16" y="78" width="338" height="60"/>
                                                 <color key="backgroundColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="bVl-Me-tm6"/>
@@ -93,7 +93,7 @@
                                                 </buttonConfiguration>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
+                                        <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
@@ -332,6 +332,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR9-CG-27b">
                                                 <rect key="frame" x="120" y="54" width="146" height="34.333333333333343"/>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Resend OTP"/>
                                             </button>
@@ -365,7 +366,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="czx-ne-uQJ">
-                                <rect key="frame" x="0.0" y="178" width="402" height="601.33333333333337"/>
+                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="704.33333333333348"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to the Diabetes App" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4G-BW-v0W">
                                         <rect key="frame" x="40" y="8" width="322" height="76.666666666666671"/>
@@ -517,22 +518,24 @@
                                         <edgeInsets key="layoutMargins" top="40" left="0.0" bottom="13" right="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fMK-4T-FEE">
-                                        <rect key="frame" x="40" y="543.33333333333337" width="322" height="50"/>
+                                        <rect key="frame" x="40" y="543.33333333333337" width="322" height="85"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHs-9H-WKx">
-                                                <rect key="frame" x="90" y="0.0" width="142" height="50"/>
+                                                <rect key="frame" x="90" y="35" width="142" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Alh-MB-BhR"/>
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="gnG-le-Ang" kind="show" id="lOv-5t-SWq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="90" bottom="0.0" right="90"/>
+                                        <edgeInsets key="layoutMargins" top="35" left="90" bottom="0.0" right="90"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="40" bottom="8" right="40"/>
@@ -561,7 +564,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gJV-5e-AJ9">
-                                <rect key="frame" x="0.0" y="206" width="402" height="481"/>
+                                <rect key="frame" x="0.0" y="206" width="402" height="684"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uw0-YP-MTe">
                                         <rect key="frame" x="16" y="8" width="370" height="24"/>
@@ -641,22 +644,24 @@
                                         <edgeInsets key="layoutMargins" top="25" left="8" bottom="8" right="8"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iWY-h9-PFp">
-                                        <rect key="frame" x="16" y="345" width="370" height="128"/>
+                                        <rect key="frame" x="16" y="345" width="370" height="263"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79I-mS-9kf">
-                                                <rect key="frame" x="111" y="70" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="205" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="aK4-z6-BeB"/>
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="rbG-rV-iDZ" kind="show" id="YJ2-2l-k8Q"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="70" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="205" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
@@ -694,7 +699,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aUj-9z-XDu">
-                                <rect key="frame" x="0.0" y="206" width="402" height="560.33333333333337"/>
+                                <rect key="frame" x="0.0" y="206.00000000000006" width="402" height="685.33333333333348"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your date of birth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Et-LB-0kg">
                                         <rect key="frame" x="16" y="100" width="370" height="38.333333333333343"/>
@@ -706,22 +711,24 @@
                                         <rect key="frame" x="16" y="158" width="370" height="216"/>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dcJ-2D-fXb">
-                                        <rect key="frame" x="16" y="394.33333333333337" width="370" height="158"/>
+                                        <rect key="frame" x="16" y="394.33333333333337" width="370" height="215"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONK-Kj-s2U">
-                                                <rect key="frame" x="111" y="100" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="157" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="a8F-HP-usC"/>
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="82f-fT-zHb" kind="show" id="tLo-pc-M4z"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="100" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="157" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="100" left="16" bottom="8" right="16"/>
@@ -756,7 +763,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UbY-M1-4YP">
-                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="711.66666666666652"/>
+                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="729.66666666666652"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your height?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="432-pc-gwY">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -791,30 +798,33 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xea-t4-Jvo">
-                                        <rect key="frame" x="16" y="462.66666666666663" width="370" height="173"/>
+                                        <rect key="frame" x="16" y="462.66666666666663" width="370" height="191"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qof-NU-Pk7">
-                                                <rect key="frame" x="111" y="70" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="88" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="EcQ-sR-EyZ"/>
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="2xB-Cp-37A" kind="show" id="Uie-tY-BtJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-yl-tiV">
-                                                <rect key="frame" x="111" y="125" width="148" height="40"/>
+                                                <rect key="frame" x="111" y="143" width="148" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Tmh-5l-Nl4"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="70" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="88" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="100" left="16" bottom="8" right="16"/>
@@ -854,7 +864,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vMx-GZ-SdK">
-                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="740.66666666666652"/>
+                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="731.66666666666652"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your weight?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6T7-8e-f0J">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -889,30 +899,33 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-y8-rMU">
-                                        <rect key="frame" x="16" y="461.66666666666663" width="370" height="203"/>
+                                        <rect key="frame" x="16" y="461.66666666666663" width="370" height="194"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnE-Zg-ho0">
-                                                <rect key="frame" x="111" y="100" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="91" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="VZk-85-4Vg"/>
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="QCp-ew-Xyk" kind="show" id="Vf2-di-9cr"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tR8-sV-rF4">
-                                                <rect key="frame" x="111" y="155" width="148" height="40"/>
+                                                <rect key="frame" x="111" y="146" width="148" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="aSr-c5-8V5"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="100" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="91" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="100" left="16" bottom="8" right="16"/>
@@ -1076,7 +1089,9 @@
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="sa9-op-P1R" kind="show" id="laX-J9-8bm"/>
                                                 </connections>
@@ -1086,6 +1101,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="YsU-3c-Sij"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
@@ -1371,13 +1387,16 @@
                                                 </constraints>
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                </buttonConfiguration>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c23-ed-yZ0">
                                                 <rect key="frame" x="111" y="63" width="164" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="vji-ay-zW2"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
@@ -1433,6 +1452,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
