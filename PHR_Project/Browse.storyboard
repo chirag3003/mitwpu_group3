@@ -142,10 +142,10 @@
             </objects>
             <point key="canvasLocation" x="1505" y="976"/>
         </scene>
-        <!--summaryStoryboard-->
+        <!--generateSummary-->
         <scene sceneID="0e4-RC-d6H">
             <objects>
-                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="summaryStoryboard" id="3x7-Z9-TK7" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Documents" referencedIdentifier="generateSummary" id="3x7-Z9-TK7" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="X62-g5-apX"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdV-mJ-gnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
