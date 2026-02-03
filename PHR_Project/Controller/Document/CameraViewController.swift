@@ -1,5 +1,3 @@
-
-
 import AVFoundation
 import UIKit
 
@@ -91,7 +89,7 @@ class CustomDocumentScannerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-       
+
         setupUI()
         setupCamera()
         startCamera()
