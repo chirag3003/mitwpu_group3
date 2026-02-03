@@ -1,12 +1,5 @@
-//
-//  CustomCameraViewController.swift
-//  PHR_Project
-//
-//  Created by Sushant Pulipati on 12/12/25.
-//
-
-import UIKit
 import AVFoundation
+import UIKit
 
 // Protocol to handle the captured image and navigation
 protocol CustomCameraDelegate: AnyObject {
@@ -16,9 +9,13 @@ protocol CustomCameraDelegate: AnyObject {
 
 class CustomCameraViewController: UIViewController {
 
+    // MARK: - ORIENTATION
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
     // MARK: - PROPERTIES
     weak var delegate: CustomCameraDelegate?
-    
+
     // Camera Session Properties
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -29,7 +26,10 @@ class CustomCameraViewController: UIViewController {
     private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
-        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
+        button.setImage(
+            UIImage(systemName: "xmark.circle.fill", withConfiguration: config),
+            for: .normal
+        )
         button.tintColor = .systemGray
         return button
     }()
@@ -41,7 +41,7 @@ class CustomCameraViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
-    
+
     // Scanning Overlay (Viewfinder)
     private let overlayImageView: UIImageView = {
         let imageView = UIImageView()
@@ -50,12 +50,23 @@ class CustomCameraViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     private let bracketImageView: UIImageView = {
         let imageView = UIImageView()
-        let config = UIImage.SymbolConfiguration(pointSize: 200, weight: .ultraLight)
-        imageView.image = UIImage(systemName: "viewfinder", withConfiguration: config)
-        imageView.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1.0, alpha: 1.0)
+        let config = UIImage.SymbolConfiguration(
+            pointSize: 200,
+            weight: .ultraLight
+        )
+        imageView.image = UIImage(
+            systemName: "viewfinder",
+            withConfiguration: config
+        )
+        imageView.tintColor = UIColor(
+            red: 0.4,
+            green: 0.7,
+            blue: 1.0,
+            alpha: 1.0
+        )
         return imageView
     }()
 
@@ -65,7 +76,7 @@ class CustomCameraViewController: UIViewController {
         view.backgroundColor = .black
         return view
     }()
-    
+
     private let shutterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
@@ -74,49 +85,63 @@ class CustomCameraViewController: UIViewController {
         button.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         return button
     }()
-    
+
     private let manuallyLogButton: UIButton = {
-        let button = UIButton(type: .system)
-        if #available(iOS 15.0, *) {
-            var config = UIButton.Configuration.filled()
-            config.title = "Manually Log"
-            config.baseForegroundColor = .white
-            config.baseBackgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
-            config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-            button.configuration = config
-            button.layer.cornerRadius = 18
-            button.layer.masksToBounds = true
-            // Apply font using attributed title for UIButton.Configuration
-            var attributedTitle = AttributedString("Manually Log")
-            attributedTitle.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-            button.configuration?.attributedTitle = attributedTitle
-        } else {
-            // Fallback for iOS < 15
-            button.setTitle("Manually Log", for: .normal)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-            button.layer.cornerRadius = 18
-            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        }
-        return button
+        var config = UIButton.Configuration.filled()
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemGray.withAlphaComponent(0.5)
+        config.contentInsets = NSDirectionalEdgeInsets(
+            top: 10,
+            leading: 20,
+            bottom: 10,
+            trailing: 20
+        )
+        config.cornerStyle = .fixed
+        config.background.cornerRadius = 18
+
+        // One-liner for Font
+        config.attributedTitle = AttributedString(
+            "Manually Log",
+            attributes: AttributeContainer([
+                .font: UIFont.systemFont(ofSize: 16, weight: .medium)
+            ])
+        )
+
+        return UIButton(configuration: config)
     }()
 
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        
+
         setupUI()
         setupCamera()
         startCamera()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
+        // Ensure the layer fills the screen
         previewLayer?.frame = view.layer.bounds
+
+        // Orientation restrictions
+        if let connection = previewLayer?.connection {
+            if #available(iOS 17.0, *) {
+                // Prefer the modern rotation angle API on iOS 17+
+                if connection.isVideoRotationAngleSupported(90) {
+                    connection.videoRotationAngle = 90
+                }
+            } else {
+                // Fallback for iOS < 17 using deprecated orientation API
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = .portrait
+                }
+            }
+        }
     }
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -131,74 +156,126 @@ class CustomCameraViewController: UIViewController {
 
     // Add elements to view hierarchy
     private func addSubviews() {
-        [closeButton, titleLabel, bracketImageView, overlayImageView, bottomBarView].forEach { view.addSubview($0) }
-        [shutterButton, manuallyLogButton].forEach { bottomBarView.addSubview($0) }
-        
+        [
+            closeButton, titleLabel, bracketImageView, overlayImageView,
+            bottomBarView,
+        ].forEach { view.addSubview($0) }
+        [shutterButton, manuallyLogButton].forEach {
+            bottomBarView.addSubview($0)
+        }
+
         // Prepare for Auto Layout
-        view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        bottomBarView.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        view.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        bottomBarView.subviews.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     // Camera Layout configuration
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             // Top Bar Controls
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            
-            titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            closeButton.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: 16
+            ),
+            closeButton.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16
+            ),
+
+            titleLabel.centerYAnchor.constraint(
+                equalTo: closeButton.centerYAnchor
+            ),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
+
             // Viewfinder (Center)
-            bracketImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bracketImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            bracketImageView.centerXAnchor.constraint(
+                equalTo: view.centerXAnchor
+            ),
+            bracketImageView.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor,
+                constant: -50
+            ),
             bracketImageView.widthAnchor.constraint(equalToConstant: 250),
             bracketImageView.heightAnchor.constraint(equalToConstant: 250),
-            
-            overlayImageView.centerXAnchor.constraint(equalTo: bracketImageView.centerXAnchor),
-            overlayImageView.centerYAnchor.constraint(equalTo: bracketImageView.centerYAnchor),
+
+            overlayImageView.centerXAnchor.constraint(
+                equalTo: bracketImageView.centerXAnchor
+            ),
+            overlayImageView.centerYAnchor.constraint(
+                equalTo: bracketImageView.centerYAnchor
+            ),
             overlayImageView.widthAnchor.constraint(equalToConstant: 80),
             overlayImageView.heightAnchor.constraint(equalToConstant: 80),
 
             // Bottom Bar Area
             bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomBarView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor
+            ),
             bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomBarView.heightAnchor.constraint(equalToConstant: 200),
-            
-            shutterButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor),
-            shutterButton.centerYAnchor.constraint(equalTo: bottomBarView.centerYAnchor, constant: -20),
+
+            shutterButton.centerXAnchor.constraint(
+                equalTo: bottomBarView.centerXAnchor
+            ),
+            shutterButton.centerYAnchor.constraint(
+                equalTo: bottomBarView.centerYAnchor,
+                constant: -20
+            ),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
             shutterButton.heightAnchor.constraint(equalToConstant: 70),
-            
-            manuallyLogButton.topAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 20),
-            manuallyLogButton.centerXAnchor.constraint(equalTo: bottomBarView.centerXAnchor)
+
+            manuallyLogButton.topAnchor.constraint(
+                equalTo: shutterButton.bottomAnchor,
+                constant: 20
+            ),
+            manuallyLogButton.centerXAnchor.constraint(
+                equalTo: bottomBarView.centerXAnchor
+            ),
         ])
     }
 
     // Attach actions to buttons
     private func setupTargets() {
-        closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
-        shutterButton.addTarget(self, action: #selector(didTapShutter), for: .touchUpInside)
-        manuallyLogButton.addTarget(self, action: #selector(didTapManuallyLog), for: .touchUpInside)
+        closeButton.addTarget(
+            self,
+            action: #selector(didTapClose),
+            for: .touchUpInside
+        )
+        shutterButton.addTarget(
+            self,
+            action: #selector(didTapShutter),
+            for: .touchUpInside
+        )
+        manuallyLogButton.addTarget(
+            self,
+            action: #selector(didTapManuallyLog),
+            for: .touchUpInside
+        )
     }
-    
+
     // MARK: - CAMERA LOGIC
     // Configure AVCaptureSession for photo capture
     private func setupCamera() {
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
-        
+
         guard let backCamera = AVCaptureDevice.default(for: .video) else {
             handleMissingCamera()
             return
         }
-        
+
         do {
             let input = try AVCaptureDeviceInput(device: backCamera)
             photoOutput = AVCapturePhotoOutput()
-            
-            if captureSession.canAddInput(input) && captureSession.canAddOutput(photoOutput) {
+
+            if captureSession.canAddInput(input)
+                && captureSession.canAddOutput(photoOutput)
+            {
                 captureSession.addInput(input)
                 captureSession.addOutput(photoOutput)
                 setupPreviewLayer()
@@ -209,20 +286,11 @@ class CustomCameraViewController: UIViewController {
     }
 
     // Initialize the visual preview layer
+
     private func setupPreviewLayer() {
         let layer = AVCaptureVideoPreviewLayer(session: captureSession)
         layer.videoGravity = .resizeAspectFill
-        if let connection = layer.connection {
-            if #available(iOS 17.0, *) {
-                // Set rotation angle equivalent to portrait (0 degrees)
-                connection.videoRotationAngle = 0
-            } else {
-                // Fallback for iOS < 17
-                if connection.isVideoOrientationSupported {
-                    connection.videoOrientation = .portrait
-                }
-            }
-        }
+
         self.previewLayer = layer
         view.layer.insertSublayer(layer, at: 0)
     }
@@ -233,13 +301,13 @@ class CustomCameraViewController: UIViewController {
             self?.captureSession.startRunning()
         }
     }
-    
+
     // End camera stream
     private func stopCamera() {
-         if captureSession.isRunning {
-             captureSession.stopRunning()
-         }
-     }
+        if captureSession.isRunning {
+            captureSession.stopRunning()
+        }
+    }
 
     // Fallback UI for Simulator
     private func handleMissingCamera() {
@@ -254,14 +322,14 @@ class CustomCameraViewController: UIViewController {
 
     @objc private func didTapShutter() {
         guard let output = photoOutput else {
-            simulateCapture() // Handle Simulator logic
+            simulateCapture()  // Handle Simulator logic
             return
         }
 
         let settings = AVCapturePhotoSettings()
         output.capturePhoto(with: settings, delegate: self)
     }
-    
+
     @objc private func didTapManuallyLog() {
         delegate?.didTapManuallyLog()
     }
@@ -279,18 +347,24 @@ class CustomCameraViewController: UIViewController {
 
 // MARK: - PHOTO OUTPUT DELEGATE
 extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
-    
+
     // Process the raw photo data into a UIImage
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+    func photoOutput(
+        _ output: AVCapturePhotoOutput,
+        didFinishProcessingPhoto photo: AVCapturePhoto,
+        error: Error?
+    ) {
         guard let imageData = photo.fileDataRepresentation(),
-              let image = UIImage(data: imageData) else {
-            print("Capture Error: \(error?.localizedDescription ?? "Unknown error")")
+            let image = UIImage(data: imageData)
+        else {
+            print(
+                "Capture Error: \(error?.localizedDescription ?? "Unknown error")"
+            )
             return
         }
-        
+
         stopCamera()
         delegate?.didCaptureImage(image)
         dismiss(animated: true)
     }
 }
-
