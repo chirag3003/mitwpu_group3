@@ -96,10 +96,11 @@ struct Meal: Codable {
         image = try container.decodeIfPresent(String.self, forKey: .image)
         type = try container.decode(String.self, forKey: .type)
         dateRecorded = try container.decode(Date.self, forKey: .dateRecorded)
-        calories = try container.decode(Int.self, forKey: .calories)
-        protein = try container.decode(Int.self, forKey: .protein)
-        carbs = try container.decode(Int.self, forKey: .carbs)
-        fiber = try container.decode(Int.self, forKey: .fiber)
+        calories = Int(try container.decode(Double.self, forKey: .calories))
+        protein = Int(try container.decode(Double.self, forKey: .protein))
+        carbs = Int(try container.decode(Double.self, forKey: .carbs))
+        fiber = Int(try container.decode(Double.self, forKey: .fiber))
+        
         addedBy = try container.decode(String.self, forKey: .addedBy)
         notes = try container.decodeIfPresent(String.self, forKey: .notes)
         
