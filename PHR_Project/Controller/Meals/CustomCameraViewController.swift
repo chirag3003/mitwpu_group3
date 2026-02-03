@@ -80,8 +80,8 @@ class CustomCameraViewController: UIViewController {
         config.baseForegroundColor = .white
         config.baseBackgroundColor = .systemGray.withAlphaComponent(0.5)
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
-        config.cornerStyle = .fixed               // Tells button to use a fixed radius
-        config.background.cornerRadius = 18       // Set radius directly on config (better than layer)
+        config.cornerStyle = .fixed               
+        config.background.cornerRadius = 18
         
         // One-liner for Font
         config.attributedTitle = AttributedString("Manually Log", attributes: AttributeContainer([
