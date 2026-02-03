@@ -63,13 +63,13 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     
     // Placeholder text for loading state
     private let defaultTips: [String] = [
-        "Loading tips...",
-        "Loading tips...",
-        "Loading tips...",
+        "Loading Tips...",
+        "Loading Tips...",
+        "Loading Tips...",
     ]
     private let defaultInsights: [String] = [
-        "Loading insights...",
-        "Loading insights...",
+        "Loading Insights...",
+        "Loading Insights...",
     ]
 
     // MARK: Lifecycle
