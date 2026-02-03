@@ -1,9 +1,4 @@
-//
-//  CustomDocumentScannerViewController.swift
-//  PHR_Project
-//
-//  Created by SDC-USER on 16/12/25..
-//
+
 
 import AVFoundation
 import UIKit
