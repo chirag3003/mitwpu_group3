@@ -827,7 +827,7 @@
             </objects>
             <point key="canvasLocation" x="2960" y="1799"/>
         </scene>
-        <!--Generate Summary Table View Controller-->
+        <!--Generate Summary-->
         <scene sceneID="9bc-K5-Q3E">
             <objects>
                 <tableViewController storyboardIdentifier="generateSummary" id="tKg-Vj-FBg" customClass="GenerateSummaryTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -1107,7 +1107,7 @@
                             <outlet property="delegate" destination="tKg-Vj-FBg" id="fdB-ms-uEv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pvE-z5-Vf2"/>
+                    <navigationItem key="navigationItem" title="Generate Summary" largeTitleDisplayMode="never" id="pvE-z5-Vf2"/>
                     <connections>
                         <outlet property="endDatePicker" destination="VIx-SH-i2T" id="ztF-ED-2Ls"/>
                         <outlet property="generateSummaryButton" destination="zet-AV-53B" id="wPp-zs-tvL"/>
