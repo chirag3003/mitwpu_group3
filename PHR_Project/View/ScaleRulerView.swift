@@ -72,7 +72,7 @@ class ScaleRulerView: UIView {
     
     private let centerIndicator: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         view.layer.shadowColor = UIColor.white.cgColor
         view.layer.shadowRadius = 8
         view.layer.shadowOpacity = 0.6

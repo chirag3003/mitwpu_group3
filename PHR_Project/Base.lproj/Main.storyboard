@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kT9-Yf-jxw">
-    <device id="retina6_3" orientation="portrait" appearance="dark"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="euh-qk-zB0">
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -82,14 +82,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egq-CQ-mHp">
                                                 <rect key="frame" x="16" y="78" width="338" height="60"/>
-                                                <color key="backgroundColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="bVl-Me-tm6"/>
                                                 </constraints>
-                                                <color key="tintColor" red="0.48535461749999997" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" image="apple.logo" catalog="system" title="Continue with Apple" imagePadding="10" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="AppPrimaryBackground"/>
+                                                    <color key="baseBackgroundColor" systemColor="tertiarySystemFillColor"/>
                                                 </buttonConfiguration>
                                             </button>
                                         </subviews>
@@ -528,7 +528,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="gnG-le-Ang" kind="show" id="lOv-5t-SWq"/>
@@ -580,7 +580,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-HD-ujS">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="first name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-HD-ujS">
                                                 <rect key="frame" x="8" y="37.333333333333314" width="354" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -654,7 +654,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="rbG-rV-iDZ" kind="show" id="YJ2-2l-k8Q"/>
@@ -708,7 +708,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-1f-hBq">
-                                        <rect key="frame" x="16" y="158" width="370" height="216"/>
+                                        <rect key="frame" x="16" y="158.33333333333331" width="370" height="216"/>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dcJ-2D-fXb">
                                         <rect key="frame" x="16" y="394.33333333333337" width="370" height="215"/>
@@ -721,7 +721,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="82f-fT-zHb" kind="show" id="tLo-pc-M4z"/>
@@ -808,7 +808,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="2xB-Cp-37A" kind="show" id="Uie-tY-BtJ"/>
@@ -909,7 +909,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="QCp-ew-Xyk" kind="show" id="Vf2-di-9cr"/>
@@ -1090,7 +1090,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="sa9-op-P1R" kind="show" id="laX-J9-8bm"/>
@@ -1388,7 +1388,7 @@
                                                 <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" name="insights_bg"/>
+                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c23-ed-yZ0">
@@ -1441,9 +1441,6 @@
         <image name="document.fill" catalog="system" width="115" height="128"/>
         <image name="person.3.fill" catalog="system" width="128" height="66"/>
         <image name="staroflife.fill" catalog="system" width="121" height="128"/>
-        <namedColor name="AppPrimaryBackground">
-            <color red="0.84299999475479126" green="0.93699997663497925" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="insights_bg">
             <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1461,6 +1458,9 @@
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemFillColor">
+            <color red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
