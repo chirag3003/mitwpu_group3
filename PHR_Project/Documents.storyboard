@@ -439,11 +439,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5i6-zf-pbA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vLF-pN-9iX">
-                            <connections>
-                                <segue destination="Uez-Y2-Dp6" kind="presentation" id="EIR-mt-oL5"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="vLF-pN-9iX">
+                                <connections>
+                                    <segue destination="Uez-Y2-Dp6" kind="presentation" id="EIR-mt-oL5"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="line.3.horizontal.decrease" catalog="system" id="C7Y-KW-43g">
+                                <connections>
+                                    <action selector="didTapFilterButton:" destination="XjT-Mb-Ci6" id="ybJ-i6-XS5"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="AtO-gB-R8q" id="Djq-99-fXm"/>

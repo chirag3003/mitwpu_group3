@@ -55,11 +55,41 @@ final class PrescriptionPageViewController: UIViewController {
              prescriptions = PrescriptionService.shared.getAllPrescriptionData()
          }
          tableView.reloadData()
+         sortData()
      }
-     
+    private var isNewestFirst = true
+
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM yyyy"
+        return formatter
+    }()
      @objc private func refreshData() {
          loadData()
      }
+    
+    @IBAction func didTapFilterButton(_ sender: Any) {
+        isNewestFirst.toggle()
+            
+            // 2. Sort the data
+            sortData()
+            
+            // 3. Haptic feedback
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+    }
+    private func sortData() {
+        prescriptions.sort { (p1: PrescriptionModel, p2: PrescriptionModel) -> Bool in
+                
+                // Convert the strings like "4 Feb 2026" into real Date objects
+                let date1 = dateFormatter.date(from: p1.lastUpdatedAt) ?? Date.distantPast
+                let date2 = dateFormatter.date(from: p2.lastUpdatedAt) ?? Date.distantPast
+                
+                // Return newest first (date1 > date2) or oldest first (date1 < date2)
+                return isNewestFirst ? date1 > date2 : date1 < date2
+            }
+            tableView.reloadData()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Check if navigating to PrescriptionUploadTableViewController
