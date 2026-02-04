@@ -364,7 +364,7 @@ class HealthDetailsTableViewController: UITableViewController,
 
             titleLabel.bottomAnchor.constraint(
                 equalTo: headerView.bottomAnchor,
-                constant: -12
+                constant: -8
             ),
 
             titleLabel.topAnchor.constraint(
