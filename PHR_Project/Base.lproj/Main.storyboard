@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="euh-qk-zB0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kT9-Yf-jxw">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -558,7 +558,7 @@
         <!--Set up Profile-->
         <scene sceneID="UHy-vj-Ha8">
             <objects>
-                <viewController id="gnG-le-Ang" sceneMemberID="viewController">
+                <viewController id="gnG-le-Ang" customClass="ProfileInfoViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xeA-sI-6W0">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,7 +580,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="first name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-HD-ujS">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-HD-ujS">
                                                 <rect key="frame" x="8" y="37.333333333333314" width="354" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -657,6 +657,7 @@
                                                     <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
+                                                    <action selector="nextBtn:" destination="gnG-le-Ang" eventType="touchUpInside" id="lIr-gV-1Hw"/>
                                                     <segue destination="rbG-rV-iDZ" kind="show" id="YJ2-2l-k8Q"/>
                                                 </connections>
                                             </button>
@@ -682,6 +683,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Set up Profile" id="Hbf-rC-k8h"/>
+                    <connections>
+                        <outlet property="femaleBtn" destination="5bv-om-dfD" id="N0J-A2-cOV"/>
+                        <outlet property="firstName" destination="5yQ-HD-ujS" id="3Lq-zb-oFu"/>
+                        <outlet property="lastName" destination="DSR-f0-8wC" id="zAV-g3-jzK"/>
+                        <outlet property="maleBtn" destination="bdm-Gh-x4A" id="BZU-5O-1aK"/>
+                        <outlet property="otherBtn" destination="QyL-uW-PHc" id="ax5-JZ-uG6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pv6-Qn-92x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -690,7 +698,7 @@
         <!--Set up Profile-->
         <scene sceneID="T2b-B4-Tyo">
             <objects>
-                <viewController id="rbG-rV-iDZ" sceneMemberID="viewController">
+                <viewController id="rbG-rV-iDZ" customClass="DobViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o81-B1-sHG">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -724,6 +732,7 @@
                                                     <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
+                                                    <action selector="nextBtn:" destination="rbG-rV-iDZ" eventType="touchUpInside" id="xVf-sj-7JI"/>
                                                     <segue destination="82f-fT-zHb" kind="show" id="tLo-pc-M4z"/>
                                                 </connections>
                                             </button>
@@ -746,6 +755,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Set up Profile" id="rOu-ec-Evm"/>
+                    <connections>
+                        <outlet property="dobValue" destination="zTF-1f-hBq" id="Ap0-1z-70y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlO-Tz-nus" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -763,7 +775,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UbY-M1-4YP">
-                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="729.66666666666652"/>
+                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="684.66666666666652"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your height?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="432-pc-gwY">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -798,7 +810,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xea-t4-Jvo">
-                                        <rect key="frame" x="16" y="462.66666666666663" width="370" height="191"/>
+                                        <rect key="frame" x="16" y="462.66666666666663" width="370" height="146"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qof-NU-Pk7">
                                                 <rect key="frame" x="111" y="88" width="148" height="50"/>
@@ -811,17 +823,9 @@
                                                     <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
+                                                    <action selector="nextBtn:" destination="82f-fT-zHb" eventType="touchUpInside" id="yec-YJ-uLc"/>
                                                     <segue destination="2xB-Cp-37A" kind="show" id="Uie-tY-BtJ"/>
                                                 </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-yl-tiV">
-                                                <rect key="frame" x="111" y="143" width="148" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Tmh-5l-Nl4"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="88" left="111" bottom="8" right="111"/>
@@ -864,7 +868,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vMx-GZ-SdK">
-                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="731.66666666666652"/>
+                                <rect key="frame" x="0.0" y="205.99999999999994" width="402" height="686.66666666666652"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your weight?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6T7-8e-f0J">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -899,7 +903,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-y8-rMU">
-                                        <rect key="frame" x="16" y="461.66666666666663" width="370" height="194"/>
+                                        <rect key="frame" x="16" y="461.66666666666663" width="370" height="149"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DnE-Zg-ho0">
                                                 <rect key="frame" x="111" y="91" width="148" height="50"/>
@@ -914,15 +918,6 @@
                                                 <connections>
                                                     <segue destination="QCp-ew-Xyk" kind="show" id="Vf2-di-9cr"/>
                                                 </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tR8-sV-rF4">
-                                                <rect key="frame" x="111" y="146" width="148" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="aSr-c5-8V5"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="91" left="111" bottom="8" right="111"/>
@@ -965,7 +960,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rrc-Ar-hqc">
-                                <rect key="frame" x="0.0" y="206" width="402" height="721"/>
+                                <rect key="frame" x="0.0" y="206" width="402" height="686"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your diabetes type" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IO-V1-h2j">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -1080,10 +1075,10 @@
                                         <edgeInsets key="layoutMargins" top="20" left="8" bottom="8" right="8"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-rN-wZj">
-                                        <rect key="frame" x="16" y="472" width="370" height="173"/>
+                                        <rect key="frame" x="16" y="472" width="370" height="138"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OY6-R6-74G">
-                                                <rect key="frame" x="111" y="70" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="80" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="9qF-aC-nTh"/>
                                                 </constraints>
@@ -1096,17 +1091,8 @@
                                                     <segue destination="sa9-op-P1R" kind="show" id="laX-J9-8bm"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCK-8G-Zob">
-                                                <rect key="frame" x="111" y="125" width="148" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="YsU-3c-Sij"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
-                                            </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="70" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="80" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="100" left="16" bottom="8" right="16"/>
@@ -1147,7 +1133,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h7s-6p-vT0">
-                                <rect key="frame" x="0.0" y="206" width="402" height="719"/>
+                                <rect key="frame" x="0.0" y="206" width="402" height="686"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your blood type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mh0-Uf-VeY">
                                         <rect key="frame" x="8" y="8" width="386" height="36"/>
@@ -1378,10 +1364,10 @@
                                         <edgeInsets key="layoutMargins" top="30" left="15" bottom="10" right="15"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fx1-5E-APF">
-                                        <rect key="frame" x="8" y="532" width="386" height="111"/>
+                                        <rect key="frame" x="8" y="532" width="386" height="78"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODY-ps-P5s">
-                                                <rect key="frame" x="111" y="8" width="164" height="50"/>
+                                                <rect key="frame" x="111" y="20" width="164" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="NnG-eb-Xzd"/>
                                                 </constraints>
@@ -1391,17 +1377,8 @@
                                                     <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c23-ed-yZ0">
-                                                <rect key="frame" x="111" y="63" width="164" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="vji-ay-zW2"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Set up later"/>
-                                            </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="20" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
