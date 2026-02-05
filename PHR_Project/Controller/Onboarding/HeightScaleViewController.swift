@@ -13,6 +13,9 @@ class HeightScaleViewController: UIViewController {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var scaleRulerView: ScaleRulerView!
     
+    // Receive data from previous screen
+    var profileDataArray: [String: Any] = [:]
+    
     // Track the current unit
     private var isCmSelected: Bool = true
     
@@ -21,6 +24,10 @@ class HeightScaleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Print received data from previous screen
+        print("Received data:", profileDataArray)
+        
         setupSegmentedControl()
         setupScaleView()
     }
@@ -60,6 +67,9 @@ class HeightScaleViewController: UIViewController {
                 // Value is in cm
                 self.heightInCm = value
                 self.valueLabel.text = "\(Int(value))"
+                
+                // Print selected height in cm
+                print("Selected height: \(Int(value)) cm")
             } else {
                 // Value is in inches, convert to cm for storage
                 self.heightInCm = value * 2.54
@@ -69,6 +79,9 @@ class HeightScaleViewController: UIViewController {
                 let feet = Int(totalInches / 12)
                 let inches = Int(totalInches.truncatingRemainder(dividingBy: 12))
                 self.valueLabel.text = "\(feet)'\(inches)\""
+                
+                // Print selected height in both formats
+                print("Selected height: \(feet)'\(inches)\" (\(Int(self.heightInCm)) cm)")
             }
         }
         
@@ -82,7 +95,34 @@ class HeightScaleViewController: UIViewController {
         
         if previousUnit != isCmSelected {
             reconfigureScaleForUnit()
+            
+            // Print unit change
+            let unit = isCmSelected ? "cm" : "inches"
+            print("Unit changed to: \(unit)")
+            printCurrentHeight()
         }
+    }
+    
+    @IBAction func nextBtn(_ sender: Any) {
+        saveDataToArray()
+        printCurrentData()
+        // Segue happens automatically via storyboard
+    }
+    
+    // MARK: - Data Management
+    private func saveDataToArray() {
+        profileDataArray["height"] = Int(heightInCm)
+    }
+    
+    private func printCurrentData() {
+        print("========== Profile Data ==========")
+        print("First Name: \(profileDataArray["firstName"] ?? "")")
+        print("Last Name: \(profileDataArray["lastName"] ?? "")")
+        print("Gender: \(profileDataArray["sex"] ?? "")")
+        print("DoB: \(profileDataArray["dob"] ?? "")")
+        print("Age: \(profileDataArray["age"] ?? "")")
+        print("Height: \(profileDataArray["height"] ?? 0) cm")
+        print("==================================")
     }
     
     // MARK: - Private Methods
@@ -121,6 +161,15 @@ class HeightScaleViewController: UIViewController {
         }
     }
     
+    private func printCurrentHeight() {
+        if isCmSelected {
+            print("Current height: \(Int(heightInCm)) cm")
+        } else {
+            let (feet, inches) = getHeightInFeetAndInches()
+            print("Current height: \(feet)'\(inches)\" (\(Int(heightInCm)) cm)")
+        }
+    }
+    
     // MARK: - Public Methods
     
     /// Get the current height in cm (regardless of display unit)
@@ -139,5 +188,13 @@ class HeightScaleViewController: UIViewController {
         let feet = Int(totalInches / 12)
         let inches = Int(totalInches.truncatingRemainder(dividingBy: 12))
         return (feet, inches)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass the updated array to the next screen (WeightScaleViewController)
+        if let weightVC = segue.destination as? WeightScaleViewController {
+            weightVC.profileDataArray = profileDataArray
+        }
     }
 }
