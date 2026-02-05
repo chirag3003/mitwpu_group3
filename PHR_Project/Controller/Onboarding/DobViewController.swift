@@ -9,14 +9,9 @@ class DobViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Print received data from previous screen
+
         print("Received data:", profileDataArray)
-        
-        // Print initial date
-        //print("Initial date: \(formatDate(dobValue.date))")
-        
-        // Add target to detect date changes
+
         dobValue.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
     }
     
@@ -24,19 +19,52 @@ class DobViewController: UIViewController {
     @objc private func dateChanged(_ sender: UIDatePicker) {
         let selectedDate = sender.date
         
-        // Print the selected date in a readable format
         print("Selected date: \(formatDate(selectedDate))")
         
-        // Optional: Print age
         if let age = calculateAge(from: selectedDate) {
             print("Age: \(age) years")
         }
     }
     
     @IBAction func nextBtn(_ sender: Any) {
-        saveDataToArray()
-        printCurrentData()
-        // Segue happens automatically via storyboard
+        if validateDate() {
+            saveDataToArray()
+            printCurrentData()
+        }
+    }
+
+    
+    private func validateDate() -> Bool {
+        let selectedDate = dobValue.date
+        let today = Date()
+        let calendar = Calendar.current
+        
+        // Strip time components - compare only dates
+        let selectedDay = calendar.startOfDay(for: selectedDate)
+        let todayDay = calendar.startOfDay(for: today)
+        
+        // Check if selected date is after today
+        if selectedDay > todayDay {
+            showAlert(title: "Error", message: "DOB cannot be in the future.")
+            return false
+        }
+        
+        // Check if selected date is today
+        if selectedDay == todayDay {
+            showAlert(title: "Error", message: "Can't select today as date of birth.")
+            return false
+        }
+        
+        // Check if date is more than 120 years ago
+        if let maxAge = calendar.date(byAdding: .year, value: -120, to: today) {
+            let maxAgeDay = calendar.startOfDay(for: maxAge)
+            if selectedDay < maxAgeDay {
+                showAlert(title: "Error", message: "Please enter a valid date of birth.")
+                return false
+            }
+        }
+        
+        return true
     }
     
     // MARK: - Data Management
@@ -100,3 +128,4 @@ class DobViewController: UIViewController {
         }
     }
 }
+

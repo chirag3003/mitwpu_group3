@@ -91,9 +91,10 @@ class WeightScaleViewController: UIViewController {
     }
     
     @IBAction func nextBtn(_ sender: Any) {
-        //saveDataToArray()
+        saveDataToArray()
         printCurrentData()
     }
+    
     
     // MARK: - Data Management
     private func saveDataToArray() {

@@ -93,13 +93,14 @@ class BloodTypeViewController: UIViewController {
     
     @IBAction func finishBtn(_ sender: Any) {
         guard let bloodType = selectedBloodType else {
-            print("Please select a blood type before finishing.")
+           showAlert(title: "Error", message: "Please select a blood type.")
             return
         }
         
         saveDataToArray(type: bloodType)
         finalizeProfile()
     }
+    
     
     // MARK: - Data Management
     private func saveDataToArray(type: String) {
@@ -137,6 +138,7 @@ class BloodTypeViewController: UIViewController {
             if let label = subview as? UILabel {
                 label.textColor = color
             }
+            changeLabelColor(in: subview, to: color)
         }
     }
     

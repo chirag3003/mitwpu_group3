@@ -14,7 +14,7 @@ class ProfileInfoViewController: UIViewController {
     private let selectedColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1.0) // #4A90E2
     private let unselectedColor = UIColor(red: 189/255, green: 215/255, blue: 238/255, alpha: 1.0) // #BDD7EE
     
-    // Array to store profile data as we collect it
+ 
     var profileDataArray: [String: Any] = [:]
     
     override func viewDidLoad() {
@@ -29,13 +29,12 @@ class ProfileInfoViewController: UIViewController {
         
         for button in buttons {
             guard let button = button else { continue }
-//            
-//            button.backgroundColor = unselectedColor
-//            button.layer.cornerRadius = 10
-//            button.layer.borderWidth = 0
-//            button.setTitleColor(.black, for: .normal)
-//            button.setTitleColor(.white, for: .selected)
-//            
+            
+            //setting initial color
+            button.backgroundColor = unselectedColor
+            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.white, for: .selected)
+            
             button.addTarget(self, action: #selector(genderButtonTapped(_:)), for: .touchUpInside)
         }
     }
@@ -43,9 +42,6 @@ class ProfileInfoViewController: UIViewController {
     private func setupTextFields() {
         firstName.delegate = self
         lastName.delegate = self
-        
-//        firstName.addLeftPadding(12)
-//        lastName.addLeftPadding(12)
     }
     
     // MARK: - Actions
@@ -54,9 +50,7 @@ class ProfileInfoViewController: UIViewController {
         
         sender.isSelected = true
         sender.backgroundColor = selectedColor
-//        sender.layer.borderWidth = 3
-//        sender.layer.borderColor = UIColor(red: 44/255, green: 90/255, blue: 160/255, alpha: 1.0).cgColor
-        
+
         switch sender {
         case maleBtn:
             selectedGender = "Male"
@@ -71,6 +65,7 @@ class ProfileInfoViewController: UIViewController {
             break
         }
     }
+    
     
     private func deselectAllGenderButtons() {
         let buttons = [maleBtn, femaleBtn, otherBtn]
@@ -88,7 +83,7 @@ class ProfileInfoViewController: UIViewController {
         if validateInputs() {
             saveDataToArray()
             printCurrentData()
-            // Segue will happen automatically via storyboard
+      
         }
     }
     
@@ -126,17 +121,10 @@ class ProfileInfoViewController: UIViewController {
         
         return true
     }
-    
-//    private func showAlert(message: String) {
-//        let alert = UIAlertController(title: "Missing Information", message: message, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .default))
-//        present(alert, animated: true)
-//    }
+
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Pass the data array to the next screen
-        // Example for DOB screen:
         if let dobVC = segue.destination as? DobViewController {
             dobVC.profileDataArray = profileDataArray
         }
@@ -155,11 +143,4 @@ extension ProfileInfoViewController: UITextFieldDelegate {
     }
 }
 
-//// MARK: - UITextField Extension
-//extension UITextField {
-//    func addLeftPadding(_ padding: CGFloat) {
-//        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: self.frame.height))
-//        self.leftView = paddingView
-//        self.leftViewMode = .always
-//    }
-//}
+

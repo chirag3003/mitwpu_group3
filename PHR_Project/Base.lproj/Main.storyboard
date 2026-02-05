@@ -525,10 +525,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Alh-MB-BhR"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <segue destination="gnG-le-Ang" kind="show" id="lOv-5t-SWq"/>
@@ -651,10 +650,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="aK4-z6-BeB"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="nextBtn:" destination="gnG-le-Ang" eventType="touchUpInside" id="lIr-gV-1Hw"/>
@@ -726,10 +724,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="a8F-HP-usC"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="nextBtn:" destination="rbG-rV-iDZ" eventType="touchUpInside" id="xVf-sj-7JI"/>
@@ -817,10 +814,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="EcQ-sR-EyZ"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="nextBtn:" destination="82f-fT-zHb" eventType="touchUpInside" id="yec-YJ-uLc"/>
@@ -910,12 +906,12 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="VZk-85-4Vg"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
+                                                    <action selector="nextBtn:" destination="2xB-Cp-37A" eventType="touchUpInside" id="2OA-bL-SOF"/>
                                                     <segue destination="QCp-ew-Xyk" kind="show" id="Vf2-di-9cr"/>
                                                 </connections>
                                             </button>
@@ -1082,12 +1078,12 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="9qF-aC-nTh"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
                                                 <connections>
+                                                    <action selector="nextBtn:" destination="QCp-ew-Xyk" eventType="touchUpInside" id="Gn5-C3-fo9"/>
                                                     <segue destination="sa9-op-P1R" kind="show" id="laX-J9-8bm"/>
                                                 </connections>
                                             </button>
@@ -1371,11 +1367,13 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="NnG-eb-Xzd"/>
                                                 </constraints>
-                                                <color key="tintColor" name="insights_bg"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Next" cornerStyle="capsule">
-                                                    <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Finish" cornerStyle="capsule">
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="finishBtn:" destination="sa9-op-P1R" eventType="touchUpInside" id="Ff8-i5-toZ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="20" left="111" bottom="8" right="111"/>
@@ -1421,6 +1419,9 @@
         <namedColor name="insights_bg">
             <color red="0.75686274509803919" green="0.8666666666666667" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

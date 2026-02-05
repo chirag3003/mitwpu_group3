@@ -92,11 +92,9 @@ class DiabetesTypeViewController: UIViewController {
         if selectedDiabetesType != nil {
             saveDataToArray()
             printCurrentData()
-            // Segue happens via storyboard or manual trigger
-            // self.performSegue(withIdentifier: "toHeightVC", sender: self)
+            
         } else {
-            // Optional: Show alert to select a type
-            print("Please select a diabetes type")
+            showAlert(title: "Error", message: "Please select a type of diabetes.")
         }
     }
     
