@@ -57,7 +57,7 @@ class ProfileInfoViewController: UIViewController {
         
         private func styleTextField(_ textField: UITextField) {
             // This manually forces the rounding
-            textField.layer.cornerRadius = 10
+            textField.layer.cornerRadius = 16
             textField.layer.masksToBounds = true
             
            
@@ -82,26 +82,43 @@ class ProfileInfoViewController: UIViewController {
         }
         
         // MARK: - Actions
-        @objc private func genderButtonTapped(_ sender: UIButton) {
-            deselectAllGenderButtons()
+    @objc private func genderButtonTapped(_ sender: UIButton) {
             
-            sender.isSelected = true
+            // Reset ALL buttons to unselected
+            let allButtons = [maleBtn, femaleBtn, otherBtn]
+            for btn in allButtons {
+                updateButtonAppearance(btn!, isSelected: false)
+            }
             
-            // Update color using the helper
-            setButtonColor(sender, color: selectedColor)
+            // Set the TAPPED button to selected
+            updateButtonAppearance(sender, isSelected: true)
 
             switch sender {
             case maleBtn:
                 selectedGender = "Male"
-                print("Selected gender: Male")
             case femaleBtn:
                 selectedGender = "Female"
-                print("Selected gender: Female")
             case otherBtn:
                 selectedGender = "Other"
-                print("Selected gender: Other")
             default:
                 break
+            }
+            print("Selected gender: \(selectedGender ?? "None")")
+        }
+    
+    private func updateButtonAppearance(_ button: UIButton, isSelected: Bool) {
+            
+            let colorToUse = isSelected ? selectedColor : unselectedColor
+            let textColorToUse: UIColor = isSelected ? .white : .black
+            
+            // Set Text Color
+            button.setTitleColor(textColorToUse, for: .normal)
+            
+            // Set Background Color (Handles both Modern and Legacy buttons)
+            if button.configuration != nil {
+                button.configuration?.baseBackgroundColor = colorToUse
+            } else {
+                button.backgroundColor = colorToUse
             }
         }
         

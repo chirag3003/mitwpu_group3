@@ -167,6 +167,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0hO-Dw-AYb"/>
+                    <connections>
+                        <outlet property="numberField" destination="K3I-aO-srs" id="yyn-dk-CaB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xjp-gM-zm0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1407,7 +1410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vtl-qa-khR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9959.7014925373132" y="121.51029748283752"/>
+            <point key="canvasLocation" x="9957" y="122"/>
         </scene>
     </scenes>
     <resources>
