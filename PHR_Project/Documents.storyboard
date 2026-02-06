@@ -387,12 +387,6 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Geu-yX-o58">
-                                                                            <rect key="frame" x="0.0" y="17.999999999999996" width="268" height="12"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
@@ -422,7 +416,6 @@
                                         <connections>
                                             <outlet property="containerView" destination="ffj-v4-tY7" id="CqX-ey-Ued"/>
                                             <outlet property="iconImageView" destination="lyh-Vv-5Z3" id="Ylp-eJ-kJT"/>
-                                            <outlet property="subtitleLabel" destination="Geu-yX-o58" id="B2O-nu-Zq0"/>
                                             <outlet property="titleLabel" destination="LN4-SB-qc2" id="dLf-Nb-8OT"/>
                                         </connections>
                                     </tableViewCell>
