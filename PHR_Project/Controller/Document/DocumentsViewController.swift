@@ -16,6 +16,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
+  //  @IBOutlet weak var sortButton: UIBarButtonItem!
     // Properties
 
     private var doctorsData: [DocDoctor] = []  // Doctors who wrote prescriptions
@@ -38,6 +39,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         super.viewDidLoad()
         setupTableView()
         loadData()
+        updateNavigationButtons()
         // Set title based on family member
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Documents"
@@ -85,18 +87,35 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         plusButton.target = self
         plusButton.action = #selector(didTapPlusButton)
     }
+    
     // MARK: - Actions
 
     @IBAction func onDataSwitch(_ sender: Any) {
         documentTableView.reloadData()
+        updateNavigationButtons()
     }
     // Toggle sort order
     @IBAction func didTapFilterButton() {
         isNewestFirst.toggle()
+            
         sortData()
-        // Haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+            
+            // 3. Keep the icon as the three-line horizontal symbol
+            // (Instead of changing it to arrow.up or arrow.down)
+            sortButton.image = UIImage(systemName: "line.3.horizontal.decrease")
+            
+            // Haptic feedback
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+    }
+    private func updateNavigationButtons() {
+        if dataSegment.selectedSegmentIndex == 0 {
+            // Prescriptions - show only plus button
+            navigationItem.rightBarButtonItems = [plusButton]
+        } else {
+            // Reports - show both plus and sort buttons
+            navigationItem.rightBarButtonItems = [plusButton, sortButton]
+        }
     }
 
     @IBAction func didTapPlusButton(_ sender: Any) {
@@ -108,6 +127,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
             showDocumentUploadModal()
         }
     }
+   
+
 
     // MARK: - Navigation
 
@@ -132,7 +153,16 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
             present(uploadVC, animated: true)
         }
     }
-
+    // Add this property with your other properties
+    private lazy var sortButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            image: UIImage(systemName: "line.3.horizontal.decrease"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFilterButton)
+        )
+        return button
+    }()
     // MARK: - Sorting
     // Sort based on selected segment
     private func sortData() {

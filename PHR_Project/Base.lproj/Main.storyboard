@@ -171,7 +171,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="0hO-Dw-AYb"/>
                     <connections>
-                        <outlet property="phoneNo" destination="K3I-aO-srs" id="NlZ-mr-cdF"/>
+                        <outlet property="numberField" destination="K3I-aO-srs" id="yyn-dk-CaB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xjp-gM-zm0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -595,7 +595,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5yQ-HD-ujS">
                                                 <rect key="frame" x="8" y="37.333333333333314" width="354" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" textContentType="name"/>
                                             </textField>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="12" left="8" bottom="0.0" right="8"/>
@@ -611,7 +611,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DSR-f0-8wC">
                                                 <rect key="frame" x="8" y="25.333333333333371" width="354" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" textContentType="name"/>
                                             </textField>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
@@ -1420,7 +1420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vtl-qa-khR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9959.7014925373132" y="121.51029748283752"/>
+            <point key="canvasLocation" x="9957" y="122"/>
         </scene>
     </scenes>
     <resources>
