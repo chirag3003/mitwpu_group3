@@ -376,7 +376,7 @@
                     <navigationItem key="navigationItem" title="Symptoms" largeTitleDisplayMode="never" id="87d-lJ-Av9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kcw-yM-33y">
                             <connections>
-                                <segue destination="XQq-SV-fEX" kind="presentation" id="uz0-Rf-ldV"/>
+                                <segue destination="XQq-SV-fEX" kind="presentation" identifier="ShowAddSymptom" id="uz0-Rf-ldV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

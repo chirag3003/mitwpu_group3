@@ -39,7 +39,49 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             self.title = "Symptoms"
         }
 
+        setupLongPressGesture()
     }
+    
+    func setupLongPressGesture() {
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+            symptomTableView.addGestureRecognizer(longPress)
+        }
+
+        // NEW: Handle Gesture
+        @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+            if gestureRecognizer.state == .began {
+                let touchPoint = gestureRecognizer.location(in: symptomTableView)
+                if let indexPath = symptomTableView.indexPathForRow(at: touchPoint) {
+                    
+                    let selectedSymptom = symptomsData[indexPath.row]
+                    
+                    // Assuming you have a Segue from this VC to AddSymptomTableViewController
+                    // You need to ensure the Segue Identifier matches your storyboard.
+                    // If you don't have a segue identifier yet, name it "ShowAddSymptom" in Storyboard.
+                    // Or perform navigation programmatically if you prefer.
+                    performSegue(withIdentifier: "ShowAddSymptom", sender: selectedSymptom)
+                }
+            }
+        }
+
+        // NEW: Prepare for Segue to pass data
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "ShowAddSymptom" {
+                if let navVC = segue.destination as? UINavigationController,
+                   let destVC = navVC.topViewController as? AddSymptomTableViewController {
+                    
+                    // If sender is a Symptom, we are editing
+                    if let symptomToEdit = sender as? Symptom {
+                        destVC.symptomToEdit = symptomToEdit
+                    }
+                } else if let destVC = segue.destination as? AddSymptomTableViewController {
+                    // Handle case where it might not be wrapped in Nav Controller
+                    if let symptomToEdit = sender as? Symptom {
+                        destVC.symptomToEdit = symptomToEdit
+                    }
+                }
+            }
+        }
 
     // MARK: - TableView Methods
 

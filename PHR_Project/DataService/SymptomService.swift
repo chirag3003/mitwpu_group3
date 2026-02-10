@@ -61,6 +61,38 @@ class SymptomService {
             }
         }
     }
+    
+    func updateSymptom(
+            _ symptom: Symptom,
+            completion: @escaping (Result<Symptom, Error>) -> Void
+        ) {
+            guard let apiID = symptom.apiID else {
+                completion(.failure(NSError(domain: "MissingID", code: 400, userInfo: [NSLocalizedDescriptionKey: "Symptom ID missing"])))
+                return
+            }
+
+            APIService.shared.request(
+                endpoint: "/symptoms/\(apiID)",
+                method: .put, // Assuming your API uses PUT or PATCH for updates
+                body: symptom
+            ) { [weak self] (result: Result<Symptom, Error>) in
+                guard let self = self else { return }
+
+                switch result {
+                case .success(let updatedSymptom):
+                    DispatchQueue.main.async {
+                        // Find and replace the local symptom
+                        if let index = self.symptoms.firstIndex(where: { $0.apiID == updatedSymptom.apiID }) {
+                            self.symptoms[index] = updatedSymptom
+                        }
+                    }
+                    completion(.success(updatedSymptom))
+                case .failure(let error):
+                    print("Error updating symptom: \(error)")
+                    completion(.failure(error))
+                }
+            }
+        }
 
     func deleteSymptom(at index: Int) {
         guard index < symptoms.count else { return }
