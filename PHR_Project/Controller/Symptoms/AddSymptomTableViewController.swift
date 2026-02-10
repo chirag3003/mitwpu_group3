@@ -22,6 +22,7 @@ class AddSymptomTableViewController: UITableViewController {
     var selectedIntensity: String?
     var selectedImage: UIImage?
     var symptomToEdit: Symptom?
+    var onSave: (() -> Void)?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -165,62 +166,74 @@ class AddSymptomTableViewController: UITableViewController {
 
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let type = selectedType, let intensity = selectedIntensity else {
-            // Show simple alert
-            self.showAlert(
-                title: "Missing Info",
-                message: "Please select Type and Intensity"
-            )
-            return
+                    self.showAlert(title: "Missing Info", message: "Please select Type and Intensity")
+                    return
         }
 
         // Combine Date and Time
         let calendar = Calendar.current
-        var dateComponents = calendar.dateComponents(
-            [.year, .month, .day],
-            from: datePicker.date
-        )
-        let timeComponents = calendar.dateComponents(
-            [.hour, .minute],
-            from: timePicker.date
-        )
-        dateComponents.hour = timeComponents.hour
-        dateComponents.minute = timeComponents.minute
+                var dateComponents = calendar.dateComponents([.year, .month, .day], from: datePicker.date)
+                let timeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
+                dateComponents.hour = timeComponents.hour
+                dateComponents.minute = timeComponents.minute
 
-        let recordedDate: Foundation.Date =
-            calendar.date(from: dateComponents) ?? datePicker.date
+                let recordedDate: Foundation.Date = calendar.date(from: dateComponents) ?? datePicker.date
+                
+                self.showLoader(true)
 
-        // Creating new symptom
-        let newSymptom = Symptom(
-            id: UUID(),
-            symptomName: type,
-            intensity: intensity,
-            dateRecorded: recordedDate,
-            notes: notesTextView.text ?? "",
-            time: timeComponents
-        )
-
-        // Show Loader
-        self.showLoader(true)
-
-        SymptomService.shared.addSymptom(newSymptom) { [weak self] result in
-            guard let self = self else { return }
-
-            DispatchQueue.main.async {
-                self.showLoader(false)
-
-                switch result {
-                case .success:
-                    self.dismiss(animated: true)
-                case .failure(let error):
-                    self.showAlert(
-                        title: "Error",
-                        message:
-                            "Failed to add symptom: \(error.localizedDescription)"
+                if var existingSymptom = symptomToEdit {
+                    // EDIT MODE
+                    existingSymptom.symptomName = type
+                    existingSymptom.intensity = intensity
+                    existingSymptom.dateRecorded = recordedDate
+                    existingSymptom.notes = notesTextView.text ?? ""
+                    
+                    var newTime = DateComponents()
+                    newTime.hour = timeComponents.hour
+                    newTime.minute = timeComponents.minute
+                    existingSymptom.time = newTime
+                    
+                    SymptomService.shared.updateSymptom(existingSymptom) { [weak self] result in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.showLoader(false)
+                            switch result {
+                            case .success:
+                                // NEW: Trigger the refresh in the parent controller
+                                self.onSave?()
+                                self.dismiss(animated: true)
+                            case .failure(let error):
+                                self.showAlert(title: "Error", message: "Failed to update: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                } else {
+                    // ADD MODE
+                    let newSymptom = Symptom(
+                        id: UUID(),
+                        symptomName: type,
+                        intensity: intensity,
+                        dateRecorded: recordedDate,
+                        notes: notesTextView.text ?? "",
+                        time: timeComponents
                     )
+
+                    SymptomService.shared.addSymptom(newSymptom) { [weak self] result in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.showLoader(false)
+                            switch result {
+                            case .success:
+                                // NEW: Trigger the refresh in the parent controller
+                                self.onSave?()
+                                self.dismiss(animated: true)
+                            case .failure(let error):
+                                self.showAlert(title: "Error", message: "Failed to add: \(error.localizedDescription)")
+                            }
+                        }
+                    }
                 }
             }
-        }
-    }
 
     // MARK: - Table View Config
     override func tableView(

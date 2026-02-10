@@ -137,16 +137,28 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     }
 
     func reloadData() {
-        symptomsData = SymptomService.shared.getSymptoms()
-        symptomTableView.reloadData()
-    }
-
-    @objc func updateSymptoms() {
-        if isDeleting {
-            return
+            // 1. Get the latest reference from the Service
+            // Since 'symptoms' is a Value Type (Array), we must re-assign it.
+            symptomsData = SymptomService.shared.getSymptoms()
+            
+            // 2. Reload the table view
+            DispatchQueue.main.async {
+                self.symptomTableView.reloadData()
+            }
         }
+        
+        // Also add this to ensure the view stays fresh
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            reloadData()
+        }
+    
+    @objc func updateSymptoms() {
+        // If we are currently deleting a row, don't reload to avoid animation conflicts
+        if isDeleting { return }
+        
+        // Otherwise, refresh the list
         reloadData()
-
     }
 
 }
