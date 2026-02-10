@@ -31,6 +31,10 @@ class WaterIntakeViewController: UIViewController {
             createDateLayout(),
             animated: true
         )
+        dateCollectionView.isScrollEnabled = true
+            dateCollectionView.showsVerticalScrollIndicator = false
+            dateCollectionView.showsHorizontalScrollIndicator = false
+            dateCollectionView.bounces = false
         
         // View Styling
         insight1.addRoundedCorner(radius: 20)
