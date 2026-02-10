@@ -36,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666668" width="361" height="8.3333333333333233"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -573,7 +573,7 @@
                     <navigationItem key="navigationItem" title="Meal Logs" largeTitleDisplayMode="never" id="QqG-n6-fMR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6kq-rG-S8S">
                             <connections>
-                                <action selector="addMealCamera:" destination="fdI-9g-pwJ" id="Jam-dU-h8s"/>
+                                <segue destination="Zjl-D9-NYW" kind="presentation" id="Amg-vZ-bHm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -613,7 +613,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AddMealScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LES-tK-TP5" customClass="AddMealModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="6hV-bx-nyL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemPinkColor"/>
@@ -825,6 +825,40 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="JkA-I8-r4z">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="150" id="Cf0-IC-oH3">
+                                        <rect key="frame" x="20" y="524" width="353" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cf0-IC-oH3" id="QjG-oE-g2W">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1fn-iS-EmX">
+                                                    <rect key="frame" x="146.66666666666666" y="21" width="60" height="47.666666666666671"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="nkk-kQ-lh1"/>
+                                                        <constraint firstAttribute="width" constant="60" id="q2j-AO-q6q"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jj-5A-cwD">
+                                                    <rect key="frame" x="135.66666666666666" y="78" width="81.666666666666657" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1fn-iS-EmX" firstAttribute="centerX" secondItem="QjG-oE-g2W" secondAttribute="centerX" id="5yQ-TK-Ra4"/>
+                                                <constraint firstItem="1fn-iS-EmX" firstAttribute="centerX" secondItem="QjG-oE-g2W" secondAttribute="centerX" id="99y-ND-GSM"/>
+                                                <constraint firstItem="1fn-iS-EmX" firstAttribute="top" secondItem="QjG-oE-g2W" secondAttribute="top" constant="20" id="IQm-0F-e8o"/>
+                                                <constraint firstItem="1jj-5A-cwD" firstAttribute="top" secondItem="1fn-iS-EmX" secondAttribute="bottom" constant="8" id="lGj-rp-ZCS"/>
+                                                <constraint firstItem="1jj-5A-cwD" firstAttribute="centerX" secondItem="QjG-oE-g2W" secondAttribute="centerX" id="yER-u8-yIp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Meal" id="wJK-kv-Y54">
@@ -841,6 +875,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addMealTableView" destination="6hV-bx-nyL" id="Ihb-fM-lOh"/>
+                        <outlet property="mealCamera" destination="1fn-iS-EmX" id="fZ4-XA-Jvn"/>
                         <outlet property="mealDate" destination="4VH-xF-4PC" id="D4b-KR-gSI"/>
                         <outlet property="mealMenu" destination="2Nc-UK-OXK" id="boD-we-gmt"/>
                         <outlet property="mealName" destination="HVZ-xQ-3NF" id="vwF-8c-BZJ"/>
@@ -1253,7 +1288,7 @@
                 <navigationController storyboardIdentifier="AddMealScreenNav" automaticallyAdjustsScrollViewInsets="NO" id="Zjl-D9-NYW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhG-P6-hil">
-                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1269,6 +1304,7 @@
     <resources>
         <image name="arrowtriangle.down.fill" catalog="system" width="128" height="120"/>
         <image name="bolt.square.fill" catalog="system" width="128" height="114"/>
+        <image name="camera.fill" catalog="system" width="128" height="93"/>
         <image name="chart.line.uptrend.xyaxis" catalog="system" width="128" height="102"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="clock" catalog="system" width="128" height="123"/>

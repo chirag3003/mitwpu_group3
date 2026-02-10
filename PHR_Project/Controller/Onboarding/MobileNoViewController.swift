@@ -9,21 +9,41 @@ import UIKit
 
 class MobileNoViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var phoneNo: UITextField!
     
+    override func viewDidLoad() {
+            super.viewDidLoad()
+            setupTextField()
+        }
+        
+        private func setupTextField() {
+            phoneNo.delegate = self
+            phoneNo.keyboardType = .numberPad
+        }
 
-    /*
-    // MARK: - Navigation
+        // MARK: - Validation Function
+        private func isPhoneNoValid() -> Bool {
+            guard let text = phoneNo.text else { return false }
+            
+            // Check if length is exactly 10
+            return text.count == 10
+        }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+
     }
-    */
 
-}
+    // MARK: - UITextFieldDelegate
+    extension MobileNoViewController: UITextFieldDelegate {
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            let isNumber = allowedCharacters.isSuperset(of: characterSet)
+
+            return isNumber && updatedText.count <= 10
+        }
+    }
