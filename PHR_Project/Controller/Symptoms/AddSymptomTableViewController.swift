@@ -21,6 +21,7 @@ class AddSymptomTableViewController: UITableViewController {
     var selectedType: String?
     var selectedIntensity: String?
     var selectedImage: UIImage?
+    var symptomToEdit: Symptom?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -36,10 +37,43 @@ class AddSymptomTableViewController: UITableViewController {
         setupHideKeyboardOnTap()
         setupTextViewAlignment()
         configureNotesTextViewInsets()
+        checkForEditMode()
 
         //Removing table lines
         tableView.separatorStyle = .singleLine
     }
+    
+    private func checkForEditMode() {
+            if let symptom = symptomToEdit {
+                self.title = "Edit Symptom"
+                
+                // 1. Set Type
+                selectedType = symptom.symptomName
+                typeButton.setTitle(symptom.symptomName, for: .normal)
+                
+                // 2. Set Intensity
+                selectedIntensity = symptom.intensity
+                intensityButton.setTitle(symptom.intensity, for: .normal)
+                
+                // 3. Set Date
+                datePicker.date = symptom.dateRecorded
+                
+                // 4. Set Time (Reconstruct Date from components)
+                let calendar = Calendar.current
+                var timeComponents = DateComponents()
+                timeComponents.hour = symptom.time.hour
+                timeComponents.minute = symptom.time.minute
+                if let timeDate = calendar.date(from: timeComponents) {
+                    timePicker.date = timeDate
+                }
+                
+                // 5. Set Notes
+                notesTextView.text = symptom.notes
+                placeholderLabel.isHidden = !(notesTextView.text?.isEmpty ?? true)
+                
+                // Note: Image handling isn't in your Symptom model provided, so skipping image pre-fill.
+            }
+        }
 
     private func configureNotesTextViewInsets() {
         // Cursor Alignment for UITextView
