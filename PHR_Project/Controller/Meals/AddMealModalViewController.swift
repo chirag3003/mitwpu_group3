@@ -18,9 +18,11 @@ class AddMealModalViewController: UITableViewController {
     @IBOutlet weak var stepperValue: UILabel!
     @IBOutlet weak var mealDate: UIDatePicker!
     @IBOutlet weak var mealTime: UIDatePicker!
-
+    @IBOutlet weak var mealCamera: UIImageView!
+    
     // MARK: Properties
     var selectedMeal: String?
+    var capturedImage: UIImage?
 
     
     // MARK: Lifecycle
@@ -29,6 +31,7 @@ class AddMealModalViewController: UITableViewController {
         super.viewDidLoad()
 
         setupMealMenu()
+        setupCameraImageView()
         addMealTableView.backgroundColor = .systemGray6
         updateStepperLabel()
     }
@@ -52,6 +55,33 @@ class AddMealModalViewController: UITableViewController {
         mealMenu.showsMenuAsPrimaryAction = true
     }
 
+    // Configure camera image view for tapping
+    func setupCameraImageView() {
+        mealCamera.isUserInteractionEnabled = true
+        mealCamera.contentMode = .scaleAspectFill
+        mealCamera.clipsToBounds = true
+        
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(mealCameraTapped)
+        )
+        mealCamera.addGestureRecognizer(tapGesture)
+    }
+    
+    // Remove camera indicator after image is captured
+    private func removeCameraIndicator() {
+        mealCamera.viewWithTag(999)?.removeFromSuperview()
+    }
+    
+    // MARK: Camera Action
+    @objc func mealCameraTapped() {
+        let customCameraVC = CustomCameraViewController()
+        customCameraVC.delegate = self
+        customCameraVC.modalPresentationStyle = .fullScreen
+        present(customCameraVC, animated: true)
+    }
+
+    
     
     // MARK: Stepper Control
     //Update quantity when stepper changes
@@ -96,11 +126,14 @@ class AddMealModalViewController: UITableViewController {
         let detailString = "\(qty) serving(s)"
 
         // Pick image based on meal type
+        // Determine image name
         let imageName: String
-        if type == "Breakfast" {
-            imageName = "coffee"
+        if let capturedImg = capturedImage {
+            // Save image and get identifier
+            imageName = saveImageToDisk(capturedImg)
         } else {
-            imageName = "dal"
+            // Use default image based on meal type
+            imageName = type == "Breakfast" ? "coffee" : "dal"
         }
 
         // Create meal object
@@ -130,5 +163,93 @@ class AddMealModalViewController: UITableViewController {
     //Close modal without saving
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true)
+    }
+    
+    // MARK: Helper Methods
+    // Save captured image to disk and return filename
+    private func saveImageToDisk(_ image: UIImage) -> String {
+        let filename = "meal_\(UUID().uuidString).jpg"
+        
+        guard let documentsDirectory = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        ).first else {
+            return "dal" // Fallback to default
+        }
+        
+        let fileURL = documentsDirectory.appendingPathComponent(filename)
+        
+        if let data = image.jpegData(compressionQuality: 0.8) {
+            do {
+                try data.write(to: fileURL)
+                return filename
+            } catch {
+                print("Error saving image: \(error)")
+            }
+        }
+        
+        return "dal" // Fallback to default
+    }
+}
+
+
+extension AddMealModalViewController: CustomCameraDelegate {
+    
+    // Handle captured image from camera
+    func didCaptureImage(_ image: UIImage) {
+        // Store the captured image
+        capturedImage = image
+        
+        // Update the image view
+        mealCamera.image = image
+        removeCameraIndicator()
+        
+        // Dismiss camera
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            
+            // Optional: Auto-analyze with AI
+            self.analyzeImageWithAI(image)
+        }
+    }
+    
+    // Handle manual logging (user chose not to use camera)
+    func didTapManuallyLog() {
+        // Just dismiss the camera since we're already on the manual entry screen
+        dismiss(animated: true)
+    }
+    
+    // Optional: AI Analysis Integration
+    private func analyzeImageWithAI(_ image: UIImage) {
+        // Show loading indicator
+        let loadingAlert = UIAlertController(
+            title: "Analyzing...",
+            message: "Please wait while we analyze your meal",
+            preferredStyle: .alert
+        )
+        present(loadingAlert, animated: true)
+        
+        MealService.shared.analyzeMeal(image: image) { [weak self] result in
+            guard let self = self else { return }
+            
+            // Dismiss loading
+            loadingAlert.dismiss(animated: true) {
+                switch result {
+                case .success(let analyzedMeal):
+                    // Auto-fill form with AI results
+                    self.mealName.text = analyzedMeal.name
+                    
+                    // Optional: Show success message
+                    self.showAlert(
+                        title: "Analysis Complete",
+                        message: "Meal identified as: \(analyzedMeal.name)"
+                    )
+                    
+                case .failure(let error):
+                    print("AI Analysis failed: \(error)")
+                    // Don't show error - user can still fill manually
+                }
+            }
+        }
     }
 }

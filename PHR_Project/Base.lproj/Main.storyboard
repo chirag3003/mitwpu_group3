@@ -134,6 +134,9 @@
                                         <rect key="frame" x="32" y="168" width="338" height="47"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="phoneNo:" destination="nK0-xH-9pb" eventType="editingDidEnd" id="ORQ-N5-ZHK"/>
+                                        </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CcU-VS-KWN">
                                         <rect key="frame" x="32" y="265" width="338" height="50"/>
@@ -172,6 +175,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xjp-gM-zm0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="nK0-xH-9pb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2807" y="111"/>
         </scene>
@@ -247,7 +251,7 @@
         <!--View Controller-->
         <scene sceneID="eYU-Cg-zyD">
             <objects>
-                <viewController id="n0H-7x-zTB" sceneMemberID="viewController">
+                <viewController id="n0H-7x-zTB" customClass="OTPViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RKQ-Gf-fxV">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -355,6 +359,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NxZ-SR-0G3"/>
+                    <connections>
+                        <outlet property="otp1" destination="u55-2c-BG2" id="xeP-9s-vHR"/>
+                        <outlet property="otp2" destination="mmz-uj-24v" id="3rH-Cd-UZ9"/>
+                        <outlet property="otp3" destination="8Y9-JV-SVr" id="uRH-lN-DOn"/>
+                        <outlet property="otp4" destination="DMq-HX-f1V" id="THY-Yr-biA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRf-On-Ova" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -618,19 +628,19 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rzY-OY-g6s">
                                                 <rect key="frame" x="8" y="45.333333333333314" width="354" height="65"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdm-Gh-x4A">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdm-Gh-x4A">
                                                         <rect key="frame" x="12" y="20" width="101.33333333333333" height="37"/>
                                                         <color key="tintColor" red="0.48627450979999998" green="0.69894136070000001" blue="0.92367187500000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Male"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bv-om-dfD">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bv-om-dfD">
                                                         <rect key="frame" x="128.33333333333334" y="20" width="101.33333333333334" height="37"/>
                                                         <color key="tintColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Female"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyL-uW-PHc">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyL-uW-PHc">
                                                         <rect key="frame" x="244.66666666666671" y="20" width="101.33333333333334" height="37"/>
                                                         <color key="tintColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" title="Button"/>
