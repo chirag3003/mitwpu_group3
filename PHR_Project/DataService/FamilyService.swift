@@ -9,22 +9,22 @@ class FamilyService {
         familyMembers = [
             FamilyMember(
                 name: "Chirag",
-                imageName: "https://phr.chirag.codes/uploads/1770102863293-Chirag.png",
+                imageName: "http://phr.chirag.codes/uploads/1770713598905-Chirag.png",
                 isMe: false
             ),
             FamilyMember(
                 name: "Ved",
-                imageName: "https://phr.chirag.codes/uploads/1770102863371-Ved.png",
+                imageName: "http://phr.chirag.codes/uploads/1770713598968-Ved.png",
                 isMe: false
             ),
             FamilyMember(
                 name: "Sushant",
-                imageName: "https://phr.chirag.codes/uploads/1770102863358-Sushant.png",
+                imageName: "http://phr.chirag.codes/uploads/1770713598949-Sushant.png",
                 isMe: false
             ),
             FamilyMember(
                 name: "Sanchita",
-                imageName: "https://phr.chirag.codes/uploads/1770102863343-Sanchita.jpeg",
+                imageName: "http://phr.chirag.codes/uploads/1770713598929-Sanchita.jpeg",
                 isMe: false
             ),
         ]
