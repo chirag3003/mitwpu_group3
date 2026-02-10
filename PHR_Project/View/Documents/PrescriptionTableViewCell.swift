@@ -15,7 +15,6 @@ class PrescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
     
     // MARK: - Lifecycle
     override func awakeFromNib() {
@@ -36,8 +35,6 @@ class PrescriptionTableViewCell: UITableViewCell {
     // MARK: - Configure
     func configure(with prescription: PrescriptionModel) {
         titleLabel.text = prescription.lastUpdatedAt
-//        subtitleLabel.text = "Modified: \(prescription.lastUpdatedAt)"
-        subtitleLabel.text = prescription.fileSize
     }
     
     // MARK: - Selection Feedback

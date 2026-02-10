@@ -7,10 +7,9 @@
 
 import UIKit
 
-class MobileNoViewController: UIViewController {
+class MobileNoViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var phoneNo: UITextField!
-    
+    @IBOutlet weak var numberField: UITextField!
     override func viewDidLoad() {
             super.viewDidLoad()
             setupTextField()
@@ -21,14 +20,34 @@ class MobileNoViewController: UIViewController {
             phoneNo.keyboardType = .numberPad
         }
 
-        // MARK: - Validation Function
-        private func isPhoneNoValid() -> Bool {
-            guard let text = phoneNo.text else { return false }
-            
-            // Check if length is exactly 10
-            return text.count == 10
-        }
+      setupTextFields()
+    }
+    
 
+    private func setupTextFields() {
+        numberField.delegate = self
+        
+        // Custom Function to round text fields
+        styleTextField(numberField)
+    }
+    
+    private func styleTextField(_ textField: UITextField) {
+        // This manually forces the rounding
+        textField.layer.cornerRadius = 16
+        textField.layer.masksToBounds = true
+        
+       
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
+        
+       
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+    }
+    
+    /*
+    // MARK: - Navigation
 
     }
 
