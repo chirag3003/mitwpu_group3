@@ -882,7 +882,7 @@
         <!--Meal Detail-->
         <scene sceneID="nMs-Sk-Pwr">
             <objects>
-                <viewController id="yME-rt-RRZ" customClass="MealDetailViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MealDetailViewController" id="yME-rt-RRZ" customClass="MealDetailViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="db4-4z-Rjc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
