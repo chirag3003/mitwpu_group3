@@ -39,7 +39,49 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             self.title = "Symptoms"
         }
 
+        setupLongPressGesture()
     }
+    
+    func setupLongPressGesture() {
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+            symptomTableView.addGestureRecognizer(longPress)
+        }
+
+        // NEW: Handle Gesture
+        @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+            if gestureRecognizer.state == .began {
+                let touchPoint = gestureRecognizer.location(in: symptomTableView)
+                if let indexPath = symptomTableView.indexPathForRow(at: touchPoint) {
+                    
+                    let selectedSymptom = symptomsData[indexPath.row]
+                    
+                    // Assuming you have a Segue from this VC to AddSymptomTableViewController
+                    // You need to ensure the Segue Identifier matches your storyboard.
+                    // If you don't have a segue identifier yet, name it "ShowAddSymptom" in Storyboard.
+                    // Or perform navigation programmatically if you prefer.
+                    performSegue(withIdentifier: "ShowAddSymptom", sender: selectedSymptom)
+                }
+            }
+        }
+
+        // NEW: Prepare for Segue to pass data
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "ShowAddSymptom" {
+                if let navVC = segue.destination as? UINavigationController,
+                   let destVC = navVC.topViewController as? AddSymptomTableViewController {
+                    
+                    // If sender is a Symptom, we are editing
+                    if let symptomToEdit = sender as? Symptom {
+                        destVC.symptomToEdit = symptomToEdit
+                    }
+                } else if let destVC = segue.destination as? AddSymptomTableViewController {
+                    // Handle case where it might not be wrapped in Nav Controller
+                    if let symptomToEdit = sender as? Symptom {
+                        destVC.symptomToEdit = symptomToEdit
+                    }
+                }
+            }
+        }
 
     // MARK: - TableView Methods
 
@@ -95,16 +137,28 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     }
 
     func reloadData() {
-        symptomsData = SymptomService.shared.getSymptoms()
-        symptomTableView.reloadData()
-    }
-
-    @objc func updateSymptoms() {
-        if isDeleting {
-            return
+            // 1. Get the latest reference from the Service
+            // Since 'symptoms' is a Value Type (Array), we must re-assign it.
+            symptomsData = SymptomService.shared.getSymptoms()
+            
+            // 2. Reload the table view
+            DispatchQueue.main.async {
+                self.symptomTableView.reloadData()
+            }
         }
+        
+        // Also add this to ensure the view stays fresh
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            reloadData()
+        }
+    
+    @objc func updateSymptoms() {
+        // If we are currently deleting a row, don't reload to avoid animation conflicts
+        if isDeleting { return }
+        
+        // Otherwise, refresh the list
         reloadData()
-
     }
 
 }

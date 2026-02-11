@@ -11,7 +11,14 @@ class MobileNoViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var numberField: UITextField!
     override func viewDidLoad() {
-        super.viewDidLoad()
+            super.viewDidLoad()
+            setupTextField()
+        }
+        
+        private func setupTextField() {
+            phoneNo.delegate = self
+            phoneNo.keyboardType = .numberPad
+        }
 
       setupTextFields()
     }
@@ -42,11 +49,20 @@ class MobileNoViewController: UIViewController, UITextFieldDelegate {
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
-}
+    // MARK: - UITextFieldDelegate
+    extension MobileNoViewController: UITextFieldDelegate {
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            let isNumber = allowedCharacters.isSuperset(of: characterSet)
+
+            return isNumber && updatedText.count <= 10
+        }
+    }

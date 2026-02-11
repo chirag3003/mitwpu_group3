@@ -585,60 +585,60 @@ class NoMealsCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Camera Delegate
 
-extension MealViewController: CustomCameraDelegate {
-
-    //Open camera for meal photo
-    @IBAction func addMealCamera(_ sender: Any) {
-        let customCameraVC = CustomCameraViewController()
-        customCameraVC.delegate = self
-        customCameraVC.modalPresentationStyle = .fullScreen
-        present(customCameraVC, animated: true)
-    }
-
-    //Process captured meal image with AI
-    func didCaptureImage(_ image: UIImage) {
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-
-            self.showLoader(true)
-
-            MealService.shared.analyzeMeal(image: image) { [weak self] result in
-                guard let self = self else { return }
-
-                self.showLoader(false)
-
-                switch result {
-                case .success(let meal):
-                    print("Analysis complete: \(meal.name)")
-                    self.mealCollectionView.reloadData()
-                    self.showAlert(
-                        title: "Success",
-                        message: "Added \(meal.name)!"
-                    )
-
-                case .failure(let error):
-                    print("Analysis failed: \(error)")
-                    self.showAlert(
-                        title: "Analysis Failed",
-                        message: error.localizedDescription
-                    )
-                }
-            }
-        }
-    }
-
-    //Show manual entry screen instead of camera
-    func didTapManuallyLog() {
-        print("User chose to manually log")
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-
-            let storyboard = UIStoryboard(name: "Meals", bundle: nil)
-            let manualVC = storyboard.instantiateViewController(
-                withIdentifier: "AddMealScreenNav"
-            )
-            manualVC.modalPresentationStyle = .pageSheet
-            self.present(manualVC, animated: true, completion: nil)
-        }
-    }
-}
+//extension MealViewController: CustomCameraDelegate {
+//
+//    //Open camera for meal photo
+//    @IBAction func addMealCamera(_ sender: Any) {
+//        let customCameraVC = CustomCameraViewController()
+//        customCameraVC.delegate = self
+//        customCameraVC.modalPresentationStyle = .fullScreen
+//        present(customCameraVC, animated: true)
+//    }
+//
+//    //Process captured meal image with AI
+//    func didCaptureImage(_ image: UIImage) {
+//        dismiss(animated: true) { [weak self] in
+//            guard let self = self else { return }
+//
+//            self.showLoader(true)
+//
+//            MealService.shared.analyzeMeal(image: image) { [weak self] result in
+//                guard let self = self else { return }
+//
+//                self.showLoader(false)
+//
+//                switch result {
+//                case .success(let meal):
+//                    print("Analysis complete: \(meal.name)")
+//                    self.mealCollectionView.reloadData()
+//                    self.showAlert(
+//                        title: "Success",
+//                        message: "Added \(meal.name)!"
+//                    )
+//
+//                case .failure(let error):
+//                    print("Analysis failed: \(error)")
+//                    self.showAlert(
+//                        title: "Analysis Failed",
+//                        message: error.localizedDescription
+//                    )
+//                }
+//            }
+//        }
+//    }
+//
+//    //Show manual entry screen instead of camera
+//    func didTapManuallyLog() {
+//        print("User chose to manually log")
+//        dismiss(animated: true) { [weak self] in
+//            guard let self = self else { return }
+//
+//            let storyboard = UIStoryboard(name: "Meals", bundle: nil)
+//            let manualVC = storyboard.instantiateViewController(
+//                withIdentifier: "AddMealScreenNav"
+//            )
+//            manualVC.modalPresentationStyle = .pageSheet
+//            self.present(manualVC, animated: true, completion: nil)
+//        }
+//    }
+//}
