@@ -42,7 +42,7 @@ class WaterIntakeViewController: UIViewController {
         
         
         // Initial Progress Setup
-        progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thick)
+        progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thin)
         
         setupWaterIntakeGestures()
         setupNotificationObservers()
@@ -179,7 +179,7 @@ private extension WaterIntakeViewController {
         progressView.configure(
             mode: .achievement,
             progress: min(progress, 1.0),
-            thickness: UIConstants.ProgressThickness.thick
+            thickness: UIConstants.ProgressThickness.thin
         )
     }
     
