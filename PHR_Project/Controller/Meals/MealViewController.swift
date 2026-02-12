@@ -432,6 +432,8 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     }
 }
 
+
+
 // MARK: - Collection View
 
 extension MealViewController: UICollectionViewDataSource,
@@ -508,12 +510,13 @@ extension MealViewController: UICollectionViewDataSource,
         return cell
     }
 
-    //Handle date selection and update UI
+    //Handle date selection and meal selection
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
         if collectionView == dateCollectionView {
+            // Handle date selection
             collectionView.scrollToItem(
                 at: indexPath,
                 at: .centeredHorizontally,
@@ -532,6 +535,18 @@ extension MealViewController: UICollectionViewDataSource,
                 mealCollectionView.reloadData()
                 updateStats()
             }
+        } else if collectionView == mealCollectionView {
+            // Handle meal cell selection
+            let mealsInSection = MealService.shared.getMeals(
+                forSection: indexPath.section,
+                on: selectedDate
+            )
+            
+            // Don't navigate if it's the empty state cell
+            guard !mealsInSection.isEmpty else { return }
+            
+            let selectedMeal = mealsInSection[indexPath.row]
+            navigateToMealDetail(meal: selectedMeal)
         }
     }
 
@@ -550,6 +565,20 @@ extension MealViewController: UICollectionViewDataSource,
 
         header.sectionLabel.text = sectionTitles[indexPath.section]
         return header
+    }
+    
+    // MARK: - Navigation
+    
+    //Navigate to meal detail screen
+    private func navigateToMealDetail(meal: Meal) {
+        let storyboard = UIStoryboard(name: "Meals", bundle: nil)
+        
+        if let detailVC = storyboard.instantiateViewController(
+            withIdentifier: "MealDetailViewController"
+        ) as? MealDetailViewController {
+            detailVC.selectedMeal = meal
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
 }
 
