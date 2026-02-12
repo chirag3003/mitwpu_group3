@@ -9,6 +9,9 @@ import UIKit
 
 class MobileNoViewController: UIViewController, UITextFieldDelegate {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
     
     @IBOutlet weak var numberField: UITextField!
     override func viewDidLoad() {
@@ -68,6 +71,7 @@ class MobileNoViewController: UIViewController, UITextFieldDelegate {
     //        }
     //    }
 }
+<<<<<<< HEAD
 =======
 
 //    @IBOutlet weak var numberField: UITextField!
@@ -110,3 +114,5 @@ class MobileNoViewController: UIViewController, UITextFieldDelegate {
 //   
 //}
 >>>>>>> 142515bda2737dad0524549d37f191e4ec93fab2
+=======
+>>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
