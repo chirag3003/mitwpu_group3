@@ -297,6 +297,7 @@
                         <outlet property="increment" destination="XiF-Kh-6a6" id="RZb-hN-1bf"/>
                         <outlet property="insight1" destination="x41-2d-Xyi" id="7BE-X9-I7x"/>
                         <outlet property="insight2" destination="wyU-C8-zTC" id="9Rf-ba-e5q"/>
+                        <outlet property="mlLabel" destination="98E-Ie-3O6" id="KE9-gu-dx3"/>
                         <outlet property="monthName" destination="V9u-OO-bmA" id="kun-G8-AcZ"/>
                         <outlet property="progressView" destination="SPF-LY-L1I" id="fKF-nn-zU7"/>
                     </connections>
@@ -593,7 +594,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
