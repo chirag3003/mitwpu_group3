@@ -32,10 +32,18 @@ class WaterIntakeViewController: UIViewController {
             createDateLayout(),
             animated: true
         )
+        dateCollectionView.isScrollEnabled = true
+            dateCollectionView.showsVerticalScrollIndicator = false
+            dateCollectionView.showsHorizontalScrollIndicator = false
+            dateCollectionView.bounces = false
         
         // View Styling
         insight1.addRoundedCorner(radius: 20)
         insight2.addRoundedCorner(radius: 20)
+        
+        
+        // Initial Progress Setup
+        progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thin)
         
         setupWaterIntakeGestures()
         setupNotificationObservers()
@@ -199,21 +207,16 @@ private extension WaterIntakeViewController {
     }
     
     func updateWaterIntakeUI() {
-        let count = WaterIntakeService.shared.getGlassCount(for: selectedDate)
+        let count = WaterIntakeService.shared.getGlassCount()
+        glassValue.text = "\(count)"
         
-        // Update label on main thread
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.glassValue.text = "\(count)"
-            
-            // Calculate progress percentage (Goal = 10 glasses)
-            let progress = Float(count) / 10.0
-            self.progressView.configure(
-                mode: .achievement,
-                progress: min(progress, 1.0),
-                thickness: UIConstants.ProgressThickness.thick
-            )
-        }
+        // Calculate progress percentage (Goal = 10 glasses)
+        let progress = Float(count) / 10.0
+        progressView.configure(
+            mode: .achievement,
+            progress: min(progress, 1.0),
+            thickness: UIConstants.ProgressThickness.thin
+        )
     }
     
     func animateGlassValue() {

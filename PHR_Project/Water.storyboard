@@ -128,53 +128,45 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="377" height="250"/>
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="M54-sc-y29">
-                                                                                <rect key="frame" x="20" y="16.333333333333329" width="40" height="217.33333333333337"/>
+                                                                                <rect key="frame" x="20" y="33.333333333333329" width="30" height="183.33333333333337"/>
                                                                                 <color key="tintColor" name="water_btn"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" constant="40" id="35k-Go-Ggm"/>
+                                                                                    <constraint firstAttribute="width" constant="30" id="35k-Go-Ggm"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pEy-9t-9Xc">
-                                                                                <rect key="frame" x="60" y="8" width="257" height="234"/>
+                                                                                <rect key="frame" x="50" y="25" width="277" height="200"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-Zp-XFv">
-                                                                                        <rect key="frame" x="8" y="70" width="241" height="45.666666666666657"/>
+                                                                                        <rect key="frame" x="8" y="70" width="261" height="46.333333333333343"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="42"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of 10 glasses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRw-wl-kqN">
-                                                                                        <rect key="frame" x="8" y="120.66666666666669" width="241" height="10.666666666666657"/>
+                                                                                        <rect key="frame" x="8" y="121.33333333333337" width="261" height="11.333333333333343"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500/2500 ml" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98E-Ie-3O6">
-                                                                                        <rect key="frame" x="8" y="136.33333333333337" width="241" height="13"/>
+                                                                                        <rect key="frame" x="8" y="137.66666666666669" width="261" height="12.333333333333343"/>
                                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IU-iu-PDI">
-                                                                                        <rect key="frame" x="8" y="154.33333333333337" width="241" height="29.666666666666657"/>
-                                                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                        <buttonConfiguration key="configuration" style="plain"/>
-                                                                                        <connections>
-                                                                                            <segue destination="anA-xG-bmR" kind="presentation" id="YAn-dO-Wcp"/>
-                                                                                        </connections>
-                                                                                    </button>
                                                                                 </subviews>
                                                                                 <edgeInsets key="layoutMargins" top="70" left="8" bottom="50" right="8"/>
                                                                             </stackView>
                                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="XiF-Kh-6a6">
-                                                                                <rect key="frame" x="317" y="10.333333333333329" width="40" height="229.66666666666669"/>
+                                                                                <rect key="frame" x="327" y="27.333333333333329" width="30" height="195.66666666666669"/>
                                                                                 <color key="tintColor" name="water_btn"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" constant="40" id="0Ap-fb-orj"/>
+                                                                                    <constraint firstAttribute="width" constant="30" id="0Ap-fb-orj"/>
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
-                                                                        <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
+                                                                        <edgeInsets key="layoutMargins" top="25" left="20" bottom="25" right="20"/>
                                                                     </stackView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -486,7 +478,7 @@
             <objects>
                 <viewController id="anA-xG-bmR" customClass="WaterInfoModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pXO-Y4-Jg7">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv2-w8-Qhf">
@@ -502,10 +494,10 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rNk-76-eLt">
-                                <rect key="frame" x="0.0" y="69" width="393" height="593"/>
+                                <rect key="frame" x="0.0" y="69" width="393" height="642"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GNf-FC-7jT">
-                                        <rect key="frame" x="16" y="32" width="361" height="264"/>
+                                        <rect key="frame" x="16" y="81" width="361" height="264"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Importance of Water Tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-DR-mqL">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
@@ -530,7 +522,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0VW-iG-Xxt">
-                                        <rect key="frame" x="16" y="311" width="361" height="274"/>
+                                        <rect key="frame" x="16" y="360" width="361" height="274"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How is your goal calculated?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwn-2Y-Ttf">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
