@@ -44,7 +44,7 @@
                                                     </imageView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BzS-vD-r2V">
                                                         <rect key="frame" x="0.0" y="26.333333333333343" width="393" height="100"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="9gI-cV-LXM"/>
                                                         </constraints>
@@ -245,7 +245,7 @@
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-WC-ELi">
                                                                         <rect key="frame" x="8" y="192.33333333333326" width="361" height="50"/>
-                                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="d8f-lq-XBI"/>
                                                                         </constraints>
@@ -281,7 +281,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bf2-VG-H5o"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="bf2-VG-H5o" firstAttribute="trailing" secondItem="WWb-8M-1Fq" secondAttribute="trailing" id="1Aa-Rh-6Ze"/>
                             <constraint firstItem="WWb-8M-1Fq" firstAttribute="top" secondItem="bf2-VG-H5o" secondAttribute="top" id="AZl-wT-hqS"/>
@@ -598,9 +598,6 @@
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tertiarySystemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

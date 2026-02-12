@@ -46,6 +46,7 @@ class WaterIntakeViewController: UIViewController {
         // Initial Progress Setup
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thin)
         
+        progressView.addRoundedCorner()
         setupWaterIntakeGestures()
         setupNotificationObservers()
         
