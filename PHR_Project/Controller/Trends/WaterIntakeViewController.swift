@@ -12,6 +12,7 @@ class WaterIntakeViewController: UIViewController {
     @IBOutlet weak var increment: UIImageView!
     @IBOutlet weak var decrement: UIImageView!
     
+    @IBOutlet weak var mlLabel: UILabel!
     //insights
     @IBOutlet weak var insight1: UIView!
     @IBOutlet weak var insight2: UIView!
@@ -208,7 +209,9 @@ private extension WaterIntakeViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.glassValue.text = "\(count)"
-            
+            let currentMl = count * 250
+                      let goalMl = 2500
+                      self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
             // Calculate progress percentage (Goal = 10 glasses)
             let progress = Float(count) / 10.0
             self.progressView.configure(
