@@ -41,19 +41,12 @@ class WaterIntakeViewController: UIViewController {
         insight1.addRoundedCorner(radius: 20)
         insight2.addRoundedCorner(radius: 20)
         
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
+
         
         // Initial Progress Setup
         progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thin)
         
-<<<<<<< HEAD
-=======
->>>>>>> 142515bda2737dad0524549d37f191e4ec93fab2
-=======
->>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
+
         setupWaterIntakeGestures()
         setupNotificationObservers()
         updateWaterIntakeUI()
@@ -219,10 +212,7 @@ private extension WaterIntakeViewController {
         let count = WaterIntakeService.shared.getGlassCount()
         glassValue.text = "\(count)"
         
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
+
         // Calculate progress percentage (Goal = 10 glasses)
         let progress = Float(count) / 10.0
         progressView.configure(
@@ -230,8 +220,7 @@ private extension WaterIntakeViewController {
             progress: min(progress, 1.0),
             thickness: UIConstants.ProgressThickness.thin
         )
-<<<<<<< HEAD
-=======
+
         // Update label on main thread
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -245,9 +234,7 @@ private extension WaterIntakeViewController {
                 thickness: UIConstants.ProgressThickness.thick
             )
         }
->>>>>>> 142515bda2737dad0524549d37f191e4ec93fab2
-=======
->>>>>>> 66c1cb9be88eb27cfd6c26e60d9a4b5bb3e092ad
+
     }
     
     func animateGlassValue() {
