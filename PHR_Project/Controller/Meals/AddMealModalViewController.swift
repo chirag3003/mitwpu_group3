@@ -98,8 +98,23 @@ class AddMealModalViewController: UITableViewController {
     // MARK: Actions
     //Validate inputs and save meal
     @IBAction func doneButton(_ sender: Any) {
+        saveMeal()
+    }
+
+    //Close modal without saving
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    // MARK: Helper Methods
+    
+    // Save meal to service
+    private func saveMeal(name: String? = nil, type: String? = nil) {
+        // Use provided name or get from text field
+        let mealName = name ?? mealName.text
+        
         // Validate meal name
-        guard let name = mealName.text, !name.isEmpty else {
+        guard let validName = mealName, !validName.isEmpty else {
             self.showAlert(
                 title: "Missing info",
                 message: "Please enter a meal name"
@@ -107,8 +122,11 @@ class AddMealModalViewController: UITableViewController {
             return
         }
 
+        // Use provided type or get from selected menu
+        let mealType = type ?? selectedMeal
+        
         // Validate meal type
-        guard let type = selectedMeal else {
+        guard let validType = mealType else {
             self.showAlert(
                 title: "Missing info",
                 message: "Please select Meal Type"
@@ -125,7 +143,6 @@ class AddMealModalViewController: UITableViewController {
         let qty = Int(qtyStepper.value)
         let detailString = "\(qty) serving(s)"
 
-        // Pick image based on meal type
         // Determine image name
         let imageName: String
         if let capturedImg = capturedImage {
@@ -133,17 +150,17 @@ class AddMealModalViewController: UITableViewController {
             imageName = saveImageToDisk(capturedImg)
         } else {
             // Use default image based on meal type
-            imageName = type == "Breakfast" ? "coffee" : "dal"
+            imageName = validType == "Breakfast" ? "coffee" : "dal"
         }
 
         // Create meal object
         let newMeal = Meal(
             id: UUID(),
-            name: name,
+            name: validName,
             detail: detailString,
             time: timeString,
             image: imageName,
-            type: type,
+            type: validType,
             dateRecorded: mealDate.date,
             calories: 0,
             protein: 0,
@@ -159,13 +176,7 @@ class AddMealModalViewController: UITableViewController {
         // Close modal
         dismiss(animated: true)
     }
-
-    //Close modal without saving
-    @IBAction func cancelButton(_ sender: Any) {
-        dismiss(animated: true)
-    }
     
-    // MARK: Helper Methods
     // Save captured image to disk and return filename
     private func saveImageToDisk(_ image: UIImage) -> String {
         let filename = "meal_\(UUID().uuidString).jpg"
@@ -208,7 +219,7 @@ extension AddMealModalViewController: CustomCameraDelegate {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
             
-            // Optional: Auto-analyze with AI
+            // Auto-analyze with AI and save immediately
             self.analyzeImageWithAI(image)
         }
     }
@@ -219,7 +230,7 @@ extension AddMealModalViewController: CustomCameraDelegate {
         dismiss(animated: true)
     }
     
-    // Optional: AI Analysis Integration
+    // AI Analysis Integration - Auto-save after analysis
     private func analyzeImageWithAI(_ image: UIImage) {
         // Show loading indicator
         let loadingAlert = UIAlertController(
@@ -236,20 +247,33 @@ extension AddMealModalViewController: CustomCameraDelegate {
             loadingAlert.dismiss(animated: true) {
                 switch result {
                 case .success(let analyzedMeal):
-                    // Auto-fill form with AI results
-                    self.mealName.text = analyzedMeal.name
-                    
-                    // Optional: Show success message
-                    self.showAlert(
-                        title: "Analysis Complete",
-                        message: "Meal identified as: \(analyzedMeal.name)"
-                    )
+                    // Automatically save the analyzed meal and close modal
+                    self.saveMeal(name: analyzedMeal.name, type: self.determineMealType())
                     
                 case .failure(let error):
                     print("AI Analysis failed: \(error)")
-                    // Don't show error - user can still fill manually
+                    
+                    // Show error and keep modal open for manual entry
+                    self.showAlert(
+                        title: "Analysis Failed",
+                        message: "Could not identify the meal. Please enter details manually."
+                    )
                 }
             }
         }
     }
+    
+    // Determine meal type based on current time
+    private func determineMealType() -> String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        
+        if hour >= 5 && hour < 11 {
+            return "Breakfast"
+        } else if hour >= 11 && hour < 16 {
+            return "Lunch"
+        } else {
+            return "Dinner"
+        }
+    }
 }
+

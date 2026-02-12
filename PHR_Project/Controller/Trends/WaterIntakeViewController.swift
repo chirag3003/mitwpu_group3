@@ -19,6 +19,7 @@ class WaterIntakeViewController: UIViewController {
     // MARK: - Properties
     var dates: MealDataStore = MealDataStore.shared
     var hasScrolledToToday = false
+    var selectedDate: Date = Date() // Track currently selected date
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -127,6 +128,7 @@ class WaterIntakeViewController: UIViewController {
         // Offset logic assuming index 15 is current day
         let daysOffset = index - 15
         if let targetDate = calendar.date(byAdding: .day, value: daysOffset, to: today) {
+            selectedDate = targetDate // Update selected date
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM"
             monthName.text = dateFormatter.string(from: targetDate)
@@ -155,15 +157,49 @@ private extension WaterIntakeViewController {
     }
     
     @objc func incrementGlassCount() {
-        WaterIntakeService.shared.incrementGlass()
+      
+        let calendar = Calendar.current
+        if calendar.isDateInToday(selectedDate) {
+            // Increment for today
+            WaterIntakeService.shared.incrementGlass()
+        } else {
+            // Increment for selected historical date
+            WaterIntakeService.shared.incrementGlass(for: selectedDate)
+        }
+        
+        // Force immediate UI update
+        updateWaterIntakeUI()
+        
+        // Reload the date cell to show updated progress
+        if let selectedIndexPath = dateCollectionView.indexPathsForSelectedItems?.first {
+            dateCollectionView.reloadItems(at: [selectedIndexPath])
+        }
+        
         animateGlassValue()
-        self.provideHapticFeedback()
+        provideHapticFeedback()
     }
     
     @objc func decrementGlassCount() {
-        WaterIntakeService.shared.decrementGlass()
+       
+        let calendar = Calendar.current
+        if calendar.isDateInToday(selectedDate) {
+            // Decrement for today
+            WaterIntakeService.shared.decrementGlass()
+        } else {
+            // Decrement for selected historical date
+            WaterIntakeService.shared.decrementGlass(for: selectedDate)
+        }
+        
+        // Force immediate UI update
+        updateWaterIntakeUI()
+        
+        // Reload the date cell to show updated progress
+        if let selectedIndexPath = dateCollectionView.indexPathsForSelectedItems?.first {
+            dateCollectionView.reloadItems(at: [selectedIndexPath])
+        }
+        
         animateGlassValue()
-        self.provideHapticFeedback()
+        provideHapticFeedback()
     }
     
     @objc func handleWaterIntakeUpdate() {
@@ -209,10 +245,17 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
         ) as! DatesCollectionViewCell
         
         let date = dates.getDays()[indexPath.row]
-        cell.configureCell(date: date)
+        
+        // Configure cell in water intake mode
+        cell.configureCell(date: date, mode: .waterIntake)
         
         // Highlight today visually
         cell.isToday = (indexPath.row == 15)
+        
+        // Get water intake for this date and set progress
+        let waterIntake = getWaterIntakeForDate(at: indexPath.row)
+        let progress = Float(waterIntake) / 10.0 // Goal is 10 glasses
+        cell.waterProgress = progress
         
         return cell
     }
@@ -225,9 +268,27 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
         )
         
         updateMonthLabel(for: indexPath.row)
+        
+        // Update UI for the selected date
+        updateWaterIntakeUI()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func getWaterIntakeForDate(at index: Int) -> Int {
+        let calendar = Calendar.current
+        let today = Date()
+        let daysOffset = index - 15
+        
+        guard let targetDate = calendar.date(byAdding: .day, value: daysOffset, to: today) else {
+            return 0
+        }
+        
+        // Get water intake count for the target date from service
+        return WaterIntakeService.shared.getGlassCount(for: targetDate)
     }
 }
