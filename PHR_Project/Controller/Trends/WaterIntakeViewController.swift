@@ -163,7 +163,13 @@ private extension WaterIntakeViewController {
         )
     }
     
+    
     @objc func incrementGlassCount() {
+        let calendar = Calendar.current
+        guard calendar.isDateInToday(selectedDate) else {
+            showPastDateAlert()
+            return
+        }
         // Increment for the currently selected date
         WaterIntakeService.shared.incrementGlass(for: selectedDate)
         
@@ -180,7 +186,13 @@ private extension WaterIntakeViewController {
         provideHapticFeedback()
     }
     
+    
     @objc func decrementGlassCount() {
+        let calendar = Calendar.current
+        guard calendar.isDateInToday(selectedDate) else {
+            showPastDateAlert()
+            return
+        }
         // Decrement for the currently selected date
         WaterIntakeService.shared.decrementGlass(for: selectedDate)
         
@@ -196,6 +208,15 @@ private extension WaterIntakeViewController {
         animateGlassValue()
         provideHapticFeedback()
     }
+    func showPastDateAlert() {
+        let alert = UIAlertController(
+            title: "Cannot Edit Past Data",
+            message: "You can only edit today's water intake. Past dates are locked.",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
     
     @objc func handleWaterIntakeUpdate() {
         updateWaterIntakeUI()
@@ -204,6 +225,9 @@ private extension WaterIntakeViewController {
     func updateWaterIntakeUI() {
         // Get count for the currently selected date
         let count = WaterIntakeService.shared.getGlassCount(for: selectedDate)
+        // Check if selected date is today
+        let calendar = Calendar.current
+        let isToday = calendar.isDateInToday(selectedDate)
         
         // Update label on main thread
         DispatchQueue.main.async { [weak self] in
@@ -219,6 +243,11 @@ private extension WaterIntakeViewController {
                 progress: min(progress, 1.0),
                 thickness: UIConstants.ProgressThickness.thick
             )
+            // Enable/disable increment/decrement based on whether it's today
+            self.increment.alpha = isToday ? 1.0 : 0.3
+            self.decrement.alpha = isToday ? 1.0 : 0.3
+            self.increment.isUserInteractionEnabled = isToday
+            self.decrement.isUserInteractionEnabled = isToday
         }
     }
     
