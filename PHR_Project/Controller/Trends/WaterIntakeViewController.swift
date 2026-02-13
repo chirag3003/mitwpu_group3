@@ -155,6 +155,7 @@ private extension WaterIntakeViewController {
         decrement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(decrementGlassCount)))
     }
     
+    
     func setupNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -173,15 +174,13 @@ private extension WaterIntakeViewController {
         }
         // Increment for the currently selected date
         WaterIntakeService.shared.incrementGlass(for: selectedDate)
-        
+        reloadVisibleCells()
         // Update UI
         updateWaterIntakeUI()
         
         // Reload the cell for the current centered date
-        let indexPath = IndexPath(item: currentCenteredIndex, section: 0)
-        UIView.performWithoutAnimation {
-            dateCollectionView.reloadItems(at: [indexPath])
-        }
+       
+        
         
         animateGlassValue()
         provideHapticFeedback()
@@ -199,7 +198,8 @@ private extension WaterIntakeViewController {
         
         // Update UI
         updateWaterIntakeUI()
-        
+        reloadVisibleCells()
+
         // Reload the cell for the current centered date
         let indexPath = IndexPath(item: currentCenteredIndex, section: 0)
         UIView.performWithoutAnimation {
@@ -208,6 +208,15 @@ private extension WaterIntakeViewController {
         
         animateGlassValue()
         provideHapticFeedback()
+        
+    }
+    func reloadVisibleCells() {
+        // Reload all visible cells without animation to prevent visual glitches
+        UIView.performWithoutAnimation {
+            if let visibleIndexPaths = dateCollectionView.indexPathsForVisibleItems as? [IndexPath], !visibleIndexPaths.isEmpty {
+                dateCollectionView.reloadItems(at: visibleIndexPaths)
+            }
+        }
     }
     func showPastDateAlert() {
         let alert = UIAlertController(
