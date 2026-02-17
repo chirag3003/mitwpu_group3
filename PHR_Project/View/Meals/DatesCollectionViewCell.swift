@@ -137,7 +137,6 @@ class DatesCollectionViewCell: UICollectionViewCell {
         // Calculate progress percentage (clamped between 0 and 1)
         let progress = CGFloat(min(max(waterProgress, 0.0), 1.0))
         
-        print("📈 Updating progress view: progress=\(progress), bounds=\(viewDateCell.bounds)")
         
         // Calculate height based on progress (fill from bottom)
         let totalHeight = viewDateCell.bounds.height

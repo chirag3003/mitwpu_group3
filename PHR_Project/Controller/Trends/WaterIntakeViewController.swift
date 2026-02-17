@@ -173,13 +173,11 @@ private extension WaterIntakeViewController {
         // Increment for the currently selected date
         WaterIntakeService.shared.incrementGlass(for: selectedDate)
         reloadVisibleCells()
+        
         // Update UI
         updateWaterIntakeUI()
         
         // Reload the cell for the current centered date
-       
-        
-        
         animateGlassValue()
         provideHapticFeedback()
     }
