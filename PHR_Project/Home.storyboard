@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="18m-S3-yQQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="402" height="936.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="402" height="1176.3333333333333"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="377" placeholderIntrinsicHeight="172" translatesAutoresizingMaskIntoConstraints="NO" id="tPc-Lg-Io4" userLabel="Notification View">
                                                 <rect key="frame" x="16" y="120" width="370" height="172"/>
@@ -523,6 +523,29 @@
                                                     <constraint firstAttribute="bottom" secondItem="3TN-FR-vdh" secondAttribute="bottom" id="pi0-x2-7Z5"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUJ-Ix-KTf" userLabel="Today's Meals">
+                                                <rect key="frame" x="16" y="936.33333333333337" width="370" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QVu-w3-YBD">
+                                                <rect key="frame" x="16" y="968.33333333333348" width="370" height="200"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="523-mJ-gWd"/>
+                                                </constraints>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="w5l-7R-XzB" customClass="HomeMealItemTableViewCell" customModule="PHR_Project" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="50" width="370" height="51"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w5l-7R-XzB" id="czM-3x-k8u">
+                                                            <rect key="frame" x="0.0" y="0.0" width="370" height="51"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="120" left="16" bottom="8" right="16"/>
                                     </stackView>
@@ -613,6 +636,7 @@
                         <outlet property="headerView" destination="vto-fR-G7q" id="yal-wq-wPB"/>
                         <outlet property="mainStack" destination="18m-S3-yQQ" id="YSU-aS-4bI"/>
                         <outlet property="mealLogCardView" destination="OXF-aa-G9R" id="GwS-CL-O7c"/>
+                        <outlet property="mealTable" destination="QVu-w3-YBD" id="7zk-B4-fee"/>
                         <outlet property="notificationView" destination="tPc-Lg-Io4" id="vGF-ia-Q6t"/>
                         <outlet property="stepsCard" destination="8ye-xR-VZl" id="Nsl-u1-HJw"/>
                         <outlet property="stepsLabel" destination="kjI-C1-hOT" id="Oei-Ci-Avs"/>
@@ -625,7 +649,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1685.0746268656715" y="-225.85812356979403"/>
+            <point key="canvasLocation" x="1719" y="-226"/>
         </scene>
         <!--Meals-->
         <scene sceneID="nrv-lb-jro">
@@ -1819,7 +1843,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iq8-Sm-Ime" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2324" y="210"/>
+            <point key="canvasLocation" x="2345" y="303"/>
         </scene>
     </scenes>
     <resources>

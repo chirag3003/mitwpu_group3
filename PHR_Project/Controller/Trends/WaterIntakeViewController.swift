@@ -44,7 +44,7 @@ class WaterIntakeViewController: UIViewController {
         insight2.addRoundedCorner(radius: 20)
         
         // Initial Progress Setup
-        progressView.configure(mode: .achievement, progress: 0.8, thickness: UIConstants.ProgressThickness.thin)
+        progressView.configure(mode: .achievement, progress: 0.0, thickness: UIConstants.ProgressThickness.thick)
         
         progressView.addRoundedCorner()
         setupWaterIntakeGestures()
@@ -155,7 +155,6 @@ private extension WaterIntakeViewController {
         decrement.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(decrementGlassCount)))
     }
     
-    
     func setupNotificationObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -164,7 +163,6 @@ private extension WaterIntakeViewController {
             object: nil
         )
     }
-    
     
     @objc func incrementGlassCount() {
         let calendar = Calendar.current
@@ -185,7 +183,6 @@ private extension WaterIntakeViewController {
         animateGlassValue()
         provideHapticFeedback()
     }
-    
     
     @objc func decrementGlassCount() {
         let calendar = Calendar.current
@@ -210,6 +207,7 @@ private extension WaterIntakeViewController {
         provideHapticFeedback()
         
     }
+    
     func reloadVisibleCells() {
         // Reload all visible cells without animation to prevent visual glitches
         UIView.performWithoutAnimation {
@@ -218,6 +216,7 @@ private extension WaterIntakeViewController {
             }
         }
     }
+    
     func showPastDateAlert() {
         let alert = UIAlertController(
             title: "Cannot Edit Past Data",
@@ -233,27 +232,22 @@ private extension WaterIntakeViewController {
     }
     
     func updateWaterIntakeUI() {
-        // Get count for the currently selected date
         let count = WaterIntakeService.shared.getGlassCount(for: selectedDate)
-        // Check if selected date is today
         let calendar = Calendar.current
         let isToday = calendar.isDateInToday(selectedDate)
         
-        // Update label on main thread
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            
             self.glassValue.text = "\(count)"
             let currentMl = count * 250
-                      let goalMl = 2500
-                      self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
-            // Calculate progress percentage (Goal = 10 glasses)
+            let goalMl = 2500
+            self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
+            
+            // Animate progress update instead of reconfiguring
             let progress = Float(count) / 10.0
-            self.progressView.configure(
-                mode: .achievement,
-                progress: min(progress, 1.0),
-                thickness: UIConstants.ProgressThickness.thick
-            )
-            // Enable/disable increment/decrement based on whether it's today
+            self.progressView.setProgress(to: min(progress, 1.0), animated: true)
+            
             self.increment.alpha = isToday ? 1.0 : 0.3
             self.decrement.alpha = isToday ? 1.0 : 0.3
             self.increment.isUserInteractionEnabled = isToday
