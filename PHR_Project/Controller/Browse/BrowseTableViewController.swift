@@ -14,7 +14,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
     let categories: [Category] = [
         Category(
             name: "Steps",
-            icon: "flame.fill",
+            icon: "shoeprints.fill",
             color: .systemOrange,
             segueIdentifier: "stepsSegue"
         ),
@@ -62,7 +62,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         ),
         Category(
             name: "Symptoms",
-            icon: "waveform.path.ecg",
+            icon: "waveform.path.ecg.text.page",
             color: .systemYellow,
             segueIdentifier: "browseSymptomsSegue"
         ),
