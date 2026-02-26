@@ -107,4 +107,41 @@ class InsightsService {
         mealInsightsCacheTime = nil
         glucoseInsightsCacheTime = nil
     }
+    
+    // MARK: - Summary Generation
+    
+    /// Generate a comprehensive PDF health summary via API
+    /// - Parameters:
+    ///   - startDate: Start of date range
+    ///   - endDate: End of date range
+    ///   - include: Which data sections to include
+    ///   - completion: Callback with the PDF URL string or nil on failure
+    func generateSummary(
+        startDate: Date,
+        endDate: Date,
+        include: SummaryInclude,
+        completion: @escaping (String?) -> Void
+    ) {
+        let formatter = ISO8601DateFormatter()
+        let request = SummaryRequest(
+            startDate: formatter.string(from: startDate),
+            endDate: formatter.string(from: endDate),
+            include: include
+        )
+        
+        APIService.shared.request(
+            endpoint: "/insights/summary",
+            method: .post,
+            body: request
+        ) { (result: Result<SummaryResponse, Error>) in
+            switch result {
+            case .success(let response):
+                print("✅ InsightsService: Summary generated successfully - \(response)")
+                completion(response.url)
+            case .failure(let error):
+                print("❌ InsightsService: Failed to generate summary - \(error)")
+                completion(nil)
+            }
+        }
+    }
 }

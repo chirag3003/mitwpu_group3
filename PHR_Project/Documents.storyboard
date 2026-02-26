@@ -379,7 +379,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="gGx-yT-kkq">
-                                                                    <rect key="frame" x="61" y="12.666666666666668" width="268" height="30.000000000000004"/>
+                                                                    <rect key="frame" x="61" y="18.666666666666668" width="268" height="18.000000000000004"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-SB-qc2">
                                                                             <rect key="frame" x="0.0" y="0.0" width="268" height="18"/>
@@ -1070,11 +1070,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="46"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-qq-1C1">
-                                                    <rect key="frame" x="160.66666666666663" y="12" width="176.33333333333337" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zet-AV-53B">
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="46"/>
                                                     <constraints>
@@ -1083,18 +1078,15 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Generate Summary"/>
                                                     <connections>
-                                                        <segue destination="II9-Cn-dbM" kind="presentation" id="xvi-Sq-K1L"/>
+                                                        <action selector="onGenerateSummary:" destination="tKg-Vj-FBg" eventType="touchUpInside" id="RUQ-rB-DgS"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="zet-AV-53B" secondAttribute="bottom" id="Twd-zN-i3m"/>
-                                                <constraint firstAttribute="trailing" secondItem="O3d-qq-1C1" secondAttribute="trailing" constant="16" id="dKI-Fx-IcC"/>
                                                 <constraint firstAttribute="trailing" secondItem="zet-AV-53B" secondAttribute="trailing" id="ldz-7e-i2R"/>
                                                 <constraint firstItem="zet-AV-53B" firstAttribute="top" secondItem="taT-Uf-vgZ" secondAttribute="top" id="qST-Ef-LZR"/>
-                                                <constraint firstItem="O3d-qq-1C1" firstAttribute="width" secondItem="taT-Uf-vgZ" secondAttribute="width" multiplier="0.5" id="rki-L1-SlO"/>
                                                 <constraint firstItem="zet-AV-53B" firstAttribute="leading" secondItem="taT-Uf-vgZ" secondAttribute="leading" id="usk-sL-yi4"/>
-                                                <constraint firstItem="O3d-qq-1C1" firstAttribute="centerY" secondItem="taT-Uf-vgZ" secondAttribute="centerY" id="yUK-fu-xtu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
@@ -1118,6 +1110,7 @@
                         <outlet property="startDatePicker" destination="x64-rJ-VI9" id="KA3-KV-aEl"/>
                         <outlet property="symptomsSwitch" destination="Hnh-Yu-eD7" id="sdW-z5-3w2"/>
                         <outlet property="trendsSwitch" destination="IDH-kc-cpi" id="BSJ-gM-4QF"/>
+                        <segue destination="II9-Cn-dbM" kind="presentation" identifier="healthReportSegue" id="nBT-Dc-xnH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Goq-Qa-yBD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

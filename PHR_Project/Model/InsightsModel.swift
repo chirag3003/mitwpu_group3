@@ -89,3 +89,22 @@ enum TipPriority: String, Codable {
         }
     }
 }
+
+// MARK: - Summary Models
+
+struct SummaryRequest: Codable {
+    let startDate: String
+    let endDate: String
+    let include: SummaryInclude
+}
+
+struct SummaryInclude: Codable {
+    let glucose: Bool
+    let symptoms: Bool
+    let meals: Bool
+    let documents: Bool
+}
+
+struct SummaryResponse: Codable {
+    let url: String
+}
