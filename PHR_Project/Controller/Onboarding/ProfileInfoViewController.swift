@@ -185,6 +185,14 @@ class ProfileInfoViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
         }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass the updated array to the next screen (DiabetesTypeViewController)
+        if let dobVC = segue.destination as? DobViewController {
+            dobVC.profileDataArray = profileDataArray
+        }
+    }
 
 
     }

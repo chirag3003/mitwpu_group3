@@ -22,6 +22,8 @@ class BloodTypeViewController: UIViewController {
     // Receive data from previous screen (WeightScaleViewController)
     var profileDataArray: [String: Any] = [:]
     
+    var profileData : [ProfileModel] = []
+
     private var selectedView: UIView?
     private var selectedBloodType: String?
     
@@ -30,12 +32,12 @@ class BloodTypeViewController: UIViewController {
    
     enum BloodType: String {
         case aPositive = "A+"
-        case aNegative = "A-"
         case bPositive = "B+"
-        case bNegative = "B-"
         case abPositive = "AB+"
-        case abNegative = "AB-"
         case oPositive = "O+"
+        case aNegative = "A-"
+        case bNegative = "B-"
+        case abNegative = "AB-"
         case oNegative = "O-"
     }
     
@@ -99,6 +101,7 @@ class BloodTypeViewController: UIViewController {
         
         saveDataToArray(type: bloodType)
         finalizeProfile()
+      
     }
     
     
@@ -108,14 +111,33 @@ class BloodTypeViewController: UIViewController {
     }
     
     private func finalizeProfile() {
-        print("!!! FINAL PROFILE DATA SAVED !!!")
-        print("--------------------------------")
-        profileDataArray.forEach { (key, value) in
-            print("\(key): \(value)")
-        }
-        print("--------------------------------")
+        print("!!! FINALIZING PROFILE !!!")
         
-
+        let firstName = profileDataArray["firstName"] as? String ?? ""
+        let lastName = profileDataArray["lastName"] as? String ?? ""
+        let dob = profileDataArray["dob"] as? Date ?? Date()
+        let sex = profileDataArray["sex"] as? String ?? ""
+        let diabetesType = profileDataArray["diabetesType"] as? String ?? ""
+        let bloodType = profileDataArray["bloodType"] as? String ?? ""
+        let height = profileDataArray["height"] as? Int ?? 0
+        let weight = profileDataArray["weight"] as? Int ?? 0
+        
+        let newProfile = ProfileModel(
+            apiID: nil,
+            userId: nil,
+            firstName: firstName,
+            lastName: lastName,
+            dob: dob,
+            sex: sex,
+            diabetesType: diabetesType,
+            bloodType: bloodType,
+            height: height,
+            weight: weight
+        )
+        
+        
+        print("✅ Profile successfully saved to profileData array.")
+        print(profileData)
     }
     
     // MARK: - Selection Logic Helpers
@@ -145,12 +167,12 @@ class BloodTypeViewController: UIViewController {
     private func getSelectedBloodType(for card: UIView) -> BloodType? {
         switch card {
         case viewOne:   return .aPositive
-        case viewTwo:   return .aNegative
-        case viewThree: return .bPositive
-        case viewFour:  return .bNegative
-        case viewFive:  return .abPositive
-        case viewSix:   return .abNegative
-        case viewSeven: return .oPositive
+        case viewTwo:   return .bPositive
+        case viewThree: return .abPositive
+        case viewFour:  return .oPositive
+        case viewFive:  return .aNegative
+        case viewSix:   return .bNegative
+        case viewSeven: return .abNegative
         case viewEight: return .oNegative
         default:        return nil
         }
