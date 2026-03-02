@@ -21,8 +21,6 @@ class BloodTypeViewController: UIViewController {
     // MARK: - Properties
     // Receive data from previous screen (WeightScaleViewController)
     var profileDataArray: [String: Any] = [:]
-    
-    var profileData : [ProfileModel] = []
 
     private var selectedView: UIView?
     private var selectedBloodType: String?
@@ -111,8 +109,6 @@ class BloodTypeViewController: UIViewController {
     }
     
     private func finalizeProfile() {
-        print("!!! FINALIZING PROFILE !!!")
-        
         let firstName = profileDataArray["firstName"] as? String ?? ""
         let lastName = profileDataArray["lastName"] as? String ?? ""
         let dob = profileDataArray["dob"] as? Date ?? Date()
@@ -121,7 +117,7 @@ class BloodTypeViewController: UIViewController {
         let bloodType = profileDataArray["bloodType"] as? String ?? ""
         let height = profileDataArray["height"] as? Int ?? 0
         let weight = profileDataArray["weight"] as? Int ?? 0
-        
+
         let newProfile = ProfileModel(
             apiID: nil,
             userId: nil,
@@ -134,10 +130,12 @@ class BloodTypeViewController: UIViewController {
             height: height,
             weight: weight
         )
-        
-        
-        print("✅ Profile successfully saved to profileData array.")
-        print(profileData)
+
+        // Save profile locally (Core Data) and to API
+        ProfileService.shared.setProfile(to: newProfile)
+
+        // Transition to main app
+        SceneDelegate.switchToMainApp()
     }
     
     // MARK: - Selection Logic Helpers
