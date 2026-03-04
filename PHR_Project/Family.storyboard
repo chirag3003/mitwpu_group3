@@ -80,6 +80,45 @@
             </objects>
             <point key="canvasLocation" x="779.38931297709917" y="-922.53521126760563"/>
         </scene>
+        <!--Choose Family-->
+        <scene sceneID="NbT-OR-g4x">
+            <objects>
+                <tableViewController id="yRx-mT-Xgp" customClass="FamilySwitchTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="1j2-Wd-ybO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="family_cell" id="oON-JJ-eYc">
+                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oON-JJ-eYc" id="3m2-CM-BIK">
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="yRx-mT-Xgp" id="Z2f-9i-pUb"/>
+                            <outlet property="delegate" destination="yRx-mT-Xgp" id="3mO-6Z-2hk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Family" id="b63-CC-NQm">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="MPJ-3K-Yrh">
+                            <connections>
+                                <action selector="closeButtontapped:" destination="yRx-mT-Xgp" id="F3i-Oo-KdJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="1j2-Wd-ybO" id="NvZ-No-NYU"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bgC-V2-FSe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2544.2748091603053" y="-923.23943661971839"/>
+        </scene>
         <!--Family-->
         <scene sceneID="yb3-6W-3KM">
             <objects>
@@ -121,7 +160,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.2.fill" catalog="system" id="maw-9O-53u"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.2.fill" catalog="system" id="maw-9O-53u">
+                            <connections>
+                                <action selector="familySwitchButtonTapped:" destination="gyh-HG-7mE" id="JAS-GN-hPY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1"/>
                     </navigationItem>
                     <connections>
@@ -130,6 +173,7 @@
                         <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="FU1-d8-cXQ"/>
                         <segue destination="k7P-vK-TfR" kind="show" identifier="GoToAddMember" id="sCJ-er-ZX3"/>
                         <segue destination="H63-dK-1T0" kind="presentation" identifier="GoToAddFamily" id="6K5-i9-oTN"/>
+                        <segue destination="GDx-FR-gbP" kind="presentation" identifier="familySwitchSegue" id="NDP-9q-sAe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28z-t9-sWe" sceneMemberID="firstResponder"/>
@@ -683,6 +727,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V7Y-fc-Olq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-147.32824427480915" y="-922.53521126760563"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kKt-Sb-FDl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GDx-FR-gbP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tgT-Kj-ZDe">
+                        <rect key="frame" x="0.0" y="16" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yRx-mT-Xgp" kind="relationship" relationship="rootViewController" id="CZM-SR-Knt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L5d-4e-T3r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1617.5572519083969" y="-923.23943661971839"/>
         </scene>
     </scenes>
     <resources>

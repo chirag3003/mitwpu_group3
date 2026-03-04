@@ -189,6 +189,12 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                 sender: selectedMember
             )
         }
+    // MARK: - Actions
+
+        @IBAction func familySwitchButtonTapped(_ sender: UIBarButtonItem) {
+            // This explicitly tells the app to run your segue when the button is tapped
+            performSegue(withIdentifier: "familySwitchSegue", sender: nil)
+        }
 
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == SegueIdentifiers.goToMemberDetails {
@@ -199,5 +205,19 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                     destinationVC.familyMember = selectedMember
                 }
             }
+            
+            if segue.identifier == "familySwitchSegue" {
+                        // Replace 'ChooseFamilyViewController' with whatever you named your target VC
+                        if let destinationVC = segue.destination as? FamilySwitchTableViewController {
+                            
+                            // Set up the half-modal presentation (iOS 15+)
+                            if let sheet = destinationVC.sheetPresentationController {
+                                // .medium() gives the half-screen look, .large() allows it to be pulled up to full screen
+                                sheet.detents = [.medium(), .large()]
+                                sheet.prefersGrabberVisible = true // Shows the little handle at the top
+                                sheet.preferredCornerRadius = 24
+                            }
+                        }
+                    }
         }
     }
