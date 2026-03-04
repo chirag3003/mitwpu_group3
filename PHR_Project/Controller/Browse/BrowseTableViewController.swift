@@ -32,7 +32,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         ),
         Category(
             name: "Your Family",
-            icon: "person.fill",
+            icon: "person.2.fill",
             color: .systemCyan,
             segueIdentifier: "familySegue"
         ),

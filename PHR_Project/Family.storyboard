@@ -9,6 +9,35 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Add Family Table View Controller-->
+        <scene sceneID="VfG-i4-ge4">
+            <objects>
+                <tableViewController id="H5L-El-sXs" customClass="AddFamilyTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="BG0-qE-l9x">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xaN-Eh-ODe">
+                                <rect key="frame" x="0.0" y="50" width="393" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xaN-Eh-ODe" id="isH-ip-heq">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="H5L-El-sXs" id="jQG-jG-1AT"/>
+                            <outlet property="delegate" destination="H5L-El-sXs" id="LwN-fM-Hg6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="B45-oA-nYX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z5Y-Bi-UxH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-147" y="-922"/>
+        </scene>
         <!--Family-->
         <scene sceneID="yb3-6W-3KM">
             <objects>
@@ -50,20 +79,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
-                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1">
-                            <connections>
-                                <segue destination="k7P-vK-TfR" kind="show" id="GLN-1G-fq7"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.2.fill" catalog="system" id="maw-9O-53u"/>
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="rEI-4W-cS1" id="SII-6X-ayK"/>
                         <outlet property="collectionView" destination="kke-Td-769" id="9yU-PQ-dGU"/>
                         <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="FU1-d8-cXQ"/>
+                        <segue destination="k7P-vK-TfR" kind="show" identifier="GoToAddMember" id="sCJ-er-ZX3"/>
+                        <segue destination="H5L-El-sXs" kind="show" identifier="GoToAddFamily" id="6K5-i9-oTN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28z-t9-sWe" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-147.32824427480915" y="-225.35211267605635"/>
+            <point key="canvasLocation" x="-147" y="-225"/>
         </scene>
         <!--Add Family View Controller-->
         <scene sceneID="rMG-Yk-rnU">
