@@ -124,10 +124,29 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         return cell
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
-        performSegue(withIdentifier: "addContactPermissionSegue", sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let selectedContact = contacts[indexPath.row]
+            
+          
+            performSegue(withIdentifier: "addContactPermissionSegue", sender: selectedContact)
+        }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addContactPermissionSegue" {
+            
+            // Handle Navigation Controller wrapper if your modal is embedded in one
+            var destinationVC: FamilyPermissionsTableViewController?
+            
+            if let navVC = segue.destination as? UINavigationController {
+                destinationVC = navVC.topViewController as? FamilyPermissionsTableViewController
+            } else {
+                destinationVC = segue.destination as? FamilyPermissionsTableViewController
+            }
+            
+            // Pass the contact object to the permissions page
+            if let permissionsVC = destinationVC, let contactToPass = sender as? Contact {
+                permissionsVC.selectedContact = contactToPass
+            }
+        }
     }
 }
