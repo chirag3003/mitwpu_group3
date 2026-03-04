@@ -16,7 +16,6 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
-  //  @IBOutlet weak var sortButton: UIBarButtonItem!
     // Properties
 
     private var doctorsData: [DocDoctor] = []  // Doctors who wrote prescriptions
@@ -82,12 +81,6 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         print("Refereshed Data", doctorsData)
         documentTableView.reloadData()
     }
-    private func setupPlusButton() {
-        // Add target action to plus button
-        plusButton.target = self
-        plusButton.action = #selector(didTapPlusButton)
-    }
-    
     // MARK: - Actions
 
     @IBAction func onDataSwitch(_ sender: Any) {

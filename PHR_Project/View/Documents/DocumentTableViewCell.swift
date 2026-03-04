@@ -29,16 +29,6 @@ class DocumentTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    func configure(with documentData: documentsModel) {
-        
-        doctorLabel.text = documentData.title
-        updatedLable.text = "Modified: \(documentData.lastUpdatedAt)"
-        
-       
-        
-        
-    }
-    
     // Configure with DocDoctor from API
     func configure(with doctor: DocDoctor) {
         doctorLabel.text = doctor.name

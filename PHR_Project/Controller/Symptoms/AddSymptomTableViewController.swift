@@ -20,7 +20,6 @@ class AddSymptomTableViewController: UITableViewController {
 
     var selectedType: String?
     var selectedIntensity: String?
-    var selectedImage: UIImage?
     var symptomToEdit: Symptom?
     var onSave: (() -> Void)?
 
@@ -263,7 +262,6 @@ extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
         if let image = info[.editedImage] as? UIImage ?? info[.originalImage]
             as? UIImage
         {
-            selectedImage = image
             cameraImageView.image = image
             cameraImageView.contentMode = .scaleAspectFill
             cameraImageView.layer.cornerRadius = 8

@@ -154,10 +154,6 @@ class WeightScaleViewController: UIViewController {
         }
     }
     
-    // MARK: - Public Methods
-    func getWeightInKg() -> Double { return weightInKg }
-    func getWeightInLbs() -> Double { return weightInKg * 2.20462 }
-
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the updated array to the next screen (e.g., SummaryViewController)

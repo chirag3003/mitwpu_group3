@@ -13,13 +13,6 @@ class AddDetailsTableViewController: UITableViewController {
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-       
-    }
-    
-
     @IBAction func doneButton(_ sender: Any) {
         
         guard let firstName = firstName.text, !firstName.isEmpty else {

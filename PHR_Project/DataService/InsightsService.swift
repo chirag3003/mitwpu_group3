@@ -90,24 +90,6 @@ class InsightsService {
         }
     }
 
-    /// Get cached meal insights (if available)
-    func getCachedMealInsights() -> MealInsightsResponse? {
-        return cachedMealInsights
-    }
-
-    /// Get cached glucose insights (if available)
-    func getCachedGlucoseInsights() -> GlucoseInsightsResponse? {
-        return cachedGlucoseInsights
-    }
-
-    /// Clear all cached insights
-    func clearCache() {
-        cachedMealInsights = nil
-        cachedGlucoseInsights = nil
-        mealInsightsCacheTime = nil
-        glucoseInsightsCacheTime = nil
-    }
-    
     // MARK: - Summary Generation
     
     /// Generate a comprehensive PDF health summary via API

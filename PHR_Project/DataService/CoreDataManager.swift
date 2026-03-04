@@ -27,65 +27,6 @@ class CoreDataManager {
         }
     }
 
-    // MARK: - ALLERGIES
-    func fetchAllergies() -> [AllergyEntity] {
-        let request: NSFetchRequest<AllergyEntity> =
-            AllergyEntity.fetchRequest()
-        return (try? context.fetch(request)) ?? []
-    }
-
-    func addAllergy(_ allergy: Allergy) {
-        let entity = AllergyEntity(context: context)
-        entity.id = allergy.id ?? UUID()  // Generate UUID if missing
-        entity.name = allergy.name
-        entity.severity = allergy.severity
-        entity.notes = allergy.notes
-        saveContext()
-    }
-
-    func deleteAllergy(id: UUID) {
-        let request: NSFetchRequest<AllergyEntity> =
-            AllergyEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-
-        if let result = try? context.fetch(request), let entity = result.first {
-            context.delete(entity)
-            saveContext()
-        }
-    }
-
-    // MARK: - SYMPTOMS
-    func fetchSymptoms() -> [SymptomEntity] {
-        let request: NSFetchRequest<SymptomEntity> =
-            SymptomEntity.fetchRequest()
-        return (try? context.fetch(request)) ?? []
-    }
-
-    func addSymptom(_ symptom: Symptom) {
-        let entity = SymptomEntity(context: context)
-        entity.id = symptom.id ?? UUID()
-        entity.symptomName = symptom.symptomName
-        entity.intensity = symptom.intensity
-        entity.dateRecorded = symptom.dateRecorded
-        entity.notes = symptom.notes
-
-        // Break down DateComponents into Ints for Core Data
-        entity.timeHour = Int16(symptom.time.hour ?? 0)
-        entity.timeMinute = Int16(symptom.time.minute ?? 0)
-
-        saveContext()
-    }
-
-    func deleteSymptom(id: UUID) {
-        let request: NSFetchRequest<SymptomEntity> =
-            SymptomEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        if let result = try? context.fetch(request), let entity = result.first {
-            context.delete(entity)
-            saveContext()
-        }
-    }
-
     func fetchUserProfile() -> UserProfile? {
         let request: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         request.fetchLimit = 1

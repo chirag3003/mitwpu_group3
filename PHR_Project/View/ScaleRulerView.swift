@@ -21,7 +21,6 @@ class ScaleRulerView: UIView {
     
     var currentValue: Double = 176 {
         didSet {
-            updateValueLabel()
             valueChangedHandler?(currentValue)
         }
     }
@@ -234,20 +233,6 @@ class ScaleRulerView: UIView {
     
     // MARK: - Public Methods
     
-    /// Set the value programmatically
-    /// - Parameters:
-    ///   - value: The value to set
-    ///   - animated: Whether to animate the scroll
-    func setValue(_ value: Double, animated: Bool = false) {
-        currentValue = max(minValue, min(maxValue, value))
-        scrollToValue(currentValue, animated: animated)
-    }
-    
-    /// Get the current value
-    func getValue() -> Double {
-        return currentValue
-    }
-    
     /// Configure the scale with all parameters
     /// - Parameters:
     ///   - min: Minimum value
@@ -275,10 +260,6 @@ class ScaleRulerView: UIView {
         return max(minValue, min(maxValue, value))
     }
     
-    private func updateValueLabel() {
-        // Trigger the closure to update external label
-        // This is handled by the closure itself
-    }
 }
 
 // MARK: - UIScrollViewDelegate

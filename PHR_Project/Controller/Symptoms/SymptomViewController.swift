@@ -10,7 +10,6 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     
     // MARK: - Outlets
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var symptomTableView: UITableView!
 
     

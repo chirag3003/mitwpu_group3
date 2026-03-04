@@ -64,10 +64,6 @@ class WaterIntakeService {
         return 0
     }
     
-    func setGlassCount(_ count: Int) {
-        glassCount = max(0, min(10, count)) // Ensure value is between 0 and 10
-    }
-    
     func incrementGlass() {
         checkIfNewDay()
         if glassCount < 10 {
@@ -122,10 +118,6 @@ class WaterIntakeService {
         }
     }
     
-    func resetDaily() {
-        glassCount = 0
-    }
-    
     // MARK: - Persistence Logic
     
     private func save() {
@@ -158,25 +150,6 @@ class WaterIntakeService {
                 } else {
                     waterIntakeCache[startOfDay] = 0
                 }
-            }
-        }
-    }
-    
-    /// Refresh cache for date range (call when scrolling in UI)
-    func refreshCache(for dates: [Date]) {
-        for date in dates {
-            let calendar = Calendar.current
-            let startOfDay = calendar.startOfDay(for: date)
-            
-            // Skip if already cached
-            if waterIntakeCache[startOfDay] != nil {
-                continue
-            }
-            
-            if let entity = CoreDataManager.shared.fetchWaterIntake(for: date) {
-                waterIntakeCache[startOfDay] = Int(entity.count)
-            } else {
-                waterIntakeCache[startOfDay] = 0
             }
         }
     }

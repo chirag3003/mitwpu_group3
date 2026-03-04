@@ -172,16 +172,6 @@ class HeightScaleViewController: UIViewController {
     
     // MARK: - Public Methods
     
-    /// Get the current height in cm (regardless of display unit)
-    func getHeightInCm() -> Double {
-        return heightInCm
-    }
-    
-    /// Get the current height in inches (regardless of display unit)
-    func getHeightInInches() -> Double {
-        return heightInCm / 2.54
-    }
-    
     /// Get the current height in feet and inches
     func getHeightInFeetAndInches() -> (feet: Int, inches: Int) {
         let totalInches = heightInCm / 2.54
