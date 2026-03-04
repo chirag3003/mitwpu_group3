@@ -14,8 +14,6 @@ class MealItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mealTime: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
 
-    static let identifier: String = "MealCell"
-
     override func awakeFromNib() {
         super.awakeFromNib()
         mealImage.addRoundedCorner(radius: UIConstants.CornerRadius.small)

@@ -103,23 +103,6 @@ class DobViewController: UIViewController {
         return ageComponents.year
     }
     
-    // MARK: - Public Methods
-    
-    /// Get the selected date
-    func getSelectedDate() -> Date {
-        return dobValue.date
-    }
-    
-    /// Get the selected date as a formatted string
-    func getFormattedDate() -> String {
-        return formatDate(dobValue.date)
-    }
-    
-    /// Get the age based on the selected date
-    func getAge() -> Int? {
-        return calculateAge(from: dobValue.date)
-    }
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the updated array to the next screen (DiabetesTypeViewController)

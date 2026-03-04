@@ -12,11 +12,9 @@ import UIKit
 enum UIConstants {
     
     enum CornerRadius {
-        static let extraSmall: CGFloat = 8
         static let small: CGFloat = 10
         static let medium: CGFloat = 16
         static let large: CGFloat = 20
-        static let extraLarge: CGFloat = 24
         static let huge: CGFloat = 30
     }
     
@@ -25,15 +23,10 @@ enum UIConstants {
         static let small: CGFloat = 8
         static let medium: CGFloat = 16
         static let large: CGFloat = 24
-        static let extraLarge: CGFloat = 32
     }
     
     enum Padding {
-        static let tiny: CGFloat = 4
-        static let small: CGFloat = 8
         static let medium: CGFloat = 10
-        static let large: CGFloat = 16
-        static let extraLarge: CGFloat = 20
     }
     
     enum Shadow {
@@ -46,39 +39,20 @@ enum UIConstants {
     
     enum ProgressThickness {
         static let thin: CGFloat = 12
-        static let medium: CGFloat = 20
         static let thick: CGFloat = 25
     }
     
     enum CollectionLayout {
-        static let oneSeventhWidth: CGFloat = 1.0 / 7.0
         static let oneThirdWidth: CGFloat = 1.0 / 3.0
-        static let halfWidth: CGFloat = 0.5
-        static let fourFifthsWidth: CGFloat = 0.8
         static let fullWidth: CGFloat = 1.0
         
-        static let dateItemHeight: CGFloat = 100
         static let memberItemHeight: CGFloat = 150
         static let headerHeight: CGFloat = 220
     }
     
     enum AnimationDuration {
-        static let fast: TimeInterval = 0.3
         static let medium: TimeInterval = 0.5
-        static let slow: TimeInterval = 1.0
     }
-}
-
-// MARK: - Storage Keys
-
-enum StorageKeys {
-    static let allergies = "saved_allergies_list"
-    static let symptoms = "saved_symptoms_list"
-    static let profile = "user_profile_data"
-    static let mealItems = "saved_meal_items"
-    static let mealDetails = "saved_meal_details"
-    static let calendarDays = "saved_calendar_days"
-    static let waterIntake = "water_intake_value"
 }
 
 // MARK: - Notification Names
@@ -89,7 +63,6 @@ enum NotificationNames {
     static let waterIntakeUpdated = "waterIntakeUpdated"
     static let mealsUpdated = "MealsUpdated"
     static let glucoseUpdated = "GlucoseReadingsUpdated"
-    static let authStateChanged = "AuthStateChanged"
 }
 
 // MARK: - Cell Identifiers
@@ -114,9 +87,7 @@ enum SegueIdentifiers {
 // MARK: - Default Values
 
 enum DefaultValues {
-    static let moderateIntensity = "Moderate"
     static let defaultTableRowHeight: CGFloat = 65.0
-    static let defaultSectionSpacing: CGFloat = 10.0
 }
 
 // MARK: - Health Goals
@@ -124,6 +95,8 @@ enum DefaultValues {
 enum HealthGoals {
     static let dailyCalories = 2000
     static let dailySteps = 10000
-    static let maxWaterGlasses = 10
     static let progressThickness: CGFloat = 16
+    static let dailyCarbs = 220
+    static let dailyProtein = 90
+    static let dailyFiber = 35
 }

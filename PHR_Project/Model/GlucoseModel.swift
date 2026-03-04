@@ -2,7 +2,6 @@ import Foundation
 
 enum GlucoseUnit: String, Codable {
     case mgdL = "mg/dL"
-    case mmolL = "mmol/L"
 }
 
 enum MealContext: String, CaseIterable, Codable {
@@ -33,8 +32,6 @@ struct GlucoseReading: Codable {
     let time: TimeOfDay
     let mealContext: String?
     let notes: String?
-    let createdAt: Date?
-    let updatedAt: Date?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -45,8 +42,6 @@ struct GlucoseReading: Codable {
         case time
         case mealContext
         case notes
-        case createdAt
-        case updatedAt
     }
     
     // Custom Init for creating new readings
@@ -59,8 +54,6 @@ struct GlucoseReading: Codable {
         self.time = time
         self.mealContext = mealContext?.rawValue
         self.notes = notes
-        self.createdAt = nil
-        self.updatedAt = nil
     }
     
     // Helper to combine dateRecorded with time
@@ -73,14 +66,4 @@ struct GlucoseReading: Codable {
         // but since API separates them, we assume dateRecorded is the base date.
         return calendar.date(from: components) ?? dateRecorded
     }
-}
-
-struct GlucoseStats: Codable {
-    let average: Int
-    let min: Int
-    let max: Int
-    let count: Int
-    let inRange: Int
-    let belowRange: Int
-    let aboveRange: Int
 }

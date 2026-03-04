@@ -79,7 +79,3 @@ struct Symptom: Codable {
         try container.encode(timeData, forKey: .time)
     }
 }
-
-struct Symptoms {
-    var allSymptoms: [Symptom]
-}

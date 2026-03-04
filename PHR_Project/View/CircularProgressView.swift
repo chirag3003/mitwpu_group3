@@ -163,14 +163,14 @@ class CircularProgressView: UIView {
             if animated {
                 // Animate stroke
                 let strokeAnimation = CABasicAnimation(keyPath: "strokeEnd")
-                strokeAnimation.fromValue = progressLayer.strokeEnd
+                strokeAnimation.fromValue = progressLayer.presentation()?.strokeEnd ?? progressLayer.strokeEnd  // Fix: use presentation layer
                 strokeAnimation.toValue = clampedValue
                 strokeAnimation.duration = 0.5
                 strokeAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
                 
                 // Animate color
                 let colorAnimation = CABasicAnimation(keyPath: "strokeColor")
-                colorAnimation.fromValue = progressLayer.strokeColor
+                colorAnimation.fromValue = progressLayer.presentation()?.strokeColor ?? progressLayer.strokeColor
                 colorAnimation.toValue = targetColor.cgColor
                 colorAnimation.duration = 0.5
                 
@@ -210,19 +210,6 @@ class CircularProgressView: UIView {
                 return .systemRed // Danger
             }
         }
-    }
-    
-    /// Convenience method to configure the view with multiple rings
-    /// - Parameters:
-    ///   - modes: Array of modes for each ring
-    ///   - values: Array of progress values
-    ///   - thickness: Line width for each ring
-    ///   - spacing: Spacing between rings
-    func configure(modes: [ProgressMode], values: [Float], thickness: CGFloat, spacing: CGFloat = 4) {
-        self.modes = modes
-        self.lineWidth = thickness
-        self.ringSpacing = spacing
-        self.setProgress(values: values)
     }
     
     /// Backward compatible convenience method for single ring

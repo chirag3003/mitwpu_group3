@@ -121,10 +121,6 @@ class MealService {
         }
     }
 
-    func fetchMealsUsingApiID(apiID: String) -> Meal? {
-        return allMeals.first { $0.apiID == apiID }
-    }
-
     // MARK: - Image Analysis
     func analyzeMeal(
         image: UIImage,
