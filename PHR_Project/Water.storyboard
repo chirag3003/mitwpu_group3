@@ -390,72 +390,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Notifications" id="GaN-n1-64H">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iEY-Yh-TSe">
-                                        <rect key="frame" x="20" y="213.33333015441895" width="353" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iEY-Yh-TSe" id="dtZ-Uu-VfX">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4jA-98-PPe">
-                                                    <rect key="frame" x="16" y="15" width="72.666666666666671" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YeL-7g-bge">
-                                                    <rect key="frame" x="276" y="11.666666666666664" width="63" height="28"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="YeL-7g-bge" secondAttribute="trailing" constant="16" id="Xqy-AM-BX9"/>
-                                                <constraint firstItem="4jA-98-PPe" firstAttribute="leading" secondItem="dtZ-Uu-VfX" secondAttribute="leading" constant="16" id="eSI-ic-23g"/>
-                                                <constraint firstItem="YeL-7g-bge" firstAttribute="centerY" secondItem="dtZ-Uu-VfX" secondAttribute="centerY" id="fsB-7E-8Gg"/>
-                                                <constraint firstItem="4jA-98-PPe" firstAttribute="centerY" secondItem="dtZ-Uu-VfX" secondAttribute="centerY" id="qM4-RY-s3g"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ndo-l6-hf2">
-                                        <rect key="frame" x="20" y="264.33333015441895" width="353" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ndo-l6-hf2" id="x0o-S0-fIA">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N93-D7-sGC">
-                                                    <rect key="frame" x="16" y="15" width="72" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="72" id="dbR-cw-bJc"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87b-Qx-THf">
-                                                    <rect key="frame" x="291" y="10.666666666666664" width="46" height="30"/>
-                                                    <menu key="menu" id="QXL-9G-pmm">
-                                                        <children>
-                                                            <command title="Item 1" id="RQj-5Y-a9E"/>
-                                                            <command title="Item 2" id="ShD-V6-dkJ"/>
-                                                        </children>
-                                                    </menu>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="87b-Qx-THf" secondAttribute="trailing" constant="16" id="Chv-Bu-FBv"/>
-                                                <constraint firstItem="87b-Qx-THf" firstAttribute="centerY" secondItem="x0o-S0-fIA" secondAttribute="centerY" id="ZSh-mB-ldS"/>
-                                                <constraint firstItem="N93-D7-sGC" firstAttribute="leading" secondItem="x0o-S0-fIA" secondAttribute="leading" constant="16" id="kj6-Aw-E30"/>
-                                                <constraint firstItem="N93-D7-sGC" firstAttribute="centerY" secondItem="x0o-S0-fIA" secondAttribute="centerY" id="p5X-Xg-1Wp"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="WWx-cx-2zC" id="QW8-mz-xLX"/>
@@ -467,7 +401,6 @@
                         <outlet property="glassesLabel" destination="cWT-7h-Jom" id="dj5-yc-jwg"/>
                         <outlet property="glassesStepper" destination="y23-Rx-M5p" id="5Vg-Ug-znF"/>
                         <outlet property="measuredInButton" destination="2G7-I4-8D4" id="WbZ-b3-RTR"/>
-                        <outlet property="timeButton" destination="87b-Qx-THf" id="fIl-CF-Xbd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYn-Cd-4S5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
