@@ -12,7 +12,6 @@ class WaterSettingsTableViewController: UITableViewController {
     @IBOutlet weak var measuredInButton: UIButton!
     
     @IBOutlet weak var glassesLabel: UILabel!
-    @IBOutlet weak var timeButton: UIButton!
     @IBOutlet weak var glassesStepper: UIStepper!
     
     var selectedUnit: String = "Liters"
@@ -30,11 +29,10 @@ class WaterSettingsTableViewController: UITableViewController {
             self.navigationItem.rightBarButtonItem = self.editButtonItem
             
             // Store controls in arrays for easy management
-            allButtons = [measuredInButton, timeButton]
+            allButtons = [measuredInButton]
             allSteppers = [glassesStepper]
             
             setupMeasuredInButton()
-            setupTimeButton()
             setupGlassesStepper()
             
             // Initially disable all controls (not in edit mode)
@@ -118,34 +116,6 @@ class WaterSettingsTableViewController: UITableViewController {
             measuredInButton.changesSelectionAsPrimaryAction = true
         }
         
-        // MARK: - Time Button Setup
-        
-        func setupTimeButton() {
-            let selectionClosure: UIActionHandler = { [weak self] action in
-                guard let self = self else { return }
-                
-                self.selectedTimeInterval = action.title
-            }
-            
-            let timeOptions = ["30 minutes", "45 minutes", "60 minutes", "90 minutes"]
-            
-            let actions: [UIAction] = timeOptions.map { title in
-                let currentState: UIMenuElement.State = (title == selectedTimeInterval) ? .on : .off
-                
-                let action = UIAction(
-                    title: title,
-                    state: currentState,
-                    handler: selectionClosure
-                )
-                return action
-            }
-            
-            let menu = UIMenu(children: actions)
-            
-            timeButton.menu = menu
-            timeButton.showsMenuAsPrimaryAction = true
-            timeButton.changesSelectionAsPrimaryAction = true
-        }
         
         // MARK: - Disable Table Editing UI
         
