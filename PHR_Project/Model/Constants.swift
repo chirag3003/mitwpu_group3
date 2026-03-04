@@ -96,4 +96,7 @@ enum HealthGoals {
     static let dailyCalories = 2000
     static let dailySteps = 10000
     static let progressThickness: CGFloat = 16
+    static let dailyCarbs = 220
+    static let dailyProtein = 90
+    static let dailyFiber = 35
 }
