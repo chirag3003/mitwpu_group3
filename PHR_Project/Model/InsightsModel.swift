@@ -108,3 +108,23 @@ struct SummaryInclude: Codable {
 struct SummaryResponse: Codable {
     let url: String
 }
+
+// MARK: - Water Insights Models
+
+struct WaterInsightsResponse: Codable {
+    let insights: [WaterInsight]
+    let tips: [WaterTip]
+    let summary: String
+}
+
+struct WaterInsight: Codable {
+    let title: String
+    let description: String
+    let type: InsightType
+}
+
+struct WaterTip: Codable {
+    let title: String
+    let description: String
+    let priority: TipPriority
+}

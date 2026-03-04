@@ -170,16 +170,13 @@ private extension WaterIntakeViewController {
             showPastDateAlert()
             return
         }
-        // Increment for the currently selected date
-        WaterIntakeService.shared.incrementGlass(for: selectedDate)
-        reloadVisibleCells()
-        
-        // Update UI
-        updateWaterIntakeUI()
-        
-        // Reload the cell for the current centered date
-        animateGlassValue()
-        provideHapticFeedback()
+        WaterIntakeService.shared.incrementGlass(for: selectedDate) { [weak self] _ in
+            guard let self = self else { return }
+            self.reloadVisibleCells()
+            self.updateWaterIntakeUI()
+            self.animateGlassValue()
+            self.provideHapticFeedback()
+        }
     }
     
     @objc func decrementGlassCount() {
@@ -188,22 +185,19 @@ private extension WaterIntakeViewController {
             showPastDateAlert()
             return
         }
-        // Decrement for the currently selected date
-        WaterIntakeService.shared.decrementGlass(for: selectedDate)
-        
-        // Update UI
-        updateWaterIntakeUI()
-        reloadVisibleCells()
+        WaterIntakeService.shared.decrementGlass(for: selectedDate) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateWaterIntakeUI()
+            self.reloadVisibleCells()
 
-        // Reload the cell for the current centered date
-        let indexPath = IndexPath(item: currentCenteredIndex, section: 0)
-        UIView.performWithoutAnimation {
-            dateCollectionView.reloadItems(at: [indexPath])
+            let indexPath = IndexPath(item: self.currentCenteredIndex, section: 0)
+            UIView.performWithoutAnimation {
+                self.dateCollectionView.reloadItems(at: [indexPath])
+            }
+
+            self.animateGlassValue()
+            self.provideHapticFeedback()
         }
-        
-        animateGlassValue()
-        provideHapticFeedback()
-        
     }
     
     func reloadVisibleCells() {
@@ -230,26 +224,26 @@ private extension WaterIntakeViewController {
     }
     
     func updateWaterIntakeUI() {
-        let count = WaterIntakeService.shared.getGlassCount(for: selectedDate)
         let calendar = Calendar.current
         let isToday = calendar.isDateInToday(selectedDate)
-        
-        DispatchQueue.main.async { [weak self] in
+
+        WaterIntakeService.shared.fetchGlassCount(for: selectedDate) { [weak self] count in
             guard let self = self else { return }
-            
-            self.glassValue.text = "\(count)"
-            let currentMl = count * 250
-            let goalMl = 2500
-            self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
-            
-            // Animate progress update instead of reconfiguring
-            let progress = Float(count) / 10.0
-            self.progressView.setProgress(to: min(progress, 1.0), animated: true)
-            
-            self.increment.alpha = isToday ? 1.0 : 0.3
-            self.decrement.alpha = isToday ? 1.0 : 0.3
-            self.increment.isUserInteractionEnabled = isToday
-            self.decrement.isUserInteractionEnabled = isToday
+
+            DispatchQueue.main.async {
+                self.glassValue.text = "\(count)"
+                let currentMl = count * 250
+                let goalMl = 2500
+                self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
+
+                let progress = Float(count) / 10.0
+                self.progressView.setProgress(to: min(progress, 1.0), animated: true)
+
+                self.increment.alpha = isToday ? 1.0 : 0.3
+                self.decrement.alpha = isToday ? 1.0 : 0.3
+                self.increment.isUserInteractionEnabled = isToday
+                self.decrement.isUserInteractionEnabled = isToday
+            }
         }
     }
     
@@ -286,12 +280,20 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
         // Highlight today visually
         cell.isToday = (indexPath.row == 15)
         
-        // Get fresh water intake for this date and set progress
-        let waterIntake = getWaterIntakeForDate(at: indexPath.row)
-        let progress = Float(waterIntake) / 10.0 // Goal is 10 glasses
-        
-        // Set progress
-        cell.waterProgress = progress
+        cell.waterProgress = 0
+
+        let targetDate = getDateForIndex(indexPath.row)
+        WaterIntakeService.shared.fetchGlassCount(for: targetDate) { [weak cell, weak collectionView] count in
+            let progress = Float(count) / 10.0
+            DispatchQueue.main.async {
+                guard let cell = cell,
+                      let collectionView = collectionView,
+                      collectionView.indexPath(for: cell) == indexPath else {
+                    return
+                }
+                cell.waterProgress = progress
+            }
+        }
         
         return cell
     }
@@ -348,17 +350,11 @@ extension WaterIntakeViewController: UICollectionViewDataSource, UICollectionVie
     
     // MARK: - Helper Methods
     
-    private func getWaterIntakeForDate(at index: Int) -> Int {
+    private func getDateForIndex(_ index: Int) -> Date {
         let calendar = Calendar.current
         let today = Date()
         let daysOffset = index - 15
-        
-        guard let targetDate = calendar.date(byAdding: .day, value: daysOffset, to: today) else {
-            return 0
-        }
-        
-        // Get water intake count for the target date from service
-        return WaterIntakeService.shared.getGlassCount(for: targetDate)
+
+        return calendar.date(byAdding: .day, value: daysOffset, to: today) ?? today
     }
 }
-

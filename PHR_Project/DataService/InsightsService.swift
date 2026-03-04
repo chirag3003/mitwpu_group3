@@ -12,8 +12,10 @@ class InsightsService {
 
     private var cachedMealInsights: MealInsightsResponse?
     private var cachedGlucoseInsights: GlucoseInsightsResponse?
+    private var cachedWaterInsights: WaterInsightsResponse?
     private var mealInsightsCacheTime: Date?
     private var glucoseInsightsCacheTime: Date?
+    private var waterInsightsCacheTime: Date?
 
     // Cache duration: 30 minutes (insights don't change frequently)
     private let cacheDuration: TimeInterval = 30 * 60
@@ -84,6 +86,39 @@ class InsightsService {
             case .failure(let error):
                 print(
                     "❌ InsightsService: Failed to fetch glucose insights - \(error)"
+                )
+                completion(nil)
+            }
+        }
+    }
+
+    /// Fetch water intake insights from API
+    /// - Parameters:
+    ///   - forceRefresh: If true, bypass cache and fetch fresh data
+    ///   - completion: Callback with optional WaterInsightsResponse
+    func fetchWaterInsights(
+        forceRefresh: Bool = false,
+        completion: @escaping (WaterInsightsResponse?) -> Void
+    ) {
+        if !forceRefresh, let cached = cachedWaterInsights,
+            let cacheTime = waterInsightsCacheTime
+        {
+            if Date().timeIntervalSince(cacheTime) < cacheDuration {
+                completion(cached)
+                return
+            }
+        }
+
+        APIService.shared.request(endpoint: "/insights/water", method: .get) {
+            [weak self] (result: Result<WaterInsightsResponse, Error>) in
+            switch result {
+            case .success(let response):
+                self?.cachedWaterInsights = response
+                self?.waterInsightsCacheTime = Date()
+                completion(response)
+            case .failure(let error):
+                print(
+                    "❌ InsightsService: Failed to fetch water insights - \(error)"
                 )
                 completion(nil)
             }
