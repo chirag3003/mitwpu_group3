@@ -372,10 +372,10 @@
             </objects>
             <point key="canvasLocation" x="3703" y="111"/>
         </scene>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="DcP-Vf-aOl">
             <objects>
-                <viewController storyboardIdentifier="onboardingWelcomeScreen" id="VJB-UB-ASI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="onboardingWelcomeScreen" id="VJB-UB-ASI" customClass="WelcomeViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4sd-n9-Ris">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -563,7 +563,12 @@
                             <constraint firstItem="czx-ne-uQJ" firstAttribute="top" secondItem="AsT-2p-Bwg" secondAttribute="top" id="vz4-WM-5LK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UFF-C1-Pzu"/>
+                    <navigationItem key="navigationItem" id="UFF-C1-Pzu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="info.circle" catalog="system" id="YHq-2P-pnP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="infoButton" destination="YHq-2P-pnP" id="fdG-ZP-rG0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W4w-gL-lsr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1429,6 +1434,7 @@
         <image name="DiabetEase" width="497" height="497"/>
         <image name="apple.logo" catalog="system" width="105" height="128"/>
         <image name="document.fill" catalog="system" width="115" height="128"/>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="person.3.fill" catalog="system" width="128" height="66"/>
         <image name="staroflife.fill" catalog="system" width="121" height="128"/>
         <namedColor name="insights_bg">

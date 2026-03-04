@@ -7,6 +7,8 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
 
+    @IBOutlet weak var logoutButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImage.addFullRoundedCorner()
@@ -32,6 +34,9 @@ class ProfileTableViewController: UITableViewController {
 
     // MARK: - Actions
 
+    @IBAction func onLogOut(_ sender: UIButton) {
+        
+    }
     @IBAction func onDoneClick(_ sender: Any) {
         self.dismiss(animated: true)
     }
