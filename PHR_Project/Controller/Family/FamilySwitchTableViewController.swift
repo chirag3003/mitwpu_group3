@@ -78,4 +78,36 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
         // Currently does nothing else, as requested for backend handling later
         print("Selected family: \(familyNames[indexPath.row])")
     }
+    
+    // MARK: - Context Menu (Long Press)
+        
+        func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+            
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+                
+                // Create the Exit action
+                let exitAction = UIAction(
+                    title: "Exit Family",
+                    image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
+                    attributes: .destructive // Makes the text and icon red!
+                ) { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    // Remove the family from your data array
+                    let exitedFamily = self.familyNames.remove(at: indexPath.row)
+                    print("Exited family: \(exitedFamily)")
+                    
+                    // Animate the row disappearing from the table view
+                    DispatchQueue.main.async {
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                    
+                    // (Future) Make your backend API call here to actually remove the user from the family in the database
+                }
+                
+                // Return the menu containing our action
+                return UIMenu(title: "", children: [exitAction])
+            }
+        }
 }
