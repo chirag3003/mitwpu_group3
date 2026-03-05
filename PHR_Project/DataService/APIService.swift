@@ -12,6 +12,7 @@ enum APIError: Error {
     case noData
     case decodingError
     case serverError(String)
+    case httpError(statusCode: Int, message: String)
 }
 
 class APIService {
@@ -76,7 +77,14 @@ class APIService {
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"
                 DispatchQueue.main.async {
-                    completion(.failure(APIError.serverError(errorMessage)))
+                    completion(
+                        .failure(
+                            APIError.httpError(
+                                statusCode: httpResponse.statusCode,
+                                message: errorMessage
+                            )
+                        )
+                    )
                 }
                 return
             }
@@ -145,7 +153,14 @@ class APIService {
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"
                 DispatchQueue.main.async {
-                    completion(.failure(APIError.serverError(errorMessage)))
+                    completion(
+                        .failure(
+                            APIError.httpError(
+                                statusCode: httpResponse.statusCode,
+                                message: errorMessage
+                            )
+                        )
+                    )
                 }
                 return
             }

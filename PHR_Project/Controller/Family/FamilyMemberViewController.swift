@@ -36,6 +36,11 @@ class FamilyMemberViewController: UIViewController {
         pfpImage.setImageFromURL(url: familyMember?.imageName ?? "")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = self.familyMember
@@ -175,5 +180,9 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                 sender: nil
             )
         }
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return indexPath.section == 0 ? nil : indexPath
     }
 }

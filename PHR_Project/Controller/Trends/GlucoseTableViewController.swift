@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GlucoseTableViewController: UITableViewController {
+class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen {
 
     var readings: [GlucoseReading] = [] {
         didSet{
@@ -15,19 +15,40 @@ class GlucoseTableViewController: UITableViewController {
         }
     }
 
+    var familyMember: FamilyMember?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        readings = GlucoseService.shared.getReadings()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateGlucoseData),
-            name: NSNotification.Name(NotificationNames.glucoseUpdated),
-            object: nil
-        )
+        if let member = familyMember {
+            loadSharedReadings(for: member)
+        } else {
+            readings = GlucoseService.shared.getReadings()
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(updateGlucoseData),
+                name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                object: nil
+            )
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func updateGlucoseData() {
         readings = GlucoseService.shared.getReadings()
+    }
+
+    private func loadSharedReadings(for member: FamilyMember) {
+        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let readings):
+                self?.readings = readings
+            case .failure(let error):
+                print("Error fetching shared glucose readings: \(error)")
+            }
+        }
     }
 
     // MARK: - Table view data source

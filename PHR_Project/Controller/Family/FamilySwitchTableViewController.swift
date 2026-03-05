@@ -13,7 +13,8 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
 
     // MARK: - Outlets
     @IBOutlet var tableView: UITableView!
-    private var familyNames: [String] = []
+    // Replace this array type with your actual Family model if you have one
+    private var families: [Family] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +39,11 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        familyNames = ["Chavans", "The Bhalotias", "Saxena Babies"]
-
-        tableView.reloadData()
+        FamilyService.shared.fetchFamilies { [weak self] _ in
+            guard let self = self else { return }
+            self.families = FamilyService.shared.getFamilies()
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Actions
@@ -50,10 +53,8 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
     }
 
     // MARK: - Table View Data Source
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
-        return familyNames.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return families.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -65,8 +66,11 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
         )
 
         // Configure the cell text
-        cell.textLabel?.text = familyNames[indexPath.row]
-
+        cell.textLabel?.text = families[indexPath.row].name
+        
+        // Adds the little '>' arrow on the right
+        cell.accessoryType = .disclosureIndicator
+        
         return cell
     }
 
@@ -76,46 +80,40 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
         didSelectRowAt indexPath: IndexPath
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        // Currently does nothing else, as required for backend handling later
-        print("Selected family: \(familyNames[indexPath.row])")
+        let family = families[indexPath.row]
+        FamilyService.shared.setCurrentFamily(id: family.apiID)
+        dismiss(animated: true)
     }
 
     // MARK: - Context Menu (Long Press)
-
-    func tableView(
-        _ tableView: UITableView,
-        contextMenuConfigurationForRowAt indexPath: IndexPath,
-        point: CGPoint
-    ) -> UIContextMenuConfiguration? {
-
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil)
-        { _ in
-
-            let exitAction = UIAction(
-                title: "Exit Family",
-                image: UIImage(
-                    systemName: "rectangle.portrait.and.arrow.right"
-                ),
-                attributes: .destructive
-            ) { [weak self] _ in
-
-                guard let self = self else { return }
-
-                // Remove the family from your data array
-                let exitedFamily = self.familyNames.remove(at: indexPath.row)
-                print("Exited family: \(exitedFamily)")
-
-                // Animate the row disappearing from the table view
-                DispatchQueue.main.async {
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+        
+        func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+            
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+                
+                // Create the Exit action
+                let exitAction = UIAction(
+                    title: "Exit Family",
+                    image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
+                    attributes: .destructive // Makes the text and icon red!
+                ) { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    let family = self.families[indexPath.row]
+                    if let familyId = family.apiID {
+                        FamilyService.shared.leaveFamily(familyId: familyId) { success in
+                            guard success else { return }
+                            self.families = FamilyService.shared.getFamilies()
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
                 }
-
-                // (Future) Make backend API call here to actually remove the user from the family in the database
+                
+                // Return the menu containing our action
+                return UIMenu(title: "", children: [exitAction])
             }
-
-            // Return the menu containing action
-            return UIMenu(title: "", children: [exitAction])
         }
-    }
 }

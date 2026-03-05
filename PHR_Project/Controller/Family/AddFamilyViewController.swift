@@ -125,27 +125,40 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            guard FamilyService.shared.getCurrentFamilyId() != nil else {
+                showErrorAlert(message: "Please create a family first.")
+                return
+            }
+
             let selectedContact = contacts[indexPath.row]
-            
-          
-            performSegue(withIdentifier: "addContactPermissionSegue", sender: selectedContact)
+            performSegue(
+                withIdentifier: "confirmAddFamilySegue",
+                sender: selectedContact
+            )
         }
     
+
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addContactPermissionSegue" {
-            
-            // Handle Navigation Controller wrapper if your modal is embedded in one
-            var destinationVC: FamilyPermissionsTableViewController?
-            
-            if let navVC = segue.destination as? UINavigationController {
-                destinationVC = navVC.topViewController as? FamilyPermissionsTableViewController
-            } else {
-                destinationVC = segue.destination as? FamilyPermissionsTableViewController
-            }
-            
-            // Pass the contact object to the permissions page
-            if let permissionsVC = destinationVC, let contactToPass = sender as? Contact {
-                permissionsVC.selectedContact = contactToPass
+        if segue.identifier == "confirmAddFamilySegue" {
+            if let navVC = segue.destination as? UINavigationController,
+                let destination = navVC.topViewController
+                    as? ConfirmAddFamilyController
+            {
+                destination.selectedContact = sender as? Contact
+            } else if let destination = segue.destination
+                as? ConfirmAddFamilyController
+            {
+                destination.selectedContact = sender as? Contact
             }
         }
     }

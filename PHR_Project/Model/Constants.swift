@@ -63,6 +63,10 @@ enum NotificationNames {
     static let waterIntakeUpdated = "waterIntakeUpdated"
     static let mealsUpdated = "MealsUpdated"
     static let glucoseUpdated = "GlucoseReadingsUpdated"
+    static let familiesUpdated = "FamiliesUpdated"
+    static let familyMembersUpdated = "FamilyMembersUpdated"
+    static let familyPermissionsUpdated = "FamilyPermissionsUpdated"
+    static let familySelectionUpdated = "FamilySelectionUpdated"
 }
 
 // MARK: - Cell Identifiers

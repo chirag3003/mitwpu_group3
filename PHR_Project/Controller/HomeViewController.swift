@@ -402,21 +402,30 @@ extension HomeViewController {
     }
 
     @objc private func incrementGlassCount() {
-        WaterIntakeService.shared.incrementGlass()
-        updateWaterIntakeUI()
-        animateGlassValue()
-        provideHapticFeedback()
+        WaterIntakeService.shared.incrementGlass { [weak self] count in
+            guard let self = self else { return }
+            self.updateWaterIntakeUI(with: count)
+            self.animateGlassValue()
+            self.provideHapticFeedback()
+        }
     }
 
     @objc private func decrementGlassCount() {
-        WaterIntakeService.shared.decrementGlass()
-        updateWaterIntakeUI()
-        animateGlassValue()
-        provideHapticFeedback()
+        WaterIntakeService.shared.decrementGlass { [weak self] count in
+            guard let self = self else { return }
+            self.updateWaterIntakeUI(with: count)
+            self.animateGlassValue()
+            self.provideHapticFeedback()
+        }
     }
 
     private func updateWaterIntakeUI() {
-        let count = WaterIntakeService.shared.getGlassCount()
+        WaterIntakeService.shared.fetchGlassCount { [weak self] count in
+            self?.updateWaterIntakeUI(with: count)
+        }
+    }
+
+    private func updateWaterIntakeUI(with count: Int) {
         glassValue.text = "\(count)"
     }
 
