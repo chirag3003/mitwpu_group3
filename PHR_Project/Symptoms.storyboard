@@ -190,7 +190,7 @@
                                 <action selector="cancelButtonTapped:" destination="eYj-T7-fRL" id="hgz-yp-meB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="8Ag-wq-U1q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8Ag-wq-U1q">
                             <connections>
                                 <action selector="saveButtonTapped:" destination="eYj-T7-fRL" id="Hej-yX-OMu"/>
                             </connections>

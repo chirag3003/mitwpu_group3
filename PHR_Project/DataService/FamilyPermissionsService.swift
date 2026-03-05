@@ -23,6 +23,24 @@ final class FamilyPermissionsService {
         }
     }
 
+    func getPermissionsFrom(
+        userId: String,
+        completion: @escaping (FamilyPermission?) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/family/permissionsFrom?permissionFrom=\(userId)",
+            method: .get
+        ) { (result: Result<FamilyPermission, Error>) in
+            switch result {
+            case .success(let permission):
+                completion(permission)
+            case .failure(let error):
+                print("Error fetching permissions from user: \(error)")
+                completion(nil)
+            }
+        }
+    }
+
     func createPermissions(
         for userId: String,
         completion: @escaping (FamilyPermission?) -> Void

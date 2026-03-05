@@ -16,6 +16,7 @@ class FamilyMemberViewController: UIViewController {
     )
     private var writeAccess = false
     private var isUpdating = false
+    private var sharedOptionsList: [(title: String, segue: String)] = []
 
     // MARK: Outlets
     @IBOutlet weak var pfpImage: UIImageView!
@@ -25,14 +26,6 @@ class FamilyMemberViewController: UIViewController {
     // Data Models
     let accessOptions = [
         "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
-    ]
-    let sharedOptions = [
-        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
-        "Allergies",
-    ]
-    let sharedOptionsSegue = [
-        "familyDocumentsSegue", "familyMealsSegue", "familySymptomsSegue",
-        "familyGlucoseSegue", "familyWaterSegue", "familyAllergiesSegue",
     ]
 
     override func viewDidLoad() {
@@ -51,6 +44,7 @@ class FamilyMemberViewController: UIViewController {
         pfpImage.setImageFromURL(url: familyMember?.imageName ?? "")
 
         fetchPermissions()
+        fetchSharedPermissions()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +74,43 @@ class FamilyMemberViewController: UIViewController {
             self.writeAccess = permission.write
             self.tableView.reloadData()
         }
+    }
+
+    private func fetchSharedPermissions() {
+        guard let member = familyMember else { return }
+        FamilyPermissionsService.shared.getPermissionsFrom(userId: member.userId) {
+            [weak self] permission in
+            guard let self = self else { return }
+            self.sharedOptionsList = self.buildSharedOptions(from: permission)
+            self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        }
+    }
+
+    private func buildSharedOptions(from permission: FamilyPermission?)
+        -> [(title: String, segue: String)]
+    {
+        var options: [(title: String, segue: String)] = []
+
+        if let flags = permission?.permissions {
+            if flags.documents {
+                options.append(("Documents", "familyDocumentsSegue"))
+            }
+            if flags.meals {
+                options.append(("Meal Logs", "familyMealsSegue"))
+            }
+            if flags.symptoms {
+                options.append(("Symptom Logs", "familySymptomsSegue"))
+            }
+            if flags.glucose {
+                options.append(("Glucose", "familyGlucoseSegue"))
+            }
+            if flags.water {
+                options.append(("Water", "familyWaterSegue"))
+            }
+        }
+
+        options.append(("Allergies", "familyAllergiesSegue"))
+        return options
     }
 
     @objc private func permissionSwitchChanged(_ sender: UISwitch) {
@@ -162,7 +193,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
         } else if section == 1 {
             return 1
         } else {
-            return sharedOptions.count
+            return sharedOptionsList.count
         }
     }
 
@@ -308,7 +339,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                 withIdentifier: "arrow_cell",
                 for: indexPath
             )
-            cell.textLabel?.text = sharedOptions[indexPath.row]
+            cell.textLabel?.text = sharedOptionsList[indexPath.row].title
             return cell
         }
     }
@@ -319,10 +350,8 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 2 {
-            print("Tapped on \(sharedOptions[indexPath.row])")
-            // Navigate to details controller here
             performSegue(
-                withIdentifier: sharedOptionsSegue[indexPath.row],
+                withIdentifier: sharedOptionsList[indexPath.row].segue,
                 sender: nil
             )
         }
