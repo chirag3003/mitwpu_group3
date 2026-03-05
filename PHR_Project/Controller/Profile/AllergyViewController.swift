@@ -7,6 +7,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
     var allergies: [Allergy] = []
     var familyMember: FamilyMember?
 
+    @IBOutlet weak var plusButton: UIBarButtonItem!
     // MARK: - Outlets
 
     @IBOutlet weak var allergiesTableView: UITableView!
@@ -70,5 +71,8 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
             allergies.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    @IBAction func onPlusButtonClick(_ sender: Any) {
+        performSegue(withIdentifier: "addAllergySegue", sender: nil)
     }
 }

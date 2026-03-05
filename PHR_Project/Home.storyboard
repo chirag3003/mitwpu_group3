@@ -1293,12 +1293,14 @@
                     <navigationItem key="navigationItem" title="Allergies" largeTitleDisplayMode="never" id="bjG-9E-axq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="70X-Yz-LYH">
                             <connections>
-                                <segue destination="Dk7-wA-FBH" kind="show" identifier="ç" id="IPJ-QJ-VVZ"/>
+                                <action selector="onPlusButtonClick:" destination="Ejm-Og-VO8" id="xjC-em-Jye"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="allergiesTableView" destination="0HV-kh-br4" id="6mm-YE-Fng"/>
+                        <outlet property="plusButton" destination="70X-Yz-LYH" id="chb-gt-kvv"/>
+                        <segue destination="Dk7-wA-FBH" kind="show" identifier="addAllergySegue" id="dPf-iZ-4bD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMZ-Ha-tgJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
