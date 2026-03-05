@@ -132,7 +132,7 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
             let selectedContact = contacts[indexPath.row]
             performSegue(
-                withIdentifier: "familyPermissionsSegue",
+                withIdentifier: "confirmAddFamilySegue",
                 sender: selectedContact
             )
         }
@@ -149,14 +149,14 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "familyPermissionsSegue" {
+        if segue.identifier == "confirmAddFamilySegue" {
             if let navVC = segue.destination as? UINavigationController,
                 let destination = navVC.topViewController
-                    as? FamilyPermissionsTableViewController
+                    as? ConfirmAddFamilyController
             {
                 destination.selectedContact = sender as? Contact
             } else if let destination = segue.destination
-                as? FamilyPermissionsTableViewController
+                as? ConfirmAddFamilyController
             {
                 destination.selectedContact = sender as? Contact
             }

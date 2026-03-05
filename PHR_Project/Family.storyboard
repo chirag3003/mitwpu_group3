@@ -270,17 +270,17 @@
                     <connections>
                         <outlet property="searchBar" destination="XG4-5U-hrO" id="3xk-Iy-SMI"/>
                         <outlet property="tableView" destination="NxJ-Zz-x2s" id="NT2-Tk-dLD"/>
-                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="familyPermissionsSegue" id="7nQ-2n-G3f"/>
+                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="confirmAddFamilySegue" id="7nQ-2n-G3f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7a-Dd-4yL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="693.89312977099235" y="-225.35211267605635"/>
         </scene>
-        <!--Family Permissions Table View Controller-->
+        <!--Confirm Add Family Controller-->
         <scene sceneID="dCG-uX-ghS">
             <objects>
-                <tableViewController id="RaX-Gu-qd9" customClass="FamilyPermissionsTableViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="RaX-Gu-qd9" customClass="ConfirmAddFamilyController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Bq1-2I-FYz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,6 @@
                         <segue destination="wGp-AO-uKd" kind="show" identifier="familySymptomsSegue" id="SAk-YO-B4N"/>
                         <segue destination="M49-NC-5el" kind="show" identifier="familyMealsSegue" id="TRR-u3-pWS"/>
                         <segue destination="1xH-Lw-8JS" kind="show" identifier="familyGlucoseSegue" id="adh-aW-ja8"/>
-                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="familyPermissionsSegue" id="z0L-7S-4x1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiR-zj-OjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -610,9 +609,6 @@
             <point key="canvasLocation" x="1617.5572519083969" y="-923.23943661971839"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="z0L-7S-4x1"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>

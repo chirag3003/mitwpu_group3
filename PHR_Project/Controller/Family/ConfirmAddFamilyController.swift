@@ -1,6 +1,6 @@
 import UIKit
 
-class FamilyPermissionsTableViewController: UITableViewController {
+class ConfirmAddFamilyController: UITableViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var nameDetailLabel: UILabel!
@@ -17,12 +17,14 @@ class FamilyPermissionsTableViewController: UITableViewController {
             contactDetailLabel.text = contact.phoneNum
         }
     }
+
     // MARK: - Actions
     @IBAction func tickButtonTapped(_ sender: UIBarButtonItem) {
         guard let contact = selectedContact else {
             dismiss(animated: true)
             return
         }
+
         showLoading(message: "Adding member...")
         addMember(for: contact)
     }
@@ -106,5 +108,4 @@ class FamilyPermissionsTableViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-
 }
