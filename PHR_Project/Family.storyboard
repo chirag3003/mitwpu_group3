@@ -270,7 +270,6 @@
                     <connections>
                         <outlet property="searchBar" destination="XG4-5U-hrO" id="3xk-Iy-SMI"/>
                         <outlet property="tableView" destination="NxJ-Zz-x2s" id="NT2-Tk-dLD"/>
-                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="addContactPermissionSegue" id="AAh-Xc-1l1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7a-Dd-4yL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -626,6 +625,7 @@
                         <segue destination="wGp-AO-uKd" kind="show" identifier="familySymptomsSegue" id="SAk-YO-B4N"/>
                         <segue destination="M49-NC-5el" kind="show" identifier="familyMealsSegue" id="TRR-u3-pWS"/>
                         <segue destination="1xH-Lw-8JS" kind="show" identifier="familyGlucoseSegue" id="adh-aW-ja8"/>
+                        <segue destination="cdE-ur-PcR" kind="presentation" identifier="familyPermissionsSegue" id="z0L-7S-4x1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiR-zj-OjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -31,7 +31,21 @@ class AddFamilyTableViewController: UITableViewController {
     }
     
     @IBAction func tickButtonTapped(_ sender: Any) {
-        dismiss(animated: true)
+        guard let name = familyNameTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !name.isEmpty
+        else {
+            showErrorAlert(message: "Please enter a family name.")
+            return
+        }
+
+        FamilyService.shared.createFamily(name: name) { [weak self] result in
+            switch result {
+            case .success:
+                self?.dismiss(animated: true)
+            case .failure(let error):
+                self?.showErrorAlert(message: error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Table view data source
@@ -44,6 +58,16 @@ class AddFamilyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
+    }
+
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
 

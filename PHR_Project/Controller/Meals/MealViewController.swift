@@ -55,6 +55,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     var selectedDate: Date = Date()
     var familyMember: FamilyMember?
     var hasScrolledToToday = false
+    private var sharedMeals: [Meal] = []
 
     let sectionTitles = ["Breakfast", "Lunch", "Snacks", "Dinner"]
     
@@ -95,7 +96,15 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     // Refresh meal list when returning to screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mealCollectionView.reloadData()
+        if let member = familyMember {
+            loadSharedMeals(for: member)
+        } else {
+            mealCollectionView.reloadData()
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // Auto-scroll to today's date after layout is ready
@@ -188,7 +197,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     private func fetchMealInsights() {
         InsightsService.shared.fetchMealInsights { [weak self] response in
             guard let self = self, let insights = response else { return }
-            
+
             self.mealInsights = insights
             self.updateInsightsUI(with: insights)
         }
@@ -244,15 +253,24 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
 
     //Reload UI when meals change
     @objc func refreshData() {
-        DispatchQueue.main.async {
-            self.mealCollectionView.reloadData()
-            self.updateStats()
+        if let member = familyMember {
+            loadSharedMeals(for: member)
+        } else {
+            DispatchQueue.main.async {
+                self.mealCollectionView.reloadData()
+                self.updateStats()
+            }
         }
     }
 
     //Calculate and display nutrition totals for selected date
     func updateStats() {
-        let stats = MealService.shared.getMealStatsByDate(on: selectedDate)
+        let stats: MealStats
+        if familyMember != nil {
+            stats = mealStats(from: sharedMeals, on: selectedDate)
+        } else {
+            stats = MealService.shared.getMealStatsByDate(on: selectedDate)
+        }
 
         // Update labels
         caloriesLabel.text = "\(stats.totalCalories)"
@@ -380,21 +398,65 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         config.showsSeparators = true
         config.backgroundColor = .clear
 
-        // Swipe to delete
-        config.trailingSwipeActionsConfigurationProvider = { indexPath in
-            let deleteAction = UIContextualAction(
-                style: .destructive,
-                title: "Delete"
-            ) { action, view, completion in
-                let mealsInSection = MealService.shared.getMeals(
-                    forSection: indexPath.section
-                )
-                let mealToDelete = mealsInSection[indexPath.row]
-                MealService.shared.deleteMeal(mealToDelete)
-                completion(true)
+        if familyMember == nil {
+            // Swipe to delete
+            config.trailingSwipeActionsConfigurationProvider = { indexPath in
+                let deleteAction = UIContextualAction(
+                    style: .destructive,
+                    title: "Delete"
+                ) { action, view, completion in
+                    let mealsInSection = MealService.shared.getMeals(
+                        forSection: indexPath.section
+                    )
+                    let mealToDelete = mealsInSection[indexPath.row]
+                    MealService.shared.deleteMeal(mealToDelete)
+                    completion(true)
+                }
+                deleteAction.backgroundColor = .systemRed
+                return UISwipeActionsConfiguration(actions: [deleteAction])
             }
-            deleteAction.backgroundColor = .systemRed
-            return UISwipeActionsConfiguration(actions: [deleteAction])
+        } else if let member = familyMember {
+            config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
+                let deleteAction = UIContextualAction(
+                    style: .destructive,
+                    title: "Delete"
+                ) { action, view, completion in
+                    guard let self = self else {
+                        completion(false)
+                        return
+                    }
+                    let mealsInSection = self.mealsForSharedSection(
+                        indexPath.section,
+                        date: self.selectedDate
+                    )
+                    guard indexPath.row < mealsInSection.count else {
+                        completion(false)
+                        return
+                    }
+                    let mealToDelete = mealsInSection[indexPath.row]
+                    guard let apiId = mealToDelete.apiID else {
+                        completion(false)
+                        return
+                    }
+                    SharedDataService.shared.deleteMeal(
+                        for: member.userId,
+                        mealId: apiId
+                    ) { result in
+                        switch result {
+                        case .success:
+                            self.sharedMeals.removeAll { $0.apiID == apiId }
+                            self.mealCollectionView.reloadData()
+                            self.updateStats()
+                            completion(true)
+                        case .failure(let error):
+                            print("Error deleting shared meal: \(error)")
+                            completion(false)
+                        }
+                    }
+                }
+                deleteAction.backgroundColor = .systemRed
+                return UISwipeActionsConfiguration(actions: [deleteAction])
+            }
         }
 
         let layout = UICollectionViewCompositionalLayout { sectionIndex, env in
@@ -457,6 +519,11 @@ extension MealViewController: UICollectionViewDataSource,
             return dates.getDays().count
         }
 
+        if familyMember != nil {
+            let count = mealsForSharedSection(section, date: selectedDate).count
+            return count == 0 ? 1 : count
+        }
+
         let count = MealService.shared.getMeals(
             forSection: section,
             on: selectedDate
@@ -486,10 +553,15 @@ extension MealViewController: UICollectionViewDataSource,
         }
 
         // Meal cells
-        let mealsInSection = MealService.shared.getMeals(
-            forSection: indexPath.section,
-            on: selectedDate
-        )
+        let mealsInSection: [Meal]
+        if familyMember != nil {
+            mealsInSection = mealsForSharedSection(indexPath.section, date: selectedDate)
+        } else {
+            mealsInSection = MealService.shared.getMeals(
+                forSection: indexPath.section,
+                on: selectedDate
+            )
+        }
 
         if mealsInSection.isEmpty {
             let cell =
@@ -537,10 +609,15 @@ extension MealViewController: UICollectionViewDataSource,
             }
         } else if collectionView == mealCollectionView {
             // Handle meal cell selection
-            let mealsInSection = MealService.shared.getMeals(
-                forSection: indexPath.section,
-                on: selectedDate
-            )
+            let mealsInSection: [Meal]
+            if familyMember != nil {
+                mealsInSection = mealsForSharedSection(indexPath.section, date: selectedDate)
+            } else {
+                mealsInSection = MealService.shared.getMeals(
+                    forSection: indexPath.section,
+                    on: selectedDate
+                )
+            }
             
             // Don't navigate if it's the empty state cell
             guard !mealsInSection.isEmpty else { return }
@@ -548,6 +625,54 @@ extension MealViewController: UICollectionViewDataSource,
             let selectedMeal = mealsInSection[indexPath.row]
             navigateToMealDetail(meal: selectedMeal)
         }
+    }
+
+    private func loadSharedMeals(for member: FamilyMember) {
+        SharedDataService.shared.fetchMeals(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let meals):
+                self?.sharedMeals = meals
+                self?.mealCollectionView.reloadData()
+                self?.updateStats()
+            case .failure(let error):
+                print("Error fetching shared meals: \(error)")
+            }
+        }
+    }
+
+    private func mealsForSharedSection(_ section: Int, date: Date) -> [Meal] {
+        let category: String
+        switch section {
+        case 0: category = "Breakfast"
+        case 1: category = "Lunch"
+        case 2: category = "Snack"
+        case 3: category = "Dinner"
+        default: return []
+        }
+        let calendar = Calendar.current
+        return sharedMeals.filter { meal in
+            guard meal.type == category else { return false }
+            return calendar.isDate(meal.dateRecorded, inSameDayAs: date)
+        }
+    }
+
+    private func mealStats(from meals: [Meal], on date: Date) -> MealStats {
+        let calendar = Calendar.current
+        let filtered = meals.filter { meal in
+            calendar.isDate(meal.dateRecorded, inSameDayAs: date)
+        }
+
+        let totalCalories = filtered.reduce(0) { $0 + $1.calories }
+        let totalCarbs = filtered.reduce(0) { $0 + $1.carbs }
+        let totalProtein = filtered.reduce(0) { $0 + $1.protein }
+        let totalFiber = filtered.reduce(0) { $0 + $1.fiber }
+
+        return MealStats(
+            totalCalories: totalCalories,
+            totalCarbs: totalCarbs,
+            totalProtein: totalProtein,
+            totalFiber: totalFiber
+        )
     }
 
     //Provide section headers for meal types
@@ -571,6 +696,7 @@ extension MealViewController: UICollectionViewDataSource,
     
     //Navigate to meal detail screen
     private func navigateToMealDetail(meal: Meal) {
+        guard familyMember == nil else { return }
         let storyboard = UIStoryboard(name: "Meals", bundle: nil)
         
         if let detailVC = storyboard.instantiateViewController(
@@ -611,4 +737,3 @@ class NoMealsCollectionViewCell: UICollectionViewCell {
         ])
     }
 }
-

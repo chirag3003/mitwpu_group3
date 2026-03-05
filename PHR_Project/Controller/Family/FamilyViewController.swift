@@ -12,17 +12,59 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     private var familyData: [FamilyMember] = []
+    private var currentFamily: Family?
 
         override func viewDidLoad() {
             super.viewDidLoad()
 
-            setupData()
             setupCollectionView()
             setupAddMenu()
+            setupObservers()
+            refreshFamilies()
+        }
+
+        deinit {
+            NotificationCenter.default.removeObserver(self)
         }
 
         private func setupData() {
-            familyData = FamilyService.shared.getAllMembers()
+            currentFamily = FamilyService.shared.getCurrentFamily()
+            familyData = FamilyService.shared.getMembersForCurrentFamily()
+        }
+
+        private func setupObservers() {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleFamiliesUpdated),
+                name: NSNotification.Name(NotificationNames.familiesUpdated),
+                object: nil
+            )
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleMembersUpdated),
+                name: NSNotification.Name(NotificationNames.familyMembersUpdated),
+                object: nil
+            )
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleFamilySelectionChanged),
+                name: NSNotification.Name(NotificationNames.familySelectionUpdated),
+                object: nil
+            )
+        }
+
+        private func refreshFamilies() {
+            FamilyService.shared.fetchFamilies { [weak self] success in
+                guard let self = self else { return }
+                self.setupData()
+                self.collectionView.reloadData()
+                if success, let familyId = FamilyService.shared.getCurrentFamilyId() {
+                    FamilyService.shared.fetchFamilyMembers(familyId: familyId) { _ in
+                        self.setupData()
+                        self.collectionView.reloadData()
+                    }
+                }
+            }
         }
 
         private func setupCollectionView() {
@@ -51,6 +93,13 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                 title: "Add Member to current Family",
                 image: UIImage(systemName: "person.badge.plus")
             ) { [weak self] _ in
+                if FamilyService.shared.getCurrentFamilyId() == nil {
+                    self?.showAlert(
+                        title: "No Family",
+                        message: "Create a family first to add members."
+                    )
+                    return
+                }
                 self?.performSegue(withIdentifier: "GoToAddMember", sender: nil)
             }
 
@@ -219,5 +268,23 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                             }
                         }
                     }
+        }
+    
+        @objc private func handleFamiliesUpdated() {
+            setupData()
+            collectionView.reloadData()
+        }
+    
+        @objc private func handleMembersUpdated() {
+            setupData()
+            collectionView.reloadData()
+        }
+    
+        @objc private func handleFamilySelectionChanged() {
+            setupData()
+            collectionView.reloadData()
+            if let familyId = FamilyService.shared.getCurrentFamilyId() {
+                FamilyService.shared.fetchFamilyMembers(familyId: familyId, completion: nil)
+            }
         }
     }

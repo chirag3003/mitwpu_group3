@@ -36,9 +36,27 @@ class FamilyMemberViewController: UIViewController {
         pfpImage.setImageFromURL(url: familyMember?.imageName ?? "")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = self.familyMember
+        }
+
+        if segue.identifier == "familyPermissionsSegue" {
+            if let navVC = segue.destination as? UINavigationController,
+                let destination = navVC.topViewController
+                    as? FamilyPermissionsTableViewController
+            {
+                destination.selectedMember = familyMember
+            } else if let destination = segue.destination
+                as? FamilyPermissionsTableViewController
+            {
+                destination.selectedMember = familyMember
+            }
         }
     }
 }
@@ -144,7 +162,8 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                     for: indexPath
                 ) as! MemberSwitchTableViewCell
             cell.titleLabel.text = accessOptions[indexPath.row]
-            cell.permissionSwitch.isOn = true  // TODO: Bind to real data
+            cell.permissionSwitch.isOn = false
+            cell.permissionSwitch.isUserInteractionEnabled = false
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(
@@ -168,6 +187,8 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                 withIdentifier: sharedOptionsSegue[indexPath.row],
                 sender: nil
             )
+        } else if indexPath.section == 0 {
+            performSegue(withIdentifier: "familyPermissionsSegue", sender: nil)
         }
     }
 }

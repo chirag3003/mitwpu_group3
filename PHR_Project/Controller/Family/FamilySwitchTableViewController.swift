@@ -12,7 +12,7 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
     // MARK: - Outlets
     @IBOutlet var tableView: UITableView!
     // Replace this array type with your actual Family model if you have one
-    private var familyNames: [String] = []
+    private var families: [Family] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +36,12 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
         }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Fetch the latest families here so newly created ones appear instantly
-        // Example: familyNames = FamilyService.shared.getAllFamilies()
-        
-        // For now, using your placeholder data:
-        familyNames = ["Chavans", "The Bhalotias", "Saxena Babies"]
-        
-        tableView.reloadData()
+
+        FamilyService.shared.fetchFamilies { [weak self] _ in
+            guard let self = self else { return }
+            self.families = FamilyService.shared.getFamilies()
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Actions
@@ -54,7 +52,7 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
     
     // MARK: - Table View Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return familyNames.count
+        return families.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +60,7 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "family_cell", for: indexPath)
         
         // Configure the cell text
-        cell.textLabel?.text = familyNames[indexPath.row]
+        cell.textLabel?.text = families[indexPath.row].name
         
         // Adds the little '>' arrow on the right
         cell.accessoryType = .disclosureIndicator
@@ -74,9 +72,9 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Deselect the row so it doesn't stay gray
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // Currently does nothing else, as requested for backend handling later
-        print("Selected family: \(familyNames[indexPath.row])")
+        let family = families[indexPath.row]
+        FamilyService.shared.setCurrentFamily(id: family.apiID)
+        dismiss(animated: true)
     }
     
     // MARK: - Context Menu (Long Press)
@@ -94,16 +92,16 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
                     
                     guard let self = self else { return }
                     
-                    // Remove the family from your data array
-                    let exitedFamily = self.familyNames.remove(at: indexPath.row)
-                    print("Exited family: \(exitedFamily)")
-                    
-                    // Animate the row disappearing from the table view
-                    DispatchQueue.main.async {
-                        self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    let family = self.families[indexPath.row]
+                    if let familyId = family.apiID {
+                        FamilyService.shared.leaveFamily(familyId: familyId) { success in
+                            guard success else { return }
+                            self.families = FamilyService.shared.getFamilies()
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
                     }
-                    
-                    // (Future) Make your backend API call here to actually remove the user from the family in the database
                 }
                 
                 // Return the menu containing our action

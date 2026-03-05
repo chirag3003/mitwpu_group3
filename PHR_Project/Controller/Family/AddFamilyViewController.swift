@@ -126,27 +126,32 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let selectedContact = contacts[indexPath.row]
-            
-          
-            performSegue(withIdentifier: "addContactPermissionSegue", sender: selectedContact)
+
+            if let familyId = FamilyService.shared.getCurrentFamilyId() {
+                FamilyService.shared.addMember(
+                    familyId: familyId,
+                    phoneNumber: selectedContact.phoneNum
+                ) { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.navigationController?.popViewController(animated: true)
+                    case .failure(let error):
+                        self?.showErrorAlert(message: error.localizedDescription)
+                    }
+                }
+            } else {
+                showErrorAlert(message: "Please create a family first.")
+            }
         }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addContactPermissionSegue" {
-            
-            // Handle Navigation Controller wrapper if your modal is embedded in one
-            var destinationVC: FamilyPermissionsTableViewController?
-            
-            if let navVC = segue.destination as? UINavigationController {
-                destinationVC = navVC.topViewController as? FamilyPermissionsTableViewController
-            } else {
-                destinationVC = segue.destination as? FamilyPermissionsTableViewController
-            }
-            
-            // Pass the contact object to the permissions page
-            if let permissionsVC = destinationVC, let contactToPass = sender as? Contact {
-                permissionsVC.selectedContact = contactToPass
-            }
-        }
+
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }

@@ -17,7 +17,11 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Data setup
-        symptomsData = SymptomService.shared.getSymptoms()
+        if let member = familyMember {
+            loadSharedSymptoms(for: member)
+        } else {
+            symptomsData = SymptomService.shared.getSymptoms()
+        }
 
         // Table view setup
         symptomTableView.dataSource = self
@@ -38,7 +42,13 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             self.title = "Symptoms"
         }
 
-        setupLongPressGesture()
+        if familyMember == nil {
+            setupLongPressGesture()
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setupLongPressGesture() {
@@ -117,16 +127,35 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
+            if let member = familyMember {
+                let symptom = symptomsData[indexPath.row]
+                guard let apiId = symptom.apiID else { return }
+                isDeleting = true
+                SharedDataService.shared.deleteSymptom(
+                    for: member.userId,
+                    symptomId: apiId
+                ) { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success:
+                        self.symptomsData.remove(at: indexPath.row)
+                        self.symptomTableView.deleteRows(
+                            at: [indexPath],
+                            with: .fade
+                        )
+                    case .failure(let error):
+                        print("Error deleting shared symptom: \(error)")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.isDeleting = false
+                    }
+                }
+                return
+            }
 
             isDeleting = true
-            // Step A: Update the Data Source (Persistence)
-            // You must delete the item from your Service/Database first!
-            // Example: SymptomService.shared.deleteSymptom(at: indexPath.row)
             SymptomService.shared.deleteSymptom(at: indexPath.row)
-            // Step B: Remove from the local array
             symptomsData.remove(at: indexPath.row)
-
-            // Step C: Update the Table View with animation
             tableView.deleteRows(at: [indexPath], with: .fade)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -136,13 +165,17 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     }
 
     func reloadData() {
-            // 1. Get the latest reference from the Service
-            // Since 'symptoms' is a Value Type (Array), we must re-assign it.
-            symptomsData = SymptomService.shared.getSymptoms()
-            
-            // 2. Reload the table view
-            DispatchQueue.main.async {
-                self.symptomTableView.reloadData()
+            if let member = familyMember {
+                loadSharedSymptoms(for: member)
+            } else {
+                // 1. Get the latest reference from the Service
+                // Since 'symptoms' is a Value Type (Array), we must re-assign it.
+                symptomsData = SymptomService.shared.getSymptoms()
+                
+                // 2. Reload the table view
+                DispatchQueue.main.async {
+                    self.symptomTableView.reloadData()
+                }
             }
         }
         
@@ -152,12 +185,24 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             reloadData()
         }
     
-    @objc func updateSymptoms() {
+        @objc func updateSymptoms() {
         // If we are currently deleting a row, don't reload to avoid animation conflicts
         if isDeleting { return }
         
         // Otherwise, refresh the list
         reloadData()
+    }
+
+    private func loadSharedSymptoms(for member: FamilyMember) {
+        SharedDataService.shared.fetchSymptoms(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let symptoms):
+                self?.symptomsData = symptoms
+                self?.symptomTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching shared symptoms: \(error)")
+            }
+        }
     }
 
 }
