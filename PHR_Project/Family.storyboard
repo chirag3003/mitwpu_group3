@@ -488,11 +488,33 @@
                         <segue destination="wGp-AO-uKd" kind="show" identifier="familySymptomsSegue" id="SAk-YO-B4N"/>
                         <segue destination="M49-NC-5el" kind="show" identifier="familyMealsSegue" id="TRR-u3-pWS"/>
                         <segue destination="1xH-Lw-8JS" kind="show" identifier="familyGlucoseSegue" id="adh-aW-ja8"/>
+                        <segue destination="4J0-jx-Rhh" kind="show" identifier="familyAllergiesSegue" id="kLz-Oh-KuQ"/>
+                        <segue destination="Ocp-VV-tLk" kind="show" identifier="familyWaterSegue" id="CLn-Dz-3rM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiR-zj-OjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-147.32824427480915" y="466.90140845070425"/>
+        </scene>
+        <!--waterStoryboard-->
+        <scene sceneID="t3D-SA-ozZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Water" referencedIdentifier="waterStoryboard" id="Ocp-VV-tLk" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Hpx-vL-7Iz"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3g1-x3-SMT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="731" y="233"/>
+        </scene>
+        <!--allergyStoryboard-->
+        <scene sceneID="Gwx-ud-NLH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="allergyStoryboard" id="4J0-jx-Rhh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="0i3-uD-7T4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s2O-ow-MXC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="721" y="312"/>
         </scene>
         <!--symptomsStoryboard-->
         <scene sceneID="8kU-E3-GT1">

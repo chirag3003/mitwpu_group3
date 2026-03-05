@@ -13,7 +13,7 @@ class AddAllergyTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Setup Data Arrays
         allTextFields = [allergyIngredient, allergyDetailReaction]
 
