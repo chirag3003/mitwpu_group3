@@ -10,6 +10,7 @@ class AddAllergyTableViewController: UITableViewController {
 
     // Keep reference to fields for keyboard management if needed
     var allTextFields: [UITextField] = []
+    var familyMember: FamilyMember?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,23 +79,45 @@ class AddAllergyTableViewController: UITableViewController {
             notes: reaction
         )
 
-        AllergyService.shared.addAllergy(newAllergy) { [weak self] result in
-            guard let self = self else { return }
+        if let member = familyMember {
+            SharedDataService.shared.addAllergy(
+                for: member.userId,
+                allergy: newAllergy
+            ) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.showLoader(false)
+                    switch result {
+                    case .success:
+                        self.navigationController?.popViewController(animated: true)
+                    case .failure(let error):
+                        self.showAlert(
+                            title: "Error",
+                            message:
+                                "Failed to add allergy: \(error.localizedDescription)"
+                        )
+                    }
+                }
+            }
+        } else {
+            AllergyService.shared.addAllergy(newAllergy) { [weak self] result in
+                guard let self = self else { return }
 
-            DispatchQueue.main.async {
-                self.showLoader(false)
+                DispatchQueue.main.async {
+                    self.showLoader(false)
 
-                switch result {
-                case .success:
+                    switch result {
+                    case .success:
 
-                    self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popViewController(animated: true)
 
-                case .failure(let error):
-                    self.showAlert(
-                        title: "Error",
-                        message:
-                            "Failed to add allergy: \(error.localizedDescription)"
-                    )
+                    case .failure(let error):
+                        self.showAlert(
+                            title: "Error",
+                            message:
+                                "Failed to add allergy: \(error.localizedDescription)"
+                        )
+                    }
                 }
             }
         }

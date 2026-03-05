@@ -74,4 +74,40 @@ final class SharedDataService {
             completion: completion
         )
     }
+
+    func fetchAllergies(
+        for userId: String,
+        completion: @escaping (Result<[Allergy], Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/allergies",
+            method: .get,
+            completion: completion
+        )
+    }
+
+    func addAllergy(
+        for userId: String,
+        allergy: Allergy,
+        completion: @escaping (Result<Allergy, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/allergies",
+            method: .post,
+            body: allergy,
+            completion: completion
+        )
+    }
+
+    func deleteAllergy(
+        for userId: String,
+        allergyId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/allergies/\(allergyId)",
+            method: .delete,
+            completion: completion
+        )
+    }
 }

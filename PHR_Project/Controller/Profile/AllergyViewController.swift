@@ -6,6 +6,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
 
     var allergies: [Allergy] = []
     var familyMember: FamilyMember?
+    var canEditSharedData = false
 
     @IBOutlet weak var plusButton: UIBarButtonItem!
     // MARK: - Outlets
@@ -21,21 +22,37 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
             self.title = "Allergies"
         }
 
-        allergies = AllergyService.shared.fetchAllergies()
+        if let member = familyMember {
+            loadSharedAllergies(for: member)
+        } else {
+            allergies = AllergyService.shared.fetchAllergies()
+        }
         allergiesTableView.dataSource = self
         allergiesTableView.delegate = self
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(refreshData),
-            name: NSNotification.Name("AllergiesUpdated"),
-            object: nil
-        )
+        if familyMember == nil {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(refreshData),
+                name: NSNotification.Name("AllergiesUpdated"),
+                object: nil
+            )
+        }
+
+        updateEditingAccess()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     @objc func refreshData() {
-        self.allergies = AllergyService.shared.fetchAllergies()
-        self.allergiesTableView.reloadData()
+        if let member = familyMember {
+            loadSharedAllergies(for: member)
+        } else {
+            self.allergies = AllergyService.shared.fetchAllergies()
+            self.allergiesTableView.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
@@ -64,15 +81,67 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            AllergyService.shared.deleteAllergy(
-                at: indexPath.row,
-                notify: false
-            )
-            allergies.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let member = familyMember {
+                guard canEditSharedData else { return }
+                let allergy = allergies[indexPath.row]
+                guard let apiId = allergy.apiID else { return }
+                SharedDataService.shared.deleteAllergy(
+                    for: member.userId,
+                    allergyId: apiId
+                ) { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.allergies.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    case .failure(let error):
+                        print("Error deleting shared allergy: \(error)")
+                    }
+                }
+            } else {
+                AllergyService.shared.deleteAllergy(
+                    at: indexPath.row,
+                    notify: false
+                )
+                allergies.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
     @IBAction func onPlusButtonClick(_ sender: Any) {
+        guard familyMember == nil || canEditSharedData else { return }
         performSegue(withIdentifier: "addAllergySegue", sender: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navController = segue.destination as? UINavigationController,
+            let addVC = navController.topViewController
+                as? AddAllergyTableViewController
+        {
+            addVC.familyMember = familyMember
+        } else if let addVC = segue.destination
+            as? AddAllergyTableViewController
+        {
+            addVC.familyMember = familyMember
+        }
+    }
+
+    private func loadSharedAllergies(for member: FamilyMember) {
+        SharedDataService.shared.fetchAllergies(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let allergies):
+                self?.allergies = allergies
+                self?.allergiesTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching shared allergies: \(error)")
+            }
+        }
+    }
+
+    private func updateEditingAccess() {
+        if familyMember == nil {
+            plusButton.isEnabled = true
+        } else {
+            plusButton.isEnabled = canEditSharedData
+        }
     }
 }

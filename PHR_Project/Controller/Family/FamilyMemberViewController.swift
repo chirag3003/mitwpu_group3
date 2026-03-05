@@ -17,6 +17,7 @@ class FamilyMemberViewController: UIViewController {
     private var writeAccess = false
     private var isUpdating = false
     private var sharedOptionsList: [(title: String, segue: String)] = []
+    private var sharedWriteAccess = false
 
     // MARK: Outlets
     @IBOutlet weak var pfpImage: UIImageView!
@@ -56,6 +57,16 @@ class FamilyMemberViewController: UIViewController {
         if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = self.familyMember
         }
+
+        if segue.identifier == "familyAllergiesSegue" {
+            if let navController = segue.destination as? UINavigationController,
+                let allergyVC = navController.topViewController as? AllergyViewController
+            {
+                allergyVC.canEditSharedData = sharedWriteAccess
+            } else if let allergyVC = segue.destination as? AllergyViewController {
+                allergyVC.canEditSharedData = sharedWriteAccess
+            }
+        }
     }
 
     private func fetchPermissions() {
@@ -82,6 +93,7 @@ class FamilyMemberViewController: UIViewController {
             [weak self] permission in
             guard let self = self else { return }
             self.sharedOptionsList = self.buildSharedOptions(from: permission)
+            self.sharedWriteAccess = permission?.write ?? false
             self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }
     }
