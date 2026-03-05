@@ -45,19 +45,6 @@ class FamilyMemberViewController: UIViewController {
         if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = self.familyMember
         }
-
-        if segue.identifier == "familyPermissionsSegue" {
-            if let navVC = segue.destination as? UINavigationController,
-                let destination = navVC.topViewController
-                    as? FamilyPermissionsTableViewController
-            {
-                destination.selectedMember = familyMember
-            } else if let destination = segue.destination
-                as? FamilyPermissionsTableViewController
-            {
-                destination.selectedMember = familyMember
-            }
-        }
     }
 }
 
@@ -187,8 +174,10 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                 withIdentifier: sharedOptionsSegue[indexPath.row],
                 sender: nil
             )
-        } else if indexPath.section == 0 {
-            performSegue(withIdentifier: "familyPermissionsSegue", sender: nil)
         }
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return indexPath.section == 0 ? nil : indexPath
     }
 }

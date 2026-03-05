@@ -125,23 +125,16 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let selectedContact = contacts[indexPath.row]
-
-            if let familyId = FamilyService.shared.getCurrentFamilyId() {
-                FamilyService.shared.addMember(
-                    familyId: familyId,
-                    phoneNumber: selectedContact.phoneNum
-                ) { [weak self] result in
-                    switch result {
-                    case .success:
-                        self?.navigationController?.popViewController(animated: true)
-                    case .failure(let error):
-                        self?.showErrorAlert(message: error.localizedDescription)
-                    }
-                }
-            } else {
+            guard FamilyService.shared.getCurrentFamilyId() != nil else {
                 showErrorAlert(message: "Please create a family first.")
+                return
             }
+
+            let selectedContact = contacts[indexPath.row]
+            performSegue(
+                withIdentifier: "familyPermissionsSegue",
+                sender: selectedContact
+            )
         }
     
 
@@ -153,5 +146,20 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "familyPermissionsSegue" {
+            if let navVC = segue.destination as? UINavigationController,
+                let destination = navVC.topViewController
+                    as? FamilyPermissionsTableViewController
+            {
+                destination.selectedContact = sender as? Contact
+            } else if let destination = segue.destination
+                as? FamilyPermissionsTableViewController
+            {
+                destination.selectedContact = sender as? Contact
+            }
+        }
     }
 }
