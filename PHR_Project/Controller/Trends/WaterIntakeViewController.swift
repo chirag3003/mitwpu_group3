@@ -1,6 +1,8 @@
 import UIKit
 
-class WaterIntakeViewController: UIViewController {
+class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen {
+    var familyMember: FamilyMember?
+    
 
     // MARK: - Outlets
     @IBOutlet weak var progressView: CircularProgressView!
@@ -26,6 +28,12 @@ class WaterIntakeViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Water Intake"
+        } else {
+            self.title = "Water Intake"
+        }
 
         // Setup Collection View
         dateCollectionView.dataSource = self

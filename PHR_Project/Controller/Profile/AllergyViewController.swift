@@ -1,10 +1,11 @@
 import UIKit
 
 class AllergyViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
+    UITableViewDataSource, FamilyMemberDataScreen
 {
 
     var allergies: [Allergy] = []
+    var familyMember: FamilyMember?
 
     // MARK: - Outlets
 
@@ -12,6 +13,12 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Allergies"
+        } else {
+            self.title = "Allergies"
+        }
 
         allergies = AllergyService.shared.fetchAllergies()
         allergiesTableView.dataSource = self

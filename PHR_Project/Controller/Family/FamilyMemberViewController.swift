@@ -13,11 +13,11 @@ class FamilyMemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     // Data Models
-    let accessOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose"]
-    let sharedOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose"]
+    let accessOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water"]
+    let sharedOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water", "Allergies"]
     let sharedOptionsSegue = [
         "familyDocumentsSegue", "familyMealsSegue", "familySymptomsSegue",
-        "familyGlucoseSegue",
+        "familyGlucoseSegue", "familyWaterSegue", "familyAllergiesSegue"
     ]
 
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class FamilyMemberViewController: UIViewController {
 extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2  // Section 0: Allow Access To, Section 1: Shared With You
+        return 3  // Section 0: Allow Access To, Section 1: Shared With You
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
@@ -55,7 +55,11 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
     {
         if section == 0 {
             return accessOptions.count
-        } else {
+        }
+        else if section == 1   {
+                    return 1
+        }
+        else {
             return sharedOptions.count
         }
     }
@@ -79,7 +83,10 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
         // Set text based on section
         if section == 0 {
             titleLabel.text = "Allow Access To"
-        } else {
+        }
+        else if section == 1 {
+            titleLabel.text = "Special Permission"
+        }else {
             titleLabel.text = "Shared With You"
         }
 
@@ -134,34 +141,33 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
 
     // MARK: - Cell Configuration
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        if indexPath.section == 0 {
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: "switch_cell",
-                    for: indexPath
-                ) as! MemberSwitchTableViewCell
-            cell.titleLabel.text = accessOptions[indexPath.row]
-            cell.permissionSwitch.isOn = true  // TODO: Bind to real data
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: "arrow_cell",
-                for: indexPath
-            )
-            cell.textLabel?.text = sharedOptions[indexPath.row]
-            return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            if indexPath.section == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "switch_cell", for: indexPath) as! MemberSwitchTableViewCell
+                cell.titleLabel.text = accessOptions[indexPath.row]
+                cell.permissionSwitch.isOn = true  // TODO: Bind to real data
+                return cell
+                
+            } else if indexPath.section == 1 {
+                // Reusing your existing switch cell for the new section!
+                let cell = tableView.dequeueReusableCell(withIdentifier: "switch_cell", for: indexPath) as! MemberSwitchTableViewCell
+                cell.titleLabel.text = "Write Access"
+                cell.permissionSwitch.isOn = false // Set your default state here
+                return cell
+                
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "arrow_cell", for: indexPath)
+                cell.textLabel?.text = sharedOptions[indexPath.row]
+                return cell
+            }
         }
-    }
 
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             print("Tapped on \(sharedOptions[indexPath.row])")
             // Navigate to details controller here
             performSegue(
