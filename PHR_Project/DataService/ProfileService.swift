@@ -32,7 +32,8 @@ class ProfileService {
                 diabetesType: userEntity.diabetesType ?? "Type 2",
                 bloodType: userEntity.bloodType ?? "O+",
                 height: heightInt,
-                weight: weightInt
+                weight: weightInt,
+                imageData: userEntity.imageData
             )
 
         } else {
