@@ -6,6 +6,16 @@ protocol FamilyMemberDataScreen {
 
 class FamilyMemberViewController: UIViewController {
     var familyMember: FamilyMember?
+    private var permissions = FamilyPermissionFlags(
+        documents: false,
+        symptoms: false,
+        meals: false,
+        glucose: false,
+        allergies: true,
+        water: false
+    )
+    private var writeAccess = false
+    private var isUpdating = false
 
     // MARK: Outlets
     @IBOutlet weak var pfpImage: UIImageView!
@@ -39,6 +49,8 @@ class FamilyMemberViewController: UIViewController {
         // profile image changes
         pfpImage.addFullRoundedCorner()
         pfpImage.setImageFromURL(url: familyMember?.imageName ?? "")
+
+        fetchPermissions()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +61,88 @@ class FamilyMemberViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = self.familyMember
+        }
+    }
+
+    private func fetchPermissions() {
+        guard let member = familyMember else { return }
+        FamilyPermissionsService.shared.getPermissions(for: member.userId) {
+            [weak self] permission in
+            guard let self = self, let permission = permission else { return }
+            self.permissions = FamilyPermissionFlags(
+                documents: permission.permissions.documents,
+                symptoms: permission.permissions.symptoms,
+                meals: permission.permissions.meals,
+                glucose: permission.permissions.glucose,
+                allergies: true,
+                water: permission.permissions.water
+            )
+            self.writeAccess = permission.write
+            self.tableView.reloadData()
+        }
+    }
+
+    @objc private func permissionSwitchChanged(_ sender: UISwitch) {
+        guard !isUpdating else { return }
+        switch sender.tag {
+        case 0:
+            permissions.documents = sender.isOn
+        case 1:
+            permissions.meals = sender.isOn
+        case 2:
+            permissions.symptoms = sender.isOn
+        case 3:
+            permissions.glucose = sender.isOn
+        case 4:
+            permissions.water = sender.isOn
+        case 100:
+            writeAccess = sender.isOn
+        default:
+            break
+        }
+        updatePermissions()
+    }
+
+    private func updatePermissions() {
+        guard let member = familyMember,
+            let familyId = FamilyService.shared.getCurrentFamilyId()
+        else { return }
+
+        let previousPermissions = permissions
+        let previousWrite = writeAccess
+
+        isUpdating = true
+        tableView.isUserInteractionEnabled = false
+
+        let enforcedPermissions = FamilyPermissionFlags(
+            documents: permissions.documents,
+            symptoms: permissions.symptoms,
+            meals: permissions.meals,
+            glucose: permissions.glucose,
+            allergies: true,
+            water: permissions.water
+        )
+
+        FamilyPermissionsService.shared.updatePermissions(
+            familyId: familyId,
+            permissionTo: member.userId,
+            write: writeAccess,
+            permissions: enforcedPermissions
+        ) { [weak self] permission in
+            guard let self = self else { return }
+            self.isUpdating = false
+            self.tableView.isUserInteractionEnabled = true
+            if permission == nil {
+                self.permissions = previousPermissions
+                self.writeAccess = previousWrite
+                self.tableView.reloadData()
+                self.showAlert(
+                    title: "Error",
+                    message: "Failed to update permissions."
+                )
+            } else {
+                self.permissions = enforcedPermissions
+            }
         }
     }
 }
@@ -158,7 +252,32 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                     for: indexPath
                 ) as! MemberSwitchTableViewCell
             cell.titleLabel.text = accessOptions[indexPath.row]
-            cell.permissionSwitch.isOn = true  // TODO: Bind to real data
+            cell.permissionSwitch.removeTarget(
+                nil,
+                action: nil,
+                for: .allEvents
+            )
+            cell.permissionSwitch.tag = indexPath.row
+            switch indexPath.row {
+            case 0:
+                cell.permissionSwitch.isOn = permissions.documents
+            case 1:
+                cell.permissionSwitch.isOn = permissions.meals
+            case 2:
+                cell.permissionSwitch.isOn = permissions.symptoms
+            case 3:
+                cell.permissionSwitch.isOn = permissions.glucose
+            case 4:
+                cell.permissionSwitch.isOn = permissions.water
+            default:
+                cell.permissionSwitch.isOn = false
+            }
+            cell.permissionSwitch.addTarget(
+                self,
+                action: #selector(permissionSwitchChanged(_:)),
+                for: .valueChanged
+            )
+            cell.permissionSwitch.isEnabled = !isUpdating
             return cell
 
         } else if indexPath.section == 1 {
@@ -169,7 +288,19 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                     for: indexPath
                 ) as! MemberSwitchTableViewCell
             cell.titleLabel.text = "Write Access"
-            cell.permissionSwitch.isOn = false  // Set your default state here
+            cell.permissionSwitch.removeTarget(
+                nil,
+                action: nil,
+                for: .allEvents
+            )
+            cell.permissionSwitch.tag = 100
+            cell.permissionSwitch.isOn = writeAccess
+            cell.permissionSwitch.addTarget(
+                self,
+                action: #selector(permissionSwitchChanged(_:)),
+                for: .valueChanged
+            )
+            cell.permissionSwitch.isEnabled = !isUpdating
             return cell
 
         } else {
@@ -201,6 +332,6 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
         _ tableView: UITableView,
         willSelectRowAt indexPath: IndexPath
     ) -> IndexPath? {
-        return indexPath.section == 0 ? nil : indexPath
+        return indexPath.section == 2 ? indexPath : nil
     }
 }

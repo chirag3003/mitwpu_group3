@@ -277,9 +277,15 @@ final class FamilyService {
 
     private func mapMembers(from family: Family) -> [FamilyMember] {
         var mapped: [FamilyMember] = []
-        mapped.append(FamilyMember(user: family.admin, isAdmin: true))
-        mapped.append(contentsOf: family.members.map {
-            FamilyMember(user: $0, isAdmin: false)
+        let currentUserId = AuthService.shared.currentUser?.id
+
+        if family.admin.id != currentUserId {
+            mapped.append(FamilyMember(user: family.admin, isAdmin: true))
+        }
+
+        mapped.append(contentsOf: family.members.compactMap { member in
+            guard member.id != currentUserId else { return nil }
+            return FamilyMember(user: member, isAdmin: false)
         })
         return mapped
     }
