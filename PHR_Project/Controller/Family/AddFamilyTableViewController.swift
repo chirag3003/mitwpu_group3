@@ -10,17 +10,16 @@ import UIKit
 class AddFamilyTableViewController: UITableViewController {
 
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
     @IBOutlet weak var familyNameTextfield: UITextField!
     @IBOutlet weak var tickButton: UIBarButtonItem!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Configure half-screen modal
         if let sheet = sheetPresentationController {
-            sheet.detents = [.medium()]          // Only half screen
-            sheet.prefersGrabberVisible = true   // Shows the drag handle at top
+            sheet.detents = [.medium()]  // Only half screen
+            sheet.prefersGrabberVisible = true  // Shows the drag handle at top
             sheet.preferredCornerRadius = 20
             sheet.detents = [.medium(), .large()]
         }
@@ -29,7 +28,7 @@ class AddFamilyTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+
     @IBAction func tickButtonTapped(_ sender: Any) {
         guard let name = familyNameTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines),
             !name.isEmpty
@@ -47,7 +46,7 @@ class AddFamilyTableViewController: UITableViewController {
             }
         }
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,7 +54,10 @@ class AddFamilyTableViewController: UITableViewController {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }

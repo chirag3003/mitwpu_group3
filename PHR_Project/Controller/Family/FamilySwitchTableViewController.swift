@@ -7,7 +7,9 @@
 
 import UIKit
 
-class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
+    UITableViewDataSource
+{
 
     // MARK: - Outlets
     @IBOutlet var tableView: UITableView!
@@ -16,24 +18,24 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         setupHalfModal()
     }
-    
+
     private func setupHalfModal() {
-            // Check if we are running on iOS 15+ and being presented as a sheet
-            if let sheet = self.sheetPresentationController {
-                // .medium() starts it at half screen, .large() lets the user drag it to full screen
-                sheet.detents = [.medium(), .large()]
-                
-                // Shows the little grabber handle at the top
-                sheet.prefersGrabberVisible = true
-                
-                sheet.preferredCornerRadius = 24
-            }
+        // Check if we are running on iOS 15+ and being presented as a sheet
+        if let sheet = self.sheetPresentationController {
+
+            // .medium() starts it at half screen, .large() lets the user drag it to full screen
+            sheet.detents = [.medium(), .large()]
+
+            sheet.prefersGrabberVisible = true
+
+            sheet.preferredCornerRadius = 24
         }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -45,20 +47,24 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
     }
 
     // MARK: - Actions
-    
+
     @IBAction func closeButtontapped(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+
     // MARK: - Table View Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return families.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Make sure your prototype cell in the storyboard has the identifier "FamilyCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: "family_cell", for: indexPath)
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "family_cell",
+            for: indexPath
+        )
+
         // Configure the cell text
         cell.textLabel?.text = families[indexPath.row].name
         
@@ -69,14 +75,16 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate, UI
     }
 
     // MARK: - Table View Delegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Deselect the row so it doesn't stay gray
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: true)
         let family = families[indexPath.row]
         FamilyService.shared.setCurrentFamily(id: family.apiID)
         dismiss(animated: true)
     }
-    
+
     // MARK: - Context Menu (Long Press)
         
         func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
