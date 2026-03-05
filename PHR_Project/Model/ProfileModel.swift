@@ -11,6 +11,7 @@ struct ProfileModel: Codable {
     var bloodType: String
     var height: Int
     var weight: Int
+    var imageData: Data?
 
     enum CodingKeys: String, CodingKey {
         case apiID = "_id"
@@ -23,5 +24,6 @@ struct ProfileModel: Codable {
         case bloodType
         case height
         case weight
+        case imageData
     }
 }
