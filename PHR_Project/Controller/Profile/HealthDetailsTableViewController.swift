@@ -2,7 +2,8 @@ import Foundation
 import UIKit
 
 class HealthDetailsTableViewController: UITableViewController,
-    UITextFieldDelegate
+    UITextFieldDelegate, UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate
 {
 
     // MARK: - Outlets
@@ -39,6 +40,14 @@ class HealthDetailsTableViewController: UITableViewController,
         heightTextField.keyboardType = .decimalPad
 
         healthProfileImage.addFullRoundedCorner()
+        // Setup Tap Gesture for Profile Image
+        let imageTap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(profileImageTapped)
+        )
+        healthProfileImage.addGestureRecognizer(imageTap)
+        // We start with this false, updateTextFieldsState will turn it on when editing
+        healthProfileImage.isUserInteractionEnabled = false
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
@@ -107,6 +116,13 @@ class HealthDetailsTableViewController: UITableViewController,
         heightTextField.text = "\(profileData?.height ?? 0)"
         weightTextField.text = "\(profileData?.weight ?? 0)"
         dobInput.date = profileData?.dob ?? Foundation.Date()
+
+        if let photoData = profileData?.imageData,
+            let savedImage = UIImage(data: photoData)
+        {
+            healthProfileImage.image = savedImage
+            healthProfileImage.contentMode = .scaleAspectFill
+        }
         setupPullDownButton()
         setupTypeSelectButton()
         setupBloodSelectButton()
@@ -282,6 +298,9 @@ class HealthDetailsTableViewController: UITableViewController,
             field.textColor = isEditing ? .systemBlue : .label
         }
 
+        // Enable tapping the image only when editing
+        healthProfileImage.isUserInteractionEnabled = isEditing
+        healthProfileImage.alpha = isEditing ? 0.7 : 1.0
         // Buttons
         for button in allButtons {
             button.isUserInteractionEnabled = isEditing
@@ -304,6 +323,9 @@ class HealthDetailsTableViewController: UITableViewController,
     func saveData() {
 
         print("Saving Data...")
+        let photoData = healthProfileImage.image?.jpegData(
+            compressionQuality: 0.8
+        )
 
         let profile = ProfileModel(
             firstName: firstNameField.text ?? "",
@@ -313,7 +335,8 @@ class HealthDetailsTableViewController: UITableViewController,
             diabetesType: typeSelectButton.titleLabel?.text ?? "",
             bloodType: bloodTypeButton.titleLabel?.text ?? "",
             height: Int(heightTextField?.text ?? "") ?? 0,
-            weight: Int(weightTextField?.text ?? "") ?? 0
+            weight: Int(weightTextField?.text ?? "") ?? 0,
+            imageData: photoData
         )
 
         ProfileService.shared.setProfile(to: profile)
@@ -460,6 +483,35 @@ class HealthDetailsTableViewController: UITableViewController,
         if #available(iOS 15.0, *) {
             textField.focusEffect = nil
         }
+    }
+
+    // MARK: - Image Picker Handling
+
+    @objc func profileImageTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true  // Allows the user to crop the image into a square
+
+        present(imagePicker, animated: true, completion: nil)
+    }
+
+    // This runs when the user finishes picking a photo
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
+            Any]
+    ) {
+
+        // Try to get the edited/cropped image first, fallback to the original if needed
+        if let pickedImage = info[.editedImage] as? UIImage {
+            healthProfileImage.image = pickedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            healthProfileImage.image = originalImage
+        }
+
+        // Dismiss the photo gallery
+        picker.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Helper for Alerts

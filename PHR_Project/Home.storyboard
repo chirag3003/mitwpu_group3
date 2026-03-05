@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqE-V5-rgw">
-                                <rect key="frame" x="0.0" y="0.0" width="402" height="873.99999999999989"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="18m-S3-yQQ">
                                         <rect key="frame" x="0.0" y="0.0" width="402" height="1080.3333333333333"/>
@@ -400,7 +400,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="9u6-rs-VKU" firstAttribute="leading" secondItem="mBM-fz-9RH" secondAttribute="trailing" id="8a7-JN-3YI"/>
                                                                     <constraint firstItem="ztt-oF-Run" firstAttribute="leading" secondItem="rog-S5-XBa" secondAttribute="leading" constant="20" id="An5-Mk-OD7"/>
@@ -439,7 +439,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="euW-Bp-56m" firstAttribute="centerX" secondItem="Ikb-Tz-h55" secondAttribute="centerX" id="01t-eQ-RxG"/>
                                                                     <constraint firstItem="a41-5Z-kbr" firstAttribute="centerX" secondItem="Ikb-Tz-h55" secondAttribute="centerX" id="aR8-op-wrU"/>
@@ -478,7 +478,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="cCz-53-feT" firstAttribute="leading" secondItem="Cab-03-rD6" secondAttribute="leading" constant="44" id="LnI-kS-5ok"/>
                                                                     <constraint firstItem="K5h-3s-pfK" firstAttribute="top" secondItem="Cab-03-rD6" secondAttribute="top" constant="44" id="RE7-7X-7aH"/>
@@ -491,7 +491,7 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="120" id="K2R-xa-bW2"/>
                                                         </constraints>
@@ -752,6 +752,7 @@
                         <outlet property="mealLogCardView" destination="OXF-aa-G9R" id="GwS-CL-O7c"/>
                         <outlet property="notificationView" destination="tPc-Lg-Io4" id="vGF-ia-Q6t"/>
                         <outlet property="nutrientStack" destination="fyC-6T-ZTc" id="caH-m4-3EO"/>
+                        <outlet property="profileButton" destination="56U-6x-Am9" id="EnC-g6-19M"/>
                         <outlet property="proteinCard" destination="Ikb-Tz-h55" id="N3h-pe-xG1"/>
                         <outlet property="proteinLabel" destination="euW-Bp-56m" id="ffm-Po-6k2"/>
                         <outlet property="stepsCard" destination="8ye-xR-VZl" id="Nsl-u1-HJw"/>
