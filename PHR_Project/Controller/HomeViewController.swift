@@ -8,6 +8,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var notificationView: UIView!
+    @IBOutlet weak var profileButton: UIButton!
 
     // Summary Cards
     @IBOutlet weak var circularSummariesStack: UIStackView!
@@ -31,7 +32,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var carbsLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
     @IBOutlet weak var fiberLabel: UILabel!
-    
+
     // Steps
     @IBOutlet weak var stepsCard: CircularProgressView!
     @IBOutlet weak var stepsLabel: UILabel!
@@ -45,7 +46,6 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var mealLogCardView: UIView!
     @IBOutlet weak var symptomLogCard: UIView!
 
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +53,7 @@ final class HomeViewController: UIViewController {
         setupGestures()
         setupNotificationObservers()
         loadData()
-        
-        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +88,7 @@ final class HomeViewController: UIViewController {
             name: NSNotification.Name(NotificationNames.glucoseUpdated),
             object: nil
         )
-        
+
     }
 
     private func setupUI() {
@@ -97,29 +96,28 @@ final class HomeViewController: UIViewController {
         notificationView.addRoundedCorner(
             radius: UIConstants.CornerRadius.medium
         )
-        
+
         nutrientStack.addRoundedCorner()
         mealLogCardView.addRoundedCorner()
         symptomLogCard.addRoundedCorner()
-        
+
         carbsCard.configure(
             progress: 0.81,
             thickness: UIConstants.ProgressThickness.thin
         )
         carbsCard.addRoundedCorner()
-        
+
         proteinCard.configure(
             progress: 0.81,
             thickness: UIConstants.ProgressThickness.thin
         )
         proteinCard.addRoundedCorner()
-        
+
         fiberCard.configure(
             progress: 0.81,
             thickness: UIConstants.ProgressThickness.thin
         )
         fiberCard.addRoundedCorner()
-       
 
         // header view design
         headerView.applyLiquidGlassEffect()
@@ -160,9 +158,43 @@ extension HomeViewController {
     //Refreshes all dashboard UI elements with latest data
     private func updateAllUI() {
         updateGreeting()
+        updateProfileImage()
         updateWaterIntakeUI()
         updateGlucoseUI()
         updateCaloriesUI()
+    }
+
+    private func updateProfileImage() {
+        let profile = ProfileService.shared.getProfile()
+
+        if let photoData = profile.imageData,
+            let savedImage = UIImage(data: photoData)
+        {
+
+            // Clear the legacy image so they don't overlap
+            profileButton.setImage(nil, for: .normal)
+
+            var config =
+                profileButton.configuration ?? UIButton.Configuration.plain()
+            config.background.image = savedImage
+            config.background.imageContentMode = .scaleAspectFill
+            profileButton.configuration = config
+
+        } else {
+            let defaultImage = UIImage(
+                named: "WhatsApp Image 2025-12-15 at 17.09.58"
+            )
+
+            profileButton.setImage(nil, for: .normal)
+            var config =
+                profileButton.configuration ?? UIButton.Configuration.plain()
+            config.background.image = defaultImage
+            config.background.imageContentMode = .scaleAspectFill
+            profileButton.configuration = config
+        }
+
+        profileButton.clipsToBounds = true
+        profileButton.addFullRoundedCorner()
     }
 
     private func loadData() {
@@ -196,6 +228,7 @@ extension HomeViewController {
 
     @objc private func handleProfileUpdate() {
         updateGreeting()
+        updateProfileImage()
     }
 
     @objc private func handleMealsUpdate() {
@@ -222,10 +255,10 @@ extension HomeViewController {
             thickness: HealthGoals.progressThickness
         )
     }
-    
+
     private func updateCarbsUI() {
         let stats = MealService.shared.getMealStatsByDate(on: Date())
-        
+
         if let label = carbsLabel {
             label.text = "\(stats.totalCarbs)"
         }
@@ -238,11 +271,10 @@ extension HomeViewController {
             thickness: UIConstants.ProgressThickness.thin
         )
     }
-    
-    
+
     private func updateProteinUI() {
         let stats = MealService.shared.getMealStatsByDate(on: Date())
-        
+
         if let label = proteinLabel {
             label.text = "\(stats.totalProtein)"
         }
@@ -255,10 +287,10 @@ extension HomeViewController {
             thickness: UIConstants.ProgressThickness.thin
         )
     }
-    
+
     private func updateFiberUI() {
         let stats = MealService.shared.getMealStatsByDate(on: Date())
-        
+
         if let label = fiberLabel {
             label.text = "\(stats.totalFiber)"
         }
@@ -271,7 +303,6 @@ extension HomeViewController {
             thickness: UIConstants.ProgressThickness.thin
         )
     }
-    
 
     @objc private func handleGlucoseUpdate() {
         updateGlucoseUI()
@@ -461,77 +492,77 @@ extension HomeViewController {
 //let mealSections = ["Breakfast", "Lunch", "Snacks", "Dinner"]
 //
 //extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-//    
+//
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 1
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        // Only count sections that have meals logged
 //        return mealSections.indices.filter { sectionIndex in
 //            !MealService.shared.getMeals(forSection: sectionIndex, on: Date()).isEmpty
 //        }.count
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(
 //            withIdentifier: "HomeMealItemTableViewCell",
 //            for: indexPath
 //        ) as! HomeMealItemTableViewCell
-//        
+//
 //        // Get only sections that have meals
 //        let loggedSectionIndices = mealSections.indices.filter { sectionIndex in
 //            !MealService.shared.getMeals(forSection: sectionIndex, on: Date()).isEmpty
 //        }
-//        
+//
 //        // Map indexPath.row to the actual section index
 //        let actualSectionIndex = loggedSectionIndices[indexPath.row]
 //        let meals = MealService.shared.getMeals(forSection: actualSectionIndex, on: Date())
-//        
+//
 //        // Show the actual meal name (first meal's name in the section)
 //        cell.mealName.text = meals.first?.name ?? mealSections[actualSectionIndex]
-//        
+//
 //        // Sum up nutrition values
 //        let totalCalories = meals.reduce(0) { $0 + $1.calories }
 //        let totalCarbs    = meals.reduce(0) { $0 + $1.carbs }
 //        let totalProtein  = meals.reduce(0) { $0 + $1.protein }
 //        let totalFiber    = meals.reduce(0) { $0 + $1.fiber }
-//        
+//
 //        cell.calories.text = "\(totalCalories) kcal"
 //        cell.carbs.text    = "\(totalCarbs)g"
 //        cell.protein.text  = "\(totalProtein)g"
 //        cell.fiber.text    = "\(totalFiber)g"
-//        
+//
 //        // Set meal image
 ////        if let imageName = meals.first?.image {
 ////            cell.mealImage.image = UIImage(named: imageName)
 ////        }
-//        
+//
 //        return cell
 //    }
-//    
+//
 ////    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 ////        return 80
 ////    }
-////    
+////
 ////    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 ////        return 12
 ////    }
-//    
+//
 ////    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 ////        let spacer = UIView()
 ////        spacer.backgroundColor = .clear
 ////        return spacer
 ////    }
-//    
+//
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.deselectRow(at: indexPath, animated: true)
-//        
+//
 //        // Get only sections that have meals
 //        let loggedSectionIndices = mealSections.indices.filter { sectionIndex in
 //            !MealService.shared.getMeals(forSection: sectionIndex, on: Date()).isEmpty
 //        }
-//        
+//
 //        let actualSectionIndex = loggedSectionIndices[indexPath.row]
 //        print("\(mealSections[actualSectionIndex]) tapped")
 //    }
