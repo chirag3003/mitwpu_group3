@@ -29,27 +29,35 @@ class ProfileTableViewController: UITableViewController {
         userNameLabel.text = fullName.isEmpty ? "User Name" : fullName
 
         // Set the Profile Image!
-        if let photoData = profile.imageData, let savedImage = UIImage(data: photoData) {
-                    profileImage.image = savedImage
-                    profileImage.contentMode = .scaleAspectFill
+        if let photoData = profile.imageData,
+            let savedImage = UIImage(data: photoData)
+        {
+            profileImage.image = savedImage
+            profileImage.contentMode = .scaleAspectFill
         } else {
             // If they haven't picked a photo yet, reset it to your hardcoded image.
             // Replace "YourDefaultImageName" with the actual name of the image in your Assets folder!
-            profileImage.image = UIImage(named: "WhatsApp Image 2025-12-15 at 17.09.58")
+            profileImage.image = UIImage(
+                named: "WhatsApp Image 2025-12-15 at 17.09.58"
+            )
         }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 4
+        if section == 0 {
+            return 4
+        } else {
+            return 1
+        }
     }
 
     // MARK: - Actions

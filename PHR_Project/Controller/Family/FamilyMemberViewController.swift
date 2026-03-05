@@ -13,11 +13,16 @@ class FamilyMemberViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     // Data Models
-    let accessOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water"]
-    let sharedOptions = ["Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water", "Allergies"]
+    let accessOptions = [
+        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
+    ]
+    let sharedOptions = [
+        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
+        "Allergies",
+    ]
     let sharedOptionsSegue = [
         "familyDocumentsSegue", "familyMealsSegue", "familySymptomsSegue",
-        "familyGlucoseSegue", "familyWaterSegue", "familyAllergiesSegue"
+        "familyGlucoseSegue", "familyWaterSegue", "familyAllergiesSegue",
     ]
 
     override func viewDidLoad() {
@@ -60,11 +65,9 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
     {
         if section == 0 {
             return accessOptions.count
-        }
-        else if section == 1   {
-                    return 1
-        }
-        else {
+        } else if section == 1 {
+            return 1
+        } else {
             return sharedOptions.count
         }
     }
@@ -88,10 +91,9 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
         // Set text based on section
         if section == 0 {
             titleLabel.text = "Allow Access To"
-        }
-        else if section == 1 {
+        } else if section == 1 {
             titleLabel.text = "Special Permission"
-        }else {
+        } else {
             titleLabel.text = "Shared With You"
         }
 
@@ -146,26 +148,39 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
 
     // MARK: - Cell Configuration
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "switch_cell", for: indexPath) as! MemberSwitchTableViewCell
-                cell.titleLabel.text = accessOptions[indexPath.row]
-                cell.permissionSwitch.isOn = true  // TODO: Bind to real data
-                return cell
-                
-            } else if indexPath.section == 1 {
-                // Reusing your existing switch cell for the new section!
-                let cell = tableView.dequeueReusableCell(withIdentifier: "switch_cell", for: indexPath) as! MemberSwitchTableViewCell
-                cell.titleLabel.text = "Write Access"
-                cell.permissionSwitch.isOn = false // Set your default state here
-                return cell
-                
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "arrow_cell", for: indexPath)
-                cell.textLabel?.text = sharedOptions[indexPath.row]
-                return cell
-            }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
+        if indexPath.section == 0 {
+            let cell =
+                tableView.dequeueReusableCell(
+                    withIdentifier: "switch_cell",
+                    for: indexPath
+                ) as! MemberSwitchTableViewCell
+            cell.titleLabel.text = accessOptions[indexPath.row]
+            cell.permissionSwitch.isOn = true  // TODO: Bind to real data
+            return cell
+
+        } else if indexPath.section == 1 {
+            // Reusing your existing switch cell for the new section!
+            let cell =
+                tableView.dequeueReusableCell(
+                    withIdentifier: "switch_cell",
+                    for: indexPath
+                ) as! MemberSwitchTableViewCell
+            cell.titleLabel.text = "Write Access"
+            cell.permissionSwitch.isOn = false  // Set your default state here
+            return cell
+
+        } else {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "arrow_cell",
+                for: indexPath
+            )
+            cell.textLabel?.text = sharedOptions[indexPath.row]
+            return cell
         }
+    }
 
     func tableView(
         _ tableView: UITableView,
@@ -182,7 +197,10 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
 
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    func tableView(
+        _ tableView: UITableView,
+        willSelectRowAt indexPath: IndexPath
+    ) -> IndexPath? {
         return indexPath.section == 0 ? nil : indexPath
     }
 }
