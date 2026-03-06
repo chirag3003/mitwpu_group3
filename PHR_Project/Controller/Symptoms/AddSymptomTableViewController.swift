@@ -15,12 +15,10 @@ class AddSymptomTableViewController: UITableViewController {
     @IBOutlet weak var intensityButton: UIButton!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
-    @IBOutlet weak var cameraImageView: UIImageView!
     @IBOutlet var addSymptomTableView: UITableView!
 
     var selectedType: String?
     var selectedIntensity: String?
-    var selectedImage: UIImage?
     var symptomToEdit: Symptom?
     var onSave: (() -> Void)?
 
@@ -31,7 +29,6 @@ class AddSymptomTableViewController: UITableViewController {
         // Button functions
         setupTypeMenu()
         setupIntensityMenu()
-        setupImageGesture()
 
         // Cosmetic functions
         notesTextView.delegate = self
@@ -117,15 +114,6 @@ class AddSymptomTableViewController: UITableViewController {
         intensityButton.showsMenuAsPrimaryAction = true
     }
 
-    func setupImageGesture() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleImageTap)
-        )
-        cameraImageView.isUserInteractionEnabled = true
-        cameraImageView.addGestureRecognizer(tap)
-    }
-
     // Dismiss keyboard when tapping outside
     func setupHideKeyboardOnTap() {
         let tap = UITapGestureRecognizer(
@@ -149,15 +137,7 @@ class AddSymptomTableViewController: UITableViewController {
 
     // MARK: - Actions
 
-    @objc func handleImageTap() {
-        let picker = UIImagePickerController()
-        picker.sourceType =
-            UIImagePickerController.isSourceTypeAvailable(.camera)
-            ? .camera : .photoLibrary
-        picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true)
-    }
+   
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
 
@@ -252,23 +232,4 @@ extension AddSymptomTableViewController: UITextViewDelegate {
     }
 }
 
-extension AddSymptomTableViewController: UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
-{
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey:
-            Any]
-    ) {
-        if let image = info[.editedImage] as? UIImage ?? info[.originalImage]
-            as? UIImage
-        {
-            selectedImage = image
-            cameraImageView.image = image
-            cameraImageView.contentMode = .scaleAspectFill
-            cameraImageView.layer.cornerRadius = 8
-            cameraImageView.clipsToBounds = true
-        }
-        dismiss(animated: true)
-    }
-}
+

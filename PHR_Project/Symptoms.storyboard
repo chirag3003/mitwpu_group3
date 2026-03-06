@@ -178,40 +178,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="jjZ-DF-HT0">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="150" id="bya-tY-r07">
-                                        <rect key="frame" x="20" y="450" width="353" height="150"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bya-tY-r07" id="PUC-cL-Ve3">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="150"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HDJ-kJ-Ci9">
-                                                    <rect key="frame" x="146.66666666666666" y="21" width="60" height="47.666666666666671"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Ial-fm-rjq"/>
-                                                        <constraint firstAttribute="width" constant="60" id="huD-ab-CsL"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="972-sD-u1U">
-                                                    <rect key="frame" x="135.66666666666666" y="78" width="82" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="HDJ-kJ-Ci9" firstAttribute="centerX" secondItem="PUC-cL-Ve3" secondAttribute="centerX" id="1gZ-Ae-riZ"/>
-                                                <constraint firstItem="972-sD-u1U" firstAttribute="centerX" secondItem="PUC-cL-Ve3" secondAttribute="centerX" id="26h-bV-TFo"/>
-                                                <constraint firstItem="HDJ-kJ-Ci9" firstAttribute="top" secondItem="PUC-cL-Ve3" secondAttribute="top" constant="20" id="BqJ-nX-Hlb"/>
-                                                <constraint firstItem="HDJ-kJ-Ci9" firstAttribute="centerX" secondItem="PUC-cL-Ve3" secondAttribute="centerX" id="bg1-OM-pf5"/>
-                                                <constraint firstItem="972-sD-u1U" firstAttribute="top" secondItem="HDJ-kJ-Ci9" secondAttribute="bottom" constant="8" id="wGJ-Wd-DbI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="eYj-T7-fRL" id="Z7v-qm-A5a"/>
@@ -224,7 +190,7 @@
                                 <action selector="cancelButtonTapped:" destination="eYj-T7-fRL" id="hgz-yp-meB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="8Ag-wq-U1q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8Ag-wq-U1q">
                             <connections>
                                 <action selector="saveButtonTapped:" destination="eYj-T7-fRL" id="Hej-yX-OMu"/>
                             </connections>
@@ -232,7 +198,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addSymptomTableView" destination="mW5-87-OgF" id="PNM-UN-gMU"/>
-                        <outlet property="cameraImageView" destination="HDJ-kJ-Ci9" id="z8I-Mq-4qZ"/>
                         <outlet property="datePicker" destination="dm6-q4-RQh" id="GOw-AF-s1A"/>
                         <outlet property="intensityButton" destination="dLj-y6-utW" id="YxX-3r-nlj"/>
                         <outlet property="notesTextView" destination="QxC-Hp-pLa" id="DuM-tD-uaN"/>
@@ -409,7 +374,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.fill" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

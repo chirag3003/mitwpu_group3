@@ -212,19 +212,6 @@ class CircularProgressView: UIView {
         }
     }
     
-    /// Convenience method to configure the view with multiple rings
-    /// - Parameters:
-    ///   - modes: Array of modes for each ring
-    ///   - values: Array of progress values
-    ///   - thickness: Line width for each ring
-    ///   - spacing: Spacing between rings
-    func configure(modes: [ProgressMode], values: [Float], thickness: CGFloat, spacing: CGFloat = 4) {
-        self.modes = modes
-        self.lineWidth = thickness
-        self.ringSpacing = spacing
-        self.setProgress(values: values)
-    }
-    
     /// Backward compatible convenience method for single ring
     func configure(mode: ProgressMode, progress: Float, thickness: CGFloat) {
         self.modes = [mode]

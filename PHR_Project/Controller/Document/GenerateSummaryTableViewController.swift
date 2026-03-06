@@ -1,10 +1,3 @@
-//
-//  GenerateSummaryTableViewController.swift
-//  PHR_Project
-//
-//  Created by SDC_USER on 03/02/26.
-//
-
 import UIKit
 
 class GenerateSummaryTableViewController: UITableViewController {
@@ -22,60 +15,45 @@ class GenerateSummaryTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupTextField()
         setupKeyboardDismissal()
     }
 
-    // MARK: - Setup UI
-    func setupTextField() {
-        // Removes border for a cleaner look
-        notesTextField.borderStyle = .none
+    // MARK: - Setup
 
+    private func setupTextField() {
+        notesTextField.borderStyle = .none
     }
 
     override func tableView(
         _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-
-        // Create a container view
         let headerView = UIView()
         headerView.backgroundColor = .clear
 
-        // Create the label
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)  // Larger and Bolder
-        titleLabel.textColor = .label  // Standard Black (or White in Dark Mode)
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.textColor = .label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        // Set the text based on the section index
         switch section {
-        case 0:
-            titleLabel.text = "Time Range"
-        case 1:
-            titleLabel.text = "Select Data Fields"
-        case 2:
-            titleLabel.text = "Additional Notes"
-        default:
-            return nil
+        case 0: titleLabel.text = "Time Range"
+        case 1: titleLabel.text = "Select Data Fields"
+        case 2: titleLabel.text = "Additional Notes"
+        default: return nil
         }
 
-        // Add label to the container
         headerView.addSubview(titleLabel)
-
         NSLayoutConstraint.activate([
-
             titleLabel.leadingAnchor.constraint(
                 equalTo: headerView.leadingAnchor,
                 constant: 20
             ),
-
             titleLabel.bottomAnchor.constraint(
                 equalTo: headerView.bottomAnchor,
                 constant: -8
             ),
-
             titleLabel.topAnchor.constraint(
                 equalTo: headerView.topAnchor,
                 constant: 15
@@ -84,17 +62,16 @@ class GenerateSummaryTableViewController: UITableViewController {
 
         return headerView
     }
-    
+
     // MARK: - Keyboard Handling
-    func setupKeyboardDismissal() {
 
+    private func setupKeyboardDismissal() {
         tableView.keyboardDismissMode = .interactive
-
         let tapGesture = UITapGestureRecognizer(
             target: self,
             action: #selector(dismissKeyboard)
         )
-        tapGesture.cancelsTouchesInView = false  // Important: Allows switches to still work
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
 
@@ -102,4 +79,52 @@ class GenerateSummaryTableViewController: UITableViewController {
         view.endEditing(true)
     }
 
+    // MARK: - Actions
+
+    @IBAction func onGenerateSummary(_ sender: Any) {
+        generateSummaryButton.isEnabled = false
+        generateSummaryButton.setTitle("Generating...", for: .normal)
+        showLoader(true)
+
+        let include = SummaryInclude(
+            glucose: trendsSwitch.isOn,
+            symptoms: symptomsSwitch.isOn,
+            meals: mealsSwitch.isOn,
+            documents: reportsSwitch.isOn || prescriptionsSwitch.isOn
+        )
+
+        InsightsService.shared.generateSummary(
+            startDate: startDatePicker.date,
+            endDate: endDatePicker.date,
+            include: include
+        ) { [weak self] pdfURLString in
+            guard let self = self else { return }
+
+            self.showLoader(false)
+            self.generateSummaryButton.isEnabled = true
+            self.generateSummaryButton.setTitle(
+                "Generate Summary",
+                for: .normal
+            )
+            if let urlString = pdfURLString {
+                self.performSegue(
+                    withIdentifier: "healthReportSegue",
+                    sender: urlString
+                )
+            } else {
+                self.showAlert(
+                    title: "Error",
+                    message:
+                        "Could not generate health summary. Please try again."
+                )
+            }
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navController = segue.destination as? UINavigationController,
+              let vc = navController.topViewController as? HealthReportViewController,
+              let pdfURL = sender as? String else { return }
+        vc.remotePDFURL = pdfURL
+    }
 }

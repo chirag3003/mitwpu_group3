@@ -16,7 +16,6 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     @IBOutlet weak var documentTableView: UITableView!
     @IBOutlet weak var dataSegment: UISegmentedControl!
 
-  //  @IBOutlet weak var sortButton: UIBarButtonItem!
     // Properties
 
     private var doctorsData: [DocDoctor] = []  // Doctors who wrote prescriptions
@@ -62,6 +61,10 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         )
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     // MARK: - Setup
 
     private func setupTableView() {
@@ -72,22 +75,23 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     private func loadData() {
         // Fetch doctors and reports from services
-        doctorsData = DocDoctorService.shared.getDoctors()
-        reportsData = DocumentService.shared.getAllReports()
+        if let member = familyMember {
+            loadSharedDocuments(for: member)
+        } else {
+            doctorsData = DocDoctorService.shared.getDoctors()
+            reportsData = DocumentService.shared.getAllReports()
+        }
     }
 
     @objc private func refreshData() {
-        doctorsData = DocDoctorService.shared.getDoctors()
-        reportsData = DocumentService.shared.getAllReports()
-        print("Refereshed Data", doctorsData)
-        documentTableView.reloadData()
+        if let member = familyMember {
+            loadSharedDocuments(for: member)
+        } else {
+            doctorsData = DocDoctorService.shared.getDoctors()
+            reportsData = DocumentService.shared.getAllReports()
+            documentTableView.reloadData()
+        }
     }
-    private func setupPlusButton() {
-        // Add target action to plus button
-        plusButton.target = self
-        plusButton.action = #selector(didTapPlusButton)
-    }
-    
     // MARK: - Actions
 
     @IBAction func onDataSwitch(_ sender: Any) {
@@ -109,6 +113,10 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
             generator.impactOccurred()
     }
     private func updateNavigationButtons() {
+        if familyMember != nil {
+            navigationItem.rightBarButtonItems = []
+            return
+        }
         if dataSegment.selectedSegmentIndex == 0 {
             // Prescriptions - show only plus button
             navigationItem.rightBarButtonItems = [plusButton]
@@ -119,6 +127,12 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
 
     @IBAction func didTapPlusButton(_ sender: Any) {
+        guard familyMember == nil else { return }
+        if familyMember != nil {
+            documentTableView.reloadData()
+            return
+        }
+
         if dataSegment.selectedSegmentIndex == 0 {
             // Prescriptions segment - Show Add Details modal
             showAddDetailsModal()
@@ -151,6 +165,33 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         ) as? UINavigationController {
             uploadVC.modalPresentationStyle = .pageSheet
             present(uploadVC, animated: true)
+        }
+    }
+
+    private func loadSharedDocuments(for member: FamilyMember) {
+        SharedDataService.shared.fetchDocuments(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let docs):
+                let prescriptions = docs.filter { $0.documentType == .prescription }
+                let reports = docs.filter { $0.documentType == .report }
+
+                var seenDoctors = Set<String>()
+                var doctorList: [DocDoctor] = []
+                for doc in prescriptions {
+                    let doctorId = doc.docDoctor?.apiID ?? doc.docDoctorId
+                    let doctorName = doc.docDoctor?.name ?? "Unknown Doctor"
+                    let key = doctorId ?? doctorName
+                    guard !seenDoctors.contains(key) else { continue }
+                    seenDoctors.insert(key)
+                    doctorList.append(DocDoctor(apiID: doctorId, name: doctorName))
+                }
+
+                self?.doctorsData = doctorList
+                self?.reportsData = reports.map { $0.asLegacyReportModel }
+                self?.documentTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching shared documents: \(error)")
+            }
         }
     }
     // Add this property with your other properties
@@ -333,6 +374,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
         } else {
+            guard familyMember == nil else { return }
             // Doctors - Navigate to prescriptions for this doctor
             let doctor = doctorsData[indexPath.row]
             performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
@@ -347,6 +389,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
+            guard familyMember == nil else { return }
             isDeleting = true
 
             if dataSegment.selectedSegmentIndex == 0 {
@@ -371,6 +414,9 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             if let destinationVC = segue.destination
                 as? PrescriptionPageViewController
             {
+                if familyMember != nil {
+                    return
+                }
                 // Pass selected doctor info
                 if let doctor = sender as? DocDoctor {
                     destinationVC.selectedDoctor = doctor

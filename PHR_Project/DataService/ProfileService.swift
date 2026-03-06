@@ -32,29 +32,22 @@ class ProfileService {
                 diabetesType: userEntity.diabetesType ?? "Type 2",
                 bloodType: userEntity.bloodType ?? "O+",
                 height: heightInt,
-                weight: weightInt
+                weight: weightInt,
+                imageData: userEntity.imageData
             )
 
         } else {
 
-            // If no Core Data found return default
-            var dateComponents = DateComponents()
-            dateComponents.year = 2005
-            dateComponents.month = 12
-            dateComponents.day = 2
-
-            let calendar = Calendar(identifier: .gregorian)
-            let date = calendar.date(from: dateComponents) ?? Date()
-
+            // No Core Data record — return blank defaults
             return ProfileModel(
-                firstName: "Chirag",
-                lastName: "Bhalotia",
-                dob: date,
-                sex: "Male",
-                diabetesType: "Type 2",
-                bloodType: "AB+",
-                height: 172,
-                weight: 65
+                firstName: "",
+                lastName: "",
+                dob: Date(),
+                sex: "",
+                diabetesType: "",
+                bloodType: "",
+                height: 0,
+                weight: 0
             )
         }
     }
@@ -104,11 +97,15 @@ class ProfileService {
 
     func fetchProfileFromAPI() {
         APIService.shared.request(endpoint: "/profile", method: .get) {
-            [weak self] (result: Result<ProfileModel, Error>) in
+            [weak self] (result: Result<ProfileModel?, Error>) in
             guard let self = self else { return }
 
             switch result {
             case .success(let fetchedProfile):
+                guard let fetchedProfile = fetchedProfile else {
+                    print("No profile on server yet (null response)")
+                    return
+                }
                 print("Fetched profile from API: \(fetchedProfile.firstName)")
 
                 DispatchQueue.main.async {
@@ -136,11 +133,11 @@ class ProfileService {
 
     func saveToAPI(profile: ProfileModel) {
 
-        let _: HTTPMethod = (profile.apiID != nil) ? .put : .post
+        let method: HTTPMethod = (profile.apiID != nil) ? .put : .post
 
         APIService.shared.request(
             endpoint: "/profile",
-            method: .put,
+            method: method,
             body: profile
         ) { [weak self] (result: Result<ProfileModel, Error>) in
             switch result {

@@ -124,10 +124,42 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         return cell
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
-        performSegue(withIdentifier: "addContactPermissionSegue", sender: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            guard FamilyService.shared.getCurrentFamilyId() != nil else {
+                showErrorAlert(message: "Please create a family first.")
+                return
+            }
+
+            let selectedContact = contacts[indexPath.row]
+            performSegue(
+                withIdentifier: "confirmAddFamilySegue",
+                sender: selectedContact
+            )
+        }
+    
+
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "confirmAddFamilySegue" {
+            if let navVC = segue.destination as? UINavigationController,
+                let destination = navVC.topViewController
+                    as? ConfirmAddFamilyController
+            {
+                destination.selectedContact = sender as? Contact
+            } else if let destination = segue.destination
+                as? ConfirmAddFamilyController
+            {
+                destination.selectedContact = sender as? Contact
+            }
+        }
     }
 }

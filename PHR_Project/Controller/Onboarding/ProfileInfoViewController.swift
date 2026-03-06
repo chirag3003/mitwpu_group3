@@ -123,19 +123,6 @@ class ProfileInfoViewController: UIViewController {
         }
         
         
-        private func deselectAllGenderButtons() {
-            let buttons = [maleBtn, femaleBtn, otherBtn]
-            
-            for button in buttons {
-                guard let button = button else { continue }
-                
-                button.isSelected = false
-                
-                // Reset color using the helper
-                setButtonColor(button, color: unselectedColor)
-            }
-        }
-
     @IBAction func nextBtn(_ sender: Any) {
         if validateInputs() {
             saveDataToArray()
@@ -185,6 +172,14 @@ class ProfileInfoViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
         }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass the updated array to the next screen (DiabetesTypeViewController)
+        if let dobVC = segue.destination as? DobViewController {
+            dobVC.profileDataArray = profileDataArray
+        }
+    }
 
 
     }

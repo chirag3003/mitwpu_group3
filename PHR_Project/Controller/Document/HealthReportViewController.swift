@@ -1,219 +1,131 @@
+import QuickLook
 import UIKit
 
-    // MARK: - HealthReportViewController
 class HealthReportViewController: UIViewController {
 
     // MARK: - IBOutlets
-
     @IBOutlet weak var pdfPreviewView: PdfPreviewUIView!
-    // Navigation/Toolbar buttons.
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     // MARK: - Properties
-    var healthReportData: String = "Wade Wilson's Health Report"
     
-    // The local file URL where the generated PDF is stored.
-    var reportURL: URL?
+    /// Remote PDF URL string passed from GenerateSummaryTableViewController
+    var remotePDFURL: String?
+    
+    /// Local file URL for the downloaded PDF
+    private var localPDFURL: URL?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-
-        
-      
-        
-        // Generate PDF and preview it
-        if let generatedPdfURL = generateHealthReportPDF() {
-            reportURL = generatedPdfURL
-            pdfPreviewView.setPdf(url: generatedPdfURL.path)
-        }
-    }
-    // Basic UI configuration
-    func setupUI() {
-        
         shareButton.tintColor = .systemBlue
+        loadReport()
     }
-    // MARK: - IBActions
-    // Triggered when the user taps the Share icon
+    
+    // MARK: - Report Loading
+    
+    private func loadReport() {
+        guard let urlString = remotePDFURL, let url = URL(string: urlString) else {
+            showAlert(title: "Error", message: "No report URL provided.")
+            return
+        }
+        
+        showLoader(true)
+        
+        // Download PDF from remote URL
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.showLoader(false)
+                
+                if let error = error {
+                    self.showAlert(title: "Download Failed", message: error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data else {
+                    self.showAlert(title: "Error", message: "No data received.")
+                    return
+                }
+                
+                // Save to temp directory and display
+                let tempURL = FileManager.default.temporaryDirectory
+                    .appendingPathComponent("HealthReport_\(UUID().uuidString).pdf")
+                
+                do {
+                    try data.write(to: tempURL)
+                    self.localPDFURL = tempURL
+                    self.pdfPreviewView.setPdf(url: tempURL.path)
+                } catch {
+                    self.showAlert(title: "Error", message: "Could not save PDF: \(error.localizedDescription)")
+                }
+            }
+        }.resume()
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func shareButtonTapped(_ sender: Any) {
         presentShareSheet()
     }
-    // Dismisses the view controller modally
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
-    // MARK: - Share Sheet Implementation
-    // Configures and presents the UIActivityViewController
-    func presentShareSheet() {
-        var itemsToShare: [Any] = []
-        let pdfURL = reportURL ?? generateHealthReportPDF()
-       // Determine what content to share.
-        if let pdfURL {
-            //Renaming  the file for the recipient
-            let destination = FileManager.default.temporaryDirectory
-                .appendingPathComponent("Wade_Wilson_Health_Report.pdf")
-            do {
-                if pdfURL != destination {
-                    try? FileManager.default.removeItem(at: destination)
-                    try FileManager.default.copyItem(
-                        at: pdfURL,
-                        to: destination
-                    )
-                }
-                itemsToShare.append(destination)
-            } catch {
-                //Error Handling
-                itemsToShare.append("Wade Wilson’s Health Report - Summary")
-            }
-        } else {
-            
-            itemsToShare.append(
-                "Wade Wilson’s Health Report - Summary\n\nYour health data goes here..."
-            )
+    
+    // MARK: - Share
+    
+    private func presentShareSheet() {
+        guard let pdfURL = localPDFURL else {
+            showAlert(title: "Not Ready", message: "Please wait for the report to finish loading.")
+            return
         }
-
-       // Email Subject Support
-        let subjectProvider = MailSubjectProvider(
-            subject: "Wade Wilson’s Health Report"
-        )
-        itemsToShare.append(subjectProvider)
-       // Initialize the Activity View Controller
+        
+        // Copy to a user-friendly filename
+        let shareURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("Health_Report.pdf")
+        do {
+            try? FileManager.default.removeItem(at: shareURL)
+            try FileManager.default.copyItem(at: pdfURL, to: shareURL)
+        } catch {
+            // Fall back to original URL
+        }
+        
+        let finalURL = FileManager.default.fileExists(atPath: shareURL.path) ? shareURL : pdfURL
+        
         let activityVC = UIActivityViewController(
-            activityItems: itemsToShare,
+            activityItems: [finalURL, MailSubjectProvider(subject: "Health Report")],
             applicationActivities: nil
         )
-
-       // Ensuring all standard share types
-        activityVC.excludedActivityTypes = []
-
-        // iPad popover
+        
+        // iPad popover support
         if let popover = activityVC.popoverPresentationController {
-            if let shareButton = self.shareButton {
-                popover.barButtonItem = shareButton
-            } else {
-                popover.sourceView = self.view
-                popover.sourceRect = CGRect(
-                    x: self.view.bounds.midX,
-                    y: self.view.bounds.midY,
-                    width: 0,
-                    height: 0
-                )
-                popover.permittedArrowDirections = []
-            }
+            popover.barButtonItem = shareButton
         }
-        //Capturing the result of the share action
-        activityVC.completionWithItemsHandler = {
-            activityType,
-            completed,
-            _,
-            error in
-            if completed {
-                self.handleShareCompletion(activityType: activityType)
-            }
-            if let error { print("Share error: \(error.localizedDescription)") }
-        }
-
+        
         present(activityVC, animated: true)
     }
-
-    // Handles what happens after sharing
-    func handleShareCompletion(activityType: UIActivity.ActivityType?) {
-        guard let activityType = activityType else { return }
-
-        switch activityType {
-        case .message:
-            print("Shared via Messages")
-        case .mail:
-            print("Shared via Mail")
-        case .airDrop:
-            print("Shared via AirDrop")
-        case .copyToPasteboard:
-            print("Copied to clipboard")
-        default:
-            print("Shared via: \(activityType.rawValue)")
-        }
-    }
 }
 
-// MARK: - PDF Generation Extension
-extension HealthReportViewController {
-
-    func generateHealthReportPDF() -> URL? {
-        // Creating a PDF
-        let pdfMetaData = [
-            kCGPDFContextCreator: "Health App",
-            kCGPDFContextAuthor: "Wade Wilson",
-            kCGPDFContextTitle: "Wade Wilson’s Health Report",
-        ]
-
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMetaData as [String: Any]
-
-        let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-
-        let data = renderer.pdfData { (context) in
-            context.beginPage()
-
-            // health report content here
-            let titleAttributes = [
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)
-            ]
-            let title = "Wade Wilson's Health Report"
-            title.draw(
-                at: CGPoint(x: 50, y: 50),
-                withAttributes: titleAttributes
-            )
-
-            let bodyText =
-                "Health Report Summary\n\nYour health data goes here"
-            let bodyAttributes = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
-            ]
-            bodyText.draw(
-                in: CGRect(x: 50, y: 100, width: 500, height: 700),
-                withAttributes: bodyAttributes
-            )
-        }
-
-        // Save to temporary directory
-        let tempURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("HealthReport.pdf")
-
-        do {
-            try data.write(to: tempURL)
-            return tempURL
-        } catch {
-            print("Could not create PDF: \(error.localizedDescription)")
-            return nil
-        }
-    }
-}
 // MARK: - MailSubjectProvider
+
 final class MailSubjectProvider: NSObject, UIActivityItemSource {
     private let subject: String
-    init(subject: String) { self.subject = subject }
-    // MARK: UIActivityItemSource Methods
+    
+    init(subject: String) {
+        self.subject = subject
+    }
 
-    func activityViewControllerPlaceholderItem(
-        _ activityViewController: UIActivityViewController
-    ) -> Any {
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
         return ""
     }
 
-    func activityViewController(
-        _ activityViewController: UIActivityViewController,
-        itemForActivityType activityType: UIActivity.ActivityType?
-    ) -> Any? {
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
         return ""
     }
 
-    func activityViewController(
-        _ activityViewController: UIActivityViewController,
-        subjectForActivityType activityType: UIActivity.ActivityType?
-    ) -> String {
+    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
         return subject
     }
 }

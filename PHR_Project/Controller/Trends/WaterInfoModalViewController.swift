@@ -11,12 +11,6 @@ import UIKit
 
 class WaterInfoModalViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-       
-    }
-    
     //To close the modal
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true)

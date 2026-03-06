@@ -148,10 +148,10 @@
 				CODE_SIGN_ENTITLEMENTS = PHR_Project/PHR_Project.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8Z9SJJ5GZ;
+				DEVELOPMENT_TEAM = 8AJAPGUS29;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PHR_Project/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PHR APP";
+				INFOPLIST_KEY_CFBundleDisplayName = DiabetEase;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to let you upload photos of your symptoms.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "This app needs access to your contacts to add family members.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to your step count to track your daily activity.";
@@ -190,10 +190,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8Z9SJJ5GZ;
+				DEVELOPMENT_TEAM = 8AJAPGUS29;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PHR_Project/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PHR APP";
+				INFOPLIST_KEY_CFBundleDisplayName = DiabetEase;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to let you upload photos of your symptoms.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "This app needs access to your contacts to add family members.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to your step count to track your daily activity.";

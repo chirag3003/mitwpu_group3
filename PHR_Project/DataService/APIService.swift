@@ -12,6 +12,7 @@ enum APIError: Error {
     case noData
     case decodingError
     case serverError(String)
+    case httpError(statusCode: Int, message: String)
 }
 
 class APIService {
@@ -19,6 +20,13 @@ class APIService {
     private let baseURL = "https://phr.chirag.codes"
 
     private init() {}
+
+    /// Attaches the Bearer token from AuthService if available
+    private func addAuthHeader(to request: inout URLRequest) {
+        if let token = AuthService.shared.token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+    }
 
     func request<T: Decodable>(
         endpoint: String,
@@ -34,9 +42,7 @@ class APIService {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        // Add Authorization here if needed later
-        // request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        addAuthHeader(to: &request)
 
         if let body = body {
             do {
@@ -71,7 +77,14 @@ class APIService {
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"
                 DispatchQueue.main.async {
-                    completion(.failure(APIError.serverError(errorMessage)))
+                    completion(
+                        .failure(
+                            APIError.httpError(
+                                statusCode: httpResponse.statusCode,
+                                message: errorMessage
+                            )
+                        )
+                    )
                 }
                 return
             }
@@ -110,8 +123,7 @@ class APIService {
             "multipart/form-data; boundary=\(boundary)",
             forHTTPHeaderField: "Content-Type"
         )
-
-        // request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        addAuthHeader(to: &request)
 
         request.httpBody = createMultipartBody(
             data: data,
@@ -141,7 +153,14 @@ class APIService {
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"
                 DispatchQueue.main.async {
-                    completion(.failure(APIError.serverError(errorMessage)))
+                    completion(
+                        .failure(
+                            APIError.httpError(
+                                statusCode: httpResponse.statusCode,
+                                message: errorMessage
+                            )
+                        )
+                    )
                 }
                 return
             }
@@ -205,6 +224,7 @@ class APIService {
             "multipart/form-data; boundary=\(boundary)",
             forHTTPHeaderField: "Content-Type"
         )
+        addAuthHeader(to: &request)
 
         // Build multipart body with file and form fields
         let body = createDocumentMultipartBody(

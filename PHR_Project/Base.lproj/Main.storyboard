@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+>>>>>>> 3db52e01bb8cb0c607335bbbbc5f4695b7439ac8
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
@@ -151,7 +155,7 @@
                                                     <color key="baseBackgroundColor" red="0.48627450980392156" green="0.69803921568627447" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="n0H-7x-zTB" kind="show" id="Exb-TI-WUM"/>
+                                                    <action selector="onGetOtp:" destination="WJq-0a-vwk" eventType="touchUpInside" id="BSW-WT-D2e"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -172,6 +176,7 @@
                     <navigationItem key="navigationItem" id="0hO-Dw-AYb"/>
                     <connections>
                         <outlet property="numberField" destination="K3I-aO-srs" id="yyn-dk-CaB"/>
+                        <segue destination="n0H-7x-zTB" kind="show" identifier="otpSegue" id="8HV-rN-UnU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xjp-gM-zm0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -192,7 +197,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="HTP-cy-Fr7">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="euh-qk-zB0" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="euh-qk-zB0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xev-OQ-gCq">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -233,7 +238,7 @@
         <!--Navigation Controller-->
         <scene sceneID="1Js-Wy-qgP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kT9-Yf-jxw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="onboardingNavController" automaticallyAdjustsScrollViewInsets="NO" id="kT9-Yf-jxw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wi8-1F-Yyb">
                         <rect key="frame" x="0.0" y="124" width="402" height="54"/>
@@ -334,7 +339,7 @@
                                                     <color key="baseBackgroundColor" red="0.48627450979999998" green="0.69803921570000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="VJB-UB-ASI" kind="show" id="31J-l7-Cj2"/>
+                                                    <action selector="onVerifyClick:" destination="n0H-7x-zTB" eventType="touchUpInside" id="BC7-HD-ufs"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR9-CG-27b">
@@ -364,16 +369,17 @@
                         <outlet property="otp2" destination="mmz-uj-24v" id="3rH-Cd-UZ9"/>
                         <outlet property="otp3" destination="8Y9-JV-SVr" id="uRH-lN-DOn"/>
                         <outlet property="otp4" destination="DMq-HX-f1V" id="THY-Yr-biA"/>
+                        <segue destination="VJB-UB-ASI" kind="show" identifier="onOnboarding" id="1MC-SK-U3g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRf-On-Ova" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3703" y="111"/>
         </scene>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="DcP-Vf-aOl">
             <objects>
-                <viewController id="VJB-UB-ASI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="onboardingWelcomeScreen" id="VJB-UB-ASI" customClass="WelcomeViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4sd-n9-Ris">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -561,7 +567,12 @@
                             <constraint firstItem="czx-ne-uQJ" firstAttribute="top" secondItem="AsT-2p-Bwg" secondAttribute="top" id="vz4-WM-5LK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UFF-C1-Pzu"/>
+                    <navigationItem key="navigationItem" id="UFF-C1-Pzu">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="info.circle" catalog="system" id="YHq-2P-pnP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="infoButton" destination="YHq-2P-pnP" id="fdG-ZP-rG0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W4w-gL-lsr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1427,6 +1438,7 @@
         <image name="DiabetEase" width="497" height="497"/>
         <image name="apple.logo" catalog="system" width="105" height="128"/>
         <image name="document.fill" catalog="system" width="115" height="128"/>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="person.3.fill" catalog="system" width="128" height="66"/>
         <image name="staroflife.fill" catalog="system" width="121" height="128"/>
         <namedColor name="insights_bg">

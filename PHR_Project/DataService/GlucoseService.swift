@@ -60,45 +60,5 @@ class GlucoseService {
         }
     }
 
-    func deleteReading(
-        id: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        // Optimistic Delete
-        if let index = readings.firstIndex(where: { $0.id == id }) {
-            readings.remove(at: index)
-        }
 
-        APIService.shared.request(endpoint: "/glucose/\(id)", method: .delete) {
-            (result: Result<EmptyResponse, Error>) in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    completion(.success(()))
-                }
-            case .failure(let error):
-                print("Error deleting glucose reading: \(error)")
-                // Re-fetch or handle rollback if needed
-                completion(.failure(error))
-            }
-        }
-    }
-
-    func fetchStats(
-        startDate: String,
-        endDate: String,
-        completion: @escaping (Result<GlucoseStats, Error>) -> Void
-    ) {
-        let endpoint =
-            "/glucose/stats?startDate=\(startDate)&endDate=\(endDate)"
-        APIService.shared.request(endpoint: endpoint, method: .get) {
-            (result: Result<GlucoseStats, Error>) in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-    }
-
-    // Helper used in deletion
-    struct EmptyResponse: Decodable {}
 }

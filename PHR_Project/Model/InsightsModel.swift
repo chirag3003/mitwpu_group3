@@ -89,3 +89,42 @@ enum TipPriority: String, Codable {
         }
     }
 }
+
+// MARK: - Summary Models
+
+struct SummaryRequest: Codable {
+    let startDate: String
+    let endDate: String
+    let include: SummaryInclude
+}
+
+struct SummaryInclude: Codable {
+    let glucose: Bool
+    let symptoms: Bool
+    let meals: Bool
+    let documents: Bool
+}
+
+struct SummaryResponse: Codable {
+    let url: String
+}
+
+// MARK: - Water Insights Models
+
+struct WaterInsightsResponse: Codable {
+    let insights: [WaterInsight]
+    let tips: [WaterTip]
+    let summary: String
+}
+
+struct WaterInsight: Codable {
+    let title: String
+    let description: String
+    let type: InsightType
+}
+
+struct WaterTip: Codable {
+    let title: String
+    let description: String
+    let priority: TipPriority
+}

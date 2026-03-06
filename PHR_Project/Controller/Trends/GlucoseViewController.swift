@@ -51,6 +51,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     @IBOutlet weak var maxLabel: UILabel!
 
     var familyMember: FamilyMember?
+    private var sharedReadings: [GlucoseReading] = []
 
     private let chartViewModel = ChartViewModel()
     
@@ -77,8 +78,12 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         )
 
         // Initial Fetch
-        GlucoseService.shared.fetchReadings()
-        updateDataFromService()
+        if let member = familyMember {
+            loadSharedReadings(for: member)
+        } else {
+            GlucoseService.shared.fetchReadings()
+            updateDataFromService()
+        }
         
         // Fetch AI insights from API
         fetchGlucoseInsights()
@@ -86,9 +91,14 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         //Setting up family member details
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Glucose"
+            navigationItem.rightBarButtonItem?.isEnabled = false
         } else {
             self.title = "Glucose"
         }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Insights API
@@ -107,6 +117,16 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     }
     
     private func fetchGlucoseInsights() {
+        if let member = familyMember {
+            InsightsService.shared.fetchSharedGlucoseInsights(userId: member.userId) {
+                [weak self] response in
+                guard let self = self, let insights = response else { return }
+                self.glucoseInsights = insights
+                self.updateInsightsUI(with: insights)
+            }
+            return
+        }
+
         InsightsService.shared.fetchGlucoseInsights { [weak self] response in
             guard let self = self, let insights = response else { return }
             
@@ -156,7 +176,11 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     }
 
     @objc func updateDataFromService() {
-        applyFilter()
+        if familyMember != nil {
+            applySharedFilter()
+        } else {
+            applyFilter()
+        }
     }
 
     func applyFilter() {
@@ -254,16 +278,108 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         }
     }
 
+    func applySharedFilter() {
+        let readings = sharedReadings
+        let calendar = Calendar.current
+        let now = Date()
+
+        var filteredReadings: [GlucoseReading] = []
+
+        let selectedIndex = chartSegmentControl?.selectedSegmentIndex ?? 1
+
+        switch selectedIndex {
+        case 0:  // Day - Since Midnight
+            let start = calendar.startOfDay(for: now)
+            filteredReadings = readings.filter { $0.dateRecorded >= start }
+            chartViewModel.currentRange = .day
+
+        case 1:  // Week - Last 7 Days
+            if let start = calendar.date(byAdding: .day, value: -7, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else {
+                filteredReadings = readings
+            }
+            chartViewModel.currentRange = .week
+
+        case 2:  // Month - Last 30 Days
+            if let start = calendar.date(byAdding: .month, value: -1, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else {
+                filteredReadings = readings
+            }
+            chartViewModel.currentRange = .month
+
+        case 3:  // 6 Months
+            if let start = calendar.date(byAdding: .month, value: -6, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else {
+                filteredReadings = readings
+            }
+            chartViewModel.currentRange = .sixMonth
+
+        case 4:  // Year
+            if let start = calendar.date(byAdding: .year, value: -1, to: now) {
+                filteredReadings = readings.filter { $0.dateRecorded >= start }
+            } else {
+                filteredReadings = readings
+            }
+            chartViewModel.currentRange = .year
+
+        default:
+            filteredReadings = readings
+            chartViewModel.currentRange = .week
+        }
+
+        var uniquePointsDict: [Date: Int] = [:]
+        for reading in filteredReadings {
+            uniquePointsDict[reading.combinedDate] = reading.value
+        }
+
+        let uniquePoints = uniquePointsDict.map {
+            GlucoseDataPoint(date: $0.key, value: $0.value)
+        }
+        let sortedPoints = uniquePoints.sorted { $0.date < $1.date }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            self.chartViewModel.dataPoints = sortedPoints
+
+            if sortedPoints.isEmpty {
+                self.noDataLabel.isHidden = false
+                self.chartContainerView.isHidden = true
+
+                self.lastLoggedLabel?.text = "--"
+                self.averageLabel?.text = "--"
+                self.minLabel?.text = "--"
+                self.maxLabel?.text = "--"
+            } else {
+                self.noDataLabel.isHidden = true
+                self.chartContainerView.isHidden = false
+                if let latest = sortedPoints.last {
+                    self.updateDashboardLabels(
+                        latestPoint: latest,
+                        allPoints: sortedPoints
+                    )
+                }
+            }
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Check if the destination is the Add Controller (or a Nav Controller holding it)
         if let nav = segue.destination as? UINavigationController,
             let addVC = nav.topViewController as? AddGlucoseModalViewController
         {
             addVC.delegate = self
+            addVC.view.isUserInteractionEnabled = familyMember == nil
         } else if let addVC = segue.destination
             as? AddGlucoseModalViewController
         {
             addVC.delegate = self
+            addVC.view.isUserInteractionEnabled = familyMember == nil
+        } else if var destination = segue.destination as? FamilyMemberDataScreen {
+            destination.familyMember = familyMember
         }
     }
 
@@ -298,7 +414,11 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
 
     @IBAction func timeSegmentChanged(_ sender: UISegmentedControl) {
         // Just re-apply the filter on existing data
-        applyFilter()
+        if familyMember != nil {
+            applySharedFilter()
+        } else {
+            applyFilter()
+        }
     }
 
     func setupChart() {
@@ -329,5 +449,17 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         pattern1View.addRoundedCorner(radius: 20)
         pattern2View.addRoundedCorner(radius: 20)
         glucoseGraphStack.setCustomSpacing(-5, after: glucoseValueStack)
+    }
+
+    private func loadSharedReadings(for member: FamilyMember) {
+        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let readings):
+                self?.sharedReadings = readings
+                self?.applySharedFilter()
+            case .failure(let error):
+                print("Error fetching shared glucose: \(error)")
+            }
+        }
     }
 }
