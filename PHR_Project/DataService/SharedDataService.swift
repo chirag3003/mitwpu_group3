@@ -75,6 +75,17 @@ final class SharedDataService {
         )
     }
 
+    func fetchWater(
+        for userId: String,
+        completion: @escaping (Result<[WaterRecord], Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/water",
+            method: .get,
+            completion: completion
+        )
+    }
+
     func fetchAllergies(
         for userId: String,
         completion: @escaping (Result<[Allergy], Error>) -> Void

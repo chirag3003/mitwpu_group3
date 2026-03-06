@@ -23,6 +23,8 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen {
     var hasScrolledToToday = false
     var selectedDate: Date = Date()  // Track currently selected date
     var currentCenteredIndex: Int = 15
+    private var sharedWaterRecords: [WaterRecord] = []
+    private var waterInsights: WaterInsightsResponse?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -64,6 +66,7 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen {
         // Initialize with today's date
         updateMonthLabel(for: 15)
         updateWaterIntakeUI()
+        fetchWaterInsights()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -195,6 +198,7 @@ extension WaterIntakeViewController {
     }
 
     @objc fileprivate func incrementGlassCount() {
+        guard familyMember == nil else { return }
         let calendar = Calendar.current
         guard calendar.isDateInToday(selectedDate) else {
             showPastDateAlert()
@@ -211,6 +215,7 @@ extension WaterIntakeViewController {
     }
 
     @objc fileprivate func decrementGlassCount() {
+        guard familyMember == nil else { return }
         let calendar = Calendar.current
         guard calendar.isDateInToday(selectedDate) else {
             showPastDateAlert()
@@ -266,27 +271,95 @@ extension WaterIntakeViewController {
         let calendar = Calendar.current
         let isToday = calendar.isDateInToday(selectedDate)
 
-        WaterIntakeService.shared.fetchGlassCount(for: selectedDate) {
-            [weak self] count in
-            guard let self = self else { return }
-
-            DispatchQueue.main.async {
-                self.glassValue.text = "\(count)"
-                let currentMl = count * 250
-                let goalMl = 2500
-                self.mlLabel.text = "\(currentMl)/\(goalMl) ml"
-
-                let progress = Float(count) / 10.0
-                self.progressView.setProgress(
-                    to: min(progress, 1.0),
-                    animated: true
-                )
-
-                self.increment.alpha = isToday ? 1.0 : 0.3
-                self.decrement.alpha = isToday ? 1.0 : 0.3
-                self.increment.isUserInteractionEnabled = isToday
-                self.decrement.isUserInteractionEnabled = isToday
+        if let member = familyMember {
+            fetchSharedWaterIfNeeded(for: member) { [weak self] count in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.updateWaterUI(count: count, isToday: false)
+                }
             }
+        } else {
+            WaterIntakeService.shared.fetchGlassCount(for: selectedDate) {
+                [weak self] count in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.updateWaterUI(count: count, isToday: isToday)
+                }
+            }
+        }
+    }
+
+    private func updateWaterUI(count: Int, isToday: Bool) {
+        glassValue.text = "\(count)"
+        let currentMl = count * 250
+        let goalMl = 2500
+        mlLabel.text = "\(currentMl)/\(goalMl) ml"
+
+        let progress = Float(count) / 10.0
+        progressView.setProgress(to: min(progress, 1.0), animated: true)
+
+        let isEditable = familyMember == nil && isToday
+        increment.alpha = isEditable ? 1.0 : 0.3
+        decrement.alpha = isEditable ? 1.0 : 0.3
+        increment.isUserInteractionEnabled = isEditable
+        decrement.isUserInteractionEnabled = isEditable
+    }
+
+    private func fetchSharedWaterIfNeeded(
+        for member: FamilyMember,
+        completion: @escaping (Int) -> Void
+    ) {
+        SharedDataService.shared.fetchWater(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let records):
+                self?.sharedWaterRecords = records
+                let count = self?.countForSelectedDate(from: records) ?? 0
+                completion(count)
+            case .failure(let error):
+                print("Error fetching shared water: \(error)")
+                completion(0)
+            }
+        }
+    }
+
+    private func countForSelectedDate(from records: [WaterRecord]) -> Int {
+        let calendar = Calendar.current
+        for record in records {
+            if calendar.isDate(record.dateRecorded, inSameDayAs: selectedDate) {
+                return record.glasses
+            }
+        }
+        return 0
+    }
+
+    private func fetchWaterInsights() {
+        if let member = familyMember {
+            InsightsService.shared.fetchSharedWaterInsights(userId: member.userId) {
+                [weak self] response in
+                guard let self = self, let insights = response else { return }
+                self.waterInsights = insights
+                self.updateInsightsUI(with: insights)
+            }
+            return
+        }
+
+        InsightsService.shared.fetchWaterInsights { [weak self] response in
+            guard let self = self, let insights = response else { return }
+            self.waterInsights = insights
+            self.updateInsightsUI(with: insights)
+        }
+    }
+
+    private func updateInsightsUI(with response: WaterInsightsResponse) {
+        if response.insights.count >= 1 {
+            let label = insight1.subviews.compactMap { $0 as? UILabel }.first
+            label?.text = response.insights[0].description
+            insight1.backgroundColor = response.insights[0].type.color.withAlphaComponent(0.15)
+        }
+        if response.insights.count >= 2 {
+            let label = insight2.subviews.compactMap { $0 as? UILabel }.first
+            label?.text = response.insights[1].description
+            insight2.backgroundColor = response.insights[1].type.color.withAlphaComponent(0.15)
         }
     }
 
@@ -341,17 +414,45 @@ extension WaterIntakeViewController: UICollectionViewDataSource,
         cell.waterProgress = 0
 
         let targetDate = getDateForIndex(indexPath.row)
-        WaterIntakeService.shared.fetchGlassCount(for: targetDate) {
-            [weak cell, weak collectionView] count in
-            let progress = Float(count) / 10.0
-            DispatchQueue.main.async {
-                guard let cell = cell,
-                    let collectionView = collectionView,
-                    collectionView.indexPath(for: cell) == indexPath
-                else {
-                    return
+        if let member = familyMember {
+            SharedDataService.shared.fetchWater(for: member.userId) {
+                [weak cell, weak collectionView] result in
+                let count: Int
+                switch result {
+                case .success(let records):
+                    let calendar = Calendar.current
+                    count = records.first(where: {
+                        calendar.isDate($0.dateRecorded, inSameDayAs: targetDate)
+                    })?.glasses ?? 0
+                case .failure(let error):
+                    print("Error fetching shared water: \(error)")
+                    count = 0
                 }
-                cell.waterProgress = progress
+
+                let progress = Float(count) / 10.0
+                DispatchQueue.main.async {
+                    guard let cell = cell,
+                        let collectionView = collectionView,
+                        collectionView.indexPath(for: cell) == indexPath
+                    else {
+                        return
+                    }
+                    cell.waterProgress = progress
+                }
+            }
+        } else {
+            WaterIntakeService.shared.fetchGlassCount(for: targetDate) {
+                [weak cell, weak collectionView] count in
+                let progress = Float(count) / 10.0
+                DispatchQueue.main.async {
+                    guard let cell = cell,
+                        let collectionView = collectionView,
+                        collectionView.indexPath(for: cell) == indexPath
+                    else {
+                        return
+                    }
+                    cell.waterProgress = progress
+                }
             }
         }
 

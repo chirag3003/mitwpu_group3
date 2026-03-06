@@ -61,6 +61,39 @@ class InsightsService {
         }
     }
 
+    func fetchSharedMealInsights(
+        userId: String,
+        forceRefresh: Bool = false,
+        completion: @escaping (MealInsightsResponse?) -> Void
+    ) {
+        if !forceRefresh,
+            let cached = cachedMealInsights,
+            let cacheTime = mealInsightsCacheTime
+        {
+            if Date().timeIntervalSince(cacheTime) < cacheDuration {
+                completion(cached)
+                return
+            }
+        }
+
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/insights/meals",
+            method: .get
+        ) { [weak self] (result: Result<MealInsightsResponse, Error>) in
+            switch result {
+            case .success(let response):
+                self?.cachedMealInsights = response
+                self?.mealInsightsCacheTime = Date()
+                completion(response)
+            case .failure(let error):
+                print(
+                    "❌ InsightsService: Failed to fetch shared meal insights - \(error)"
+                )
+                completion(nil)
+            }
+        }
+    }
+
     /// Fetch glucose insights from API
     /// - Parameters:
     ///   - forceRefresh: If true, bypass cache and fetch fresh data

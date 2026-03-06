@@ -195,6 +195,17 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     
     //Fetch meal insights from API and update UI
     private func fetchMealInsights() {
+        if let member = familyMember {
+            InsightsService.shared.fetchSharedMealInsights(userId: member.userId) {
+                [weak self] response in
+                guard let self = self, let insights = response else { return }
+
+                self.mealInsights = insights
+                self.updateInsightsUI(with: insights)
+            }
+            return
+        }
+
         InsightsService.shared.fetchMealInsights { [weak self] response in
             guard let self = self, let insights = response else { return }
 
