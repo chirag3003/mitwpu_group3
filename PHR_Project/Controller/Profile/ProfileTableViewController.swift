@@ -63,10 +63,28 @@ class ProfileTableViewController: UITableViewController {
     // MARK: - Actions
 
     @IBAction func onLogOut(_ sender: UIButton) {
-
+        AuthService.shared.logout()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let onboarding = storyboard.instantiateViewController(
+            withIdentifier: "onboardingNavController"
+        )
+        resetRootViewController(to: onboarding)
     }
     @IBAction func onDoneClick(_ sender: Any) {
         self.dismiss(animated: true)
+    }
+    
+    private func resetRootViewController(to rootViewController: UIViewController) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return }
+        UIView.transition(
+            with: window,
+            duration: 0.4,
+            options: .transitionCrossDissolve
+        ) {
+            window.rootViewController = rootViewController
+        }
     }
 
 }
