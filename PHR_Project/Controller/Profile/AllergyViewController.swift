@@ -37,6 +37,15 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
                 name: NSNotification.Name("AllergiesUpdated"),
                 object: nil
             )
+        } else {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(refreshSharedData(_:)),
+                name: NSNotification.Name(
+                    NotificationNames.sharedAllergiesUpdated
+                ),
+                object: nil
+            )
         }
 
         updateEditingAccess()
@@ -53,6 +62,16 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
             self.allergies = AllergyService.shared.fetchAllergies()
             self.allergiesTableView.reloadData()
         }
+    }
+
+    @objc private func refreshSharedData(_ notification: Notification) {
+        guard let member = familyMember else { return }
+        if let userId = notification.userInfo?["userId"] as? String,
+            userId != member.userId
+        {
+            return
+        }
+        loadSharedAllergies(for: member)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)

@@ -94,9 +94,28 @@ final class SharedDataService {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/allergies",
             method: .post,
-            body: allergy,
-            completion: completion
-        )
+            body: allergy
+        ) { (result: Result<Allergy, Error>) in
+            switch result {
+            case .success:
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(
+                        NotificationNames.sharedAllergiesUpdated
+                    ),
+                    object: nil,
+                    userInfo: ["userId": userId]
+                )
+            case .failure(let error):
+                if case let APIError.httpError(statusCode, message) = error {
+                    print(
+                        "Shared allergy add failed (\(statusCode)): \(message)"
+                    )
+                } else {
+                    print("Shared allergy add failed: \(error)")
+                }
+            }
+            completion(result)
+        }
     }
 
     func deleteAllergy(
@@ -106,8 +125,27 @@ final class SharedDataService {
     ) {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/allergies/\(allergyId)",
-            method: .delete,
-            completion: completion
-        )
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            switch result {
+            case .success:
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(
+                        NotificationNames.sharedAllergiesUpdated
+                    ),
+                    object: nil,
+                    userInfo: ["userId": userId]
+                )
+            case .failure(let error):
+                if case let APIError.httpError(statusCode, message) = error {
+                    print(
+                        "Shared allergy delete failed (\(statusCode)): \(message)"
+                    )
+                } else {
+                    print("Shared allergy delete failed: \(error)")
+                }
+            }
+            completion(result)
+        }
     }
 }

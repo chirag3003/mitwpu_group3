@@ -91,6 +91,13 @@ class AddAllergyTableViewController: UITableViewController {
                     case .success:
                         self.navigationController?.popViewController(animated: true)
                     case .failure(let error):
+                        if case let APIError.httpError(statusCode, message) = error {
+                            print(
+                                "Shared allergy add failed (\(statusCode)): \(message)"
+                            )
+                        } else {
+                            print("Shared allergy add failed: \(error)")
+                        }
                         self.showAlert(
                             title: "Error",
                             message:
