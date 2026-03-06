@@ -23,6 +23,8 @@ class AddMealModalViewController: UITableViewController {
     // MARK: Properties
     var selectedMeal: String?
     var capturedImage: UIImage?
+    var familyMember: FamilyMember?
+    var canEditSharedData = true
 
     
     // MARK: Lifecycle
@@ -75,6 +77,13 @@ class AddMealModalViewController: UITableViewController {
     
     // MARK: Camera Action
     @objc func mealCameraTapped() {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message: "You don't have permission to add meals for this member."
+            )
+            return
+        }
         let customCameraVC = CustomCameraViewController()
         customCameraVC.delegate = self
         customCameraVC.modalPresentationStyle = .fullScreen
@@ -110,6 +119,13 @@ class AddMealModalViewController: UITableViewController {
     
     // Save meal to service
     private func saveMeal(name: String? = nil, type: String? = nil) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message: "You don't have permission to add meals for this member."
+            )
+            return
+        }
         // Use provided name or get from text field
         let mealName = name ?? mealName.text
         
@@ -171,10 +187,26 @@ class AddMealModalViewController: UITableViewController {
         )
 
         // Save meal
-        MealService.shared.addMeal(newMeal)
-
-        // Close modal
-        dismiss(animated: true)
+        if let member = familyMember {
+            SharedDataService.shared.addMeal(
+                for: member.userId,
+                meal: newMeal
+            ) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    self?.showAlert(
+                        title: "Error",
+                        message:
+                            "Failed to add meal: \(error.localizedDescription)"
+                    )
+                }
+            }
+        } else {
+            MealService.shared.addMeal(newMeal)
+            dismiss(animated: true)
+        }
     }
     
     // Save captured image to disk and return filename
@@ -248,7 +280,10 @@ extension AddMealModalViewController: CustomCameraDelegate {
                 switch result {
                 case .success(let analyzedMeal):
                     // Automatically save the analyzed meal and close modal
-                    self.saveMeal(name: analyzedMeal.name, type: self.determineMealType())
+                    self.saveMeal(
+                        name: analyzedMeal.name,
+                        type: self.determineMealType()
+                    )
                     
                 case .failure(let error):
                     print("AI Analysis failed: \(error)")
@@ -276,4 +311,3 @@ extension AddMealModalViewController: CustomCameraDelegate {
         }
     }
 }
-

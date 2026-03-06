@@ -1,12 +1,13 @@
 import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource, FamilyMemberDataScreen
+    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving
 {
 
     var symptomsData: [Symptom] = []
     var isDeleting = false
     var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     // MARK: - Outlets
     
@@ -42,7 +43,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             self.title = "Symptoms"
         }
 
-        if familyMember == nil {
+        if familyMember == nil || canEditSharedData {
             setupLongPressGesture()
         }
     }
@@ -57,7 +58,8 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
         }
 
         // NEW: Handle Gesture
-        @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+            guard familyMember == nil || canEditSharedData else { return }
             if gestureRecognizer.state == .began {
                 let touchPoint = gestureRecognizer.location(in: symptomTableView)
                 if let indexPath = symptomTableView.indexPathForRow(at: touchPoint) {
@@ -80,11 +82,13 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
                    let destVC = navVC.topViewController as? AddSymptomTableViewController {
                     
                     // If sender is a Symptom, we are editing
+                    destVC.familyMember = familyMember
                     if let symptomToEdit = sender as? Symptom {
                         destVC.symptomToEdit = symptomToEdit
                     }
                 } else if let destVC = segue.destination as? AddSymptomTableViewController {
                     // Handle case where it might not be wrapped in Nav Controller
+                    destVC.familyMember = familyMember
                     if let symptomToEdit = sender as? Symptom {
                         destVC.symptomToEdit = symptomToEdit
                     }
@@ -128,6 +132,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     ) {
         if editingStyle == .delete {
             if let member = familyMember {
+                guard canEditSharedData else { return }
                 let symptom = symptomsData[indexPath.row]
                 guard let apiId = symptom.apiID else { return }
                 isDeleting = true

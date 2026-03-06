@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 class GlucoseViewController: UIViewController, AddGlucoseDelegate,
-    FamilyMemberDataScreen
+    FamilyMemberDataScreen, SharedWriteAccessReceiving
 {
 
     @IBOutlet weak var chartSegmentControl: UISegmentedControl!
@@ -52,6 +52,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
 
     var familyMember: FamilyMember?
     private var sharedReadings: [GlucoseReading] = []
+    var canEditSharedData = false
 
     private let chartViewModel = ChartViewModel()
     
@@ -91,7 +92,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         //Setting up family member details
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Glucose"
-            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.isEnabled = canEditSharedData
         } else {
             self.title = "Glucose"
         }
@@ -372,12 +373,14 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             let addVC = nav.topViewController as? AddGlucoseModalViewController
         {
             addVC.delegate = self
-            addVC.view.isUserInteractionEnabled = familyMember == nil
+            addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
+            addVC.familyMember = familyMember
         } else if let addVC = segue.destination
             as? AddGlucoseModalViewController
         {
             addVC.delegate = self
-            addVC.view.isUserInteractionEnabled = familyMember == nil
+            addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
+            addVC.familyMember = familyMember
         } else if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = familyMember
         }

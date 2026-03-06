@@ -11,7 +11,9 @@ class SectionBackground: UICollectionReusableView {
     required init?(coder: NSCoder) { fatalError() }
 }
 
-class MealViewController: UIViewController, FamilyMemberDataScreen {
+class MealViewController: UIViewController, FamilyMemberDataScreen,
+    SharedWriteAccessReceiving
+{
 
     // MARK: IB OUTLETS
     @IBOutlet weak var caloriebgCard: UIView!
@@ -56,6 +58,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
     var familyMember: FamilyMember?
     var hasScrolledToToday = false
     private var sharedMeals: [Meal] = []
+    var canEditSharedData = false
 
     let sectionTitles = ["Breakfast", "Lunch", "Snacks", "Dinner"]
     
@@ -91,11 +94,18 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
         
         // Fetch AI insights from API
         fetchMealInsights()
+
+        if familyMember != nil {
+            navigationItem.rightBarButtonItem?.isEnabled = canEditSharedData
+        }
     }
 
     // Refresh meal list when returning to screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if familyMember != nil {
+            navigationItem.rightBarButtonItem?.isEnabled = canEditSharedData
+        }
         if let member = familyMember {
             loadSharedMeals(for: member)
         } else {
@@ -426,7 +436,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen {
                 deleteAction.backgroundColor = .systemRed
                 return UISwipeActionsConfiguration(actions: [deleteAction])
             }
-        } else if let member = familyMember {
+        } else if let member = familyMember, canEditSharedData {
             config.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
                 let deleteAction = UIContextualAction(
                     style: .destructive,
@@ -715,6 +725,21 @@ extension MealViewController: UICollectionViewDataSource,
         ) as? MealDetailViewController {
             detailVC.selectedMeal = meal
             navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navController = segue.destination as? UINavigationController,
+            let addMealVC = navController.topViewController
+                as? AddMealModalViewController
+        {
+            addMealVC.familyMember = familyMember
+            addMealVC.canEditSharedData = canEditSharedData
+        } else if let addMealVC = segue.destination
+            as? AddMealModalViewController
+        {
+            addMealVC.familyMember = familyMember
+            addMealVC.canEditSharedData = canEditSharedData
         }
     }
 }

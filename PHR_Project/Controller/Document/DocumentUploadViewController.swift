@@ -1,7 +1,9 @@
 import UIKit
 import UniformTypeIdentifiers
 
-class DocumentUploadViewController: UITableViewController {
+class DocumentUploadViewController: UITableViewController,
+    SharedWriteAccessReceiving
+{
     //  MARK: - IBOutlets
 
     @IBOutlet weak var reportNameLabel: UITextField!
@@ -12,6 +14,8 @@ class DocumentUploadViewController: UITableViewController {
     
     private var selectedFileData: Data?
     private var selectedFileName: String?
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -100,18 +104,41 @@ class DocumentUploadViewController: UITableViewController {
         loadingAlert.view.heightAnchor.constraint(equalToConstant: 80).isActive = true
         present(loadingAlert, animated: true)
         
-        // Upload via DocumentService
-        DocumentService.shared.uploadReport(
-            fileData: fileData,
-            fileName: fileName,
-            title: reportName,
-            date: reportDate
-        ) { [weak self] success in
-            loadingAlert.dismiss(animated: true) {
-                if success {
-                    self?.dismiss(animated: true)
-                } else {
-                    self?.showAlert(title: "Upload Failed", message: "Could not upload the report. Please try again.")
+        if let member = familyMember, canEditSharedData {
+            SharedDataService.shared.uploadSharedDocument(
+                for: member.userId,
+                fileData: fileData,
+                fileName: fileName,
+                documentType: "Report",
+                title: reportName,
+                date: reportDate
+            ) { [weak self] result in
+                loadingAlert.dismiss(animated: true) {
+                    switch result {
+                    case .success:
+                        self?.dismiss(animated: true)
+                    case .failure:
+                        self?.showAlert(
+                            title: "Upload Failed",
+                            message:
+                                "Could not upload the report. Please try again."
+                        )
+                    }
+                }
+            }
+        } else {
+            DocumentService.shared.uploadReport(
+                fileData: fileData,
+                fileName: fileName,
+                title: reportName,
+                date: reportDate
+            ) { [weak self] success in
+                loadingAlert.dismiss(animated: true) {
+                    if success {
+                        self?.dismiss(animated: true)
+                    } else {
+                        self?.showAlert(title: "Upload Failed", message: "Could not upload the report. Please try again.")
+                    }
                 }
             }
         }

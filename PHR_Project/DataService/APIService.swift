@@ -202,6 +202,7 @@ class APIService {
     // MARK: - Document Upload (Multipart with fields)
 
     func uploadDocument<T: Decodable>(
+        endpoint: String = "/documents",
         fileData: Data,
         fileName: String,
         mimeType: String,
@@ -211,7 +212,7 @@ class APIService {
         date: Date,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        guard let url = URL(string: baseURL + "/documents") else {
+        guard let url = URL(string: baseURL + endpoint) else {
             completion(.failure(APIError.invalidURL))
             return
         }

@@ -12,8 +12,14 @@ class AddDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     @IBAction func doneButton(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            dismiss(animated: true)
+            return
+        }
         
         guard let firstName = firstName.text, !firstName.isEmpty else {
             self.showAlert(
@@ -34,7 +40,7 @@ class AddDetailsTableViewController: UITableViewController {
         // Combine first and last name for doctor's full name
         let fullName = "Dr. \(firstName) \(lastName)"
         
-        // Create doctor via API
+        // Create doctor via API (global list)
         DocDoctorService.shared.createDoctor(name: fullName)
         
         view.endEditing(true)

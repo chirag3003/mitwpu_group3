@@ -1,13 +1,17 @@
 import QuickLook
 import UIKit
 
-final class PrescriptionPageViewController: UIViewController {
+final class PrescriptionPageViewController: UIViewController,
+    SharedWriteAccessReceiving
+{
 
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
 
     var selectedDoctor: DocDoctor?   // Doctor passed from DocumentsViewController
     var selectedDoctorName: String?  // Legacy compatibility
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
      // MARK: - Properties
      private var prescriptions: [PrescriptionModel] = []
@@ -15,22 +19,28 @@ final class PrescriptionPageViewController: UIViewController {
 
      // MARK: - Lifecycle
      override func viewDidLoad() {
-         super.viewDidLoad()
-         setupTableView()
-         loadData()
+          super.viewDidLoad()
+          setupTableView()
+          loadData()
          
-         // Set navigation title to doctor name
-         if let doctor = selectedDoctor {
-             self.title = doctor.name
-             self.navigationItem.title = doctor.name
-         } else if let name = selectedDoctorName {
-             self.title = name
-             self.navigationItem.title = name
-         }
+          // Set navigation title to doctor name
+          if let doctor = selectedDoctor {
+              self.title = doctor.name
+              self.navigationItem.title = doctor.name
+          } else if let name = selectedDoctorName {
+              self.title = name
+              self.navigationItem.title = name
+          }
+
+          if familyMember != nil && !canEditSharedData {
+              navigationItem.rightBarButtonItem = nil
+          }
          
          // Listen for document updates
-         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
-     }
+          if familyMember == nil {
+              NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
+          }
+      }
 
      // MARK: - Setup
      private func setupTableView() {
@@ -41,22 +51,49 @@ final class PrescriptionPageViewController: UIViewController {
          tableView.showsVerticalScrollIndicator = false
      }
 
-     private func loadData() {
-         // Load prescriptions filtered by doctor
-         if let doctor = selectedDoctor, let doctorId = doctor.apiID {
-             // Fetch prescriptions for this specific doctor from API
-             prescriptions = DocumentService.shared.getDocumentsByDoctor(doctorId: doctorId)
-                 .filter { $0.documentType == .prescription }
-                 .map { $0.asLegacyPrescriptionModel }
-         } else if let doctorName = selectedDoctorName {
-             // Legacy: filter by name
-             prescriptions = PrescriptionService.shared.getPrescriptionsByDoctor(doctorName)
-         } else {
-             prescriptions = PrescriptionService.shared.getAllPrescriptionData()
-         }
-         tableView.reloadData()
-         sortData()
-     }
+      private func loadData() {
+          if let member = familyMember {
+              SharedDataService.shared.fetchDocuments(for: member.userId) {
+                  [weak self] result in
+                  switch result {
+                  case .success(let docs):
+                      if let doctor = self?.selectedDoctor,
+                          let doctorId = doctor.apiID
+                      {
+                          self?.prescriptions = docs.filter {
+                              $0.documentType == .prescription
+                                  && ($0.docDoctor?.apiID ?? $0.docDoctorId)
+                                      == doctorId
+                          }.map { $0.asLegacyPrescriptionModel }
+                      } else {
+                          self?.prescriptions = docs.filter {
+                              $0.documentType == .prescription
+                          }.map { $0.asLegacyPrescriptionModel }
+                      }
+                      self?.tableView.reloadData()
+                      self?.sortData()
+                  case .failure(let error):
+                      print("Error fetching shared prescriptions: \(error)")
+                  }
+              }
+              return
+          }
+
+          // Load prescriptions filtered by doctor
+          if let doctor = selectedDoctor, let doctorId = doctor.apiID {
+              // Fetch prescriptions for this specific doctor from API
+              prescriptions = DocumentService.shared.getDocumentsByDoctor(doctorId: doctorId)
+                  .filter { $0.documentType == .prescription }
+                  .map { $0.asLegacyPrescriptionModel }
+          } else if let doctorName = selectedDoctorName {
+              // Legacy: filter by name
+              prescriptions = PrescriptionService.shared.getPrescriptionsByDoctor(doctorName)
+          } else {
+              prescriptions = PrescriptionService.shared.getAllPrescriptionData()
+          }
+          tableView.reloadData()
+          sortData()
+      }
     private var isNewestFirst = true
 
     private lazy var dateFormatter: DateFormatter = {
@@ -68,7 +105,7 @@ final class PrescriptionPageViewController: UIViewController {
          loadData()
      }
     
-    @IBAction func didTapFilterButton(_ sender: Any) {
+     @IBAction func didTapFilterButton(_ sender: Any) {
         isNewestFirst.toggle()
             
             // 2. Sort the data
@@ -92,25 +129,18 @@ final class PrescriptionPageViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Check if navigating to PrescriptionUploadTableViewController
         if let navController = segue.destination as? UINavigationController,
            let uploadVC = navController.topViewController as? PrescriptionUploadTableViewController {
-            
-            print("✅ Preparing segue to PrescriptionUploadTableViewController")
-            
-            // Pass the doctor information
             uploadVC.selectedDoctor = selectedDoctor
             uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
-            
-            print("🔍 Passed doctor: \(uploadVC.selectedDoctor?.name ?? "nil")")
-            print("🔍 Passed doctorName: \(uploadVC.doctorName ?? "nil")")
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
         }
-        // You can also check for other segues here if needed
         else if let uploadVC = segue.destination as? PrescriptionUploadTableViewController {
-            print("✅ Found direct PrescriptionUploadTableViewController")
-            
             uploadVC.selectedDoctor = selectedDoctor
             uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
         }
     }
     
@@ -144,30 +174,59 @@ final class PrescriptionPageViewController: UIViewController {
      }
  }
 
- // MARK: - UITableViewDelegate
- extension PrescriptionPageViewController: UITableViewDelegate {
+// MARK: - UITableViewDelegate
+extension PrescriptionPageViewController: UITableViewDelegate {
 
-     func tableView(
-         _ tableView: UITableView,
-         didSelectRowAt indexPath: IndexPath
-     ) {
-         tableView.deselectRow(at: indexPath, animated: true)
+      func tableView(
+          _ tableView: UITableView,
+          didSelectRowAt indexPath: IndexPath
+      ) {
+          tableView.deselectRow(at: indexPath, animated: true)
 
-         let prescription = prescriptions[indexPath.row]
-         
-         // Validate PDF URL exists
+          let prescription = prescriptions[indexPath.row]
+          
+          // Validate PDF URL exists
+          guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
+              showAlert(
+                  title: "Unavailable",
+                  message: "No PDF link found for this item."
+              )
+              return
+          }
 
-         guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
-             showAlert(
-                 title: "Unavailable",
-                 message: "No PDF link found for this item."
-             )
-             return
-         }
+          downloadAndPreviewPDF(from: urlString)
+      }
 
-         downloadAndPreviewPDF(from: urlString)
-     }
- }
+      func tableView(
+          _ tableView: UITableView,
+          commit editingStyle: UITableViewCell.EditingStyle,
+          forRowAt indexPath: IndexPath
+      ) {
+          if editingStyle == .delete {
+              guard let member = familyMember, canEditSharedData else { return }
+              let item = prescriptions[indexPath.row]
+              guard let fileUrl = item.pdfUrl else { return }
+              SharedDataService.shared.fetchDocuments(for: member.userId) {
+                  [weak self] result in
+                  switch result {
+                  case .success(let docs):
+                      if let doc = docs.first(where: { $0.fileUrl == fileUrl }),
+                          let apiId = doc.apiID
+                      {
+                          SharedDataService.shared.deleteDocument(
+                              for: member.userId,
+                              documentId: apiId
+                          ) { _ in
+                              self?.loadData()
+                          }
+                      }
+                  case .failure(let error):
+                      print("Error deleting shared prescription: \(error)")
+                  }
+              }
+          }
+      }
+  }
 
  // MARK: - PDF Preview
  extension PrescriptionPageViewController: QLPreviewControllerDataSource {

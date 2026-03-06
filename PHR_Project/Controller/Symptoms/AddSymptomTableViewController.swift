@@ -21,6 +21,7 @@ class AddSymptomTableViewController: UITableViewController {
     var selectedIntensity: String?
     var symptomToEdit: Symptom?
     var onSave: (() -> Void)?
+    var familyMember: FamilyMember?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -173,6 +174,33 @@ class AddSymptomTableViewController: UITableViewController {
                     newTime.minute = timeComponents.minute
                     existingSymptom.time = newTime
                     
+                    if let member = familyMember,
+                        let apiId = existingSymptom.apiID
+                    {
+                        SharedDataService.shared.updateSymptom(
+                            for: member.userId,
+                            symptomId: apiId,
+                            symptom: existingSymptom
+                        ) { [weak self] result in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                self.showLoader(false)
+                                switch result {
+                                case .success:
+                                    self.onSave?()
+                                    self.dismiss(animated: true)
+                                case .failure(let error):
+                                    self.showAlert(
+                                        title: "Error",
+                                        message:
+                                            "Failed to update: \(error.localizedDescription)"
+                                    )
+                                }
+                            }
+                        }
+                        return
+                    }
+
                     SymptomService.shared.updateSymptom(existingSymptom) { [weak self] result in
                         guard let self = self else { return }
                         DispatchQueue.main.async {
@@ -197,6 +225,30 @@ class AddSymptomTableViewController: UITableViewController {
                         notes: notesTextView.text ?? "",
                         time: timeComponents
                     )
+
+                    if let member = familyMember {
+                        SharedDataService.shared.addSymptom(
+                            for: member.userId,
+                            symptom: newSymptom
+                        ) { [weak self] result in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                self.showLoader(false)
+                                switch result {
+                                case .success:
+                                    self.onSave?()
+                                    self.dismiss(animated: true)
+                                case .failure(let error):
+                                    self.showAlert(
+                                        title: "Error",
+                                        message:
+                                            "Failed to add: \(error.localizedDescription)"
+                                    )
+                                }
+                            }
+                        }
+                        return
+                    }
 
                     SymptomService.shared.addSymptom(newSymptom) { [weak self] result in
                         guard let self = self else { return }
@@ -231,5 +283,3 @@ extension AddSymptomTableViewController: UITextViewDelegate {
         placeholderLabel.isHidden = !textView.text.isEmpty
     }
 }
-
-
