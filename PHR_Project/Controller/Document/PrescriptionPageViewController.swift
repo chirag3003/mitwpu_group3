@@ -37,10 +37,15 @@ final class PrescriptionPageViewController: UIViewController,
           }
          
          // Listen for document updates
-          if familyMember == nil {
-              NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: NSNotification.Name("DocumentsUpdated"), object: nil)
-          }
-      }
+           if familyMember == nil {
+               NotificationCenter.default.addObserver(
+                   self,
+                   selector: #selector(refreshData),
+                   name: NSNotification.Name(NotificationNames.documentsUpdated),
+                   object: nil
+               )
+           }
+       }
 
      // MARK: - Setup
      private func setupTableView() {

@@ -53,7 +53,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(refreshData),
-            name: NSNotification.Name("DocumentsUpdated"),
+            name: NSNotification.Name(NotificationNames.documentsUpdated),
             object: nil
         )
         NotificationCenter.default.addObserver(

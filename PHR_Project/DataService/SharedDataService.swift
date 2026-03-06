@@ -28,6 +28,12 @@ final class SharedDataService {
             method: .post,
             body: meal
         ) { (result: Result<Meal, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -43,6 +49,12 @@ final class SharedDataService {
             method: .put,
             body: meal
         ) { (result: Result<Meal, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -54,9 +66,16 @@ final class SharedDataService {
     ) {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/meals/\(mealId)",
-            method: .delete,
-            completion: completion
-        )
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
     }
 
     func fetchGlucoseReadings(
@@ -80,6 +99,12 @@ final class SharedDataService {
             method: .post,
             body: reading
         ) { (result: Result<GlucoseReading, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -95,6 +120,12 @@ final class SharedDataService {
             method: .put,
             body: reading
         ) { (result: Result<GlucoseReading, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -108,6 +139,12 @@ final class SharedDataService {
             endpoint: "/shared/\(userId)/glucose/\(readingId)",
             method: .delete
         ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -133,6 +170,12 @@ final class SharedDataService {
             method: .post,
             body: symptom
         ) { (result: Result<Symptom, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -148,6 +191,12 @@ final class SharedDataService {
             method: .put,
             body: symptom
         ) { (result: Result<Symptom, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -159,9 +208,16 @@ final class SharedDataService {
     ) {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/symptoms/\(symptomId)",
-            method: .delete,
-            completion: completion
-        )
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
     }
 
     func fetchDocuments(
@@ -195,6 +251,12 @@ final class SharedDataService {
             title: title,
             date: date
         ) { (result: Result<Document, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -208,6 +270,12 @@ final class SharedDataService {
             endpoint: "/shared/\(userId)/documents/\(documentId)",
             method: .delete
         ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -244,6 +312,12 @@ final class SharedDataService {
             method: .post,
             body: request
         ) { (result: Result<WaterRecord, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
@@ -257,6 +331,12 @@ final class SharedDataService {
             endpoint: "/shared/\(userId)/water/\(recordId)",
             method: .delete
         ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    object: nil
+                )
+            }
             completion(result)
         }
     }
