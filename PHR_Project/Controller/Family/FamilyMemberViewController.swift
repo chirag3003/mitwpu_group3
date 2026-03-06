@@ -269,7 +269,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
             // A larger negative number = more space
             titleLabel.bottomAnchor.constraint(
                 equalTo: headerView.bottomAnchor,
-                constant: -16
+                constant: -8
             ),
         ])
 
