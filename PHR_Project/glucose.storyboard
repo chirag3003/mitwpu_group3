@@ -14,7 +14,7 @@
         <!--Add Glucose Value-->
         <scene sceneID="VAE-Dq-ZUF">
             <objects>
-                <tableViewController id="cxf-13-3x5" customClass="AddGlucoseModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AddGlucoseScreen" id="cxf-13-3x5" customClass="AddGlucoseModalViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="wCF-MD-X0I">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

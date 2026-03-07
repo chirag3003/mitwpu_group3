@@ -30,6 +30,13 @@ class GlucoseService {
             case .success(let fetchedReadings):
                 DispatchQueue.main.async {
                     self.readings = fetchedReadings
+                    // Update Widget
+                    if let latest = fetchedReadings.sorted(by: { $0.combinedDate < $1.combinedDate }).last {
+                        WidgetDataManager.shared.saveGlucose(
+                            value: latest.value,
+                            date: latest.combinedDate
+                        )
+                    }
                 }
             case .failure(let error):
                 print("Error fetching glucose readings: \(error)")
@@ -51,6 +58,10 @@ class GlucoseService {
             case .success(let savedReading):
                 DispatchQueue.main.async {
                     self.readings.append(savedReading)
+                    WidgetDataManager.shared.saveGlucose(
+                        value: savedReading.value,
+                        date: savedReading.combinedDate
+                    )
                     completion(.success(savedReading))
                 }
             case .failure(let error):

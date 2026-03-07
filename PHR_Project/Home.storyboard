@@ -2000,7 +2000,7 @@
         <!--glucose-->
         <scene sceneID="Uu3-3U-7J4">
             <objects>
-                <viewControllerPlaceholder storyboardName="glucose" id="DTu-xH-Apm" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Glucose" id="DTu-xH-Apm" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wbI-Zj-tNY"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iq8-Sm-Ime" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
