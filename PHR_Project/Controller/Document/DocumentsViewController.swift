@@ -501,34 +501,6 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func deleteSharedPrescriptions(for member: FamilyMember, doctorId: String) {
-        SharedDataService.shared.fetchDocuments(for: member.userId) { [weak self] result in
-            switch result {
-            case .success(let docs):
-                let toDelete = docs.filter {
-                    $0.documentType == .prescription
-                        && ($0.docDoctor?.apiID ?? $0.docDoctorId) == doctorId
-                }
-                let group = DispatchGroup()
-                for doc in toDelete {
-                    guard let docId = doc.apiID else { continue }
-                    group.enter()
-                    SharedDataService.shared.deleteDocument(
-                        for: member.userId,
-                        documentId: docId
-                    ) { _ in
-                        group.leave()
-                    }
-                }
-                group.notify(queue: .main) {
-                    self?.loadSharedDocuments(for: member)
-                }
-            case .failure(let error):
-                print("Error fetching shared documents: \(error)")
-            }
-        }
-    }
-
     private func deleteSharedDoctor(for member: FamilyMember, doctorId: String) {
         SharedDataService.shared.deleteDocDoctor(for: member.userId, doctorId: doctorId) {
             [weak self] result in
