@@ -29,6 +29,21 @@ class WaterIntakeService {
 
     /// Fetch glass count for a specific date
     func fetchGlassCount(for date: Date, completion: @escaping (Int) -> Void) {
+        // 1. Check if we have a pending update from the Widget for today
+        if Calendar.current.isDateInToday(date),
+           let widgetData = WidgetDataManager.shared.getWater(),
+           widgetData.source == "widget" {
+            
+            // Sync this widget value TO the server immediately
+            // This prevents the server's old value from overwriting the widget's new value
+            upsertGlassCount(for: date, glasses: widgetData.count) { syncedCount in
+                // After syncing, reset source to "app" so we don't sync again unnecessarily
+                WidgetDataManager.shared.saveWater(count: syncedCount, date: date, source: "app")
+                completion(syncedCount)
+            }
+            return
+        }
+
         let dateString = dateFormatter.string(from: date)
         WaterService.shared.fetchByDate(date: dateString) { result in
             switch result {

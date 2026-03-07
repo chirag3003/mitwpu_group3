@@ -34,6 +34,7 @@ class WidgetDataManager {
         
         static let waterCount = "widget_waterCount"
         static let waterDate = "widget_waterDate"
+        static let waterSource = "widget_waterSource" // "app" or "widget"
         
         static let stepCount = "widget_stepCount"
         static let stepDate = "widget_stepDate"
@@ -48,9 +49,10 @@ class WidgetDataManager {
         reloadWidgets()
     }
     
-    func saveWater(count: Int, date: Date = Date()) {
+    func saveWater(count: Int, date: Date = Date(), source: String = "app") {
         store?.set(count, forKey: Keys.waterCount)
         store?.set(date, forKey: Keys.waterDate)
+        store?.set(source, forKey: Keys.waterSource)
         reloadWidgets()
     }
     
@@ -71,18 +73,20 @@ class WidgetDataManager {
         return (value, date, trend)
     }
     
-    func getWater() -> (count: Int, date: Date)? {
+    func getWater() -> (count: Int, date: Date, source: String)? {
         guard let count = store?.object(forKey: Keys.waterCount) as? Int,
               let date = store?.object(forKey: Keys.waterDate) as? Date else {
             return nil
         }
         
+        let source = store?.string(forKey: Keys.waterSource) ?? "app"
+        
         // Reset count if date is not today
         if !Calendar.current.isDateInToday(date) {
-            return (0, Date())
+            return (0, Date(), "app")
         }
         
-        return (count, date)
+        return (count, date, source)
     }
     
     func getSteps() -> (count: Int, date: Date)? {

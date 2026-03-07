@@ -13,7 +13,7 @@ struct IncrementWaterIntent: AppIntent {
         let newCount = (currentWater?.count ?? 0) + 1
         
         // Save updated count
-        WidgetDataManagerLocal.shared.saveWater(count: newCount)
+        WidgetDataManagerLocal.shared.saveWater(count: newCount, source: "widget")
         
         return .result()
     }
@@ -32,7 +32,7 @@ struct DecrementWaterIntent: AppIntent {
         let newCount = max(0, currentCount - 1)
         
         // Save updated count
-        WidgetDataManagerLocal.shared.saveWater(count: newCount)
+        WidgetDataManagerLocal.shared.saveWater(count: newCount, source: "widget")
         
         return .result()
     }
@@ -334,6 +334,7 @@ class WidgetDataManagerLocal {
         
         static let waterCount = "widget_waterCount"
         static let waterDate = "widget_waterDate"
+        static let waterSource = "widget_waterSource"
         
         static let stepCount = "widget_stepCount"
         static let stepDate = "widget_stepDate"
@@ -350,18 +351,20 @@ class WidgetDataManagerLocal {
         return (value, date, trend)
     }
     
-    func getWater() -> (count: Int, date: Date)? {
+    func getWater() -> (count: Int, date: Date, source: String)? {
         guard let count = store?.object(forKey: Keys.waterCount) as? Int,
               let date = store?.object(forKey: Keys.waterDate) as? Date else {
             return nil
         }
         
+        let source = store?.string(forKey: Keys.waterSource) ?? "app"
+        
         // Reset count if date is not today
         if !Calendar.current.isDateInToday(date) {
-            return (0, Date())
+            return (0, Date(), "app")
         }
         
-        return (count, date)
+        return (count, date, source)
     }
     
     func getSteps() -> (count: Int, date: Date)? {
@@ -378,9 +381,10 @@ class WidgetDataManagerLocal {
         return (count, date)
     }
     
-    func saveWater(count: Int, date: Date = Date()) {
+    func saveWater(count: Int, date: Date = Date(), source: String = "app") {
         store?.set(count, forKey: Keys.waterCount)
         store?.set(date, forKey: Keys.waterDate)
+        store?.set(source, forKey: Keys.waterSource)
         if #available(iOS 14.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
         }
