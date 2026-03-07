@@ -40,6 +40,25 @@ class AddDetailsTableViewController: UITableViewController {
         // Combine first and last name for doctor's full name
         let fullName = "Dr. \(firstName) \(lastName)"
         
+        if let member = familyMember {
+            SharedDataService.shared.createDocDoctor(
+                for: member.userId,
+                name: fullName
+            ) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    self?.showAlert(
+                        title: "Error",
+                        message:
+                            "Failed to add doctor: \(error.localizedDescription)"
+                    )
+                }
+            }
+            return
+        }
+
         // Create doctor via API (global list)
         DocDoctorService.shared.createDoctor(name: fullName)
         

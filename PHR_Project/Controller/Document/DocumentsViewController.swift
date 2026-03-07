@@ -59,7 +59,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(refreshData),
-            name: NSNotification.Name("DoctorsUpdated"),
+            name: NSNotification.Name(NotificationNames.doctorsUpdated),
             object: nil
         )
     }
@@ -79,6 +79,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     private func loadData() {
         // Fetch doctors and reports from services
         if let member = familyMember {
+            loadSharedDoctors(for: member)
             loadSharedDocuments(for: member)
         } else {
             doctorsData = DocDoctorService.shared.getDoctors()
@@ -88,6 +89,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
 
     @objc private func refreshData() {
         if let member = familyMember {
+            loadSharedDoctors(for: member)
             loadSharedDocuments(for: member)
         } else {
             doctorsData = DocDoctorService.shared.getDoctors()
@@ -197,11 +199,22 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
                     doctorList.append(DocDoctor(apiID: doctorId, name: doctorName))
                 }
 
-                self?.doctorsData = doctorList
                 self?.reportsData = reports.map { $0.asLegacyReportModel }
                 self?.documentTableView.reloadData()
             case .failure(let error):
                 print("Error fetching shared documents: \(error)")
+            }
+        }
+    }
+
+    private func loadSharedDoctors(for member: FamilyMember) {
+        SharedDataService.shared.fetchDocDoctors(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let doctors):
+                self?.doctorsData = doctors
+                self?.documentTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching shared doctors: \(error)")
             }
         }
     }
@@ -385,7 +398,6 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
         } else {
-            guard familyMember == nil else { return }
             // Doctors - Navigate to prescriptions for this doctor
             let doctor = doctorsData[indexPath.row]
             performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
@@ -405,7 +417,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
                 if dataSegment.selectedSegmentIndex == 0 {
                     let doctor = doctorsData[indexPath.row]
                     if let doctorId = doctor.apiID {
-                        deleteSharedPrescriptions(for: member, doctorId: doctorId)
+                        deleteSharedDoctor(for: member, doctorId: doctorId)
                     }
                 } else {
                     let report = reportsData[indexPath.row]
@@ -513,6 +525,19 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             case .failure(let error):
                 print("Error fetching shared documents: \(error)")
+            }
+        }
+    }
+
+    private func deleteSharedDoctor(for member: FamilyMember, doctorId: String) {
+        SharedDataService.shared.deleteDocDoctor(for: member.userId, doctorId: doctorId) {
+            [weak self] result in
+            switch result {
+            case .success:
+                self?.loadSharedDoctors(for: member)
+                self?.loadSharedDocuments(for: member)
+            case .failure(let error):
+                print("Error deleting shared doctor: \(error)")
             }
         }
     }

@@ -20,6 +20,7 @@ class AddGlucoseModalViewController: UITableViewController {
     
     @IBOutlet weak var glucoseTextField: UITextField!
     var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,17 @@ class AddGlucoseModalViewController: UITableViewController {
    
     // MARK: - Actions
     @IBAction func doneModalButton(_ sender: Any) {
+
+        if familyMember != nil && !canEditSharedData {
+            let alert = UIAlertController(
+                title: "Read-only",
+                message: "You don't have permission to add glucose readings for this member.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         
         guard let text = glucoseTextField.text, let value = Int(text) else {
             // Optional: Show an alert if empty
