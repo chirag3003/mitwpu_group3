@@ -33,6 +33,9 @@ class WaterIntakeService {
         WaterService.shared.fetchByDate(date: dateString) { result in
             switch result {
             case .success(let record):
+                if Calendar.current.isDateInToday(date) {
+                    WidgetDataManager.shared.saveWater(count: record.glasses)
+                }
                 completion(record.glasses)
             case .failure(let error):
                 print("❌ WaterIntakeService: Failed to fetch water intake - \(error)")
@@ -96,6 +99,9 @@ class WaterIntakeService {
                     name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
                     object: nil
                 )
+                if Calendar.current.isDateInToday(date) {
+                    WidgetDataManager.shared.saveWater(count: record.glasses)
+                }
                 completion(record.glasses)
             case .failure(let error):
                 print("❌ WaterIntakeService: Failed to save water intake - \(error)")

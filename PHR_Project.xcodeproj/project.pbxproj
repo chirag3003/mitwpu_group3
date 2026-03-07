@@ -6,8 +6,42 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		19E3EED02F5C22A3007E93C5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E3EECF2F5C22A3007E93C5 /* WidgetKit.framework */; };
+		19E3EED22F5C22A3007E93C5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E3EED12F5C22A3007E93C5 /* SwiftUI.framework */; };
+		19E3EEE32F5C22A4007E93C5 /* Diabetease WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		19E3EEE12F5C22A4007E93C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19E0D17A2E8A8F9E00A6E73C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19E3EECC2F5C22A3007E93C5;
+			remoteInfo = "Diabetease WidgetsExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		19E3EEE42F5C22A4007E93C5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				19E3EEE32F5C22A4007E93C5 /* Diabetease WidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PHR_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Diabetease WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19E3EECF2F5C22A3007E93C5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		19E3EED12F5C22A3007E93C5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		19E3EEE92F5C2338007E93C5 /* Diabetease WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Diabetease WidgetsExtension.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -18,6 +52,27 @@
 			);
 			target = 19E0D1812E8A8F9E00A6E73C /* PHR_Project */;
 		};
+		19E3EEE82F5C22A4007E93C5 /* Exceptions for "Diabetease Widgets" folder in "Diabetease WidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */;
+		};
+		19E3EEED2F5C24B9007E93C5 /* Exceptions for "PHR_Project" folder in "Diabetease WidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DataService/WidgetDataManager.swift,
+			);
+			target = 19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */;
+		};
+		19E3EEEF2F5C26E0007E93C5 /* Exceptions for "Diabetease Widgets" folder in "PHR_Project" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppIntent.swift,
+			);
+			target = 19E0D1812E8A8F9E00A6E73C /* PHR_Project */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -25,8 +80,18 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				19E0D1942E8A8F9F00A6E73C /* Exceptions for "PHR_Project" folder in "PHR_Project" target */,
+				19E3EEED2F5C24B9007E93C5 /* Exceptions for "PHR_Project" folder in "Diabetease WidgetsExtension" target */,
 			);
 			path = PHR_Project;
+			sourceTree = "<group>";
+		};
+		19E3EED32F5C22A3007E93C5 /* Diabetease Widgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				19E3EEEF2F5C26E0007E93C5 /* Exceptions for "Diabetease Widgets" folder in "PHR_Project" target */,
+				19E3EEE82F5C22A4007E93C5 /* Exceptions for "Diabetease Widgets" folder in "Diabetease WidgetsExtension" target */,
+			);
+			path = "Diabetease Widgets";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -39,13 +104,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		19E3EECA2F5C22A3007E93C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19E3EED22F5C22A3007E93C5 /* SwiftUI.framework in Frameworks */,
+				19E3EED02F5C22A3007E93C5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		19E0D1792E8A8F9E00A6E73C = {
 			isa = PBXGroup;
 			children = (
+				19E3EEE92F5C2338007E93C5 /* Diabetease WidgetsExtension.entitlements */,
 				19E0D1842E8A8F9E00A6E73C /* PHR_Project */,
+				19E3EED32F5C22A3007E93C5 /* Diabetease Widgets */,
+				19E3EECE2F5C22A3007E93C5 /* Frameworks */,
 				19E0D1832E8A8F9E00A6E73C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,8 +131,18 @@
 			isa = PBXGroup;
 			children = (
 				19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */,
+				19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		19E3EECE2F5C22A3007E93C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19E3EECF2F5C22A3007E93C5 /* WidgetKit.framework */,
+				19E3EED12F5C22A3007E93C5 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,10 +155,12 @@
 				19E0D17E2E8A8F9E00A6E73C /* Sources */,
 				19E0D17F2E8A8F9E00A6E73C /* Frameworks */,
 				19E0D1802E8A8F9E00A6E73C /* Resources */,
+				19E3EEE42F5C22A4007E93C5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				19E3EEE22F5C22A4007E93C5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				19E0D1842E8A8F9E00A6E73C /* PHR_Project */,
@@ -83,6 +172,28 @@
 			productReference = 19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */;
 			productType = "com.apple.product-type.application";
 		};
+		19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19E3EEE72F5C22A4007E93C5 /* Build configuration list for PBXNativeTarget "Diabetease WidgetsExtension" */;
+			buildPhases = (
+				19E3EEC92F5C22A3007E93C5 /* Sources */,
+				19E3EECA2F5C22A3007E93C5 /* Frameworks */,
+				19E3EECB2F5C22A3007E93C5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				19E3EED32F5C22A3007E93C5 /* Diabetease Widgets */,
+			);
+			name = "Diabetease WidgetsExtension";
+			packageProductDependencies = (
+			);
+			productName = "Diabetease WidgetsExtension";
+			productReference = 19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -90,12 +201,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2600;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					19E0D1812E8A8F9E00A6E73C = {
 						CreatedOnToolsVersion = 26.0.1;
 						LastSwiftMigration = 2620;
+					};
+					19E3EECC2F5C22A3007E93C5 = {
+						CreatedOnToolsVersion = 26.3;
 					};
 				};
 			};
@@ -114,12 +228,20 @@
 			projectRoot = "";
 			targets = (
 				19E0D1812E8A8F9E00A6E73C /* PHR_Project */,
+				19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		19E0D1802E8A8F9E00A6E73C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19E3EECB2F5C22A3007E93C5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -136,7 +258,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		19E3EEC92F5C22A3007E93C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		19E3EEE22F5C22A4007E93C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */;
+			targetProxy = 19E3EEE12F5C22A4007E93C5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		19E0D1962E8A8F9F00A6E73C /* Debug */ = {
@@ -167,7 +304,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = code.demo.phrios;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.chirag.phrios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -209,7 +346,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = code.demo.phrios;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.chirag.phrios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -343,6 +480,71 @@
 			};
 			name = Release;
 		};
+		19E3EEE52F5C22A4007E93C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Diabetease WidgetsExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8AJAPGUS29;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Diabetease Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Diabetease Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "codes.chirag.phrios.Diabetease-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		19E3EEE62F5C22A4007E93C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "Diabetease WidgetsExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8AJAPGUS29;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Diabetease Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Diabetease Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "codes.chirag.phrios.Diabetease-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -360,6 +562,15 @@
 			buildConfigurations = (
 				19E0D1962E8A8F9F00A6E73C /* Debug */,
 				19E0D1972E8A8F9F00A6E73C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19E3EEE72F5C22A4007E93C5 /* Build configuration list for PBXNativeTarget "Diabetease WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19E3EEE52F5C22A4007E93C5 /* Debug */,
+				19E3EEE62F5C22A4007E93C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
