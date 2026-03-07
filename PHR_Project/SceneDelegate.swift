@@ -160,9 +160,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             
             func presentGlucose() {
-                let storyboard = UIStoryboard(name: "glucose", bundle: nil)
+                // Ensure we use the capitalized storyboard name
+                let storyboard = UIStoryboard(name: "Glucose", bundle: nil)
                 
+                print("DEBUG: Attempting to instantiate AddGlucoseScreen from Glucose.storyboard")
                 if let glucoseVC = storyboard.instantiateViewController(withIdentifier: "AddGlucoseScreen") as? AddGlucoseModalViewController {
+                    print("DEBUG: Successfully instantiated AddGlucoseModalViewController")
                     
                     // Wrap in Navigation Controller for "Done/Cancel" buttons
                     let navVC = UINavigationController(rootViewController: glucoseVC)
@@ -178,7 +181,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         topController = presented
                     }
                     
+                    print("DEBUG: Presenting AddGlucoseScreen on \(String(describing: topController))")
                     topController?.present(navVC, animated: true)
+                } else {
+                    print("ERROR: Failed to instantiate AddGlucoseScreen as AddGlucoseModalViewController")
                 }
             }
             
