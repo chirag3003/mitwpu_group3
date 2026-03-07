@@ -77,6 +77,11 @@ class AddMealModalViewController: UITableViewController {
     
     // MARK: Camera Action
     @objc func mealCameraTapped() {
+        launchCamera()
+    }
+    
+    // Public method to launch camera (callable from Deep Links)
+    func launchCamera() {
         if familyMember != nil && !canEditSharedData {
             showAlert(
                 title: "Read-only",
