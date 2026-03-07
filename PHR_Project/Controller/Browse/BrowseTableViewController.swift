@@ -52,7 +52,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
             name: "Generate Summary",
             icon: "list.bullet.clipboard.fill",
             color: .systemPurple,
-            segueIdentifier: "summarySegue"
+            segueIdentifier: "generateSummarySegue"
         ),
         Category(
             name: "Documents",

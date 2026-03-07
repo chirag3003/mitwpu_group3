@@ -36,16 +36,14 @@ final class PrescriptionPageViewController: UIViewController,
               navigationItem.rightBarButtonItem = nil
           }
          
-         // Listen for document updates
-           if familyMember == nil {
-               NotificationCenter.default.addObserver(
-                   self,
-                   selector: #selector(refreshData),
-                   name: NSNotification.Name(NotificationNames.documentsUpdated),
-                   object: nil
-               )
-           }
-       }
+          // Listen for document updates
+          NotificationCenter.default.addObserver(
+              self,
+              selector: #selector(refreshData),
+              name: NSNotification.Name(NotificationNames.documentsUpdated),
+              object: nil
+          )
+        }
 
      // MARK: - Setup
      private func setupTableView() {

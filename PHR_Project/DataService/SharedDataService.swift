@@ -231,6 +231,79 @@ final class SharedDataService {
         )
     }
 
+    func fetchDocDoctors(
+        for userId: String,
+        completion: @escaping (Result<[DocDoctor], Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors",
+            method: .get,
+            completion: completion
+        )
+    }
+
+    func createDocDoctor(
+        for userId: String,
+        name: String,
+        completion: @escaping (Result<DocDoctor, Error>) -> Void
+    ) {
+        let newDoctor = DocDoctor(name: name)
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors",
+            method: .post,
+            body: newDoctor
+        ) { (result: Result<DocDoctor, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func updateDocDoctor(
+        for userId: String,
+        doctorId: String,
+        name: String,
+        completion: @escaping (Result<DocDoctor, Error>) -> Void
+    ) {
+        let update = DocDoctor(apiID: doctorId, name: name)
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors/\(doctorId)",
+            method: .put,
+            body: update
+        ) { (result: Result<DocDoctor, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func deleteDocDoctor(
+        for userId: String,
+        doctorId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors/\(doctorId)",
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
     func uploadSharedDocument(
         for userId: String,
         fileData: Data,

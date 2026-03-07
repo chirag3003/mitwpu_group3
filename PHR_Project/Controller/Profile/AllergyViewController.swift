@@ -1,7 +1,7 @@
 import UIKit
 
 class AllergyViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource, FamilyMemberDataScreen
+    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving
 {
 
     var allergies: [Allergy] = []
@@ -34,7 +34,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(refreshData),
-                name: NSNotification.Name("AllergiesUpdated"),
+                name: NSNotification.Name(NotificationNames.allergiesUpdated),
                 object: nil
             )
         } else {
@@ -137,10 +137,12 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
                 as? AddAllergyTableViewController
         {
             addVC.familyMember = familyMember
+            addVC.canEditSharedData = canEditSharedData
         } else if let addVC = segue.destination
             as? AddAllergyTableViewController
         {
             addVC.familyMember = familyMember
+            addVC.canEditSharedData = canEditSharedData
         }
     }
 

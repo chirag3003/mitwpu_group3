@@ -375,12 +375,14 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             addVC.delegate = self
             addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
+            addVC.canEditSharedData = canEditSharedData
         } else if let addVC = segue.destination
             as? AddGlucoseModalViewController
         {
             addVC.delegate = self
             addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
+            addVC.canEditSharedData = canEditSharedData
         } else if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = familyMember
         }

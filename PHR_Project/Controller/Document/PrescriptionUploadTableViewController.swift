@@ -59,10 +59,26 @@ class PrescriptionUploadTableViewController: UITableViewController,
     // MARK: - Actions
     
     @IBAction func uploadFileButtonTapped(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to upload prescriptions for this member."
+            )
+            return
+        }
         presentDocumentPicker()
     }
     
     @IBAction func doneButton(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to upload prescriptions for this member."
+            )
+            return
+        }
         uploadPrescription()
     }
 
@@ -126,7 +142,17 @@ class PrescriptionUploadTableViewController: UITableViewController,
         loadingAlert.view.heightAnchor.constraint(equalToConstant: 80).isActive = true
         present(loadingAlert, animated: true)
         
-        if let member = familyMember, canEditSharedData {
+        if let member = familyMember {
+            guard canEditSharedData else {
+                loadingAlert.dismiss(animated: true) {
+                    self.showAlert(
+                        title: "Read-only",
+                        message:
+                            "You don't have permission to upload prescriptions for this member."
+                    )
+                }
+                return
+            }
             SharedDataService.shared.uploadSharedDocument(
                 for: member.userId,
                 fileData: fileData,

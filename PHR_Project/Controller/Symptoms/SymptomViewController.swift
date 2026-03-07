@@ -83,12 +83,14 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
                     
                     // If sender is a Symptom, we are editing
                     destVC.familyMember = familyMember
+                    destVC.canEditSharedData = canEditSharedData
                     if let symptomToEdit = sender as? Symptom {
                         destVC.symptomToEdit = symptomToEdit
                     }
                 } else if let destVC = segue.destination as? AddSymptomTableViewController {
                     // Handle case where it might not be wrapped in Nav Controller
                     destVC.familyMember = familyMember
+                    destVC.canEditSharedData = canEditSharedData
                     if let symptomToEdit = sender as? Symptom {
                         destVC.symptomToEdit = symptomToEdit
                     }

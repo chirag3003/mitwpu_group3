@@ -1,6 +1,8 @@
 import UIKit
 
-class GenerateSummaryTableViewController: UITableViewController {
+class GenerateSummaryTableViewController: UITableViewController,
+    FamilyMemberDataScreen
+{
 
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -11,6 +13,8 @@ class GenerateSummaryTableViewController: UITableViewController {
     @IBOutlet weak var mealsSwitch: UISwitch!
     @IBOutlet weak var notesTextField: UITextField!
     @IBOutlet weak var generateSummaryButton: UIButton!
+
+    var familyMember: FamilyMember?
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -93,11 +97,7 @@ class GenerateSummaryTableViewController: UITableViewController {
             documents: reportsSwitch.isOn || prescriptionsSwitch.isOn
         )
 
-        InsightsService.shared.generateSummary(
-            startDate: startDatePicker.date,
-            endDate: endDatePicker.date,
-            include: include
-        ) { [weak self] pdfURLString in
+        let completion: (String?) -> Void = { [weak self] pdfURLString in
             guard let self = self else { return }
 
             self.showLoader(false)
@@ -118,6 +118,23 @@ class GenerateSummaryTableViewController: UITableViewController {
                         "Could not generate health summary. Please try again."
                 )
             }
+        }
+
+        if let member = familyMember {
+            InsightsService.shared.generateSharedSummary(
+                for: member.userId,
+                startDate: startDatePicker.date,
+                endDate: endDatePicker.date,
+                include: include,
+                completion: completion
+            )
+        } else {
+            InsightsService.shared.generateSummary(
+                startDate: startDatePicker.date,
+                endDate: endDatePicker.date,
+                include: include,
+                completion: completion
+            )
         }
     }
 

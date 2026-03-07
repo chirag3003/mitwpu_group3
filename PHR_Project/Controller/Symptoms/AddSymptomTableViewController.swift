@@ -1,6 +1,8 @@
 import UIKit
 
-class AddSymptomTableViewController: UITableViewController {
+class AddSymptomTableViewController: UITableViewController,
+    SharedWriteAccessReceiving
+{
 
     private let symptomsOptions = [
         "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
@@ -22,6 +24,7 @@ class AddSymptomTableViewController: UITableViewController {
     var symptomToEdit: Symptom?
     var onSave: (() -> Void)?
     var familyMember: FamilyMember?
+    var canEditSharedData = false
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -146,6 +149,14 @@ class AddSymptomTableViewController: UITableViewController {
     }
 
     @IBAction func saveButtonTapped(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to add or edit symptoms for this member."
+            )
+            return
+        }
         guard let type = selectedType, let intensity = selectedIntensity else {
                     self.showAlert(title: "Missing Info", message: "Please select Type and Intensity")
                     return
