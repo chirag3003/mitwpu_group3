@@ -37,6 +37,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         self.window = window
         window.makeKeyAndVisible()
+        
+        // Handle cold start deep link
+        if let urlContext = connectionOptions.urlContexts.first {
+            let url = urlContext.url
+            if url.scheme == "phr" {
+                // Slight delay to ensure UI is ready
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.handleDeepLink(url)
+                }
+            }
+        }
     }
 
     /// Replaces the root view controller with the main tab bar (called after login + profile check)
