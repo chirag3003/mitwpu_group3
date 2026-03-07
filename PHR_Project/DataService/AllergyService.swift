@@ -28,7 +28,9 @@ class AllergyService {
 
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
-                        name: NSNotification.Name("AllergiesUpdated"),
+                        name: NSNotification.Name(
+                            NotificationNames.allergiesUpdated
+                        ),
                         object: nil
                     )
                 }
@@ -59,7 +61,9 @@ class AllergyService {
                 // Notify UI
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
-                        name: NSNotification.Name("AllergiesUpdated"),
+                        name: NSNotification.Name(
+                            NotificationNames.allergiesUpdated
+                        ),
                         object: nil
                     )
                 }
@@ -96,7 +100,9 @@ class AllergyService {
                 if notify {
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(
-                            name: NSNotification.Name("AllergiesUpdated"),
+                            name: NSNotification.Name(
+                                NotificationNames.allergiesUpdated
+                            ),
                             object: nil
                         )
                     }

@@ -1,6 +1,8 @@
 import UIKit
 
-class AddAllergyTableViewController: UITableViewController {
+class AddAllergyTableViewController: UITableViewController,
+    SharedWriteAccessReceiving
+{
 
     // MARK: - Outlets
 
@@ -11,6 +13,7 @@ class AddAllergyTableViewController: UITableViewController {
     // Keep reference to fields for keyboard management if needed
     var allTextFields: [UITextField] = []
     var familyMember: FamilyMember?
+    var canEditSharedData = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +57,15 @@ class AddAllergyTableViewController: UITableViewController {
     // MARK: Actions
 
     @IBAction func saveTapped(_ sender: UIBarButtonItem) {
+
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to add allergies for this member."
+            )
+            return
+        }
 
         // Alert for empty fields
         guard let name = allergyIngredient.text, !name.isEmpty else {

@@ -204,7 +204,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Generate Summary" cornerStyle="capsule" buttonSize="large"/>
                                 <connections>
-                                    <segue destination="tKg-Vj-FBg" kind="show" id="4Te-EA-oRx"/>
+                                    <segue destination="tKg-Vj-FBg" kind="show" identifier="generateSummarySegue" id="4Te-EA-oRx"/>
                                 </connections>
                             </button>
                         </subviews>

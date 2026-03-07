@@ -63,6 +63,7 @@ enum NotificationNames {
     static let waterIntakeUpdated = "waterIntakeUpdated"
     static let mealsUpdated = "MealsUpdated"
     static let glucoseUpdated = "GlucoseReadingsUpdated"
+    static let allergiesUpdated = "AllergiesUpdated"
     static let documentsUpdated = "DocumentsUpdated"
     static let doctorsUpdated = "DoctorsUpdated"
     static let familiesUpdated = "FamiliesUpdated"
