@@ -7,6 +7,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
 
+    @IBOutlet weak var notificationSwitch: UISwitch!
     @IBOutlet weak var logoutButton: UIButton!
 
     override func viewDidLoad() {
@@ -41,23 +42,8 @@ class ProfileTableViewController: UITableViewController {
                 named: "WhatsApp Image 2025-12-15 at 17.09.58"
             )
         }
-    }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
-    override func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        if section == 0 {
-            return 4
-        } else {
-            return 1
-        }
+        notificationSwitch.isOn = ReminderNotificationService.shared.isEnabled()
     }
 
     // MARK: - Actions
@@ -87,4 +73,46 @@ class ProfileTableViewController: UITableViewController {
         }
     }
 
+    @IBAction func onNotificationSwitchChange(_ sender: Any) {
+        let isOn = notificationSwitch.isOn
+
+        if isOn {
+            ReminderNotificationService.shared.requestAuthorization {
+                [weak self] granted in
+                guard let self = self else { return }
+
+                if granted {
+                    ReminderNotificationService.shared.setEnabled(true)
+                    ReminderNotificationService.shared.scheduleDefaultReminders()
+                } else {
+                    self.notificationSwitch.setOn(false, animated: true)
+                    ReminderNotificationService.shared.setEnabled(false)
+                    ReminderNotificationService.shared.cancelAllReminders()
+                    self.showNotificationPermissionAlert()
+                }
+            }
+        } else {
+            ReminderNotificationService.shared.setEnabled(false)
+            ReminderNotificationService.shared.cancelAllReminders()
+        }
+    }
+
+    private func showNotificationPermissionAlert() {
+        let alert = UIAlertController(
+            title: "Notifications Disabled",
+            message: "Enable notifications in Settings to receive meal and water reminders.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(
+            UIAlertAction(title: "Open Settings", style: .default) { _ in
+                guard let url = URL(string: UIApplication.openSettingsURLString)
+                else { return }
+                UIApplication.shared.open(url)
+            }
+        )
+
+        present(alert, animated: true)
+    }
 }
