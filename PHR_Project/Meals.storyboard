@@ -432,7 +432,7 @@
                                                     <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="B2L-17-APl" kind="show" id="24q-4G-Rlp"/>
+                                                    <segue destination="B2L-17-APl" kind="show" identifier="mealListSegue" id="24q-4G-Rlp"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Yd-K1-PJ4">

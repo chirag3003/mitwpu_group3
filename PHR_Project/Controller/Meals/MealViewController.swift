@@ -740,6 +740,9 @@ extension MealViewController: UICollectionViewDataSource,
         {
             addMealVC.familyMember = familyMember
             addMealVC.canEditSharedData = canEditSharedData
+        } else if let mealListVC = segue.destination as? MealDataViewController {
+            mealListVC.familyMember = familyMember
+            mealListVC.canEditSharedData = canEditSharedData
         }
     }
 }

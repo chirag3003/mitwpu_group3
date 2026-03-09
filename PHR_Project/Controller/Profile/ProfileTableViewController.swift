@@ -30,17 +30,9 @@ class ProfileTableViewController: UITableViewController {
         userNameLabel.text = fullName.isEmpty ? "User Name" : fullName
 
         // Set the Profile Image!
-        if let photoData = profile.imageData,
-            let savedImage = UIImage(data: photoData)
+        if let photoData = profile.profileImage
         {
-            profileImage.image = savedImage
-            profileImage.contentMode = .scaleAspectFill
-        } else {
-            // If they haven't picked a photo yet, reset it to your hardcoded image.
-            // Replace "YourDefaultImageName" with the actual name of the image in your Assets folder!
-            profileImage.image = UIImage(
-                named: "WhatsApp Image 2025-12-15 at 17.09.58"
-            )
+            profileImage.setImageFromURL(url: photoData)
         }
 
         notificationSwitch.isOn = ReminderNotificationService.shared.isEnabled()
