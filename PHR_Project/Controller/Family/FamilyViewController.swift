@@ -1,12 +1,12 @@
 import UIKit
 
-class FamilyViewController: UIViewController, UICollectionViewDelegate,
-    UICollectionViewDataSource
+class FamilyViewController: UIViewController, UITableViewDelegate,
+    UITableViewDataSource
 {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIBarButtonItem!
 
     private var familyData: [FamilyMember] = []
@@ -14,10 +14,11 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGroupedBackground
-        collectionView.backgroundColor = .clear
 
-        setupCollectionView()
+        view.backgroundColor = .systemGroupedBackground
+        tableView.backgroundColor = .clear
+
+        setupTableView()
         setupAddMenu()
         setupObservers()
         refreshFamilies()
@@ -26,6 +27,8 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+    // MARK: - Setup
 
     private func setupData() {
         currentFamily = FamilyService.shared.getCurrentFamily()
@@ -54,34 +57,136 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         )
     }
 
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+
+    }
+
+    // MARK: - Table View Data Source & Delegate
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int
+    {
+        return familyData.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "familyMember_cell",
+            for: indexPath
+        )
+        let member = familyData[indexPath.row]
+
+        var content = cell.defaultContentConfiguration()
+        content.text = member.name
+
+        // placeholder image with explicit size configuration
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 60)
+        let placeholder = UIImage(
+            systemName: "person.circle.fill",
+            withConfiguration: symbolConfig
+        )?.withTintColor(.systemGray3, renderingMode: .alwaysOriginal)
+        content.image = placeholder
+
+        // image formatting - updated to 60x60
+        content.imageProperties.maximumSize = CGSize(width: 60, height: 60)
+        content.imageProperties.reservedLayoutSize = CGSize(
+            width: 60,
+            height: 60
+        )
+        content.imageProperties.cornerRadius = 30
+
+        cell.contentConfiguration = content
+
+        // load profile image
+        if !member.imageName.isEmpty, let url = URL(string: member.imageName) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil,
+                    let loadedImage = UIImage(data: data)
+                else { return }
+
+                DispatchQueue.main.async {
+                    if tableView.indexPath(for: cell) == indexPath {
+                        var updatedContent = cell.defaultContentConfiguration()
+                        updatedContent.text = member.name
+                        updatedContent.image = loadedImage
+
+                        // matched 60x60 formatting for the downloaded image
+                        updatedContent.imageProperties.maximumSize = CGSize(
+                            width: 60,
+                            height: 60
+                        )
+                        updatedContent.imageProperties.reservedLayoutSize =
+                            CGSize(width: 60, height: 60)
+                        updatedContent.imageProperties.cornerRadius = 30
+
+                        cell.contentConfiguration = updatedContent
+                    }
+                }
+            }.resume()
+        }
+
+        return cell
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let selectedMember = familyData[indexPath.row]
+        performSegue(
+            withIdentifier: SegueIdentifiers.goToMemberDetails,
+            sender: selectedMember
+        )
+    }
+
+    // MARK: - Observers & Refreshing
+
     private func refreshFamilies() {
         FamilyService.shared.fetchFamilies { [weak self] success in
             guard let self = self else { return }
             self.setupData()
-            self.collectionView.reloadData()
-            if success, let familyId = FamilyService.shared.getCurrentFamilyId() {
-                FamilyService.shared.fetchFamilyMembers(familyId: familyId) { _ in
+            self.tableView.reloadData()
+
+            if success, let familyId = FamilyService.shared.getCurrentFamilyId()
+            {
+                FamilyService.shared.fetchFamilyMembers(familyId: familyId) {
+                    _ in
                     self.setupData()
-                    self.collectionView.reloadData()
+                    self.tableView.reloadData()
                 }
             }
         }
     }
 
-    private func setupCollectionView() {
-        collectionView.delaysContentTouches = false
-        collectionView.backgroundColor = .clear
-
-        collectionView.register(
-            FamilyMemberCell.self,
-            forCellWithReuseIdentifier: FamilyMemberCell.identifier
-        )
-
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-        collectionView.collectionViewLayout = createLayout()
+    @objc private func handleFamiliesUpdated() {
+        setupData()
+        tableView.reloadData()
     }
+
+    @objc private func handleMembersUpdated() {
+        setupData()
+        tableView.reloadData()
+    }
+
+    @objc private func handleFamilySelectionChanged() {
+        setupData()
+        tableView.reloadData()
+        if let familyId = FamilyService.shared.getCurrentFamilyId() {
+            FamilyService.shared.fetchFamilyMembers(
+                familyId: familyId,
+                completion: nil
+            )
+        }
+    }
+
+    // MARK: - Actions & Segues
+    // (Your existing setupAddMenu and prepareForSegue code remains exactly the same below!)
 
     private func setupAddMenu() {
         let addMemberAction = UIAction(
@@ -89,6 +194,7 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             image: UIImage(systemName: "person.badge.plus")
         ) { [weak self] _ in
             if FamilyService.shared.getCurrentFamilyId() == nil {
+                // Assuming you have an extension or method for showAlert
                 self?.showAlert(
                     title: "No Family",
                     message: "Create a family first to add members."
@@ -106,85 +212,8 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         }
 
         let menu = UIMenu(children: [addMemberAction, createFamilyAction])
-
         addButton.menu = menu
     }
-
-    private func createLayout() -> UICollectionViewLayout {
-        return UICollectionViewCompositionalLayout {
-            (sectionIndex, env) -> NSCollectionLayoutSection? in
-
-            let itemSize = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .fractionalHeight(1.0)
-                )
-            )
-
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(66)
-            )
-
-            let group = NSCollectionLayoutGroup.vertical(
-                layoutSize: groupSize,
-                subitems: [itemSize]
-            )
-
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(
-                top: 20,
-                leading: 16,
-                bottom: 20,
-                trailing: 16
-            )
-            section.interGroupSpacing = 0 
-
-            return section
-        }
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return familyData.count
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: FamilyMemberCell.identifier,
-                for: indexPath
-            ) as? FamilyMemberCell
-        else {
-            return UICollectionViewCell()
-        }
-
-        let member = familyData[indexPath.row]
-        let isFirst = indexPath.row == 0
-        let isLast = indexPath.row == familyData.count - 1
-        cell.configure(with: member, isFirst: isFirst, isLast: isLast)
-        return cell
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-
-        let selectedMember = familyData[indexPath.row]
-        performSegue(
-            withIdentifier: SegueIdentifiers.goToMemberDetails,
-            sender: selectedMember
-        )
-    }
-
-    // MARK: - Actions
 
     @IBAction func familySwitchButtonTapped(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "familySwitchSegue", sender: nil)
@@ -201,31 +230,15 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         }
 
         if segue.identifier == "familySwitchSegue" {
-            if let destinationVC = segue.destination as? FamilySwitchTableViewController {
+            if let destinationVC = segue.destination
+                as? FamilySwitchTableViewController
+            {
                 if let sheet = destinationVC.sheetPresentationController {
                     sheet.detents = [.medium(), .large()]
-                    sheet.prefersGrabberVisible = true 
+                    sheet.prefersGrabberVisible = true
                     sheet.preferredCornerRadius = 24
                 }
             }
-        }
-    }
-
-    @objc private func handleFamiliesUpdated() {
-        setupData()
-        collectionView.reloadData()
-    }
-
-    @objc private func handleMembersUpdated() {
-        setupData()
-        collectionView.reloadData()
-    }
-
-    @objc private func handleFamilySelectionChanged() {
-        setupData()
-        collectionView.reloadData()
-        if let familyId = FamilyService.shared.getCurrentFamilyId() {
-            FamilyService.shared.fetchFamilyMembers(familyId: familyId, completion: nil)
         }
     }
 }

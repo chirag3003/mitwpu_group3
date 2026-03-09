@@ -126,25 +126,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kke-Td-769">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jED-ht-y2D">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rAS-AG-mW7">
+                                <rect key="frame" x="0.0" y="172" width="393" height="563"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="familyMember_cell" id="V7T-NX-fdX">
+                                        <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V7T-NX-fdX" id="5zY-Wh-zte">
+                                            <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uxF-rI-HX1"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="kke-Td-769" firstAttribute="trailing" secondItem="uxF-rI-HX1" secondAttribute="trailing" id="8lH-6r-goM"/>
-                            <constraint firstItem="kke-Td-769" firstAttribute="top" secondItem="meu-fe-w8O" secondAttribute="top" id="B1n-Kc-1RR"/>
-                            <constraint firstAttribute="bottom" secondItem="kke-Td-769" secondAttribute="bottom" id="F7X-fd-yjV"/>
-                            <constraint firstItem="kke-Td-769" firstAttribute="leading" secondItem="uxF-rI-HX1" secondAttribute="leading" id="xwr-gZ-fkr"/>
+                            <constraint firstItem="rAS-AG-mW7" firstAttribute="top" secondItem="uxF-rI-HX1" secondAttribute="top" id="Gbs-WL-VBz"/>
+                            <constraint firstItem="uxF-rI-HX1" firstAttribute="trailing" secondItem="rAS-AG-mW7" secondAttribute="trailing" id="Nch-A7-aF2"/>
+                            <constraint firstItem="uxF-rI-HX1" firstAttribute="bottom" secondItem="rAS-AG-mW7" secondAttribute="bottom" id="hCJ-oS-Da3"/>
+                            <constraint firstItem="rAS-AG-mW7" firstAttribute="leading" secondItem="uxF-rI-HX1" secondAttribute="leading" id="t2k-d5-stL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
@@ -157,7 +160,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="rEI-4W-cS1" id="SII-6X-ayK"/>
-                        <outlet property="collectionView" destination="kke-Td-769" id="9yU-PQ-dGU"/>
+                        <outlet property="tableView" destination="rAS-AG-mW7" id="ZGf-MS-TFg"/>
                         <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="FU1-d8-cXQ"/>
                         <segue destination="k7P-vK-TfR" kind="show" identifier="GoToAddMember" id="sCJ-er-ZX3"/>
                         <segue destination="H63-dK-1T0" kind="presentation" identifier="GoToAddFamily" id="6K5-i9-oTN"/>
