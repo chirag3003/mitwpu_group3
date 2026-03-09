@@ -5,54 +5,47 @@ class FamilyMemberCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-
-            let scale: CGFloat = isHighlighted ? 0.90 : 1.0
-            let alpha: CGFloat = isHighlighted ? 0.7 : 1.0
-
-            // Spring Animation
-            UIView.animate(
-                withDuration: 0.5,  // Duration for the spring to settle
-                delay: 0,
-                usingSpringWithDamping: 0.5,
-                initialSpringVelocity: 3,
-                options: [.allowUserInteraction, .beginFromCurrentState],
-                animations: {
-                    self.containerView.transform = CGAffineTransform(
-                        scaleX: scale,
-                        y: scale
-                    )
-                    self.containerView.alpha = alpha
-                },
-                completion: nil
-            )
+            UIView.animate(withDuration: 0.1) {
+                self.contentView.backgroundColor = self.isHighlighted ? .systemGray5 : .secondarySystemGroupedBackground
+            }
         }
     }
 
     // MARK: - UI Components
 
-    private let containerView: CircleView = {
-        let view = CircleView()
-        view.backgroundColor = .secondarySystemFill
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let imageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        iv.tintColor = .secondaryLabel
-        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.tintColor = .systemGray
+        iv.backgroundColor = .systemGray6
+        iv.layer.cornerRadius = 20
         iv.clipsToBounds = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = .systemFont(ofSize: 17, weight: .regular)
         label.textColor = .label
-        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+
+    private let chevronImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "chevron.right")
+        iv.tintColor = .tertiaryLabel
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+
+    private let separatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .separator
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     // MARK: - Init
@@ -64,85 +57,57 @@ class FamilyMemberCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) { fatalError() }
 
-    // MARK: - Layout Logic
-
     private func setupUI() {
-        contentView.addSubview(containerView)
-        containerView.addSubview(imageView)
+        contentView.backgroundColor = .secondarySystemGroupedBackground
+        
+        contentView.addSubview(avatarImageView)
         contentView.addSubview(nameLabel)
+        contentView.addSubview(chevronImageView)
+        contentView.addSubview(separatorView)
 
         NSLayoutConstraint.activate([
-            // Container (The Circle)
-            containerView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 4
-            ),
-            containerView.centerXAnchor.constraint(
-                equalTo: contentView.centerXAnchor
-            ),
-            // So that edges are not touched
-            containerView.widthAnchor.constraint(
-                equalTo: contentView.widthAnchor,
-                multiplier: 0.8
-            ),
-            // Aspect Ratio for an exact circle
-            containerView.heightAnchor.constraint(
-                equalTo: containerView.widthAnchor
-            ),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            avatarImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 40),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 40),
 
-            // Image inside Container
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            imageView.leadingAnchor.constraint(
-                equalTo: containerView.leadingAnchor
-            ),
-            imageView.trailingAnchor.constraint(
-                equalTo: containerView.trailingAnchor
-            ),
-            imageView.bottomAnchor.constraint(
-                equalTo: containerView.bottomAnchor
-            ),
+            nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 12),
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: -8),
 
-            // Name Label
-            nameLabel.topAnchor.constraint(
-                equalTo: containerView.bottomAnchor,
-                constant: 8
-            ),
-            nameLabel.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor
-            ),
-            nameLabel.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor
-            ),
-            // Using less than or equal ensures text doesn't get cut off if cell is short
-            nameLabel.bottomAnchor.constraint(
-                lessThanOrEqualTo: contentView.bottomAnchor,
-                constant: -4
-            ),
+            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            chevronImageView.widthAnchor.constraint(equalToConstant: 12),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 18),
+
+            separatorView.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
     }
 
-    func configure(with member: FamilyMember) {
+    func configure(with member: FamilyMember, isFirst: Bool, isLast: Bool) {
         nameLabel.text = member.name
+        
         if member.imageName.hasPrefix("http") {
-            imageView.transform = .identity
-            imageView.setImageFromURL(url: member.imageName)
-            imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
+            avatarImageView.setImageFromURL(url: member.imageName)
+            avatarImageView.contentMode = .scaleAspectFill
         } else {
-            let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular)
-            imageView.image = UIImage(systemName: "person.fill", withConfiguration: config)
-            imageView.contentMode = .center
-            imageView.transform = .identity
+            let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)
+            avatarImageView.image = UIImage(systemName: "person.fill", withConfiguration: config)
+            avatarImageView.contentMode = .center
         }
-    }
-}
 
-class CircleView: UIView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Size auto reshaping
-
-        self.layer.cornerRadius = self.bounds.height / 2
-        self.layer.masksToBounds = true
+        // Apply rounded corners based on position to simulate Grouped List style
+        var maskedCorners: CACornerMask = []
+        if isFirst { maskedCorners.insert([.layerMinXMinYCorner, .layerMaxXMinYCorner]) }
+        if isLast { maskedCorners.insert([.layerMinXMaxYCorner, .layerMaxXMaxYCorner]) }
+        
+        contentView.layer.cornerRadius = (isFirst || isLast) ? 10 : 0
+        contentView.layer.maskedCorners = maskedCorners
+        contentView.layer.masksToBounds = true
+        
+        separatorView.isHidden = isLast
     }
 }
