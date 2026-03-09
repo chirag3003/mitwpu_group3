@@ -31,8 +31,8 @@ class FamilyMemberCell: UICollectionViewCell {
     // MARK: - UI Components
 
     private let containerView: CircleView = {
-        let view = CircleView()  // Custom UIView for circular shape
-        view.backgroundColor = .tertiarySystemBackground
+        let view = CircleView()
+        view.backgroundColor = .secondarySystemFill
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -40,7 +40,7 @@ class FamilyMemberCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        iv.tintColor = .darkGray
+        iv.tintColor = .secondaryLabel
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.clipsToBounds = true
         return iv
@@ -48,7 +48,7 @@ class FamilyMemberCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = .label
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -123,15 +123,16 @@ class FamilyMemberCell: UICollectionViewCell {
 
     func configure(with member: FamilyMember) {
         nameLabel.text = member.name
-        if member.imageName.hasPrefix("https") {
+        if member.imageName.hasPrefix("http") {
             imageView.transform = .identity
             imageView.setImageFromURL(url: member.imageName)
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
         } else {
-            imageView.image = UIImage(systemName: "person.fill")
+            let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular)
+            imageView.image = UIImage(systemName: "person.fill", withConfiguration: config)
             imageView.contentMode = .center
-            imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            imageView.transform = .identity
         }
     }
 }
