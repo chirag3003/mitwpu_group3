@@ -13,13 +13,13 @@ class MealDetailViewController: UIViewController {
     // Header & Media
     @IBOutlet weak var mealImage: UIImageView!
     @IBOutlet weak var mealName: UILabel!
-    
+
     // Nutrition Cards
     @IBOutlet weak var calorieCard: UIView!
     @IBOutlet weak var carbsCard: UIView!
     @IBOutlet weak var proteinCard: UIView!
     @IBOutlet weak var fiberCard: UIView!
-    
+
     // Nutrition Labels
     @IBOutlet weak var calorieCardValue: UILabel!
     @IBOutlet weak var carbsCardDetail: UILabel!
@@ -33,6 +33,7 @@ class MealDetailViewController: UIViewController {
 
     // MARK: - PROPERTIES
     var selectedMeal: Meal?
+    var familyMember: FamilyMember?
 
     // MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -41,6 +42,11 @@ class MealDetailViewController: UIViewController {
         setupTableView()
         setupComponentStyles()
         populateMealDetails()
+
+        //setting up title
+        if let familyMemberName = familyMember?.name {
+            title = "\(familyMemberName)'s Meal"
+        }
     }
 
     // MARK: - SETUP
@@ -54,13 +60,13 @@ class MealDetailViewController: UIViewController {
     // Apply corner radii and visual styling to all cards
     private func setupComponentStyles() {
         let standardRadius: CGFloat = 10
-        
+
         mealImage.addRoundedCorner(radius: standardRadius)
         calorieCard.addRoundedCorner(radius: standardRadius)
         carbsCard.addRoundedCorner(radius: standardRadius)
         proteinCard.addRoundedCorner(radius: standardRadius)
         fiberCard.addRoundedCorner(radius: standardRadius)
-        
+
         notesView.addRoundedCorner(radius: 20)
         notesText.addRoundedCorner(radius: standardRadius)
     }
@@ -71,7 +77,8 @@ class MealDetailViewController: UIViewController {
 
         // Set meal image if valid URL exists
         if let imagePath = meal.image, !imagePath.isEmpty,
-           imagePath.lowercased().hasPrefix("https") {
+            imagePath.lowercased().hasPrefix("https")
+        {
             mealImage.setImageFromURL(url: imagePath)
         }
 
@@ -89,31 +96,36 @@ class MealDetailViewController: UIViewController {
 
 // MARK: - TABLE VIEW DATA SOURCE
 extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int
+    {
         return 2
     }
 
     // Configure cells for meal metadata (Date and Contributor)
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: "meal_detail_cell",
-            for: indexPath
-        ) as! MealDetailTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell
+    {
+        let cell =
+            tableView.dequeueReusableCell(
+                withIdentifier: "meal_detail_cell",
+                for: indexPath
+            ) as! MealDetailTableViewCell
 
         guard let meal = selectedMeal else { return cell }
 
         if indexPath.row == 0 {
             cell.dataLabel?.text = "Date"
-            
+
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             cell.dataValue?.text = formatter.string(from: meal.dateRecorded)
-            
+
         } else if indexPath.row == 1 {
             cell.dataLabel?.text = "Added by"
             cell.dataValue?.text = meal.addedBy

@@ -1997,7 +1997,7 @@
             </objects>
             <point key="canvasLocation" x="2292" y="73"/>
         </scene>
-        <!--glucose-->
+        <!--Glucose-->
         <scene sceneID="Uu3-3U-7J4">
             <objects>
                 <viewControllerPlaceholder storyboardName="Glucose" id="DTu-xH-Apm" sceneMemberID="viewController">
