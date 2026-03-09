@@ -33,7 +33,7 @@ class ProfileService {
                 bloodType: userEntity.bloodType ?? "O+",
                 height: heightInt,
                 weight: weightInt,
-                imageData: userEntity.imageData
+                profileImage: userEntity.profileImage
             )
 
         } else {
@@ -56,7 +56,7 @@ class ProfileService {
         return data
     }
 
-    func setProfile(to newData: ProfileModel) {
+    func setProfile(to newData: ProfileModel, imageData: Data? = nil) {
         // Update In-Memory
         self.data = newData
 
@@ -64,7 +64,7 @@ class ProfileService {
         save()
 
         // Save to API
-        saveToAPI(profile: newData)
+        saveToAPI(profile: newData, imageData: imageData)
 
         // Notify Listeners
         NotificationCenter.default.post(
@@ -131,10 +131,47 @@ class ProfileService {
         }
     }
 
-    func saveToAPI(profile: ProfileModel) {
+    func saveToAPI(profile: ProfileModel, imageData: Data? = nil) {
 
         let method: HTTPMethod = (profile.apiID != nil) ? .put : .post
 
+        // 1. Check if we have an image to upload first
+        if let imageData = imageData {
+            // Upload Image
+            APIService.shared.upload(
+                endpoint: "/profile/image",
+                method: "PUT",
+                data: imageData,
+                filename: "profile.jpg",
+                fieldName: "profileImage"
+            ) { [weak self] (result: Result<ProfileModel, Error>) in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let updatedProfile):
+                    print("Image uploaded successfully")
+                    // The backend returns the updated profile with the image URL
+                    // We update our local model with this URL
+                    var finalProfile = profile
+                    finalProfile.profileImage = updatedProfile.profileImage
+                    
+                    // 2. Now save the rest of the text data
+                    self.performTextSave(profile: finalProfile, method: method)
+                    
+                case .failure(let error):
+                    print("Error uploading profile image: \(error)")
+                    // Even if image fails, try to save text data?
+                    // Or stop here. Let's try saving text data anyway.
+                    self.performTextSave(profile: profile, method: method)
+                }
+            }
+        } else {
+            // No image to upload, just save text
+            performTextSave(profile: profile, method: method)
+        }
+    }
+
+    private func performTextSave(profile: ProfileModel, method: HTTPMethod) {
         APIService.shared.request(
             endpoint: "/profile",
             method: method,
@@ -142,18 +179,25 @@ class ProfileService {
         ) { [weak self] (result: Result<ProfileModel, Error>) in
             switch result {
             case .success(let savedProfile):
-                print("Profile synced to API")
-                // Update ID if we got a new one
-                if let self = self, self.data.apiID == nil {
+                print("Profile text synced to API")
+                if let self = self {
                     DispatchQueue.main.async {
-                        self.data.apiID = savedProfile.apiID
-                        self.data.userId = savedProfile.userId
-                        self.save()  // Save ID to Core Data
+                        // Merge the response (which has the correct ID and potentially Image URL)
+                        // back into our local store
+                        self.data = savedProfile
+                        
+                        self.save() // Save to Core Data
+                        
+                        // Notify listeners
+                        NotificationCenter.default.post(
+                            name: NSNotification.Name(NotificationNames.profileUpdated),
+                            object: nil
+                        )
                     }
                 }
 
             case .failure(let error):
-                print("Error syncing profile to API: \(error)")
+                print("Error syncing profile text to API: \(error)")
             }
         }
     }

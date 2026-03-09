@@ -105,9 +105,11 @@ class APIService {
 
     func upload<T: Decodable>(
         endpoint: String,
+        method: String = "POST",
         data: Data,
         mimeType: String = "image/jpeg",
         filename: String = "file",
+        fieldName: String = "file",
         completion: @escaping (Result<T, Error>) -> Void
     ) {
         guard let url = URL(string: baseURL + endpoint) else {
@@ -116,7 +118,7 @@ class APIService {
         }
 
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = method
 
         let boundary = "Boundary-\(UUID().uuidString)"
         request.setValue(
@@ -129,6 +131,7 @@ class APIService {
             data: data,
             boundary: boundary,
             filename: filename,
+            fieldName: fieldName,
             mimeType: mimeType
         )
 
@@ -182,6 +185,7 @@ class APIService {
         data: Data,
         boundary: String,
         filename: String,
+        fieldName: String,
         mimeType: String
     ) -> Data {
         let body = NSMutableData()
@@ -189,7 +193,7 @@ class APIService {
 
         body.append("--\(boundary + lineBreak)")
         body.append(
-            "Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\(lineBreak)"
+            "Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(filename)\"\(lineBreak)"
         )
         body.append("Content-Type: \(mimeType + lineBreak + lineBreak)")
         body.append(data)

@@ -166,31 +166,35 @@ extension HomeViewController {
 
     private func updateProfileImage() {
         let profile = ProfileService.shared.getProfile()
+        let defaultImage = UIImage(systemName: "person.fill")
+        
+        let updateButton: (UIImage?) -> Void = { [weak self] image in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.profileButton.setImage(nil, for: .normal)
+                var config = self.profileButton.configuration ?? UIButton.Configuration.plain()
+                config.background.image = image
+                config.background.imageContentMode = .scaleAspectFill
+                
+                // If using SF Symbol, set a tint color to make it visible
+                if image == defaultImage {
+                    config.baseForegroundColor = .systemGray
+                }
+                
+                self.profileButton.configuration = config
+            }
+        }
 
-        if let photoData = profile.imageData,
-            let savedImage = UIImage(data: photoData)
-        {
-
-            // Clear the legacy image so they don't overlap
-            profileButton.setImage(nil, for: .normal)
-
-            var config =
-                profileButton.configuration ?? UIButton.Configuration.plain()
-            config.background.image = savedImage
-            config.background.imageContentMode = .scaleAspectFill
-            profileButton.configuration = config
-
+        if let imagePath = profile.profileImage, let url = URL(string: imagePath) {
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                if let data = data, let image = UIImage(data: data) {
+                    updateButton(image)
+                } else {
+                    updateButton(defaultImage)
+                }
+            }.resume()
         } else {
-            let defaultImage = UIImage(
-                named: "WhatsApp Image 2025-12-15 at 17.09.58"
-            )
-
-            profileButton.setImage(nil, for: .normal)
-            var config =
-                profileButton.configuration ?? UIButton.Configuration.plain()
-            config.background.image = defaultImage
-            config.background.imageContentMode = .scaleAspectFill
-            profileButton.configuration = config
+            updateButton(defaultImage)
         }
 
         profileButton.clipsToBounds = true
