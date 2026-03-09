@@ -219,6 +219,8 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
                 return UICollectionReusableView()
             }
 
+            let familyName = currentFamily?.name ?? "Your Family"
+            header.configure(with: familyName)
             return header
         }
         return UICollectionReusableView()
