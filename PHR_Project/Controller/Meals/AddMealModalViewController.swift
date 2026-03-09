@@ -284,11 +284,20 @@ extension AddMealModalViewController: CustomCameraDelegate {
             loadingAlert.dismiss(animated: true) {
                 switch result {
                 case .success(let analyzedMeal):
-                    // Automatically save the analyzed meal and close modal
-                    self.saveMeal(
-                        name: analyzedMeal.name,
-                        type: self.determineMealType()
-                    )
+                    if let member = self.familyMember {
+                        // For family members, analyzeMeal incorrectly saved it to "Self"
+                        // We delete that local copy and save it to the family member's profile instead
+                        MealService.shared.deleteMeal(analyzedMeal)
+                        
+                        self.saveMeal(
+                            name: analyzedMeal.name,
+                            type: self.determineMealType()
+                        )
+                    } else {
+                        // For "Self", analyzeMeal already saved it to the API and updated the local list.
+                        // We just need to dismiss the modal.
+                        self.dismiss(animated: true)
+                    }
                     
                 case .failure(let error):
                     print("AI Analysis failed: \(error)")
