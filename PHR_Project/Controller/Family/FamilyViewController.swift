@@ -14,70 +14,67 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGroupedBackground
+        collectionView.backgroundColor = .clear
 
-            setupCollectionView()
-            setupAddMenu()
-            setupObservers()
-            refreshFamilies()
-        }
+        setupCollectionView()
+        setupAddMenu()
+        setupObservers()
+        refreshFamilies()
+    }
 
-        deinit {
-            NotificationCenter.default.removeObserver(self)
-        }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
-        private func setupData() {
-            currentFamily = FamilyService.shared.getCurrentFamily()
-            familyData = FamilyService.shared.getMembersForCurrentFamily()
-        }
+    private func setupData() {
+        currentFamily = FamilyService.shared.getCurrentFamily()
+        familyData = FamilyService.shared.getMembersForCurrentFamily()
+        navigationItem.title = currentFamily?.name ?? "Family"
+    }
 
-        private func setupObservers() {
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(handleFamiliesUpdated),
-                name: NSNotification.Name(NotificationNames.familiesUpdated),
-                object: nil
-            )
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(handleMembersUpdated),
-                name: NSNotification.Name(NotificationNames.familyMembersUpdated),
-                object: nil
-            )
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(handleFamilySelectionChanged),
-                name: NSNotification.Name(NotificationNames.familySelectionUpdated),
-                object: nil
-            )
-        }
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFamiliesUpdated),
+            name: NSNotification.Name(NotificationNames.familiesUpdated),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleMembersUpdated),
+            name: NSNotification.Name(NotificationNames.familyMembersUpdated),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFamilySelectionChanged),
+            name: NSNotification.Name(NotificationNames.familySelectionUpdated),
+            object: nil
+        )
+    }
 
-        private func refreshFamilies() {
-            FamilyService.shared.fetchFamilies { [weak self] success in
-                guard let self = self else { return }
-                self.setupData()
-                self.collectionView.reloadData()
-                if success, let familyId = FamilyService.shared.getCurrentFamilyId() {
-                    FamilyService.shared.fetchFamilyMembers(familyId: familyId) { _ in
-                        self.setupData()
-                        self.collectionView.reloadData()
-                    }
+    private func refreshFamilies() {
+        FamilyService.shared.fetchFamilies { [weak self] success in
+            guard let self = self else { return }
+            self.setupData()
+            self.collectionView.reloadData()
+            if success, let familyId = FamilyService.shared.getCurrentFamilyId() {
+                FamilyService.shared.fetchFamilyMembers(familyId: familyId) { _ in
+                    self.setupData()
+                    self.collectionView.reloadData()
                 }
             }
         }
+    }
 
     private func setupCollectionView() {
         collectionView.delaysContentTouches = false
+        collectionView.backgroundColor = .clear
 
         collectionView.register(
             FamilyMemberCell.self,
             forCellWithReuseIdentifier: FamilyMemberCell.identifier
-        )
-
-        collectionView.register(
-            FamilyHeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView
-                .elementKindSectionHeader,
-            withReuseIdentifier: FamilyHeaderView.identifier
         )
 
         collectionView.dataSource = self
@@ -86,20 +83,20 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         collectionView.collectionViewLayout = createLayout()
     }
 
-        private func setupAddMenu() {
-            let addMemberAction = UIAction(
-                title: "Add Member to current Family",
-                image: UIImage(systemName: "person.badge.plus")
-            ) { [weak self] _ in
-                if FamilyService.shared.getCurrentFamilyId() == nil {
-                    self?.showAlert(
-                        title: "No Family",
-                        message: "Create a family first to add members."
-                    )
-                    return
-                }
-                self?.performSegue(withIdentifier: "GoToAddMember", sender: nil)
+    private func setupAddMenu() {
+        let addMemberAction = UIAction(
+            title: "Add Member to current Family",
+            image: UIImage(systemName: "person.badge.plus")
+        ) { [weak self] _ in
+            if FamilyService.shared.getCurrentFamilyId() == nil {
+                self?.showAlert(
+                    title: "No Family",
+                    message: "Create a family first to add members."
+                )
+                return
             }
+            self?.performSegue(withIdentifier: "GoToAddMember", sender: nil)
+        }
 
         let createFamilyAction = UIAction(
             title: "Create new Family",
@@ -119,59 +116,29 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
 
             let itemSize = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(
-                        UIConstants.CollectionLayout.oneThirdWidth
-                    ),
-                    heightDimension: .fractionalHeight(
-                        UIConstants.CollectionLayout.fullWidth
-                    )
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalHeight(1.0)
                 )
-            )
-            itemSize.contentInsets = NSDirectionalEdgeInsets(
-                top: UIConstants.Spacing.small,
-                leading: UIConstants.Spacing.small,
-                bottom: UIConstants.Spacing.small,
-                trailing: UIConstants.Spacing.small
             )
 
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(
-                    UIConstants.CollectionLayout.fullWidth
-                ),
-                heightDimension: .absolute(
-                    UIConstants.CollectionLayout.memberItemHeight
-                )
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(66)
             )
 
-            let group = NSCollectionLayoutGroup.horizontal(
+            let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: groupSize,
                 subitems: [itemSize]
             )
 
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = NSDirectionalEdgeInsets(
-                top: UIConstants.Padding.medium,
-                leading: UIConstants.Spacing.medium,
-                bottom: UIConstants.Spacing.large,
-                trailing: UIConstants.Spacing.medium
+                top: 20,
+                leading: 16,
+                bottom: 20,
+                trailing: 16
             )
-            section.interGroupSpacing = UIConstants.Spacing.medium
-
-            let headerSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(
-                    UIConstants.CollectionLayout.fullWidth
-                ),
-                heightDimension: .estimated(
-                    UIConstants.CollectionLayout.headerHeight
-                )
-            )
-
-            let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
-            section.boundarySupplementaryItems = [header]
+            section.interGroupSpacing = 0 
 
             return section
         }
@@ -198,30 +165,10 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
         }
 
         let member = familyData[indexPath.row]
-        cell.configure(with: member)
+        let isFirst = indexPath.row == 0
+        let isLast = indexPath.row == familyData.count - 1
+        cell.configure(with: member, isFirst: isFirst, isLast: isLast)
         return cell
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-
-        if kind == UICollectionView.elementKindSectionHeader {
-            guard
-                let header = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: FamilyHeaderView.identifier,
-                    for: indexPath
-                ) as? FamilyHeaderView
-            else {
-                return UICollectionReusableView()
-            }
-
-            return header
-        }
-        return UICollectionReusableView()
     }
 
     func collectionView(
@@ -236,52 +183,49 @@ class FamilyViewController: UIViewController, UICollectionViewDelegate,
             sender: selectedMember
         )
     }
+
     // MARK: - Actions
 
     @IBAction func familySwitchButtonTapped(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "familySwitchSegue", sender: nil)
     }
 
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == SegueIdentifiers.goToMemberDetails {
-                if let destinationVC = segue.destination
-                    as? FamilyMemberViewController
-                {
-                    let selectedMember = sender as? FamilyMember
-                    destinationVC.familyMember = selectedMember
-                }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SegueIdentifiers.goToMemberDetails {
+            if let destinationVC = segue.destination
+                as? FamilyMemberViewController
+            {
+                let selectedMember = sender as? FamilyMember
+                destinationVC.familyMember = selectedMember
             }
-            
-            if segue.identifier == "familySwitchSegue" {
-                        // Replace 'ChooseFamilyViewController' with whatever you named your target VC
-                        if let destinationVC = segue.destination as? FamilySwitchTableViewController {
-                            
-                            // Set up the half-modal presentation (iOS 15+)
-                            if let sheet = destinationVC.sheetPresentationController {
-                                // .medium() gives the half-screen look, .large() allows it to be pulled up to full screen
-                                sheet.detents = [.medium(), .large()]
-                                sheet.prefersGrabberVisible = true // Shows the little handle at the top
-                                sheet.preferredCornerRadius = 24
-                            }
-                        }
-                    }
         }
-    
-        @objc private func handleFamiliesUpdated() {
-            setupData()
-            collectionView.reloadData()
-        }
-    
-        @objc private func handleMembersUpdated() {
-            setupData()
-            collectionView.reloadData()
-        }
-    
-        @objc private func handleFamilySelectionChanged() {
-            setupData()
-            collectionView.reloadData()
-            if let familyId = FamilyService.shared.getCurrentFamilyId() {
-                FamilyService.shared.fetchFamilyMembers(familyId: familyId, completion: nil)
+
+        if segue.identifier == "familySwitchSegue" {
+            if let destinationVC = segue.destination as? FamilySwitchTableViewController {
+                if let sheet = destinationVC.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                    sheet.prefersGrabberVisible = true 
+                    sheet.preferredCornerRadius = 24
+                }
             }
         }
     }
+
+    @objc private func handleFamiliesUpdated() {
+        setupData()
+        collectionView.reloadData()
+    }
+
+    @objc private func handleMembersUpdated() {
+        setupData()
+        collectionView.reloadData()
+    }
+
+    @objc private func handleFamilySelectionChanged() {
+        setupData()
+        collectionView.reloadData()
+        if let familyId = FamilyService.shared.getCurrentFamilyId() {
+            FamilyService.shared.fetchFamilyMembers(familyId: familyId, completion: nil)
+        }
+    }
+}

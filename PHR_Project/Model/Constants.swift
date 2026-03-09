@@ -47,7 +47,7 @@ enum UIConstants {
         static let fullWidth: CGFloat = 1.0
         
         static let memberItemHeight: CGFloat = 150
-        static let headerHeight: CGFloat = 220
+        static let headerHeight: CGFloat = 80
     }
     
     enum AnimationDuration {
