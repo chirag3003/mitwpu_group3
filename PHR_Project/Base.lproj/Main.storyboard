@@ -29,23 +29,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="qtS-Zd-ryI">
-                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="818.33333333333348"/>
+                                <rect key="frame" x="0.0" y="178.00000000000006" width="402" height="788.33333333333348"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nZK-hV-jzp">
-                                        <rect key="frame" x="16" y="8" width="370" height="400"/>
+                                        <rect key="frame" x="16" y="8" width="370" height="370"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiabetEase" translatesAutoresizingMaskIntoConstraints="NO" id="HPD-Ds-d3g">
-                                                <rect key="frame" x="60" y="100" width="250" height="300"/>
+                                                <rect key="frame" x="60" y="70" width="250" height="300"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="WOD-YF-ffA"/>
                                                 </constraints>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                             </imageView>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="100" left="60" bottom="0.0" right="60"/>
+                                        <edgeInsets key="layoutMargins" top="70" left="60" bottom="0.0" right="60"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YT6-sY-4Nr">
-                                        <rect key="frame" x="16" y="438" width="370" height="128.33333333333337"/>
+                                        <rect key="frame" x="16" y="408" width="370" height="128.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RZ-DR-tSB">
                                                 <rect key="frame" x="0.0" y="50" width="370" height="54"/>
@@ -63,7 +63,7 @@
                                         <edgeInsets key="layoutMargins" top="50" left="0.0" bottom="0.0" right="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-km-Sps">
-                                        <rect key="frame" x="16" y="596.33333333333337" width="370" height="146"/>
+                                        <rect key="frame" x="16" y="566.33333333333337" width="370" height="146"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRs-68-h6G">
                                                 <rect key="frame" x="16" y="8" width="338" height="60"/>
@@ -132,6 +132,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K3I-aO-srs">
                                         <rect key="frame" x="32" y="168" width="338" height="47"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -286,25 +287,25 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u55-2c-BG2">
                                                         <rect key="frame" x="70" y="0.0" width="57.666666666666657" height="80"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mmz-uj-24v">
                                                         <rect key="frame" x="132.66666666666666" y="0.0" width="58" height="80"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Y9-JV-SVr">
                                                         <rect key="frame" x="195.66666666666666" y="0.0" width="57.666666666666657" height="80"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DMq-HX-f1V">
                                                         <rect key="frame" x="258.33333333333331" y="0.0" width="57.666666666666686" height="80"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
