@@ -22,6 +22,7 @@ class OTPViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOTPFields()
+        setupTextFields()
     }
 
     // MARK: - OTP Field Setup
@@ -35,6 +36,29 @@ class OTPViewController: UIViewController {
         }
         otp1.becomeFirstResponder()
     }
+    
+    private func setupTextFields() {
+        styleTextField(otp1)
+        styleTextField(otp2)
+        styleTextField(otp3)
+        styleTextField(otp4)
+    }
+    
+    private func styleTextField(_ textField: UITextField) {
+        // This manually forces the rounding
+        textField.layer.cornerRadius = 16
+        textField.layer.masksToBounds = true
+        
+       
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.systemGray5.cgColor
+        
+       
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+    }
+    
 
     // MARK: - Actions
 
