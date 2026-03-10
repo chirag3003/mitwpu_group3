@@ -7,7 +7,9 @@
 
 import UIKit
 
-class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen {
+class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
+    SharedWriteAccessReceiving
+{
 
     var readings: [GlucoseReading] = [] {
         didSet{
@@ -16,6 +18,7 @@ class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen 
     }
 
     var familyMember: FamilyMember?
+    var canEditSharedData = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +101,29 @@ class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen 
         )
 
         return cell
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            guard let member = familyMember, canEditSharedData else { return }
+            let reading = readings[indexPath.row]
+            guard let apiId = reading.id else { return }
+            SharedDataService.shared.deleteGlucoseReading(
+                for: member.userId,
+                readingId: apiId
+            ) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.readings.remove(at: indexPath.row)
+                case .failure(let error):
+                    print("Error deleting shared glucose: \(error)")
+                }
+            }
+        }
     }
 
 }

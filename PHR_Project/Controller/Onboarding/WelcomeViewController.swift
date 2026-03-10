@@ -23,8 +23,7 @@ class WelcomeViewController: UIViewController {
                 image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
                 attributes: .destructive
             ) { [weak self] _ in
-                // Add your logout routing or logic here
-                // e.g., self?.performSegue(withIdentifier: "LogoutSegue", sender: nil)
+                self?.handleLogout()
             }
 
             let menu = UIMenu(
@@ -34,4 +33,26 @@ class WelcomeViewController: UIViewController {
 
             infoButton.menu = menu
         }
+    
+    private func handleLogout() {
+        AuthService.shared.logout()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let onboarding = storyboard.instantiateViewController(
+            withIdentifier: "onboardingNavController"
+        )
+        resetRootViewController(to: onboarding)
+    }
+    
+    private func resetRootViewController(to rootViewController: UIViewController) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return }
+        UIView.transition(
+            with: window,
+            duration: 0.4,
+            options: .transitionCrossDissolve
+        ) {
+            window.rootViewController = rootViewController
+        }
+    }
     }

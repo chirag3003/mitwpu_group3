@@ -19,6 +19,8 @@ class AddGlucoseModalViewController: UITableViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var glucoseTextField: UITextField!
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,17 @@ class AddGlucoseModalViewController: UITableViewController {
    
     // MARK: - Actions
     @IBAction func doneModalButton(_ sender: Any) {
+
+        if familyMember != nil && !canEditSharedData {
+            let alert = UIAlertController(
+                title: "Read-only",
+                message: "You don't have permission to add glucose readings for this member.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
         
         guard let text = glucoseTextField.text, let value = Int(text) else {
             // Optional: Show an alert if empty
@@ -56,17 +69,43 @@ class AddGlucoseModalViewController: UITableViewController {
         )
         
         // Call Service
-        GlucoseService.shared.addReading(newReading) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(_):
-                    // Dismiss
-                    self?.dismiss(animated: true)
-                case .failure(let error):
-                    print("Error adding glucose: \(error)")
-                    let alert = UIAlertController(title: "Error", message: "Failed to add reading.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self?.present(alert, animated: true)
+        if let member = familyMember {
+            SharedDataService.shared.addGlucoseReading(
+                for: member.userId,
+                reading: newReading
+            ) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print("Error adding shared glucose: \(error)")
+                        let alert = UIAlertController(
+                            title: "Error",
+                            message: "Failed to add reading.",
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(alert, animated: true)
+                    }
+                }
+            }
+        } else {
+            GlucoseService.shared.addReading(newReading) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print("Error adding glucose: \(error)")
+                        let alert = UIAlertController(
+                            title: "Error",
+                            message: "Failed to add reading.",
+                            preferredStyle: .alert
+                        )
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(alert, animated: true)
+                    }
                 }
             }
         }
@@ -109,4 +148,3 @@ class AddGlucoseModalViewController: UITableViewController {
     }
     
 }
-

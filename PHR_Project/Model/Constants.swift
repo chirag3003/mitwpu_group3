@@ -47,7 +47,7 @@ enum UIConstants {
         static let fullWidth: CGFloat = 1.0
         
         static let memberItemHeight: CGFloat = 150
-        static let headerHeight: CGFloat = 220
+        static let headerHeight: CGFloat = 80
     }
     
     enum AnimationDuration {
@@ -63,6 +63,9 @@ enum NotificationNames {
     static let waterIntakeUpdated = "waterIntakeUpdated"
     static let mealsUpdated = "MealsUpdated"
     static let glucoseUpdated = "GlucoseReadingsUpdated"
+    static let allergiesUpdated = "AllergiesUpdated"
+    static let documentsUpdated = "DocumentsUpdated"
+    static let doctorsUpdated = "DoctorsUpdated"
     static let familiesUpdated = "FamiliesUpdated"
     static let familyMembersUpdated = "FamilyMembersUpdated"
     static let familyPermissionsUpdated = "FamilyPermissionsUpdated"

@@ -1,6 +1,8 @@
 import UIKit
 
-class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen {
+class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
+    SharedWriteAccessReceiving
+{
     var familyMember: FamilyMember?
 
     // MARK: - Outlets
@@ -25,6 +27,7 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen {
     var currentCenteredIndex: Int = 15
     private var sharedWaterRecords: [WaterRecord] = []
     private var waterInsights: WaterInsightsResponse?
+    var canEditSharedData = false
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -198,10 +201,14 @@ extension WaterIntakeViewController {
     }
 
     @objc fileprivate func incrementGlassCount() {
-        guard familyMember == nil else { return }
+        if familyMember != nil && !canEditSharedData { return }
         let calendar = Calendar.current
         guard calendar.isDateInToday(selectedDate) else {
             showPastDateAlert()
+            return
+        }
+        if let member = familyMember {
+            updateSharedWater(for: member, delta: 1)
             return
         }
         WaterIntakeService.shared.incrementGlass(for: selectedDate) {
@@ -215,10 +222,14 @@ extension WaterIntakeViewController {
     }
 
     @objc fileprivate func decrementGlassCount() {
-        guard familyMember == nil else { return }
+        if familyMember != nil && !canEditSharedData { return }
         let calendar = Calendar.current
         guard calendar.isDateInToday(selectedDate) else {
             showPastDateAlert()
+            return
+        }
+        if let member = familyMember {
+            updateSharedWater(for: member, delta: -1)
             return
         }
         WaterIntakeService.shared.decrementGlass(for: selectedDate) {
@@ -275,7 +286,7 @@ extension WaterIntakeViewController {
             fetchSharedWaterIfNeeded(for: member) { [weak self] count in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    self.updateWaterUI(count: count, isToday: false)
+                    self.updateWaterUI(count: count, isToday: isToday)
                 }
             }
         } else {
@@ -298,7 +309,8 @@ extension WaterIntakeViewController {
         let progress = Float(count) / 10.0
         progressView.setProgress(to: min(progress, 1.0), animated: true)
 
-        let isEditable = familyMember == nil && isToday
+        let isEditable = (familyMember == nil && isToday)
+            || (familyMember != nil && canEditSharedData && isToday)
         increment.alpha = isEditable ? 1.0 : 0.3
         decrement.alpha = isEditable ? 1.0 : 0.3
         increment.isUserInteractionEnabled = isEditable
@@ -330,6 +342,33 @@ extension WaterIntakeViewController {
             }
         }
         return 0
+    }
+
+    private func updateSharedWater(for member: FamilyMember, delta: Int) {
+        SharedDataService.shared.fetchWater(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let records):
+                let current = self?.countForSelectedDate(from: records) ?? 0
+                let newCount = max(min(current + delta, 10), 0)
+                SharedDataService.shared.upsertWater(
+                    for: member.userId,
+                    dateRecorded: self?.selectedDate ?? Date(),
+                    glasses: newCount
+                ) { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.updateWaterIntakeUI()
+                        self?.reloadVisibleCells()
+                        self?.animateGlassValue()
+                        self?.provideHapticFeedback()
+                    case .failure(let error):
+                        print("Error updating shared water: \(error)")
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching shared water: \(error)")
+            }
+        }
     }
 
     private func fetchWaterInsights() {

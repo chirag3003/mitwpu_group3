@@ -8,7 +8,9 @@
 import QuickLook
 import UIKit
 
-class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
+class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
+    SharedWriteAccessReceiving
+{
 
     // MARK: - IBOutlets
 
@@ -26,6 +28,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     // Family Members
     var familyMember: FamilyMember?
+    var canEditSharedData = false
     // Date Formattter for sorting
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -50,13 +53,13 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(refreshData),
-            name: NSNotification.Name("DocumentsUpdated"),
+            name: NSNotification.Name(NotificationNames.documentsUpdated),
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(refreshData),
-            name: NSNotification.Name("DoctorsUpdated"),
+            name: NSNotification.Name(NotificationNames.doctorsUpdated),
             object: nil
         )
     }
@@ -76,6 +79,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     private func loadData() {
         // Fetch doctors and reports from services
         if let member = familyMember {
+            loadSharedDoctors(for: member)
             loadSharedDocuments(for: member)
         } else {
             doctorsData = DocDoctorService.shared.getDoctors()
@@ -85,6 +89,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
 
     @objc private func refreshData() {
         if let member = familyMember {
+            loadSharedDoctors(for: member)
             loadSharedDocuments(for: member)
         } else {
             doctorsData = DocDoctorService.shared.getDoctors()
@@ -114,7 +119,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
     private func updateNavigationButtons() {
         if familyMember != nil {
-            navigationItem.rightBarButtonItems = []
+            navigationItem.rightBarButtonItems = canEditSharedData ? [plusButton] : []
             return
         }
         if dataSegment.selectedSegmentIndex == 0 {
@@ -127,12 +132,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
     }
 
     @IBAction func didTapPlusButton(_ sender: Any) {
-        guard familyMember == nil else { return }
-        if familyMember != nil {
-            documentTableView.reloadData()
-            return
-        }
-
+        if familyMember != nil && !canEditSharedData { return }
+        
         if dataSegment.selectedSegmentIndex == 0 {
             // Prescriptions segment - Show Add Details modal
             showAddDetailsModal()
@@ -152,6 +153,12 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         if let navController = storyboard.instantiateViewController(
             withIdentifier: "AddDetailsNavViewController"
         ) as? UINavigationController {
+            if let addVC = navController.topViewController
+                as? AddDetailsTableViewController
+            {
+                addVC.familyMember = familyMember
+                addVC.canEditSharedData = canEditSharedData
+            }
             navController.modalPresentationStyle = .pageSheet
             present(navController, animated: true)
         }
@@ -163,6 +170,12 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
         if let uploadVC = storyboard.instantiateViewController(
             withIdentifier: "DocumentUploadNavViewController"
         ) as? UINavigationController {
+            if let docVC = uploadVC.topViewController
+                as? DocumentUploadViewController
+            {
+                docVC.familyMember = familyMember
+                docVC.canEditSharedData = canEditSharedData
+            }
             uploadVC.modalPresentationStyle = .pageSheet
             present(uploadVC, animated: true)
         }
@@ -186,11 +199,22 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen {
                     doctorList.append(DocDoctor(apiID: doctorId, name: doctorName))
                 }
 
-                self?.doctorsData = doctorList
                 self?.reportsData = reports.map { $0.asLegacyReportModel }
                 self?.documentTableView.reloadData()
             case .failure(let error):
                 print("Error fetching shared documents: \(error)")
+            }
+        }
+    }
+
+    private func loadSharedDoctors(for member: FamilyMember) {
+        SharedDataService.shared.fetchDocDoctors(for: member.userId) { [weak self] result in
+            switch result {
+            case .success(let doctors):
+                self?.doctorsData = doctors
+                self?.documentTableView.reloadData()
+            case .failure(let error):
+                print("Error fetching shared doctors: \(error)")
             }
         }
     }
@@ -374,7 +398,6 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
         } else {
-            guard familyMember == nil else { return }
             // Doctors - Navigate to prescriptions for this doctor
             let doctor = doctorsData[indexPath.row]
             performSegue(withIdentifier: "prescriptionsSegue", sender: doctor)
@@ -389,7 +412,21 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            guard familyMember == nil else { return }
+            if let member = familyMember {
+                guard canEditSharedData else { return }
+                if dataSegment.selectedSegmentIndex == 0 {
+                    let doctor = doctorsData[indexPath.row]
+                    if let doctorId = doctor.apiID {
+                        deleteSharedDoctor(for: member, doctorId: doctorId)
+                    }
+                } else {
+                    let report = reportsData[indexPath.row]
+                    if let reportId = report.apiID {
+                        deleteSharedDocument(for: member, documentId: reportId)
+                    }
+                }
+                return
+            }
             isDeleting = true
 
             if dataSegment.selectedSegmentIndex == 0 {
@@ -415,12 +452,64 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
                 as? PrescriptionPageViewController
             {
                 if familyMember != nil {
-                    return
+                    destinationVC.familyMember = familyMember
+                    destinationVC.canEditSharedData = canEditSharedData
                 }
                 // Pass selected doctor info
                 if let doctor = sender as? DocDoctor {
                     destinationVC.selectedDoctor = doctor
                 }
+            }
+        }
+
+        if let navController = segue.destination as? UINavigationController,
+            let uploadVC = navController.topViewController
+                as? DocumentUploadViewController
+        {
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
+        } else if let uploadVC = segue.destination
+            as? DocumentUploadViewController
+        {
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
+        } else if let navController = segue.destination as? UINavigationController,
+            let uploadVC = navController.topViewController
+                as? PrescriptionUploadTableViewController
+        {
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
+        } else if let uploadVC = segue.destination
+            as? PrescriptionUploadTableViewController
+        {
+            uploadVC.familyMember = familyMember
+            uploadVC.canEditSharedData = canEditSharedData
+        }
+    }
+
+    private func deleteSharedDocument(for member: FamilyMember, documentId: String) {
+        SharedDataService.shared.deleteDocument(
+            for: member.userId,
+            documentId: documentId
+        ) { [weak self] result in
+            switch result {
+            case .success:
+                self?.loadSharedDocuments(for: member)
+            case .failure(let error):
+                print("Error deleting shared document: \(error)")
+            }
+        }
+    }
+
+    private func deleteSharedDoctor(for member: FamilyMember, doctorId: String) {
+        SharedDataService.shared.deleteDocDoctor(for: member.userId, doctorId: doctorId) {
+            [weak self] result in
+            switch result {
+            case .success:
+                self?.loadSharedDoctors(for: member)
+                self?.loadSharedDocuments(for: member)
+            case .failure(let error):
+                print("Error deleting shared doctor: \(error)")
             }
         }
     }

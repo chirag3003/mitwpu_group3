@@ -95,7 +95,7 @@
         <!--glucoseStoryboard-->
         <scene sceneID="g4g-Co-Ufb">
             <objects>
-                <viewControllerPlaceholder storyboardName="glucose" referencedIdentifier="glucoseStoryboard" id="6CJ-54-KP3" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Glucose" referencedIdentifier="glucoseStoryboard" id="6CJ-54-KP3" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="LFB-4F-Xmm"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rqm-Zh-mDd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

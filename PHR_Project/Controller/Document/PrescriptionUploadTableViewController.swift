@@ -8,7 +8,9 @@
 import UIKit
 import UniformTypeIdentifiers
 
-class PrescriptionUploadTableViewController: UITableViewController {
+class PrescriptionUploadTableViewController: UITableViewController,
+    SharedWriteAccessReceiving
+{
     
     // MARK: - IBOutlets
     @IBOutlet weak var uploadFileButton: UIButton!
@@ -17,6 +19,8 @@ class PrescriptionUploadTableViewController: UITableViewController {
     // MARK: - Properties
     var selectedDoctor: DocDoctor?
     var doctorName: String?
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     private var selectedFileData: Data?
     private var selectedFileName: String?
@@ -55,10 +59,26 @@ class PrescriptionUploadTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func uploadFileButtonTapped(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to upload prescriptions for this member."
+            )
+            return
+        }
         presentDocumentPicker()
     }
     
     @IBAction func doneButton(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            showAlert(
+                title: "Read-only",
+                message:
+                    "You don't have permission to upload prescriptions for this member."
+            )
+            return
+        }
         uploadPrescription()
     }
 
@@ -122,18 +142,51 @@ class PrescriptionUploadTableViewController: UITableViewController {
         loadingAlert.view.heightAnchor.constraint(equalToConstant: 80).isActive = true
         present(loadingAlert, animated: true)
         
-        // Upload via DocumentService
-        DocumentService.shared.uploadPrescription(
-            fileData: fileData,
-            fileName: fileName,
-            doctorId: doctorId,
-            date: prescriptionDate
-        ) { [weak self] success in
-            loadingAlert.dismiss(animated: true) {
-                if success {
-                    self?.dismiss(animated: true)
-                } else {
-                    self?.showAlert(title: "Upload Failed", message: "Could not upload the prescription. Please try again.")
+        if let member = familyMember {
+            guard canEditSharedData else {
+                loadingAlert.dismiss(animated: true) {
+                    self.showAlert(
+                        title: "Read-only",
+                        message:
+                            "You don't have permission to upload prescriptions for this member."
+                    )
+                }
+                return
+            }
+            SharedDataService.shared.uploadSharedDocument(
+                for: member.userId,
+                fileData: fileData,
+                fileName: fileName,
+                documentType: "Prescription",
+                docDoctorId: doctorId,
+                date: prescriptionDate
+            ) { [weak self] result in
+                loadingAlert.dismiss(animated: true) {
+                    switch result {
+                    case .success:
+                        self?.dismiss(animated: true)
+                    case .failure:
+                        self?.showAlert(
+                            title: "Upload Failed",
+                            message:
+                                "Could not upload the prescription. Please try again."
+                        )
+                    }
+                }
+            }
+        } else {
+            DocumentService.shared.uploadPrescription(
+                fileData: fileData,
+                fileName: fileName,
+                doctorId: doctorId,
+                date: prescriptionDate
+            ) { [weak self] success in
+                loadingAlert.dismiss(animated: true) {
+                    if success {
+                        self?.dismiss(animated: true)
+                    } else {
+                        self?.showAlert(title: "Upload Failed", message: "Could not upload the prescription. Please try again.")
+                    }
                 }
             }
         }

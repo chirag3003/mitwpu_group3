@@ -33,7 +33,9 @@ class DocDoctorService {
                 self.doctors = fetched
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
-                        name: NSNotification.Name("DoctorsUpdated"),
+                        name: NSNotification.Name(
+                            NotificationNames.doctorsUpdated
+                        ),
                         object: nil
                     )
                 }
@@ -58,7 +60,9 @@ class DocDoctorService {
                 self.doctors.append(createdDoctor)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
-                        name: NSNotification.Name("DoctorsUpdated"),
+                        name: NSNotification.Name(
+                            NotificationNames.doctorsUpdated
+                        ),
                         object: nil
                     )
                 }
@@ -72,7 +76,7 @@ class DocDoctorService {
         // Optimistic delete
         doctors.removeAll { $0.apiID == id }
         NotificationCenter.default.post(
-            name: NSNotification.Name("DoctorsUpdated"),
+            name: NSNotification.Name(NotificationNames.doctorsUpdated),
             object: nil
         )
 

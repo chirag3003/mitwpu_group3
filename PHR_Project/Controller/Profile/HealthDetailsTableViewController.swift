@@ -38,6 +38,10 @@ class HealthDetailsTableViewController: UITableViewController,
 
         weightTextField.keyboardType = .decimalPad
         heightTextField.keyboardType = .decimalPad
+        
+        if let profileImage = profileData?.profileImage{
+            healthProfileImage.setImageFromURL(url: profileImage)
+        }
 
         healthProfileImage.addFullRoundedCorner()
         // Setup Tap Gesture for Profile Image
@@ -117,10 +121,9 @@ class HealthDetailsTableViewController: UITableViewController,
         weightTextField.text = "\(profileData?.weight ?? 0)"
         dobInput.date = profileData?.dob ?? Foundation.Date()
 
-        if let photoData = profileData?.imageData,
-            let savedImage = UIImage(data: photoData)
+        if let photoData = profileData?.profileImage
         {
-            healthProfileImage.image = savedImage
+            healthProfileImage.setImageFromURL(url: photoData)
             healthProfileImage.contentMode = .scaleAspectFill
         }
         setupPullDownButton()
@@ -336,10 +339,10 @@ class HealthDetailsTableViewController: UITableViewController,
             bloodType: bloodTypeButton.titleLabel?.text ?? "",
             height: Int(heightTextField?.text ?? "") ?? 0,
             weight: Int(weightTextField?.text ?? "") ?? 0,
-            imageData: photoData
+            profileImage: profileData?.profileImage
         )
 
-        ProfileService.shared.setProfile(to: profile)
+        ProfileService.shared.setProfile(to: profile, imageData: photoData)
 
     }
 

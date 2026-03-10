@@ -4,6 +4,10 @@ protocol FamilyMemberDataScreen {
     var familyMember: FamilyMember? { get set }
 }
 
+protocol SharedWriteAccessReceiving {
+    var canEditSharedData: Bool { get set }
+}
+
 class FamilyMemberViewController: UIViewController {
     var familyMember: FamilyMember?
     private var permissions = FamilyPermissionFlags(
@@ -18,6 +22,7 @@ class FamilyMemberViewController: UIViewController {
     private var isUpdating = false
     private var sharedOptionsList: [(title: String, segue: String)] = []
     private var sharedWriteAccess = false
+    private var canWriteSharedData = false
 
     // MARK: Outlets
     @IBOutlet weak var pfpImage: UIImageView!
@@ -66,6 +71,15 @@ class FamilyMemberViewController: UIViewController {
             } else if let allergyVC = segue.destination as? AllergyViewController {
                 allergyVC.canEditSharedData = sharedWriteAccess
             }
+        } else if let navController = segue.destination as? UINavigationController,
+            var destination = navController.topViewController
+                as? SharedWriteAccessReceiving
+        {
+            destination.canEditSharedData = canWriteSharedData
+        } else if var destination = segue.destination
+            as? SharedWriteAccessReceiving
+        {
+            destination.canEditSharedData = canWriteSharedData
         }
     }
 
@@ -94,6 +108,7 @@ class FamilyMemberViewController: UIViewController {
             guard let self = self else { return }
             self.sharedOptionsList = self.buildSharedOptions(from: permission)
             self.sharedWriteAccess = permission?.write ?? false
+            self.canWriteSharedData = permission?.write ?? false
             self.tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
         }
     }
@@ -254,7 +269,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
             // A larger negative number = more space
             titleLabel.bottomAnchor.constraint(
                 equalTo: headerView.bottomAnchor,
-                constant: -16
+                constant: -8
             ),
         ])
 

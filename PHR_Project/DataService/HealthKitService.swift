@@ -92,6 +92,7 @@ final class HealthKitService {
                 }
 
                 let steps = Int(sum.doubleValue(for: HKUnit.count()))
+                WidgetDataManager.shared.saveSteps(count: steps)
                 completion(.success(steps))
             }
         }

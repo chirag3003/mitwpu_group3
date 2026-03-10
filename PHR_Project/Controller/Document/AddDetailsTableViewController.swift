@@ -12,8 +12,14 @@ class AddDetailsTableViewController: UITableViewController {
     
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
+    var familyMember: FamilyMember?
+    var canEditSharedData = false
     
     @IBAction func doneButton(_ sender: Any) {
+        if familyMember != nil && !canEditSharedData {
+            dismiss(animated: true)
+            return
+        }
         
         guard let firstName = firstName.text, !firstName.isEmpty else {
             self.showAlert(
@@ -34,7 +40,26 @@ class AddDetailsTableViewController: UITableViewController {
         // Combine first and last name for doctor's full name
         let fullName = "Dr. \(firstName) \(lastName)"
         
-        // Create doctor via API
+        if let member = familyMember {
+            SharedDataService.shared.createDocDoctor(
+                for: member.userId,
+                name: fullName
+            ) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    self?.showAlert(
+                        title: "Error",
+                        message:
+                            "Failed to add doctor: \(error.localizedDescription)"
+                    )
+                }
+            }
+            return
+        }
+
+        // Create doctor via API (global list)
         DocDoctorService.shared.createDoctor(name: fullName)
         
         view.endEditing(true)

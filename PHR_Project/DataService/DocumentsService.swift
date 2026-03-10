@@ -74,7 +74,7 @@ class DocumentService {
                 self.documents = fetched
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
-                        name: NSNotification.Name("DocumentsUpdated"),
+                        name: NSNotification.Name(NotificationNames.documentsUpdated),
                         object: nil
                     )
                 }
@@ -88,7 +88,7 @@ class DocumentService {
         // Optimistic delete
         documents.removeAll { $0.apiID == id }
         NotificationCenter.default.post(
-            name: NSNotification.Name("DocumentsUpdated"),
+            name: NSNotification.Name(NotificationNames.documentsUpdated),
             object: nil
         )
 
@@ -123,7 +123,7 @@ class DocumentService {
             case .success(let doc):
                 self?.documents.append(doc)
                 NotificationCenter.default.post(
-                    name: NSNotification.Name("DocumentsUpdated"),
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
                     object: nil
                 )
                 completion(true)
@@ -154,7 +154,7 @@ class DocumentService {
             case .success(let doc):
                 self?.documents.append(doc)
                 NotificationCenter.default.post(
-                    name: NSNotification.Name("DocumentsUpdated"),
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
                     object: nil
                 )
                 completion(true)

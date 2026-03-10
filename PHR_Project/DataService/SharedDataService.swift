@@ -18,6 +18,47 @@ final class SharedDataService {
         )
     }
 
+    func addMeal(
+        for userId: String,
+        meal: Meal,
+        completion: @escaping (Result<Meal, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/meals",
+            method: .post,
+            body: meal
+        ) { (result: Result<Meal, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func updateMeal(
+        for userId: String,
+        mealId: String,
+        meal: Meal,
+        completion: @escaping (Result<Meal, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/meals/\(mealId)",
+            method: .put,
+            body: meal
+        ) { (result: Result<Meal, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
     func deleteMeal(
         for userId: String,
         mealId: String,
@@ -25,9 +66,16 @@ final class SharedDataService {
     ) {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/meals/\(mealId)",
-            method: .delete,
-            completion: completion
-        )
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.mealsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
     }
 
     func fetchGlucoseReadings(
@@ -41,6 +89,66 @@ final class SharedDataService {
         )
     }
 
+    func addGlucoseReading(
+        for userId: String,
+        reading: GlucoseReading,
+        completion: @escaping (Result<GlucoseReading, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/glucose",
+            method: .post,
+            body: reading
+        ) { (result: Result<GlucoseReading, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func updateGlucoseReading(
+        for userId: String,
+        readingId: String,
+        reading: GlucoseReading,
+        completion: @escaping (Result<GlucoseReading, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/glucose/\(readingId)",
+            method: .put,
+            body: reading
+        ) { (result: Result<GlucoseReading, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func deleteGlucoseReading(
+        for userId: String,
+        readingId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/glucose/\(readingId)",
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.glucoseUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
     func fetchSymptoms(
         for userId: String,
         completion: @escaping (Result<[Symptom], Error>) -> Void
@@ -52,6 +160,47 @@ final class SharedDataService {
         )
     }
 
+    func addSymptom(
+        for userId: String,
+        symptom: Symptom,
+        completion: @escaping (Result<Symptom, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/symptoms",
+            method: .post,
+            body: symptom
+        ) { (result: Result<Symptom, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func updateSymptom(
+        for userId: String,
+        symptomId: String,
+        symptom: Symptom,
+        completion: @escaping (Result<Symptom, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/symptoms/\(symptomId)",
+            method: .put,
+            body: symptom
+        ) { (result: Result<Symptom, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
     func deleteSymptom(
         for userId: String,
         symptomId: String,
@@ -59,9 +208,16 @@ final class SharedDataService {
     ) {
         APIService.shared.request(
             endpoint: "/shared/\(userId)/symptoms/\(symptomId)",
-            method: .delete,
-            completion: completion
-        )
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
     }
 
     func fetchDocuments(
@@ -75,6 +231,129 @@ final class SharedDataService {
         )
     }
 
+    func fetchDocDoctors(
+        for userId: String,
+        completion: @escaping (Result<[DocDoctor], Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors",
+            method: .get,
+            completion: completion
+        )
+    }
+
+    func createDocDoctor(
+        for userId: String,
+        name: String,
+        completion: @escaping (Result<DocDoctor, Error>) -> Void
+    ) {
+        let newDoctor = DocDoctor(name: name)
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors",
+            method: .post,
+            body: newDoctor
+        ) { (result: Result<DocDoctor, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func updateDocDoctor(
+        for userId: String,
+        doctorId: String,
+        name: String,
+        completion: @escaping (Result<DocDoctor, Error>) -> Void
+    ) {
+        let update = DocDoctor(apiID: doctorId, name: name)
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors/\(doctorId)",
+            method: .put,
+            body: update
+        ) { (result: Result<DocDoctor, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func deleteDocDoctor(
+        for userId: String,
+        doctorId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/docDoctors/\(doctorId)",
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.doctorsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func uploadSharedDocument(
+        for userId: String,
+        fileData: Data,
+        fileName: String,
+        documentType: String,
+        docDoctorId: String? = nil,
+        title: String? = nil,
+        date: Date,
+        completion: @escaping (Result<Document, Error>) -> Void
+    ) {
+        APIService.shared.uploadDocument(
+            endpoint: "/shared/\(userId)/documents",
+            fileData: fileData,
+            fileName: fileName,
+            mimeType: "application/pdf",
+            documentType: documentType,
+            docDoctorId: docDoctorId,
+            title: title,
+            date: date
+        ) { (result: Result<Document, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func deleteDocument(
+        for userId: String,
+        documentId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/documents/\(documentId)",
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+
     func fetchWater(
         for userId: String,
         completion: @escaping (Result<[WaterRecord], Error>) -> Void
@@ -84,6 +363,55 @@ final class SharedDataService {
             method: .get,
             completion: completion
         )
+    }
+
+    func upsertWater(
+        for userId: String,
+        dateRecorded: Date,
+        glasses: Int,
+        completion: @escaping (Result<WaterRecord, Error>) -> Void
+    ) {
+        struct WaterSharedRequest: Codable {
+            let dateRecorded: Date
+            let glasses: Int
+        }
+
+        let request = WaterSharedRequest(
+            dateRecorded: dateRecorded,
+            glasses: glasses
+        )
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/water",
+            method: .post,
+            body: request
+        ) { (result: Result<WaterRecord, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
+    }
+
+    func deleteWater(
+        for userId: String,
+        recordId: String,
+        completion: @escaping (Result<EmptyResponse, Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/water/\(recordId)",
+            method: .delete
+        ) { (result: Result<EmptyResponse, Error>) in
+            if case .success = result {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    object: nil
+                )
+            }
+            completion(result)
+        }
     }
 
     func fetchAllergies(

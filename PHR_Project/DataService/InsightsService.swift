@@ -264,4 +264,38 @@ class InsightsService {
             }
         }
     }
+
+    func generateSharedSummary(
+        for userId: String,
+        startDate: Date,
+        endDate: Date,
+        include: SummaryInclude,
+        completion: @escaping (String?) -> Void
+    ) {
+        let formatter = ISO8601DateFormatter()
+        let request = SummaryRequest(
+            startDate: formatter.string(from: startDate),
+            endDate: formatter.string(from: endDate),
+            include: include
+        )
+
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/insights/summary",
+            method: .post,
+            body: request
+        ) { (result: Result<SummaryResponse, Error>) in
+            switch result {
+            case .success(let response):
+                print(
+                    "✅ InsightsService: Shared summary generated successfully - \(response)"
+                )
+                completion(response.url)
+            case .failure(let error):
+                print(
+                    "❌ InsightsService: Failed to generate shared summary - \(error)"
+                )
+                completion(nil)
+            }
+        }
+    }
 }
