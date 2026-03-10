@@ -167,25 +167,29 @@ extension HomeViewController {
     private func updateProfileImage() {
         let profile = ProfileService.shared.getProfile()
         let defaultImage = UIImage(systemName: "person.fill")
-        
+
         let updateButton: (UIImage?) -> Void = { [weak self] image in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.profileButton.setImage(nil, for: .normal)
-                var config = self.profileButton.configuration ?? UIButton.Configuration.plain()
+                var config =
+                    self.profileButton.configuration
+                    ?? UIButton.Configuration.plain()
                 config.background.image = image
                 config.background.imageContentMode = .scaleAspectFill
-                
+
                 // If using SF Symbol, set a tint color to make it visible
                 if image == defaultImage {
                     config.baseForegroundColor = .systemGray
                 }
-                
+
                 self.profileButton.configuration = config
             }
         }
 
-        if let imagePath = profile.profileImage, let url = URL(string: imagePath) {
+        if let imagePath = profile.profileImage,
+            let url = URL(string: imagePath)
+        {
             URLSession.shared.dataTask(with: url) { data, _, _ in
                 if let data = data, let image = UIImage(data: data) {
                     updateButton(image)
@@ -469,11 +473,16 @@ extension HomeViewController {
         waterIntakeTap.cancelsTouchesInView = false
         waterIntakeCard.isUserInteractionEnabled = true
         waterIntakeCard.addGestureRecognizer(waterIntakeTap)
-        // Calories
+        // Calories & Meals
         setupCardNavigation(
             for: caloriesCard,
             action: #selector(caloriesCardTapped)
         )
+        setupCardNavigation(
+            for: nutrientStack,
+            action: #selector(caloriesCardTapped)
+        )
+
         // Steps
         setupCardNavigation(for: stepsCard, action: #selector(stepsCardTapped))
     }
