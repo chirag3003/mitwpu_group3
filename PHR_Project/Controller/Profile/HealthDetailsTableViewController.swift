@@ -211,7 +211,7 @@ class HealthDetailsTableViewController: UITableViewController,
             print("Diabetes Type Selected: \(action.title)")
         }
         let allDiabetesTypes = [
-            "Type 1", "Type 2", "Gestational", "Prediabetes",
+            "Type 1", "Type 2", "Gestational", "Prediabetes", "None",
         ]
 
         let actions: [UIAction] = allDiabetesTypes.map { typeTitle in
