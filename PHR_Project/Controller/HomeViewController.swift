@@ -8,6 +8,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var notificationView: UIView!
+    @IBOutlet weak var outOfGlassesLabel: UILabel!
     @IBOutlet weak var profileButton: UIButton!
 
     // Summary Cards
@@ -435,6 +436,13 @@ extension HomeViewController {
 
     private func updateWaterIntakeUI(with count: Int) {
         glassValue.text = "\(count)"
+
+        let savedTarget = UserDefaults.standard.integer(
+            forKey: "targetWaterGlasses"
+        )
+        let targetGlasses = savedTarget > 0 ? savedTarget : 10
+
+        outOfGlassesLabel.text = "Out of \(targetGlasses) glasses"
     }
 
     private func animateGlassValue() {
