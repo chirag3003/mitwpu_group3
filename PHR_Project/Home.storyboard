@@ -754,6 +754,7 @@
                         <outlet property="mealLogCardView" destination="OXF-aa-G9R" id="GwS-CL-O7c"/>
                         <outlet property="notificationView" destination="tPc-Lg-Io4" id="vGF-ia-Q6t"/>
                         <outlet property="nutrientStack" destination="fyC-6T-ZTc" id="caH-m4-3EO"/>
+                        <outlet property="outOfGlassesLabel" destination="aJh-V0-Lpz" id="e6S-3N-Z4C"/>
                         <outlet property="profileButton" destination="56U-6x-Am9" id="EnC-g6-19M"/>
                         <outlet property="proteinCard" destination="Ikb-Tz-h55" id="N3h-pe-xG1"/>
                         <outlet property="proteinLabel" destination="euW-Bp-56m" id="ffm-Po-6k2"/>

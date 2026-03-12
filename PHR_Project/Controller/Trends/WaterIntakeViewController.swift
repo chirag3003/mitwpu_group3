@@ -306,7 +306,7 @@ extension WaterIntakeViewController {
         // Fetch dynamic target
         let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
         let targetGlasses = savedCount > 0 ? savedCount : 10
-        
+        outOfGlassesLabel.text = "Out of \(targetGlasses) glasses"
         glassValue.text = "\(count)"
         
         // Dynamically calculate goal ml (assuming 250ml per glass)
