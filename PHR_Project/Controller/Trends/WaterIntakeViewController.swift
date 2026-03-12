@@ -254,12 +254,9 @@ extension WaterIntakeViewController {
     }
 
     fileprivate func reloadVisibleCells() {
-        // Reload all visible cells without animation to prevent visual glitches
         UIView.performWithoutAnimation {
-            if let visibleIndexPaths = dateCollectionView
-                .indexPathsForVisibleItems as? [IndexPath],
-                !visibleIndexPaths.isEmpty
-            {
+            let visibleIndexPaths = dateCollectionView.indexPathsForVisibleItems
+            if !visibleIndexPaths.isEmpty {
                 dateCollectionView.reloadItems(at: visibleIndexPaths)
             }
         }
