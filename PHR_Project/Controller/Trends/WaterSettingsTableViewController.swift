@@ -22,22 +22,23 @@ class WaterSettingsTableViewController: UITableViewController {
         var allButtons: [UIButton] = []
         var allSteppers: [UIStepper] = []
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            // Setup the system Edit button
-            self.navigationItem.rightBarButtonItem = self.editButtonItem
-            
-            // Store controls in arrays for easy management
-            allButtons = [measuredInButton]
-            allSteppers = [glassesStepper]
-            
-            setupMeasuredInButton()
-            setupGlassesStepper()
-            
-            // Initially disable all controls (not in edit mode)
-            updateControlsState(isEditing: false)
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        allButtons = [measuredInButton]
+        allSteppers = [glassesStepper]
+        
+        // Load the saved target glasses (default to 10 if not set)
+        let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+        glassCount = savedCount > 0 ? savedCount : 10
+        
+        setupMeasuredInButton()
+        setupGlassesStepper()
+        
+        updateControlsState(isEditing: false)
+    }
         
         // MARK: - Edit Mode Override
         
@@ -78,10 +79,12 @@ class WaterSettingsTableViewController: UITableViewController {
             updateGlassesLabel()
         }
         
-        @objc func stepperValueChanged(_ stepper: UIStepper) {
-            glassCount = Int(stepper.value)
-            updateGlassesLabel()
-        }
+    @objc func stepperValueChanged(_ stepper: UIStepper) {
+        glassCount = Int(stepper.value)
+        UserDefaults.standard.set(glassCount, forKey: "targetWaterGlasses")
+        updateGlassesLabel()
+
+    }
         
         func updateGlassesLabel() {
             glassesLabel.text = "\(glassCount)"
