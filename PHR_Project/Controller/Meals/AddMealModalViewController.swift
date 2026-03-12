@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class AddMealModalViewController: UITableViewController {
 
     // MARK: Outlets
@@ -19,14 +18,13 @@ class AddMealModalViewController: UITableViewController {
     @IBOutlet weak var mealDate: UIDatePicker!
     @IBOutlet weak var mealTime: UIDatePicker!
     @IBOutlet weak var mealCamera: UIImageView!
-    
+
     // MARK: Properties
     var selectedMeal: String?
     var capturedImage: UIImage?
     var familyMember: FamilyMember?
     var canEditSharedData = true
 
-    
     // MARK: Lifecycle
     //Initial setup when view loads
     override func viewDidLoad() {
@@ -38,7 +36,6 @@ class AddMealModalViewController: UITableViewController {
         updateStepperLabel()
     }
 
-    
     // MARK: Setup
     //Configure meal type dropdown menu
     func setupMealMenu() {
@@ -62,30 +59,31 @@ class AddMealModalViewController: UITableViewController {
         mealCamera.isUserInteractionEnabled = true
         mealCamera.contentMode = .scaleAspectFill
         mealCamera.clipsToBounds = true
-        
+
         let tapGesture = UITapGestureRecognizer(
             target: self,
             action: #selector(mealCameraTapped)
         )
         mealCamera.addGestureRecognizer(tapGesture)
     }
-    
+
     // Remove camera indicator after image is captured
     private func removeCameraIndicator() {
         mealCamera.viewWithTag(999)?.removeFromSuperview()
     }
-    
+
     // MARK: Camera Action
     @objc func mealCameraTapped() {
         launchCamera()
     }
-    
+
     // Public method to launch camera (callable from Deep Links)
     func launchCamera() {
         if familyMember != nil && !canEditSharedData {
             showAlert(
                 title: "Read-only",
-                message: "You don't have permission to add meals for this member."
+                message:
+                    "You don't have permission to add meals for this member."
             )
             return
         }
@@ -95,8 +93,6 @@ class AddMealModalViewController: UITableViewController {
         present(customCameraVC, animated: true)
     }
 
-    
-    
     // MARK: Stepper Control
     //Update quantity when stepper changes
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -108,7 +104,6 @@ class AddMealModalViewController: UITableViewController {
         stepperValue.text = "\(Int(qtyStepper.value))"
     }
 
-    
     // MARK: Actions
     //Validate inputs and save meal
     @IBAction func doneButton(_ sender: Any) {
@@ -119,21 +114,22 @@ class AddMealModalViewController: UITableViewController {
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+
     // MARK: Helper Methods
-    
+
     // Save meal to service
     private func saveMeal(name: String? = nil, type: String? = nil) {
         if familyMember != nil && !canEditSharedData {
             showAlert(
                 title: "Read-only",
-                message: "You don't have permission to add meals for this member."
+                message:
+                    "You don't have permission to add meals for this member."
             )
             return
         }
         // Use provided name or get from text field
         let mealName = name ?? mealName.text
-        
+
         // Validate meal name
         guard let validName = mealName, !validName.isEmpty else {
             self.showAlert(
@@ -145,7 +141,7 @@ class AddMealModalViewController: UITableViewController {
 
         // Use provided type or get from selected menu
         let mealType = type ?? selectedMeal
-        
+
         // Validate meal type
         guard let validType = mealType else {
             self.showAlert(
@@ -213,20 +209,22 @@ class AddMealModalViewController: UITableViewController {
             dismiss(animated: true)
         }
     }
-    
+
     // Save captured image to disk and return filename
     private func saveImageToDisk(_ image: UIImage) -> String {
         let filename = "meal_\(UUID().uuidString).jpg"
-        
-        guard let documentsDirectory = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask
-        ).first else {
-            return "dal" // Fallback to default
+
+        guard
+            let documentsDirectory = FileManager.default.urls(
+                for: .documentDirectory,
+                in: .userDomainMask
+            ).first
+        else {
+            return "dal"  // Fallback to default
         }
-        
+
         let fileURL = documentsDirectory.appendingPathComponent(filename)
-        
+
         if let data = image.jpegData(compressionQuality: 0.8) {
             do {
                 try data.write(to: fileURL)
@@ -235,38 +233,37 @@ class AddMealModalViewController: UITableViewController {
                 print("Error saving image: \(error)")
             }
         }
-        
-        return "dal" // Fallback to default
+
+        return "dal"  // Fallback to default
     }
 }
 
-
 extension AddMealModalViewController: CustomCameraDelegate {
-    
+
     // Handle captured image from camera
     func didCaptureImage(_ image: UIImage) {
         // Store the captured image
         capturedImage = image
-        
+
         // Update the image view
         mealCamera.image = image
         removeCameraIndicator()
-        
+
         // Dismiss camera
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            
+
             // Auto-analyze with AI and save immediately
             self.analyzeImageWithAI(image)
         }
     }
-    
+
     // Handle manual logging (user chose not to use camera)
     func didTapManuallyLog() {
         // Just dismiss the camera since we're already on the manual entry screen
         dismiss(animated: true)
     }
-    
+
     // AI Analysis Integration - Auto-save after analysis
     private func analyzeImageWithAI(_ image: UIImage) {
         // Show loading indicator
@@ -276,19 +273,19 @@ extension AddMealModalViewController: CustomCameraDelegate {
             preferredStyle: .alert
         )
         present(loadingAlert, animated: true)
-        
+
         MealService.shared.analyzeMeal(image: image) { [weak self] result in
             guard let self = self else { return }
-            
+
             // Dismiss loading
             loadingAlert.dismiss(animated: true) {
                 switch result {
                 case .success(let analyzedMeal):
-                    if let member = self.familyMember {
+                    if self.familyMember != nil {
                         // For family members, analyzeMeal incorrectly saved it to "Self"
                         // We delete that local copy and save it to the family member's profile instead
                         MealService.shared.deleteMeal(analyzedMeal)
-                        
+
                         self.saveMeal(
                             name: analyzedMeal.name,
                             type: self.determineMealType()
@@ -298,24 +295,25 @@ extension AddMealModalViewController: CustomCameraDelegate {
                         // We just need to dismiss the modal.
                         self.dismiss(animated: true)
                     }
-                    
+
                 case .failure(let error):
                     print("AI Analysis failed: \(error)")
-                    
+
                     // Show error and keep modal open for manual entry
                     self.showAlert(
                         title: "Analysis Failed",
-                        message: "Could not identify the meal. Please enter details manually."
+                        message:
+                            "Could not identify the meal. Please enter details manually."
                     )
                 }
             }
         }
     }
-    
+
     // Determine meal type based on current time
     private func determineMealType() -> String {
         let hour = Calendar.current.component(.hour, from: Date())
-        
+
         if hour >= 5 && hour < 11 {
             return "Breakfast"
         } else if hour >= 11 && hour < 16 {
