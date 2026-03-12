@@ -150,7 +150,7 @@ class BloodTypeViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             card.backgroundColor = self.unselectedColor
         }
-        changeLabelColor(in: card, to: .black)
+        changeLabelColor(in: card, to: .white)
     }
     
     private func changeLabelColor(in view: UIView, to color: UIColor) {

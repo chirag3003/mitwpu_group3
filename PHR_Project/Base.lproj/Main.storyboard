@@ -979,7 +979,7 @@
                                 <rect key="frame" x="24" y="186" width="354" height="4"/>
                             </progressView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rrc-Ar-hqc">
-                                <rect key="frame" x="0.0" y="206" width="402" height="686"/>
+                                <rect key="frame" x="0.0" y="206" width="402" height="782"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your diabetes type" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IO-V1-h2j">
                                         <rect key="frame" x="16" y="100" width="370" height="36"/>
@@ -988,7 +988,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6Of-GP-tQm">
-                                        <rect key="frame" x="16" y="152" width="370" height="304"/>
+                                        <rect key="frame" x="16" y="152" width="370" height="450"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="m3d-hQ-fOx">
                                                 <rect key="frame" x="8" y="20" width="354" height="130"/>
@@ -1090,14 +1090,44 @@
                                                     <constraint firstAttribute="height" constant="130" id="QWG-Rx-JmF"/>
                                                 </constraints>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="0Y0-IJ-IJR">
+                                                <rect key="frame" x="8" y="312" width="354" height="130"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7i-Yr-QaD">
+                                                        <rect key="frame" x="93" y="0.0" width="168" height="130"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="None" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USY-mV-J0c">
+                                                                <rect key="frame" x="34" y="35" width="100" height="60"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="e5f-Ep-6Bp"/>
+                                                                    <constraint firstAttribute="width" constant="100" id="skP-Yq-JSO"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="insights_bg"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="USY-mV-J0c" secondAttribute="trailing" constant="20" symbolic="YES" id="FTP-Pf-my5"/>
+                                                            <constraint firstItem="USY-mV-J0c" firstAttribute="top" secondItem="Y7i-Yr-QaD" secondAttribute="top" constant="35" id="gul-d1-ETb"/>
+                                                            <constraint firstItem="USY-mV-J0c" firstAttribute="leading" secondItem="Y7i-Yr-QaD" secondAttribute="leading" constant="34" id="j2c-gj-TDh"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="Xer-wW-d6c"/>
+                                                </constraints>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="93" bottom="0.0" right="93"/>
+                                            </stackView>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="20" left="8" bottom="8" right="8"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-rN-wZj">
-                                        <rect key="frame" x="16" y="472" width="370" height="138"/>
+                                        <rect key="frame" x="16" y="618" width="370" height="88"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OY6-R6-74G">
-                                                <rect key="frame" x="111" y="80" width="148" height="50"/>
+                                                <rect key="frame" x="111" y="30" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="9qF-aC-nTh"/>
                                                 </constraints>
@@ -1111,7 +1141,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="80" left="111" bottom="8" right="111"/>
+                                        <edgeInsets key="layoutMargins" top="30" left="111" bottom="8" right="111"/>
                                     </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="100" left="16" bottom="8" right="16"/>
@@ -1130,6 +1160,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Health Information" id="LdS-Ox-0eZ"/>
                     <connections>
+                        <outlet property="viewFive" destination="Y7i-Yr-QaD" id="JWH-xg-HmU"/>
                         <outlet property="viewFour" destination="FCS-Uy-unD" id="IwR-sU-Ea5"/>
                         <outlet property="viewOne" destination="doT-kL-VRz" id="49R-KI-n08"/>
                         <outlet property="viewThree" destination="hhm-Pv-pJr" id="p6R-4F-kB1"/>
