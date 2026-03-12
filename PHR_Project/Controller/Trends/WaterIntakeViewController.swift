@@ -8,6 +8,7 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
     // MARK: - Outlets
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var monthName: UILabel!
+    @IBOutlet weak var outOfGlassesLabel: UILabel!
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
     //glass value changes
@@ -358,7 +359,7 @@ extension WaterIntakeViewController {
             case .success(let records):
                 let current = self?.countForSelectedDate(from: records) ?? 0
                 
-                // Use target for number of glasses
+                // Use target instead of hardcoded 10
                 let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
                 let targetGlasses = savedCount > 0 ? savedCount : 10
                 let newCount = max(min(current + delta, targetGlasses), 0)

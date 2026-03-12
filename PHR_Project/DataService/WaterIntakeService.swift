@@ -88,7 +88,7 @@ class WaterIntakeService {
             let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
             let targetGlasses = savedCount > 0 ? savedCount : 10
             
-            // Use target for number of glasses
+            // Use target instead of hardcoded 10
             if currentCount >= targetGlasses {
                 completion(currentCount)
                 return

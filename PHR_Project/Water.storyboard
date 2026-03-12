@@ -299,6 +299,7 @@
                         <outlet property="insight2" destination="wyU-C8-zTC" id="9Rf-ba-e5q"/>
                         <outlet property="mlLabel" destination="98E-Ie-3O6" id="KE9-gu-dx3"/>
                         <outlet property="monthName" destination="V9u-OO-bmA" id="kun-G8-AcZ"/>
+                        <outlet property="outOfGlassesLabel" destination="GRw-wl-kqN" id="K6u-qo-mIf"/>
                         <outlet property="progressView" destination="SPF-LY-L1I" id="fKF-nn-zU7"/>
                     </connections>
                 </viewController>

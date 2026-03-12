@@ -83,6 +83,7 @@ class WaterSettingsTableViewController: UITableViewController {
         glassCount = Int(stepper.value)
         UserDefaults.standard.set(glassCount, forKey: "targetWaterGlasses")
         updateGlassesLabel()
+
     }
         
         func updateGlassesLabel() {
