@@ -304,11 +304,13 @@ extension WaterIntakeViewController {
 
     private func updateWaterUI(count: Int, isToday: Bool) {
         // Fetch dynamic target
-        let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+        let savedCount = UserDefaults.standard.integer(
+            forKey: "targetWaterGlasses"
+        )
         let targetGlasses = savedCount > 0 ? savedCount : 10
         outOfGlassesLabel.text = "Out of \(targetGlasses) glasses"
         glassValue.text = "\(count)"
-        
+
         // Dynamically calculate goal ml (assuming 250ml per glass)
         let currentMl = count * 250
         let goalMl = targetGlasses * 250
@@ -318,7 +320,8 @@ extension WaterIntakeViewController {
         let progress = Float(count) / Float(targetGlasses)
         progressView.setProgress(to: min(progress, 1.0), animated: true)
 
-        let isEditable = (familyMember == nil && isToday)
+        let isEditable =
+            (familyMember == nil && isToday)
             || (familyMember != nil && canEditSharedData && isToday)
         increment.alpha = isEditable ? 1.0 : 0.3
         decrement.alpha = isEditable ? 1.0 : 0.3
@@ -330,7 +333,8 @@ extension WaterIntakeViewController {
         for member: FamilyMember,
         completion: @escaping (Int) -> Void
     ) {
-        SharedDataService.shared.fetchWater(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchWater(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let records):
                 self?.sharedWaterRecords = records
@@ -354,16 +358,19 @@ extension WaterIntakeViewController {
     }
 
     private func updateSharedWater(for member: FamilyMember, delta: Int) {
-        SharedDataService.shared.fetchWater(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchWater(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let records):
                 let current = self?.countForSelectedDate(from: records) ?? 0
-                
+
                 // Use target instead of hardcoded 10
-                let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+                let savedCount = UserDefaults.standard.integer(
+                    forKey: "targetWaterGlasses"
+                )
                 let targetGlasses = savedCount > 0 ? savedCount : 10
                 let newCount = max(min(current + delta, targetGlasses), 0)
-                
+
                 SharedDataService.shared.upsertWater(
                     for: member.userId,
                     dateRecorded: self?.selectedDate ?? Date(),
@@ -387,7 +394,9 @@ extension WaterIntakeViewController {
 
     private func fetchWaterInsights() {
         if let member = familyMember {
-            InsightsService.shared.fetchSharedWaterInsights(userId: member.userId) {
+            InsightsService.shared.fetchSharedWaterInsights(
+                userId: member.userId
+            ) {
                 [weak self] response in
                 guard let self = self, let insights = response else { return }
                 self.waterInsights = insights
@@ -407,12 +416,14 @@ extension WaterIntakeViewController {
         if response.insights.count >= 1 {
             let label = insight1.subviews.compactMap { $0 as? UILabel }.first
             label?.text = response.insights[0].description
-            insight1.backgroundColor = response.insights[0].type.color.withAlphaComponent(0.15)
+            insight1.backgroundColor = response.insights[0].type.color
+                .withAlphaComponent(0.15)
         }
         if response.insights.count >= 2 {
             let label = insight2.subviews.compactMap { $0 as? UILabel }.first
             label?.text = response.insights[1].description
-            insight2.backgroundColor = response.insights[1].type.color.withAlphaComponent(0.15)
+            insight2.backgroundColor = response.insights[1].type.color
+                .withAlphaComponent(0.15)
         }
     }
 
@@ -474,15 +485,21 @@ extension WaterIntakeViewController: UICollectionViewDataSource,
                 switch result {
                 case .success(let records):
                     let calendar = Calendar.current
-                    count = records.first(where: {
-                        calendar.isDate($0.dateRecorded, inSameDayAs: targetDate)
-                    })?.glasses ?? 0
+                    count =
+                        records.first(where: {
+                            calendar.isDate(
+                                $0.dateRecorded,
+                                inSameDayAs: targetDate
+                            )
+                        })?.glasses ?? 0
                 case .failure(let error):
                     print("Error fetching shared water: \(error)")
                     count = 0
                 }
 
-                let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+                let savedCount = UserDefaults.standard.integer(
+                    forKey: "targetWaterGlasses"
+                )
                 let targetGlasses = savedCount > 0 ? savedCount : 10
                 let progress = Float(count) / Float(targetGlasses)
                 DispatchQueue.main.async {
