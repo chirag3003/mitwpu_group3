@@ -991,6 +991,7 @@
                                                             <command title="Type 2" menuElementState="on" id="eB0-hU-5e5"/>
                                                             <command title="Gestational" id="cK9-hr-aKI"/>
                                                             <command title="Prediabetic" id="cRr-XI-ZeG"/>
+                                                            <command title="None" id="EHr-GZ-MVW"/>
                                                         </children>
                                                     </menu>
                                                     <state key="normal" title="Button"/>
