@@ -84,11 +84,16 @@ class WaterIntakeService {
     func incrementGlass(for date: Date, completion: @escaping (Int) -> Void) {
         fetchGlassCount(for: date) { [weak self] currentCount in
             guard let self = self else { return }
-            if currentCount >= 10 {
+            
+            let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+            let targetGlasses = savedCount > 0 ? savedCount : 10
+            
+            // Use target for number of glasses
+            if currentCount >= targetGlasses {
                 completion(currentCount)
                 return
             }
-            let newCount = min(currentCount + 1, 10)
+            let newCount = min(currentCount + 1, targetGlasses)
             self.upsertGlassCount(for: date, glasses: newCount, completion: completion)
         }
     }

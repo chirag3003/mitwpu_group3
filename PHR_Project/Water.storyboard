@@ -405,7 +405,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYn-Cd-4S5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2172" y="520"/>
+            <point key="canvasLocation" x="2124" y="444"/>
         </scene>
         <!--Water Info Modal View Controller-->
         <scene sceneID="XYY-By-ifB">
@@ -504,7 +504,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uNd-jT-YWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2078.6259541984732" y="1267.605633802817"/>
+            <point key="canvasLocation" x="2124" y="1187"/>
         </scene>
     </scenes>
     <resources>

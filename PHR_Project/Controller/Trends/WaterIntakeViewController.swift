@@ -75,6 +75,7 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateWaterIntakeUI()
+        dateCollectionView.reloadData()
     }
 
     deinit {
@@ -301,12 +302,19 @@ extension WaterIntakeViewController {
     }
 
     private func updateWaterUI(count: Int, isToday: Bool) {
+        // Fetch dynamic target
+        let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+        let targetGlasses = savedCount > 0 ? savedCount : 10
+        
         glassValue.text = "\(count)"
+        
+        // Dynamically calculate goal ml (assuming 250ml per glass)
         let currentMl = count * 250
-        let goalMl = 2500
+        let goalMl = targetGlasses * 250
         mlLabel.text = "\(currentMl)/\(goalMl) ml"
 
-        let progress = Float(count) / 10.0
+        // Dynamically calculate progress
+        let progress = Float(count) / Float(targetGlasses)
         progressView.setProgress(to: min(progress, 1.0), animated: true)
 
         let isEditable = (familyMember == nil && isToday)
@@ -349,7 +357,12 @@ extension WaterIntakeViewController {
             switch result {
             case .success(let records):
                 let current = self?.countForSelectedDate(from: records) ?? 0
-                let newCount = max(min(current + delta, 10), 0)
+                
+                // Use target for number of glasses
+                let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+                let targetGlasses = savedCount > 0 ? savedCount : 10
+                let newCount = max(min(current + delta, targetGlasses), 0)
+                
                 SharedDataService.shared.upsertWater(
                     for: member.userId,
                     dateRecorded: self?.selectedDate ?? Date(),
@@ -468,7 +481,9 @@ extension WaterIntakeViewController: UICollectionViewDataSource,
                     count = 0
                 }
 
-                let progress = Float(count) / 10.0
+                let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+                let targetGlasses = savedCount > 0 ? savedCount : 10
+                let progress = Float(count) / Float(targetGlasses)
                 DispatchQueue.main.async {
                     guard let cell = cell,
                         let collectionView = collectionView,
