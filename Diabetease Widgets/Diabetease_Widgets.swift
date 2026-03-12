@@ -154,11 +154,11 @@ struct MediumWidgetView: View {
     var entry: HealthEntry
     
     var body: some View {
-        VStack(spacing: 16) {
-            // Top Row: Stats (Glucose & Steps)
+        VStack {
+            // MARK: - TOP ROW
             HStack(alignment: .top) {
                 // Glucose Section
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 4) {
                         Image(systemName: "drop.fill")
                             .font(.caption2)
@@ -169,14 +169,26 @@ struct MediumWidgetView: View {
                             .foregroundStyle(.secondary)
                     }
                     
-                    HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text("\(entry.glucose)")
-                            .font(.system(size: 34, weight: .heavy, design: .rounded))
-                            .foregroundColor(.primary)
-                        Text("mg/dL")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
+                    // Value & Add Button
+                    HStack(alignment: .center, spacing: 8) {
+                        HStack(alignment: .firstTextBaseline, spacing: 2) {
+                            Text("\(entry.glucose)")
+                                .font(.system(size: 34, weight: .heavy, design: .rounded))
+                                .foregroundColor(.primary)
+                            Text("mg/dL")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.secondary)
+                        }
+                        
+                        Link(destination: URL(string: "phr://add-glucose")!) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 14, weight: .bold))
+                                .frame(width: 28, height: 28)
+                                .background(Color.red.opacity(0.15))
+                                .foregroundColor(.red)
+                                .clipShape(Circle())
+                        }
                     }
                     
                     Text(timeAgo(entry.glucoseDate))
@@ -199,80 +211,92 @@ struct MediumWidgetView: View {
                     }
                     
                     Text("\(entry.stepCount)")
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .font(.system(size: 26, weight: .bold, design: .rounded))
                         .contentTransition(.numericText(value: Double(entry.stepCount)))
                 }
             }
             
-            // Bottom Row: Actions (Water & Quick Links)
-            HStack {
-                // Water Control (Capsule Style)
-                HStack(spacing: 0) {
-                    Button(intent: DecrementWaterIntent()) {
-                        Image(systemName: "minus")
-                            .font(.system(size: 12, weight: .bold))
-                            .frame(width: 32, height: 32)
-                            .background(Color.blue.opacity(0.1))
-                            .foregroundColor(.blue)
-                    }
-                    .buttonStyle(.plain)
-                    
-                    HStack(spacing: 2) {
-                        Image(systemName: "drop.fill")
-                            .font(.caption2)
-                            .foregroundColor(.blue.opacity(0.7))
+            Spacer()
+            
+            // MARK: - BOTTOM ROW
+            HStack(alignment: .bottom) {
+                // Water Control
+                HStack(spacing: 8) {
+                    // Stepper Capsule
+                    HStack(spacing: 0) {
+                        Button(intent: DecrementWaterIntent()) {
+                            Image(systemName: "minus")
+                                .font(.system(size: 14, weight: .bold))
+                                .frame(width: 32, height: 32)
+                                .foregroundColor(.blue)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        
                         Text("\(entry.waterCount)")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 16, weight: .bold))
                             .contentTransition(.numericText(value: Double(entry.waterCount)))
+                            .frame(width: 24)
+                            .multilineTextAlignment(.center)
+                        
+                        Button(intent: IncrementWaterIntent()) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 14, weight: .bold))
+                                .frame(width: 32, height: 32)
+                                .foregroundColor(.blue)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .frame(width: 50)
+                    .background(Color.blue.opacity(0.15))
+                    .clipShape(Capsule())
                     
-                    Button(intent: IncrementWaterIntent()) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 12, weight: .bold))
-                            .frame(width: 32, height: 32)
-                            .background(Color.blue.opacity(0.1))
-                            .foregroundColor(.blue)
-                    }
-                    .buttonStyle(.plain)
+                    // Reduced Droplet Image Size
+                    Image(systemName: "drop.fill")
+                        .font(.subheadline) // Reduced size
+                        .foregroundColor(.blue.opacity(0.7))
                 }
-                .background(Color.blue.opacity(0.05))
-                .clipShape(Capsule())
+                .padding(.bottom, 2)
                 
                 Spacer()
                 
-                // Quick Action Buttons
-                HStack(spacing: 12) {
-                    Link(destination: URL(string: "phr://add-meal")!) {
+                // MARK: - Meals Section
+                VStack(alignment: .trailing, spacing: 6) {
+                    // Title perfectly matches the "STEPS" title format above it
+                    HStack(spacing: 4) {
+                        Text("MEALS")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.secondary)
                         Image(systemName: "fork.knife")
-                            .font(.system(size: 14, weight: .semibold))
-                            .frame(width: 36, height: 36)
-                            .background(Color.orange.opacity(0.15))
+                            .font(.caption2)
                             .foregroundColor(.orange)
-                            .clipShape(Circle())
                     }
                     
-                    Link(destination: URL(string: "phr://add-meal?camera=true")!) {
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 14, weight: .semibold))
-                            .frame(width: 36, height: 36)
-                            .background(Color.gray.opacity(0.15))
-                            .foregroundColor(.primary)
-                            .clipShape(Circle())
-                    }
-                    
-                    Link(destination: URL(string: "phr://add-glucose")!) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 16, weight: .bold))
-                            .frame(width: 36, height: 36)
-                            .background(Color.red.opacity(0.15))
-                            .foregroundColor(.red)
-                            .clipShape(Circle())
+                    HStack(spacing: 12) {
+                        Link(destination: URL(string: "phr://add-meal")!) {
+                            Image(systemName: "fork.knife")
+                                .font(.system(size: 14, weight: .semibold))
+                                .frame(width: 36, height: 36)
+                                .background(Color.orange.opacity(0.15))
+                                .foregroundColor(.orange)
+                                .clipShape(Circle())
+                        }
+                        
+                        Link(destination: URL(string: "phr://add-meal?camera=true")!) {
+                            Image(systemName: "camera.fill")
+                                .font(.system(size: 14, weight: .semibold))
+                                .frame(width: 36, height: 36)
+                                .background(Color.gray.opacity(0.15))
+                                .foregroundColor(.primary)
+                                .clipShape(Circle())
+                        }
                     }
                 }
             }
         }
         .padding(.vertical, 4)
+        .padding(.horizontal, 2)
         .containerBackground(.fill.tertiary, for: .widget)
     }
     
