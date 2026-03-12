@@ -13,6 +13,7 @@ class DiabetesTypeViewController: UIViewController {
     @IBOutlet weak var viewTwo: UIView!
     @IBOutlet weak var viewThree: UIView!
     @IBOutlet weak var viewFour: UIView!
+    @IBOutlet weak var viewFive: UIView!
     
     // MARK: - Properties
     // Receive data from previous screen
@@ -29,6 +30,7 @@ class DiabetesTypeViewController: UIViewController {
         case type2 = "Type 2"
         case gestational = "Gestational"
         case pre = "Pre"
+        case noDiabetes = "None"
     }
     
     override func viewDidLoad() {
@@ -47,10 +49,11 @@ class DiabetesTypeViewController: UIViewController {
         viewTwo.addRoundedCorner(radius: 10)
         viewThree.addRoundedCorner(radius: 10)
         viewFour.addRoundedCorner(radius: 10)
+        viewFive.addRoundedCorner(radius: 10)
     }
     
     private func setupCardViews() {
-        let cards = [viewOne, viewTwo, viewThree, viewFour]
+        let cards = [viewOne, viewTwo, viewThree, viewFour, viewFive]
         
         for card in cards {
             guard let card = card else { continue }
@@ -128,7 +131,7 @@ class DiabetesTypeViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             card.backgroundColor = self.unselectedColor
         }
-        changeLabelColor(in: card, to: .black) // Adjust to your preferred unselected label color
+        changeLabelColor(in: card, to: .white) // Adjust to your preferred unselected label color
     }
     
     private func changeLabelColor(in view: UIView, to color: UIColor) {
@@ -145,6 +148,7 @@ class DiabetesTypeViewController: UIViewController {
         case viewTwo:   return .type2
         case viewThree: return .gestational
         case viewFour:  return .pre
+        case viewFive:  return .noDiabetes
         default:        return nil
         }
     }
