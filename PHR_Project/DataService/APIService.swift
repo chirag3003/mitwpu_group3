@@ -24,7 +24,10 @@ class APIService {
     /// Attaches the Bearer token from AuthService if available
     private func addAuthHeader(to request: inout URLRequest) {
         if let token = AuthService.shared.token {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.setValue(
+                "Bearer \(token)",
+                forHTTPHeaderField: "Authorization"
+            )
         }
     }
 

@@ -57,7 +57,9 @@ final class FamilyPermissionsService {
             switch result {
             case .success(let permission):
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyPermissionsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyPermissionsUpdated
+                    ),
                     object: nil
                 )
                 completion(permission)
@@ -93,7 +95,9 @@ final class FamilyPermissionsService {
             switch result {
             case .success(let permission):
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyPermissionsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyPermissionsUpdated
+                    ),
                     object: nil
                 )
                 completion(permission)
@@ -115,7 +119,9 @@ final class FamilyPermissionsService {
             switch result {
             case .success:
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyPermissionsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyPermissionsUpdated
+                    ),
                     object: nil
                 )
                 completion(true)

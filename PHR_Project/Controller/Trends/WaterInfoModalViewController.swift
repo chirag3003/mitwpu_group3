@@ -14,9 +14,7 @@ class WaterInfoModalViewController: UIViewController {
     //To close the modal
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true)
-        
+
     }
-    
-   
 
 }

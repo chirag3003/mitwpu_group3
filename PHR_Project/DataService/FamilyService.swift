@@ -16,7 +16,9 @@ final class FamilyService {
         didSet {
             UserDefaults.standard.set(currentFamilyId, forKey: currentFamilyKey)
             NotificationCenter.default.post(
-                name: NSNotification.Name(NotificationNames.familySelectionUpdated),
+                name: NSNotification.Name(
+                    NotificationNames.familySelectionUpdated
+                ),
                 object: nil
             )
         }
@@ -104,7 +106,9 @@ final class FamilyService {
                     self?.families.append(family)
                 }
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyMembersUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyMembersUpdated
+                    ),
                     object: nil
                 )
                 completion?(true)
@@ -115,7 +119,10 @@ final class FamilyService {
         }
     }
 
-    func createFamily(name: String, completion: @escaping (Result<Family, Error>) -> Void) {
+    func createFamily(
+        name: String,
+        completion: @escaping (Result<Family, Error>) -> Void
+    ) {
         struct CreateFamilyBody: Encodable {
             let name: String
         }
@@ -130,7 +137,10 @@ final class FamilyService {
                 self?.families.append(family)
                 self?.currentFamilyId = family.apiID
                 if let familyId = family.apiID {
-                    self?.fetchFamilyMembers(familyId: familyId, completion: nil)
+                    self?.fetchFamilyMembers(
+                        familyId: familyId,
+                        completion: nil
+                    )
                 }
                 completion(.success(family))
             case .failure(let error):
@@ -206,10 +216,15 @@ final class FamilyService {
                     self?.families[index] = updated
                 }
                 if let familyId = updated.apiID {
-                    self?.fetchFamilyMembers(familyId: familyId, completion: nil)
+                    self?.fetchFamilyMembers(
+                        familyId: familyId,
+                        completion: nil
+                    )
                 }
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyMembersUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyMembersUpdated
+                    ),
                     object: nil
                 )
                 completion(.success(updated))
@@ -241,10 +256,15 @@ final class FamilyService {
                     self?.families[index] = updated
                 }
                 if let familyId = updated.apiID {
-                    self?.fetchFamilyMembers(familyId: familyId, completion: nil)
+                    self?.fetchFamilyMembers(
+                        familyId: familyId,
+                        completion: nil
+                    )
                 }
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.familyMembersUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.familyMembersUpdated
+                    ),
                     object: nil
                 )
                 completion(.success(updated))
@@ -255,7 +275,10 @@ final class FamilyService {
     }
 
     func leaveFamily(familyId: String, completion: @escaping (Bool) -> Void) {
-        APIService.shared.request(endpoint: "/family/\(familyId)/leave", method: .post) {
+        APIService.shared.request(
+            endpoint: "/family/\(familyId)/leave",
+            method: .post
+        ) {
             [weak self] (result: Result<LeaveFamilyResponse, Error>) in
             switch result {
             case .success:
@@ -283,10 +306,12 @@ final class FamilyService {
             mapped.append(FamilyMember(user: family.admin, isAdmin: true))
         }
 
-        mapped.append(contentsOf: family.members.compactMap { member in
-            guard member.id != currentUserId else { return nil }
-            return FamilyMember(user: member, isAdmin: false)
-        })
+        mapped.append(
+            contentsOf: family.members.compactMap { member in
+                guard member.id != currentUserId else { return nil }
+                return FamilyMember(user: member, isAdmin: false)
+            }
+        )
         return mapped
     }
 }

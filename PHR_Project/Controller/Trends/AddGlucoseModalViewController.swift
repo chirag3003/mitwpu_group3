@@ -15,50 +15,53 @@ class AddGlucoseModalViewController: UITableViewController {
 
     @IBOutlet weak var typeButton: UIButton!
     weak var delegate: AddGlucoseDelegate?
-    
+
     @IBOutlet weak var datePicker: UIDatePicker!
-    
+
     @IBOutlet weak var glucoseTextField: UITextField!
     var familyMember: FamilyMember?
     var canEditSharedData = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecordTypeButton()
         // If needed, additional setup can go here.
     }
 
-   
     // MARK: - Actions
     @IBAction func doneModalButton(_ sender: Any) {
 
         if familyMember != nil && !canEditSharedData {
             let alert = UIAlertController(
                 title: "Read-only",
-                message: "You don't have permission to add glucose readings for this member.",
+                message:
+                    "You don't have permission to add glucose readings for this member.",
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
             return
         }
-        
+
         guard let text = glucoseTextField.text, let value = Int(text) else {
             // Optional: Show an alert if empty
             return
         }
-        
+
         // Context Handling
-        let contextString = typeButton.menu?.children.first(where: { ($0 as? UIAction)?.state == .on })?.title ?? "Fasting"
+        let contextString =
+            typeButton.menu?.children.first(where: {
+                ($0 as? UIAction)?.state == .on
+            })?.title ?? "Fasting"
         let context = MealContext(rawValue: contextString)
-        
+
         // Date Components
         let date = datePicker.date
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
         let timeOfDay = TimeOfDay(hour: hour, minute: minute)
-        
+
         // Create Reading
         let newReading = GlucoseReading(
             value: value,
@@ -67,7 +70,7 @@ class AddGlucoseModalViewController: UITableViewController {
             mealContext: context,
             notes: nil
         )
-        
+
         // Call Service
         if let member = familyMember {
             SharedDataService.shared.addGlucoseReading(
@@ -85,7 +88,9 @@ class AddGlucoseModalViewController: UITableViewController {
                             message: "Failed to add reading.",
                             preferredStyle: .alert
                         )
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        alert.addAction(
+                            UIAlertAction(title: "OK", style: .default)
+                        )
                         self?.present(alert, animated: true)
                     }
                 }
@@ -103,7 +108,9 @@ class AddGlucoseModalViewController: UITableViewController {
                             message: "Failed to add reading.",
                             preferredStyle: .alert
                         )
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        alert.addAction(
+                            UIAlertAction(title: "OK", style: .default)
+                        )
                         self?.present(alert, animated: true)
                     }
                 }
@@ -112,14 +119,14 @@ class AddGlucoseModalViewController: UITableViewController {
     }
 
     @IBAction func closeModalButton(_ sender: Any) {
-        
+
         dismiss(animated: true)
     }
     func setupRecordTypeButton() {
         let selectionClosure = { (action: UIAction) in
             // Add any logic here to save the selection (e.g., self.selectedType = action.title)
         }
-        
+
         let allRecordTypes = ["Fasting", "After Meal"]
 
         // 1. Map the array of strings into an array of UIAction objects
@@ -133,12 +140,12 @@ class AddGlucoseModalViewController: UITableViewController {
             // 3. Create the UIAction with the dynamically determined state
             let action = UIAction(
                 title: typeTitle,
-                state: currentState, // Dynamically set to .on or .off
+                state: currentState,  // Dynamically set to .on or .off
                 handler: selectionClosure
             )
             return action
         }
-        
+
         let menu = UIMenu(children: actions)
 
         // Assumes your outlet is named 'typeButton'
@@ -146,5 +153,5 @@ class AddGlucoseModalViewController: UITableViewController {
         typeButton.showsMenuAsPrimaryAction = true
         typeButton.changesSelectionAsPrimaryAction = true
     }
-    
+
 }

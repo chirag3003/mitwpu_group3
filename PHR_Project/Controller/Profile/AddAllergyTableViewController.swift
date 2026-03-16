@@ -17,7 +17,7 @@ class AddAllergyTableViewController: UITableViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Setup Data Arrays
         allTextFields = [allergyIngredient, allergyDetailReaction]
 
@@ -101,9 +101,14 @@ class AddAllergyTableViewController: UITableViewController,
                     self.showLoader(false)
                     switch result {
                     case .success:
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popViewController(
+                            animated: true
+                        )
                     case .failure(let error):
-                        if case let APIError.httpError(statusCode, message) = error {
+                        if case APIError.httpError(
+                            let statusCode,
+                            let message
+                        ) = error {
                             print(
                                 "Shared allergy add failed (\(statusCode)): \(message)"
                             )
@@ -128,7 +133,9 @@ class AddAllergyTableViewController: UITableViewController,
                     switch result {
                     case .success:
 
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popViewController(
+                            animated: true
+                        )
 
                     case .failure(let error):
                         self.showAlert(

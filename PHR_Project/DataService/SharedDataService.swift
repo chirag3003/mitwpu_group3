@@ -172,7 +172,9 @@ final class SharedDataService {
         ) { (result: Result<Symptom, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.symptomsUpdated
+                    ),
                     object: nil
                 )
             }
@@ -193,7 +195,9 @@ final class SharedDataService {
         ) { (result: Result<Symptom, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.symptomsUpdated
+                    ),
                     object: nil
                 )
             }
@@ -212,7 +216,9 @@ final class SharedDataService {
         ) { (result: Result<EmptyResponse, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.symptomsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.symptomsUpdated
+                    ),
                     object: nil
                 )
             }
@@ -326,7 +332,9 @@ final class SharedDataService {
         ) { (result: Result<Document, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.documentsUpdated
+                    ),
                     object: nil
                 )
             }
@@ -345,14 +353,15 @@ final class SharedDataService {
         ) { (result: Result<EmptyResponse, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.documentsUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.documentsUpdated
+                    ),
                     object: nil
                 )
             }
             completion(result)
         }
     }
-
 
     func fetchWater(
         for userId: String,
@@ -387,7 +396,9 @@ final class SharedDataService {
         ) { (result: Result<WaterRecord, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.waterIntakeUpdated
+                    ),
                     object: nil
                 )
             }
@@ -406,7 +417,9 @@ final class SharedDataService {
         ) { (result: Result<EmptyResponse, Error>) in
             if case .success = result {
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.waterIntakeUpdated
+                    ),
                     object: nil
                 )
             }
@@ -445,7 +458,8 @@ final class SharedDataService {
                     userInfo: ["userId": userId]
                 )
             case .failure(let error):
-                if case let APIError.httpError(statusCode, message) = error {
+                if case APIError.httpError(let statusCode, let message) = error
+                {
                     print(
                         "Shared allergy add failed (\(statusCode)): \(message)"
                     )
@@ -476,7 +490,8 @@ final class SharedDataService {
                     userInfo: ["userId": userId]
                 )
             case .failure(let error):
-                if case let APIError.httpError(statusCode, message) = error {
+                if case APIError.httpError(let statusCode, let message) = error
+                {
                     print(
                         "Shared allergy delete failed (\(statusCode)): \(message)"
                     )

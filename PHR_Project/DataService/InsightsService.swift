@@ -13,7 +13,8 @@ class InsightsService {
     private var cachedMealInsights: MealInsightsResponse?
     private var cachedGlucoseInsights: GlucoseInsightsResponse?
     private var cachedWaterInsights: WaterInsightsResponse?
-    private var cachedSharedGlucoseInsights: [String: GlucoseInsightsResponse] = [:]
+    private var cachedSharedGlucoseInsights: [String: GlucoseInsightsResponse] =
+        [:]
     private var cachedSharedWaterInsights: [String: WaterInsightsResponse] = [:]
     private var mealInsightsCacheTime: Date?
     private var glucoseInsightsCacheTime: Date?
@@ -229,7 +230,7 @@ class InsightsService {
     }
 
     // MARK: - Summary Generation
-    
+
     /// Generate a comprehensive PDF health summary via API
     /// - Parameters:
     ///   - startDate: Start of date range
@@ -248,7 +249,7 @@ class InsightsService {
             endDate: formatter.string(from: endDate),
             include: include
         )
-        
+
         APIService.shared.request(
             endpoint: "/insights/summary",
             method: .post,
@@ -256,10 +257,14 @@ class InsightsService {
         ) { (result: Result<SummaryResponse, Error>) in
             switch result {
             case .success(let response):
-                print("✅ InsightsService: Summary generated successfully - \(response)")
+                print(
+                    "✅ InsightsService: Summary generated successfully - \(response)"
+                )
                 completion(response.url)
             case .failure(let error):
-                print("❌ InsightsService: Failed to generate summary - \(error)")
+                print(
+                    "❌ InsightsService: Failed to generate summary - \(error)"
+                )
                 completion(nil)
             }
         }

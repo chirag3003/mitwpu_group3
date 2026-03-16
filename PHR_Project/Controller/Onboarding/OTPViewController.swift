@@ -36,39 +36,42 @@ class OTPViewController: UIViewController {
         }
         otp1.becomeFirstResponder()
     }
-    
+
     private func setupTextFields() {
         styleTextField(otp1)
         styleTextField(otp2)
         styleTextField(otp3)
         styleTextField(otp4)
     }
-    
+
     private func styleTextField(_ textField: UITextField) {
         // This manually forces the rounding
         textField.layer.cornerRadius = 16
         textField.layer.masksToBounds = true
-        
-       
+
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.systemGray5.cgColor
-        
-       
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+
+        let paddingView = UIView(
+            frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height)
+        )
         textField.leftView = paddingView
         textField.leftViewMode = .always
     }
-    
 
     // MARK: - Actions
 
     @IBAction func onVerifyClick(_ sender: Any) {
         // Validate that all OTP fields have a digit
         guard let d1 = otp1.text, !d1.isEmpty,
-              let d2 = otp2.text, !d2.isEmpty,
-              let d3 = otp3.text, !d3.isEmpty,
-              let d4 = otp4.text, !d4.isEmpty else {
-            showAlert(title: "Incomplete OTP", message: "Please enter all 4 digits.")
+            let d2 = otp2.text, !d2.isEmpty,
+            let d3 = otp3.text, !d3.isEmpty,
+            let d4 = otp4.text, !d4.isEmpty
+        else {
+            showAlert(
+                title: "Incomplete OTP",
+                message: "Please enter all 4 digits."
+            )
             return
         }
 
@@ -81,12 +84,17 @@ class OTPViewController: UIViewController {
     private func loginAndCheckProfile() {
         showLoader()
 
-        AuthService.shared.login(phoneNumber: phoneNumber) { [weak self] success, errorMessage in
+        AuthService.shared.login(phoneNumber: phoneNumber) {
+            [weak self] success, errorMessage in
             guard let self = self else { return }
 
             if !success {
                 self.dismissLoader {
-                    self.showAlert(title: "Login Failed", message: errorMessage ?? "Something went wrong. Please try again.")
+                    self.showAlert(
+                        title: "Login Failed",
+                        message: errorMessage
+                            ?? "Something went wrong. Please try again."
+                    )
                 }
                 return
             }
@@ -114,13 +122,19 @@ class OTPViewController: UIViewController {
             case .success:
                 // null profile — new user, continue through onboarding
                 self.dismissLoader {
-                    self.performSegue(withIdentifier: "onOnboarding", sender: nil)
+                    self.performSegue(
+                        withIdentifier: "onOnboarding",
+                        sender: nil
+                    )
                 }
 
             case .failure:
                 // Network/decode error — fall back to onboarding
                 self.dismissLoader {
-                    self.performSegue(withIdentifier: "onOnboarding", sender: nil)
+                    self.performSegue(
+                        withIdentifier: "onOnboarding",
+                        sender: nil
+                    )
                 }
             }
         }
@@ -129,22 +143,34 @@ class OTPViewController: UIViewController {
     // MARK: - Helpers
 
     private func showLoader() {
-        let alert = UIAlertController(title: nil, message: "Signing in...", preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: nil,
+            message: "Signing in...",
+            preferredStyle: .alert
+        )
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.startAnimating()
         alert.view.addSubview(indicator)
         NSLayoutConstraint.activate([
-            indicator.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor),
-            indicator.leadingAnchor.constraint(equalTo: alert.view.leadingAnchor, constant: 20),
-            alert.view.heightAnchor.constraint(greaterThanOrEqualToConstant: 80)
+            indicator.centerYAnchor.constraint(
+                equalTo: alert.view.centerYAnchor
+            ),
+            indicator.leadingAnchor.constraint(
+                equalTo: alert.view.leadingAnchor,
+                constant: 20
+            ),
+            alert.view.heightAnchor.constraint(
+                greaterThanOrEqualToConstant: 80
+            ),
         ])
         present(alert, animated: true)
     }
 
     private func dismissLoader(completion: (() -> Void)? = nil) {
         if let presented = presentedViewController as? UIAlertController,
-           presented.title == nil {
+            presented.title == nil
+        {
             presented.dismiss(animated: true, completion: completion)
         } else {
             completion?()
@@ -157,7 +183,11 @@ class OTPViewController: UIViewController {
 
 extension OTPViewController: UITextFieldDelegate {
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         // Allow backspace
         if string.isEmpty {
             textField.text = ""
@@ -172,7 +202,9 @@ extension OTPViewController: UITextFieldDelegate {
         }
 
         // Only allow single digit
-        guard string.count == 1, string.rangeOfCharacter(from: .decimalDigits) != nil else {
+        guard string.count == 1,
+            string.rangeOfCharacter(from: .decimalDigits) != nil
+        else {
             return false
         }
 
