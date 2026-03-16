@@ -5,8 +5,8 @@
 //  Created by SDC_USER on 07/03/26.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 @main
 struct Diabetease_WidgetsBundle: WidgetBundle {
