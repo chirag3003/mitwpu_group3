@@ -30,8 +30,7 @@ class ProfileTableViewController: UITableViewController {
         userNameLabel.text = fullName.isEmpty ? "User Name" : fullName
 
         // Set the Profile Image!
-        if let photoData = profile.profileImage
-        {
+        if let photoData = profile.profileImage {
             profileImage.setImageFromURL(url: photoData)
         }
 
@@ -51,10 +50,14 @@ class ProfileTableViewController: UITableViewController {
     @IBAction func onDoneClick(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    
-    private func resetRootViewController(to rootViewController: UIViewController) {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first
+
+    private func resetRootViewController(
+        to rootViewController: UIViewController
+    ) {
+        guard
+            let windowScene = UIApplication.shared.connectedScenes.first
+                as? UIWindowScene,
+            let window = windowScene.windows.first
         else { return }
         UIView.transition(
             with: window,
@@ -75,7 +78,8 @@ class ProfileTableViewController: UITableViewController {
 
                 if granted {
                     ReminderNotificationService.shared.setEnabled(true)
-                    ReminderNotificationService.shared.scheduleDefaultReminders()
+                    ReminderNotificationService.shared
+                        .scheduleDefaultReminders()
                 } else {
                     self.notificationSwitch.setOn(false, animated: true)
                     ReminderNotificationService.shared.setEnabled(false)
@@ -92,7 +96,8 @@ class ProfileTableViewController: UITableViewController {
     private func showNotificationPermissionAlert() {
         let alert = UIAlertController(
             title: "Notifications Disabled",
-            message: "Enable notifications in Settings to receive meal and water reminders.",
+            message:
+                "Enable notifications in Settings to receive meal and water reminders.",
             preferredStyle: .alert
         )
 

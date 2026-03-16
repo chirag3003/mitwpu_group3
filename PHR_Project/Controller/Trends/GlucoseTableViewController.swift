@@ -12,7 +12,7 @@ class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
 {
 
     var readings: [GlucoseReading] = [] {
-        didSet{
+        didSet {
             tableView.reloadData()
         }
     }
@@ -38,13 +38,14 @@ class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func updateGlucoseData() {
         readings = GlucoseService.shared.getReadings()
     }
 
     private func loadSharedReadings(for member: FamilyMember) {
-        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let readings):
                 self?.readings = readings

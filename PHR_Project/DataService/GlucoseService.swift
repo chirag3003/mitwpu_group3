@@ -31,7 +31,9 @@ class GlucoseService {
                 DispatchQueue.main.async {
                     self.readings = fetchedReadings
                     // Update Widget
-                    if let latest = fetchedReadings.sorted(by: { $0.combinedDate < $1.combinedDate }).last {
+                    if let latest = fetchedReadings.sorted(by: {
+                        $0.combinedDate < $1.combinedDate
+                    }).last {
                         WidgetDataManager.shared.saveGlucose(
                             value: latest.value,
                             date: latest.combinedDate
@@ -70,6 +72,5 @@ class GlucoseService {
             }
         }
     }
-
 
 }

@@ -38,8 +38,8 @@ class HealthDetailsTableViewController: UITableViewController,
 
         weightTextField.keyboardType = .decimalPad
         heightTextField.keyboardType = .decimalPad
-        
-        if let profileImage = profileData?.profileImage{
+
+        if let profileImage = profileData?.profileImage {
             healthProfileImage.setImageFromURL(url: profileImage)
         }
 
@@ -121,8 +121,7 @@ class HealthDetailsTableViewController: UITableViewController,
         weightTextField.text = "\(profileData?.weight ?? 0)"
         dobInput.date = profileData?.dob ?? Foundation.Date()
 
-        if let photoData = profileData?.profileImage
-        {
+        if let photoData = profileData?.profileImage {
             healthProfileImage.setImageFromURL(url: photoData)
             healthProfileImage.contentMode = .scaleAspectFill
         }

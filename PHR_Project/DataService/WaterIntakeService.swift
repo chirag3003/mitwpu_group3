@@ -19,9 +19,9 @@ class WaterIntakeService {
     }()
 
     private init() {}
-    
+
     // MARK: - Public Methods
-    
+
     /// Fetch glass count for today
     func fetchGlassCount(completion: @escaping (Int) -> Void) {
         fetchGlassCount(for: Date(), completion: completion)
@@ -31,14 +31,20 @@ class WaterIntakeService {
     func fetchGlassCount(for date: Date, completion: @escaping (Int) -> Void) {
         // 1. Check if we have a pending update from the Widget for today
         if Calendar.current.isDateInToday(date),
-           let widgetData = WidgetDataManager.shared.getWater(),
-           widgetData.source == "widget" {
-            
+            let widgetData = WidgetDataManager.shared.getWater(),
+            widgetData.source == "widget"
+        {
+
             // Sync this widget value TO the server immediately
             // This prevents the server's old value from overwriting the widget's new value
-            upsertGlassCount(for: date, glasses: widgetData.count) { syncedCount in
+            upsertGlassCount(for: date, glasses: widgetData.count) {
+                syncedCount in
                 // After syncing, reset source to "app" so we don't sync again unnecessarily
-                WidgetDataManager.shared.saveWater(count: syncedCount, date: date, source: "app")
+                WidgetDataManager.shared.saveWater(
+                    count: syncedCount,
+                    date: date,
+                    source: "app"
+                )
                 completion(syncedCount)
             }
             return
@@ -53,21 +59,32 @@ class WaterIntakeService {
                 }
                 completion(record.glasses)
             case .failure(let error):
-                print("❌ WaterIntakeService: Failed to fetch water intake - \(error)")
+                print(
+                    "❌ WaterIntakeService: Failed to fetch water intake - \(error)"
+                )
                 completion(0)
             }
         }
     }
 
-    func fetchRange(startDate: Date, endDate: Date, completion: @escaping ([WaterRecord]) -> Void) {
+    func fetchRange(
+        startDate: Date,
+        endDate: Date,
+        completion: @escaping ([WaterRecord]) -> Void
+    ) {
         let startString = dateFormatter.string(from: startDate)
         let endString = dateFormatter.string(from: endDate)
-        WaterService.shared.fetchRange(startDate: startString, endDate: endString) { result in
+        WaterService.shared.fetchRange(
+            startDate: startString,
+            endDate: endString
+        ) { result in
             switch result {
             case .success(let records):
                 completion(records)
             case .failure(let error):
-                print("❌ WaterIntakeService: Failed to fetch water range - \(error)")
+                print(
+                    "❌ WaterIntakeService: Failed to fetch water range - \(error)"
+                )
                 completion([])
             }
         }
@@ -84,17 +101,23 @@ class WaterIntakeService {
     func incrementGlass(for date: Date, completion: @escaping (Int) -> Void) {
         fetchGlassCount(for: date) { [weak self] currentCount in
             guard let self = self else { return }
-            
-            let savedCount = UserDefaults.standard.integer(forKey: "targetWaterGlasses")
+
+            let savedCount = UserDefaults.standard.integer(
+                forKey: "targetWaterGlasses"
+            )
             let targetGlasses = savedCount > 0 ? savedCount : 10
-            
+
             // Use target instead of hardcoded 10
             if currentCount >= targetGlasses {
                 completion(currentCount)
                 return
             }
             let newCount = min(currentCount + 1, targetGlasses)
-            self.upsertGlassCount(for: date, glasses: newCount, completion: completion)
+            self.upsertGlassCount(
+                for: date,
+                glasses: newCount,
+                completion: completion
+            )
         }
     }
 
@@ -106,17 +129,28 @@ class WaterIntakeService {
                 return
             }
             let newCount = max(currentCount - 1, 0)
-            self.upsertGlassCount(for: date, glasses: newCount, completion: completion)
+            self.upsertGlassCount(
+                for: date,
+                glasses: newCount,
+                completion: completion
+            )
         }
     }
 
-    private func upsertGlassCount(for date: Date, glasses: Int, completion: @escaping (Int) -> Void) {
+    private func upsertGlassCount(
+        for date: Date,
+        glasses: Int,
+        completion: @escaping (Int) -> Void
+    ) {
         let dateString = dateFormatter.string(from: date)
-        WaterService.shared.upsert(dateRecorded: dateString, glasses: glasses) { result in
+        WaterService.shared.upsert(dateRecorded: dateString, glasses: glasses) {
+            result in
             switch result {
             case .success(let record):
                 NotificationCenter.default.post(
-                    name: NSNotification.Name(NotificationNames.waterIntakeUpdated),
+                    name: NSNotification.Name(
+                        NotificationNames.waterIntakeUpdated
+                    ),
                     object: nil
                 )
                 if Calendar.current.isDateInToday(date) {
@@ -124,7 +158,9 @@ class WaterIntakeService {
                 }
                 completion(record.glasses)
             case .failure(let error):
-                print("❌ WaterIntakeService: Failed to save water intake - \(error)")
+                print(
+                    "❌ WaterIntakeService: Failed to save water intake - \(error)"
+                )
                 completion(glasses)
             }
         }

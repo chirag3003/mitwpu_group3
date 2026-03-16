@@ -15,7 +15,7 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Allergies"
         } else {
@@ -147,7 +147,8 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
     }
 
     private func loadSharedAllergies(for member: FamilyMember) {
-        SharedDataService.shared.fetchAllergies(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchAllergies(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let allergies):
                 self?.allergies = allergies

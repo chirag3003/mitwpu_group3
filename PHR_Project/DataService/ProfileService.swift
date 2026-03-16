@@ -146,7 +146,7 @@ class ProfileService {
                 fieldName: "profileImage"
             ) { [weak self] (result: Result<ProfileModel, Error>) in
                 guard let self = self else { return }
-                
+
                 switch result {
                 case .success(let updatedProfile):
                     print("Image uploaded successfully")
@@ -154,10 +154,10 @@ class ProfileService {
                     // We update our local model with this URL
                     var finalProfile = profile
                     finalProfile.profileImage = updatedProfile.profileImage
-                    
+
                     // 2. Now save the rest of the text data
                     self.performTextSave(profile: finalProfile, method: method)
-                    
+
                 case .failure(let error):
                     print("Error uploading profile image: \(error)")
                     // Even if image fails, try to save text data?
@@ -185,12 +185,14 @@ class ProfileService {
                         // Merge the response (which has the correct ID and potentially Image URL)
                         // back into our local store
                         self.data = savedProfile
-                        
-                        self.save() // Save to Core Data
-                        
+
+                        self.save()  // Save to Core Data
+
                         // Notify listeners
                         NotificationCenter.default.post(
-                            name: NSNotification.Name(NotificationNames.profileUpdated),
+                            name: NSNotification.Name(
+                                NotificationNames.profileUpdated
+                            ),
                             object: nil
                         )
                     }

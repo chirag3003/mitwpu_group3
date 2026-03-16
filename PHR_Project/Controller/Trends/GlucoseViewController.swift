@@ -19,24 +19,22 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         label.textColor = .secondaryLabel
         return label
     }()
-    
+
     //Pattern2
     @IBOutlet weak var pattern2Description: UILabel!
     @IBOutlet weak var pattern2Title: UILabel!
     @IBOutlet weak var pattern2View: UIView!
-    
+
     //Pattern
     @IBOutlet weak var pattern1Description: UILabel!
     @IBOutlet weak var pattern1Title: UILabel!
     @IBOutlet weak var pattern1View: UIView!
-    
+
     //Highlights
     @IBOutlet weak var highlight1Description: UILabel!
     @IBOutlet weak var highlight1Title: UILabel!
     @IBOutlet weak var hightlight1View: UIView!
-    
-    
-    
+
     @IBOutlet weak var maxView: UIView!
     @IBOutlet weak var minView: UIView!
     @IBOutlet weak var avgView: UIView!
@@ -55,7 +53,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     var canEditSharedData = false
 
     private let chartViewModel = ChartViewModel()
-    
+
     // Insights data from API
     private var glucoseInsights: GlucoseInsightsResponse?
     override func viewDidLoad() {
@@ -85,7 +83,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             GlucoseService.shared.fetchReadings()
             updateDataFromService()
         }
-        
+
         // Fetch AI insights from API
         fetchGlucoseInsights()
 
@@ -101,25 +99,27 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     // MARK: - Insights API
-    
+
     private func setupInsightCards() {
         // Show first cards with loading placeholder, hide second pattern
         hightlight1View.isHidden = false
         highlight1Title.text = "Loading Insights..."
         highlight1Description.text = "Analyzing your glucose data"
-        
+
         pattern1View.isHidden = false
         pattern1Title.text = "Loading Patterns..."
         pattern1Description.text = "Detecting glucose patterns"
-        
+
         pattern2View.isHidden = true
     }
-    
+
     private func fetchGlucoseInsights() {
         if let member = familyMember {
-            InsightsService.shared.fetchSharedGlucoseInsights(userId: member.userId) {
+            InsightsService.shared.fetchSharedGlucoseInsights(
+                userId: member.userId
+            ) {
                 [weak self] response in
                 guard let self = self, let insights = response else { return }
                 self.glucoseInsights = insights
@@ -130,34 +130,37 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
 
         InsightsService.shared.fetchGlucoseInsights { [weak self] response in
             guard let self = self, let insights = response else { return }
-            
+
             self.glucoseInsights = insights
             self.updateInsightsUI(with: insights)
         }
     }
-    
+
     private func updateInsightsUI(with response: GlucoseInsightsResponse) {
         // Update highlight card with first insight
         if response.insights.count >= 1 {
             let insight = response.insights[0]
             highlight1Title.text = insight.title
             highlight1Description.text = insight.description
-            hightlight1View.backgroundColor = insight.type.color.withAlphaComponent(0.15)
+            hightlight1View.backgroundColor = insight.type.color
+                .withAlphaComponent(0.15)
             hightlight1View.isHidden = false
         }
-        
+
         // Update pattern cards
         if response.patterns.count >= 1 {
             let pattern = response.patterns[0]
             pattern1Title.text = pattern.pattern
-            pattern1Description.text = "\(pattern.frequency)\n\(pattern.recommendation)"
+            pattern1Description.text =
+                "\(pattern.frequency)\n\(pattern.recommendation)"
             pattern1View.isHidden = false
         }
-        
+
         if response.patterns.count >= 2 {
             let pattern = response.patterns[1]
             pattern2Title.text = pattern.pattern
-            pattern2Description.text = "\(pattern.frequency)\n\(pattern.recommendation)"
+            pattern2Description.text =
+                "\(pattern.frequency)\n\(pattern.recommendation)"
             pattern2View.isHidden = false
         }
     }
@@ -373,17 +376,20 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             let addVC = nav.topViewController as? AddGlucoseModalViewController
         {
             addVC.delegate = self
-            addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
+            addVC.view.isUserInteractionEnabled =
+                familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
         } else if let addVC = segue.destination
             as? AddGlucoseModalViewController
         {
             addVC.delegate = self
-            addVC.view.isUserInteractionEnabled = familyMember == nil || canEditSharedData
+            addVC.view.isUserInteractionEnabled =
+                familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
-        } else if var destination = segue.destination as? FamilyMemberDataScreen {
+        } else if var destination = segue.destination as? FamilyMemberDataScreen
+        {
             destination.familyMember = familyMember
         }
     }
@@ -457,7 +463,8 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     }
 
     private func loadSharedReadings(for member: FamilyMember) {
-        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchGlucoseReadings(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let readings):
                 self?.sharedReadings = readings
