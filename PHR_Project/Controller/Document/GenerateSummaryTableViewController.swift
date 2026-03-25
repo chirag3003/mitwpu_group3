@@ -94,7 +94,8 @@ class GenerateSummaryTableViewController: UITableViewController,
             glucose: trendsSwitch.isOn,
             symptoms: symptomsSwitch.isOn,
             meals: mealsSwitch.isOn,
-            documents: reportsSwitch.isOn || prescriptionsSwitch.isOn
+            documents: reportsSwitch.isOn || prescriptionsSwitch.isOn,
+            activity: true // Always include activity if steps are synced
         )
 
         let completion: (String?) -> Void = { [weak self] pdfURLString in

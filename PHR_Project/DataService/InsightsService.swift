@@ -13,14 +13,18 @@ class InsightsService {
     private var cachedMealInsights: MealInsightsResponse?
     private var cachedGlucoseInsights: GlucoseInsightsResponse?
     private var cachedWaterInsights: WaterInsightsResponse?
+    private var cachedActivityInsights: ActivityInsightsResponse?
     private var cachedSharedGlucoseInsights: [String: GlucoseInsightsResponse] =
         [:]
     private var cachedSharedWaterInsights: [String: WaterInsightsResponse] = [:]
+    private var cachedSharedActivityInsights: [String: ActivityInsightsResponse] = [:]
     private var mealInsightsCacheTime: Date?
     private var glucoseInsightsCacheTime: Date?
     private var waterInsightsCacheTime: Date?
+    private var activityInsightsCacheTime: Date?
     private var sharedGlucoseInsightsCacheTime: [String: Date] = [:]
     private var sharedWaterInsightsCacheTime: [String: Date] = [:]
+    private var sharedActivityInsightsCacheTime: [String: Date] = [:]
 
     // Cache duration: 30 minutes (insights don't change frequently)
     private let cacheDuration: TimeInterval = 30 * 60
@@ -223,6 +227,77 @@ class InsightsService {
             case .failure(let error):
                 print(
                     "❌ InsightsService: Failed to fetch shared water insights - \(error)"
+                )
+                completion(nil)
+            }
+        }
+    }
+
+    /// Fetch activity insights from API
+    /// - Parameters:
+    ///   - forceRefresh: If true, bypass cache and fetch fresh data
+    ///   - completion: Callback with optional ActivityInsightsResponse
+    func fetchActivityInsights(
+        forceRefresh: Bool = false,
+        completion: @escaping (ActivityInsightsResponse?) -> Void
+    ) {
+        if !forceRefresh, let cached = cachedActivityInsights,
+            let cacheTime = activityInsightsCacheTime
+        {
+            if Date().timeIntervalSince(cacheTime) < cacheDuration {
+                completion(cached)
+                return
+            }
+        }
+
+        APIService.shared.request(endpoint: "/insights/activity", method: .get) {
+            [weak self] (result: Result<ActivityInsightsResponse, Error>) in
+            switch result {
+            case .success(let response):
+                self?.cachedActivityInsights = response
+                self?.activityInsightsCacheTime = Date()
+                completion(response)
+            case .failure(let error):
+                print(
+                    "❌ InsightsService: Failed to fetch activity insights - \(error)"
+                )
+                completion(nil)
+            }
+        }
+    }
+
+    /// Fetch shared activity insights from API
+    /// - Parameters:
+    ///   - userId: User ID for whom to fetch insights
+    ///   - forceRefresh: If true, bypass cache and fetch fresh data
+    ///   - completion: Callback with optional ActivityInsightsResponse
+    func fetchSharedActivityInsights(
+        userId: String,
+        forceRefresh: Bool = false,
+        completion: @escaping (ActivityInsightsResponse?) -> Void
+    ) {
+        if !forceRefresh,
+            let cached = cachedSharedActivityInsights[userId],
+            let cacheTime = sharedActivityInsightsCacheTime[userId]
+        {
+            if Date().timeIntervalSince(cacheTime) < cacheDuration {
+                completion(cached)
+                return
+            }
+        }
+
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/insights/activity",
+            method: .get
+        ) { [weak self] (result: Result<ActivityInsightsResponse, Error>) in
+            switch result {
+            case .success(let response):
+                self?.cachedSharedActivityInsights[userId] = response
+                self?.sharedActivityInsightsCacheTime[userId] = Date()
+                completion(response)
+            case .failure(let error):
+                print(
+                    "❌ InsightsService: Failed to fetch shared activity insights - \(error)"
                 )
                 completion(nil)
             }

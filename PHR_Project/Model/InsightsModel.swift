@@ -103,6 +103,7 @@ struct SummaryInclude: Codable {
     let symptoms: Bool
     let meals: Bool
     let documents: Bool
+    let activity: Bool
 }
 
 struct SummaryResponse: Codable {
@@ -110,6 +111,40 @@ struct SummaryResponse: Codable {
 }
 
 // MARK: - Water Insights Models
+// ... (rest of the file)
+// Add these at the end
+// MARK: - Activity Insights Models
+
+struct ActivityInsightsResponse: Codable {
+    let insights: [ActivityInsight]
+    let tips: [ActivityTip]
+    let summary: String
+    let correlations: [ActivityCorrelation]?
+}
+
+struct ActivityInsight: Codable {
+    let title: String
+    let description: String
+    let type: InsightType
+}
+
+struct ActivityTip: Codable {
+    let title: String
+    let description: String
+    let priority: TipPriority
+}
+
+struct ActivityCorrelation: Codable {
+    let title: String
+    let value: String
+    let trend: CorrelationTrend
+}
+
+enum CorrelationTrend: String, Codable {
+    case positive
+    case negative
+    case neutral
+}
 
 struct WaterInsightsResponse: Codable {
     let insights: [WaterInsight]
