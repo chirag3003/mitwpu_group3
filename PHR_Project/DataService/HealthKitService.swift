@@ -99,6 +99,59 @@ final class HealthKitService {
 
         healthStore.execute(query)
     }
+
+    /// Fetch step count history for a date range
+    /// - Parameters:
+    ///   - from: Start date
+    ///   - to: End date
+    ///   - completion: Callback with dictionary of Date: StepCount or error
+    func fetchStepHistory(
+        from startDate: Date,
+        to endDate: Date,
+        completion: @escaping (Result<[Date: Int], Error>) -> Void
+    ) {
+        guard
+            let stepType = HKQuantityType.quantityType(
+                forIdentifier: .stepCount
+            )
+        else {
+            completion(.failure(HealthKitError.dataTypeNotAvailable))
+            return
+        }
+
+        let interval = DateComponents(day: 1)
+        let query = HKStatisticsCollectionQuery(
+            quantityType: stepType,
+            quantitySamplePredicate: nil,
+            options: .cumulativeSum,
+            anchorDate: Calendar.current.startOfDay(for: startDate),
+            intervalComponents: interval
+        )
+
+        query.initialResultsHandler = { _, results, error in
+            if let error = error {
+                DispatchQueue.main.async { completion(.failure(error)) }
+                return
+            }
+
+            var dailySteps: [Date: Int] = [:]
+            results?.enumerateStatistics(from: startDate, to: endDate) {
+                statistics,
+                _ in
+                let steps = Int(
+                    statistics.sumQuantity()?.doubleValue(for: HKUnit.count())
+                        ?? 0
+                )
+                dailySteps[statistics.startDate] = steps
+            }
+
+            DispatchQueue.main.async {
+                completion(.success(dailySteps))
+            }
+        }
+
+        healthStore.execute(query)
+    }
 }
 
 // MARK: - Errors

@@ -330,6 +330,7 @@ class HealthDetailsTableViewController: UITableViewController,
         )
 
         let profile = ProfileModel(
+            apiID: profileData?.apiID,
             firstName: firstNameField.text ?? "",
             lastName: lastNameField.text ?? "",
             dob: dobInput.date,

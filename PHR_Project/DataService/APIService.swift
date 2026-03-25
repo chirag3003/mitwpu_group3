@@ -94,7 +94,27 @@ class APIService {
 
             do {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
+                // Use a custom date strategy that handles ISO8601 with fractional seconds if needed
+                let formatter = ISO8601DateFormatter()
+                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                
+                decoder.dateDecodingStrategy = .custom({ decoder in
+                    let container = try decoder.singleValueContainer()
+                    let dateString = try container.decode(String.self)
+                    
+                    if let date = formatter.date(from: dateString) {
+                        return date
+                    }
+                    
+                    // Fallback to standard ISO8601
+                    let fallbackFormatter = ISO8601DateFormatter()
+                    if let date = fallbackFormatter.date(from: dateString) {
+                        return date
+                    }
+                    
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date format: \(dateString)")
+                })
+
                 let decodedData = try decoder.decode(T.self, from: data)
                 DispatchQueue.main.async { completion(.success(decodedData)) }
             } catch {
