@@ -64,7 +64,7 @@ class StepsViewModel: ObservableObject {
             self.activitySummary = response.summary
             self.insights = response.insights
             self.tips = response.tips
-            self.weeklyTrend = response.weeklyTrend
+            self.weeklyTrend = response.weeklyTrend ?? ""
         }
     }
     

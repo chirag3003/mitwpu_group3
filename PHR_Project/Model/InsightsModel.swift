@@ -120,6 +120,7 @@ struct ActivityInsightsResponse: Codable {
     let tips: [ActivityTip]
     let summary: String
     let correlations: [ActivityCorrelation]?
+    let weeklyTrend: String?
 }
 
 struct ActivityInsight: Codable {
