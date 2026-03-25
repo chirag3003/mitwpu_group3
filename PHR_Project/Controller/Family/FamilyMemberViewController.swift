@@ -134,6 +134,8 @@ class FamilyMemberViewController: UIViewController {
             if flags.water {
                 options.append(("Water", "familyWaterSegue"))
             }
+            // Add Steps option for family members
+            options.append(("Steps", "familyStepsSegue"))
         }
 
         options.append(("Allergies", "familyAllergiesSegue"))

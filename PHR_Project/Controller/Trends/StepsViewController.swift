@@ -2,7 +2,7 @@ import Combine
 import SwiftUI
 import UIKit
 
-class StepsViewController: UIViewController {
+class StepsViewController: UIViewController, FamilyMemberDataScreen {
 
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var stepValueStack: UIStackView!
@@ -18,13 +18,26 @@ class StepsViewController: UIViewController {
 
     private let viewModel = StepsViewModel()
     private var cancellables = Set<AnyCancellable>()
+    
+    var familyMember: FamilyMember? {
+        didSet {
+            viewModel.familyMember = familyMember
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStyling()
         setupChart()
         setupBindings()
-        viewModel.requestAuthorization()
+        
+        if familyMember != nil {
+            self.title = "\(familyMember!.name)'s Steps"
+            viewModel.fetchInsights()
+        } else {
+            self.title = "Steps"
+            viewModel.requestAuthorization()
+        }
     }
 
     func setupBindings() {
@@ -41,6 +54,54 @@ class StepsViewController: UIViewController {
                 self?.totalLabel.text = title
             }
             .store(in: &cancellables)
+            
+        // Bind Insights
+        viewModel.$insights
+            .receive(on: RunLoop.main)
+            .sink { [weak self] insights in
+                self?.updatePatternViews(with: insights)
+            }
+            .store(in: &cancellables)
+            
+        viewModel.$activitySummary
+            .receive(on: RunLoop.main)
+            .sink { [weak self] summary in
+                self?.updateHighlightView(with: summary)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func updatePatternViews(with insights: [ActivityInsight]) {
+        let patternViews = [firstPatternView, secondPatternView, thirdPatternView]
+        
+        // Hide all initially
+        patternViews.forEach { $0?.isHidden = true }
+        
+        for (index, insight) in insights.enumerated() {
+            guard index < patternViews.count else { break }
+            let view = patternViews[index]
+            view?.isHidden = false
+            
+            // Update labels inside the view
+            if let labels = view?.subviews.compactMap({ $0 as? UILabel }) {
+                // Find title and description labels by their expected traits
+                // Typically: title is bold or higher in hierarchy
+                if let titleLabel = labels.first(where: { $0.font.fontName.contains("Bold") }) ?? labels.first {
+                    titleLabel.text = insight.title
+                    
+                    if let descLabel = labels.first(where: { $0 != titleLabel }) {
+                        descLabel.text = insight.description
+                    }
+                }
+            }
+        }
+    }
+
+    private func updateHighlightView(with summary: String) {
+        if let labels = highlightView?.subviews.compactMap({ $0 as? UILabel }),
+           let summaryLabel = labels.first {
+            summaryLabel.text = summary
+        }
     }
 
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {

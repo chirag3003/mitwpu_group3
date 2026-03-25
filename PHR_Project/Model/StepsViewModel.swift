@@ -24,8 +24,15 @@ class StepsViewModel: ObservableObject {
     @Published var mainStatTitle: String = "Total"
     @Published var currentRange: StepsTimeRange = .day // ⚡️ Updated type
     
-    private let healthStore = HKHealthStore()
+    // Insights Data
+    @Published var activitySummary: String = "Analyzing your activity..."
+    @Published var insights: [ActivityInsight] = []
+    @Published var tips: [ActivityTip] = []
+    @Published var weeklyTrend: String = ""
     
+    private let healthStore = HKHealthStore()
+    var familyMember: FamilyMember?
+
     func requestAuthorization() {
         guard HKHealthStore.isHealthDataAvailable() else { return }
         let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
@@ -33,8 +40,31 @@ class StepsViewModel: ObservableObject {
             if success {
                 DispatchQueue.main.async {
                     self.updateData(for: .day)
+                    self.fetchInsights()
                 }
             }
+        }
+    }
+    
+    func fetchInsights() {
+        if let member = familyMember {
+            InsightsService.shared.fetchSharedActivityInsights(userId: member.userId) { [weak self] response in
+                self?.handleInsightsResponse(response)
+            }
+        } else {
+            InsightsService.shared.fetchActivityInsights { [weak self] response in
+                self?.handleInsightsResponse(response)
+            }
+        }
+    }
+
+    private func handleInsightsResponse(_ response: ActivityInsightsResponse?) {
+        guard let response = response else { return }
+        DispatchQueue.main.async {
+            self.activitySummary = response.summary
+            self.insights = response.insights
+            self.tips = response.tips
+            self.weeklyTrend = response.weeklyTrend
         }
     }
     
