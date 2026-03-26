@@ -268,8 +268,8 @@ extension AddMealModalViewController: CustomCameraDelegate {
     private func analyzeImageWithAI(_ image: UIImage) {
         // Show loading indicator
         let loadingAlert = UIAlertController(
-            title: "Analyzing...",
-            message: "Please wait while we analyze your meal",
+            title: "Analysing...",
+            message: "Please wait while we analyse your meal",
             preferredStyle: .alert
         )
         present(loadingAlert, animated: true)
