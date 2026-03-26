@@ -804,7 +804,7 @@
             <objects>
                 <viewController id="d0e-vS-J1q" customClass="HelpNSupportViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3XB-SI-KUH">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="erm-Uo-juz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1440,35 +1440,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="gYK-9j-nOP">
-                                        <rect key="frame" x="20" y="240" width="362" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYK-9j-nOP" id="zND-1b-LUy">
-                                            <rect key="frame" x="0.0" y="0.0" width="331.66666666666669" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help &amp; Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etz-yn-AdL">
-                                                    <rect key="frame" x="16" y="15" width="117" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="etz-yn-AdL" firstAttribute="leading" secondItem="zND-1b-LUy" secondAttribute="leadingMargin" id="dC7-fb-V0E"/>
-                                                <constraint firstItem="etz-yn-AdL" firstAttribute="centerY" secondItem="zND-1b-LUy" secondAttribute="centerY" id="inB-c8-MLB"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="d0e-vS-J1q" kind="show" id="zgB-lC-Fgv"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="qOh-wv-fhZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="nxo-qq-Mnv">
-                                        <rect key="frame" x="20" y="327" width="362" height="51"/>
+                                        <rect key="frame" x="20" y="276" width="362" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nxo-qq-Mnv" id="QO5-Zy-fcE">
                                             <rect key="frame" x="0.0" y="0.0" width="362" height="51"/>
