@@ -142,8 +142,6 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             let insight = response.insights[0]
             highlight1Title.text = insight.title
             highlight1Description.text = insight.description
-            hightlight1View.backgroundColor = insight.type.color
-                .withAlphaComponent(0.15)
             hightlight1View.isHidden = false
         }
 

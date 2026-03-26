@@ -231,30 +231,20 @@ class MealViewController: UIViewController, FamilyMemberDataScreen,
         // Update insight cards
         if response.insights.count >= 1 {
             insightOneLabel.text = response.insights[0].description
-            insightOne.backgroundColor = response.insights[0].type.color
-                .withAlphaComponent(0.15)
         }
         if response.insights.count >= 2 {
             insightTwoLabel.text = response.insights[1].description
-            insightTwo.backgroundColor = response.insights[1].type.color
-                .withAlphaComponent(0.15)
         }
 
         // Update tip cards
         if response.tips.count >= 1 {
             tipOneLabel.text = response.tips[0].description
-            tipOne.backgroundColor = response.tips[0].priority.color
-                .withAlphaComponent(0.15)
         }
         if response.tips.count >= 2 {
             tipTwoLabel.text = response.tips[1].description
-            tipTwo.backgroundColor = response.tips[1].priority.color
-                .withAlphaComponent(0.15)
         }
         if response.tips.count >= 3 {
             tipThreeLabel.text = response.tips[2].description
-            tipThree.backgroundColor = response.tips[2].priority.color
-                .withAlphaComponent(0.15)
         }
     }
 
