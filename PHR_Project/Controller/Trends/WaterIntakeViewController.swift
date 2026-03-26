@@ -413,14 +413,10 @@ extension WaterIntakeViewController {
         if response.insights.count >= 1 {
             let label = insight1.subviews.compactMap { $0 as? UILabel }.first
             label?.text = response.insights[0].description
-            insight1.backgroundColor = response.insights[0].type.color
-                .withAlphaComponent(0.15)
         }
         if response.insights.count >= 2 {
             let label = insight2.subviews.compactMap { $0 as? UILabel }.first
             label?.text = response.insights[1].description
-            insight2.backgroundColor = response.insights[1].type.color
-                .withAlphaComponent(0.15)
         }
     }
 
