@@ -52,11 +52,6 @@ class OTPViewController: UIViewController {
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.systemGray5.cgColor
 
-        let paddingView = UIView(
-            frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height)
-        )
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
     }
 
     // MARK: - Actions
