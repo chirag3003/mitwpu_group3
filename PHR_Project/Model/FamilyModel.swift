@@ -130,3 +130,23 @@ extension FamilyMember {
         self.isAdmin = isAdmin
     }
 }
+
+struct StepRecord: Codable {
+    let apiID: String?
+    let userId: String
+    let dateRecorded: Date
+    let stepCount: Int
+    let source: String?
+    let syncedAt: Date?
+    let notes: String?
+
+    enum CodingKeys: String, CodingKey {
+        case apiID = "_id"
+        case userId
+        case dateRecorded
+        case stepCount
+        case source
+        case syncedAt
+        case notes
+    }
+}

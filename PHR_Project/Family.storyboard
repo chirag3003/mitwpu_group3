@@ -548,10 +548,10 @@
             </objects>
             <point key="canvasLocation" x="492" y="700"/>
         </scene>
-        <!--stepsScreen-->
+        <!--stepsStoryboard-->
         <scene sceneID="I8v-en-7cw">
             <objects>
-                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="stepsScreen" id="Bu0-ng-0rC" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="stepsStoryboard" id="Bu0-ng-0rC" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="w4C-pU-8Mm"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qgy-wV-SnW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
