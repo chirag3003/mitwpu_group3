@@ -502,4 +502,15 @@ final class SharedDataService {
             completion(result)
         }
     }
+
+    func fetchSteps(
+        for userId: String,
+        completion: @escaping (Result<[StepRecord], Error>) -> Void
+    ) {
+        APIService.shared.request(
+            endpoint: "/shared/\(userId)/steps",
+            method: .get,
+            completion: completion
+        )
+    }
 }

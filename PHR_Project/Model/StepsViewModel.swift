@@ -34,6 +34,13 @@ class StepsViewModel: ObservableObject {
     var familyMember: FamilyMember?
 
     func requestAuthorization() {
+        if familyMember != nil {
+            DispatchQueue.main.async {
+                self.updateData(for: .day)
+                self.fetchInsights()
+            }
+            return
+        }
         guard HKHealthStore.isHealthDataAvailable() else { return }
         let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         healthStore.requestAuthorization(toShare: [], read: [stepType]) { success, error in
@@ -72,7 +79,12 @@ class StepsViewModel: ObservableObject {
     
     func updateData(for range: StepsTimeRange) {
         DispatchQueue.main.async { self.currentRange = range }
-        
+
+        if let member = familyMember {
+            fetchSharedData(for: member, range: range)
+            return
+        }
+
         let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         let calendar = Calendar.current
         let now = Date()
@@ -163,5 +175,68 @@ class StepsViewModel: ObservableObject {
             }
         }
         healthStore.execute(query)
+    }
+
+    private func fetchSharedData(for member: FamilyMember, range: StepsTimeRange) {
+        SharedDataService.shared.fetchSteps(for: member.userId) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let records):
+                self.processSharedRecords(records, range: range)
+            case .failure(let error):
+                print("Error fetching shared steps: \(error)")
+            }
+        }
+    }
+
+    private func processSharedRecords(_ records: [StepRecord], range: StepsTimeRange) {
+        let calendar = Calendar.current
+        let now = Date()
+        var startDate: Date
+        
+        switch range {
+        case .day: startDate = calendar.startOfDay(for: now)
+        case .week: startDate = calendar.date(byAdding: .day, value: -6, to: calendar.startOfDay(for: now))!
+        case .month: startDate = calendar.date(byAdding: .day, value: -29, to: calendar.startOfDay(for: now))!
+        case .sixMonth: startDate = calendar.date(byAdding: .month, value: -6, to: calendar.startOfDay(for: now))!
+        case .year: startDate = calendar.date(byAdding: .year, value: -1, to: calendar.startOfDay(for: now))!
+        }
+
+        // Filter records for the range
+        let filtered = records.filter { $0.dateRecorded >= startDate && $0.dateRecorded <= now }
+            .sorted { $0.dateRecorded < $1.dateRecorded }
+
+        // Group by day for the graph
+        var dailyCounts: [Date: Int] = [:]
+        var totalSteps: Int = 0
+        
+        for record in filtered {
+            let day = calendar.startOfDay(for: record.dateRecorded)
+            dailyCounts[day, default: 0] += record.stepCount
+            totalSteps += record.stepCount
+        }
+
+        // Generate full data points for the range
+        var newPoints: [StepDataPoint] = []
+        var date = startDate
+        while date <= now {
+            let count = dailyCounts[date] ?? 0
+            newPoints.append(StepDataPoint(date: date, count: count))
+            date = calendar.date(byAdding: .day, value: 1, to: date)!
+        }
+
+        DispatchQueue.main.async {
+            self.dataPoints = newPoints
+            if range == .day {
+                self.mainStatTitle = "Total"
+                self.mainStatValue = "\(totalSteps)"
+            } else {
+                self.mainStatTitle = "Daily Average"
+                let daysWithData = Set(filtered.map { calendar.startOfDay(for: $0.dateRecorded) }).count
+                let average = daysWithData > 0 ? totalSteps / daysWithData : 0
+                self.mainStatValue = "\(average)"
+            }
+        }
     }
 }

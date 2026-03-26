@@ -481,6 +481,7 @@
                         <segue destination="1xH-Lw-8JS" kind="show" identifier="familyGlucoseSegue" id="adh-aW-ja8"/>
                         <segue destination="4J0-jx-Rhh" kind="show" identifier="familyAllergiesSegue" id="kLz-Oh-KuQ"/>
                         <segue destination="Ocp-VV-tLk" kind="show" identifier="familyWaterSegue" id="CLn-Dz-3rM"/>
+                        <segue destination="Bu0-ng-0rC" kind="show" identifier="familyStepsSegue" id="bl5-j4-pgR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jiR-zj-OjN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -546,6 +547,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B13-GW-nuV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="492" y="700"/>
+        </scene>
+        <!--stepsScreen-->
+        <scene sceneID="I8v-en-7cw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" referencedIdentifier="stepsScreen" id="Bu0-ng-0rC" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="w4C-pU-8Mm"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qgy-wV-SnW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="505" y="886"/>
         </scene>
         <!--Family-->
         <scene sceneID="guZ-fh-Rbj">

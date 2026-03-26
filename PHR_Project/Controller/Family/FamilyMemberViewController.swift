@@ -16,7 +16,8 @@ class FamilyMemberViewController: UIViewController {
         meals: false,
         glucose: false,
         allergies: true,
-        water: false
+        water: false,
+        steps: false
     )
     private var writeAccess = false
     private var isUpdating = false
@@ -31,7 +32,7 @@ class FamilyMemberViewController: UIViewController {
 
     // Data Models
     let accessOptions = [
-        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
+        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water", "Steps",
     ]
 
     override func viewDidLoad() {
@@ -94,7 +95,8 @@ class FamilyMemberViewController: UIViewController {
                 meals: permission.permissions.meals,
                 glucose: permission.permissions.glucose,
                 allergies: true,
-                water: permission.permissions.water
+                water: permission.permissions.water,
+                steps: permission.permissions.steps
             )
             self.writeAccess = permission.write
             self.tableView.reloadData()
@@ -134,8 +136,9 @@ class FamilyMemberViewController: UIViewController {
             if flags.water {
                 options.append(("Water", "familyWaterSegue"))
             }
-            // Add Steps option for family members
-            options.append(("Steps", "familyStepsSegue"))
+            if flags.steps {
+                options.append(("Steps", "familyStepsSegue"))
+            }
         }
 
         options.append(("Allergies", "familyAllergiesSegue"))
@@ -155,6 +158,8 @@ class FamilyMemberViewController: UIViewController {
             permissions.glucose = sender.isOn
         case 4:
             permissions.water = sender.isOn
+        case 5:
+            permissions.steps = sender.isOn
         case 100:
             writeAccess = sender.isOn
         default:
@@ -180,7 +185,8 @@ class FamilyMemberViewController: UIViewController {
             meals: permissions.meals,
             glucose: permissions.glucose,
             allergies: true,
-            water: permissions.water
+            water: permissions.water,
+            steps: permissions.steps
         )
 
         FamilyPermissionsService.shared.updatePermissions(
@@ -329,6 +335,8 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
                 cell.permissionSwitch.isOn = permissions.glucose
             case 4:
                 cell.permissionSwitch.isOn = permissions.water
+            case 5:
+                cell.permissionSwitch.isOn = permissions.steps
             default:
                 cell.permissionSwitch.isOn = false
             }

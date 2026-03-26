@@ -33,7 +33,7 @@ class StepsViewController: UIViewController, FamilyMemberDataScreen {
         
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Steps"
-            viewModel.fetchInsights()
+            viewModel.requestAuthorization() // requestAuthorization now handles family member logic
         } else {
             self.title = "Steps"
             viewModel.requestAuthorization()

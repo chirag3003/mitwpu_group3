@@ -90,6 +90,7 @@ struct FamilyPermissionFlags: Codable {
     var glucose: Bool
     var allergies: Bool
     var water: Bool
+    var steps: Bool
 
     static let allDisabled = FamilyPermissionFlags(
         documents: false,
@@ -97,7 +98,8 @@ struct FamilyPermissionFlags: Codable {
         meals: false,
         glucose: false,
         allergies: false,
-        water: false
+        water: false,
+        steps: false
     )
 
     static let allEnabled = FamilyPermissionFlags(
@@ -106,7 +108,8 @@ struct FamilyPermissionFlags: Codable {
         meals: true,
         glucose: true,
         allergies: true,
-        water: true
+        water: true,
+        steps: true
     )
 }
 
