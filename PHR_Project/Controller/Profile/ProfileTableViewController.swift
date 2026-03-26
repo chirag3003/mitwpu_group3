@@ -30,8 +30,11 @@ class ProfileTableViewController: UITableViewController {
         userNameLabel.text = fullName.isEmpty ? "User Name" : fullName
 
         // Set the Profile Image!
-        if let photoData = profile.profileImage {
+        if let photoData = profile.profileImage, !photoData.isEmpty {
             profileImage.setImageFromURL(url: photoData)
+        } else {
+            profileImage.image = UIImage(systemName: "person.circle.fill")
+            profileImage.tintColor = .systemGray4
         }
 
         notificationSwitch.isOn = ReminderNotificationService.shared.isEnabled()
