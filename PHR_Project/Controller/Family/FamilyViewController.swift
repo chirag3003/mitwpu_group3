@@ -36,8 +36,9 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
             tableView.dataSource = self
             navigationItem.title = "My Families"
             
-            // Gives the cells a larger, more substantial size
+            // Matches the floating style of the members list
             tableView.rowHeight = 75
+            tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 20, right: 0)
         }
 
         private func setupObservers() {
@@ -68,16 +69,25 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
         }
 
         // MARK: - Table View Data Source & Delegate
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // 1. Give every family their own section for the floating cell look
+        func numberOfSections(in tableView: UITableView) -> Int {
             return families.count
+        }
+
+        // 2. Only ONE row per section
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
         }
 
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "family_cell", for: indexPath)
             
-            // Upgraded to UIListContentConfiguration for better padding and sizing
+            // 3. Grab the family using indexPath.section
+            let family = families[indexPath.section]
+            
             var content = cell.defaultContentConfiguration()
-            content.text = families[indexPath.row].name
+            content.text = family.name
             content.textProperties.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             cell.contentConfiguration = content
             
@@ -87,31 +97,74 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
 
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
-            let selectedFamily = families[indexPath.row]
+            
+            // 4. Grab the family using indexPath.section here too
+            let selectedFamily = families[indexPath.section]
             
             FamilyService.shared.setCurrentFamily(id: selectedFamily.apiID)
             performSegue(withIdentifier: "GoToFamilyMembers", sender: selectedFamily)
         }
+        
+        // MARK: - Cell Spacing
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 8
+        }
+        
+        func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return 8
+        }
 
-        // MARK: - Context Menu (Exit Family)
-        func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-                let exitAction = UIAction(
+    // MARK: - Swipe Actions
+        
+        func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            
+            // Create the swipe action
+            let leaveAction = UIContextualAction(style: .destructive, title: "Leave") { [weak self] (action, view, completionHandler) in
+                guard let self = self else { return }
+                
+                let familyToLeave = self.families[indexPath.section]
+                guard let familyId = familyToLeave.apiID else {
+                    completionHandler(false)
+                    return
+                }
+                
+                // Show the confirmation alert
+                let alert = UIAlertController(
                     title: "Exit Family",
-                    image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
-                    attributes: .destructive
-                ) { [weak self] _ in
-                    guard let self = self else { return }
-                    let family = self.families[indexPath.row]
-                    if let familyId = family.apiID {
-                        FamilyService.shared.leaveFamily(familyId: familyId) { success in
-                            guard success else { return }
-                            self.refreshFamilies()
+                    message: "Are you sure you want to leave '\(familyToLeave.name)'?",
+                    preferredStyle: .alert
+                )
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                    completionHandler(false) // Swipes the cell back if they cancel
+                }
+                
+                let confirmAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
+                    FamilyService.shared.leaveFamily(familyId: familyId) { success in
+                        DispatchQueue.main.async {
+                            if success {
+                                self.families.remove(at: indexPath.section)
+                                self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .left)
+                                completionHandler(true)
+                            } else {
+                                print("Failed to leave family")
+                                completionHandler(false)
+                            }
                         }
                     }
                 }
-                return UIMenu(title: "", children: [exitAction])
+                
+                alert.addAction(cancelAction)
+                alert.addAction(confirmAction)
+                self.present(alert, animated: true)
             }
+            
+            // Optional: Add a nice icon to the swipe button
+            leaveAction.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+            leaveAction.backgroundColor = .systemRed
+            
+            // Return the configuration
+            return UISwipeActionsConfiguration(actions: [leaveAction])
         }
 
         // MARK: - Navigation

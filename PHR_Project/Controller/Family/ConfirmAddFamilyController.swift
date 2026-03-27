@@ -30,8 +30,28 @@ class ConfirmAddFamilyController: UITableViewController {
     }
 
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
+        guard let phoneNumber = contactDetailLabel.text, !phoneNumber.isEmpty else {
+                    // Show an alert that phone number is required
+                    return
+                }
+                
+                // Assuming you passed the familyId to this View Controller when segueing
+                guard let familyId = FamilyService.shared.getCurrentFamilyId() else { return }
+                
+                FamilyService.shared.addMember(familyId: familyId, phoneNumber: phoneNumber) { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_):
+                            // SUCCESS! Dismiss the modal and go back to the list
+                            self?.dismiss(animated: true, completion: nil)
+                            
+                        case .failure(let error):
+                            // Handle error (e.g., show an alert)
+                            print("Error adding member: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
 
     private func addMember(for contact: Contact) {
         guard let familyId = FamilyService.shared.getCurrentFamilyId() else {

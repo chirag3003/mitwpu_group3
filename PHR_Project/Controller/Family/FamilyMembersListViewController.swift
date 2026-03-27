@@ -121,6 +121,64 @@ class FamilyMembersListViewController: UIViewController, UITableViewDelegate, UI
         func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
             return 8 // Space below each cell
         }
+    
+    // MARK: - Swipe Actions (Delete Member)
+        
+    // MARK: - Swipe Actions (Delete Member)
+        
+        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            // Optional: If you only want the Admin to be able to delete, you could check that here!
+            return true
+        }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                let memberToDelete = familyData[indexPath.section]
+                guard let familyId = family?.apiID else { return }
+                
+                // FIX: Use the exact property name from your FamilyMember struct
+                let userIdToRemove = memberToDelete.userId
+                
+                // 1. Create the confirmation alert
+                let alert = UIAlertController(
+                    title: "Remove Member",
+                    message: "Are you sure you want to remove \(memberToDelete.name) from the family?",
+                    preferredStyle: .alert
+                )
+                
+                // 2. Cancel Action (Swipes the cell back to normal)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                    tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+                }
+                
+                // 3. Delete Action (Calls the backend)
+                let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+                    guard let self = self else { return }
+                    
+                    FamilyService.shared.removeMember(familyId: familyId, userId: userIdToRemove) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(_):
+                                // Successfully removed from backend, update UI
+                                self.familyData.remove(at: indexPath.section)
+                                self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .left)
+                                
+                            case .failure(let error):
+                                print("Failed to remove member: \(error.localizedDescription)")
+                                // Put the cell back if the network request fails
+                                self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+                            }
+                        }
+                    }
+                }
+                
+                alert.addAction(cancelAction)
+                alert.addAction(deleteAction)
+                
+                // 4. Show the alert!
+                present(alert, animated: true)
+            }
+        }
         
         // MARK: - Navigation
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

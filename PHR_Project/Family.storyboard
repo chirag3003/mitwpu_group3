@@ -150,7 +150,7 @@
                             <constraint firstItem="rAS-AG-mW7" firstAttribute="leading" secondItem="uxF-rI-HX1" secondAttribute="leading" id="t2k-d5-stL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
+                    <navigationItem key="navigationItem" title="My Families" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1"/>
                     </navigationItem>
                     <connections>
