@@ -130,7 +130,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="563"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="familyMember_cell" id="V7T-NX-fdX">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="family_cell" id="V7T-NX-fdX">
                                         <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V7T-NX-fdX" id="5zY-Wh-zte">
@@ -151,20 +151,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="lf9-hg-h6Y">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.2.fill" catalog="system" id="maw-9O-53u">
-                            <connections>
-                                <action selector="familySwitchButtonTapped:" destination="gyh-HG-7mE" id="JAS-GN-hPY"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="rEI-4W-cS1"/>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="rEI-4W-cS1" id="SII-6X-ayK"/>
                         <outlet property="tableView" destination="rAS-AG-mW7" id="ZGf-MS-TFg"/>
-                        <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="FU1-d8-cXQ"/>
-                        <segue destination="k7P-vK-TfR" kind="show" identifier="GoToAddMember" id="sCJ-er-ZX3"/>
                         <segue destination="H63-dK-1T0" kind="presentation" identifier="GoToAddFamily" id="6K5-i9-oTN"/>
                         <segue destination="GDx-FR-gbP" kind="presentation" identifier="familySwitchSegue" id="NDP-9q-sAe"/>
+                        <segue destination="D5W-bs-rP8" kind="show" identifier="GoToFamilyMembers" id="tSf-qY-Afg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28z-t9-sWe" sceneMemberID="firstResponder"/>
@@ -528,6 +522,54 @@
             </objects>
             <point key="canvasLocation" x="737" y="463"/>
         </scene>
+        <!--Family Members List View Controller-->
+        <scene sceneID="gzA-wr-dhc">
+            <objects>
+                <viewController id="D5W-bs-rP8" customClass="FamilyMembersListViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fGP-Bt-B3m">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SsI-Hl-xfh">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="familyMember_cell" id="uix-qd-wjf">
+                                        <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uix-qd-wjf" id="Jk7-0u-adE">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="njc-7k-fu8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SsI-Hl-xfh" firstAttribute="top" secondItem="njc-7k-fu8" secondAttribute="top" id="OuD-f4-osL"/>
+                            <constraint firstItem="SsI-Hl-xfh" firstAttribute="leading" secondItem="njc-7k-fu8" secondAttribute="leading" id="WZT-8G-efQ"/>
+                            <constraint firstAttribute="bottom" secondItem="SsI-Hl-xfh" secondAttribute="bottom" id="knA-J7-m2O"/>
+                            <constraint firstItem="SsI-Hl-xfh" firstAttribute="trailing" secondItem="njc-7k-fu8" secondAttribute="trailing" id="zUV-Qm-IsV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ju3-2t-YBN">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.badge.plus" catalog="system" id="FJ9-cH-BUE">
+                            <connections>
+                                <segue destination="k7P-vK-TfR" kind="show" identifier="GoToAddMember" id="QyD-mK-yst"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="SsI-Hl-xfh" id="Amc-uj-PH1"/>
+                        <segue destination="mTi-62-4AP" kind="show" identifier="goToMemberDetails" id="HsV-Te-Hub"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h4u-aD-Jkh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1771.7557251908397" y="498.59154929577466"/>
+        </scene>
         <!--documentsStoryboard-->
         <scene sceneID="IX5-Wb-YXe">
             <objects>
@@ -635,6 +677,7 @@
     </scenes>
     <resources>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
+        <image name="person.badge.plus" catalog="system" width="128" height="124"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
