@@ -15,7 +15,6 @@
         <!--Meal Logs-->
         <scene sceneID="L6t-ef-j7F">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c10-1Y-jJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mealLogsStoryboard" id="fdI-9g-pwJ" customClass="MealViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="co1-Ei-3Hz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -25,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="z13-QE-Zdq">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1252"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1182"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qzy-jd-DE0">
                                                 <rect key="frame" x="16" y="0.0" width="361" height="126.33333333333333"/>
@@ -37,7 +36,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-o1-9jx">
-                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.3333333333333552"/>
+                                                        <rect key="frame" x="0.0" y="15.66666666666667" width="361" height="8.333333333333341"/>
                                                         <color key="tintColor" systemColor="labelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="13" id="4Cb-zG-aJ1"/>
@@ -421,23 +420,8 @@
                                                     </connections>
                                                 </collectionReusableView>
                                             </collectionView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlg-ej-efk">
-                                                <rect key="frame" x="16" y="925.66666666666674" width="361" height="50"/>
-                                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="qe9-bt-6ea"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="View all Meal Logs" cornerStyle="capsule">
-                                                    <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <segue destination="B2L-17-APl" kind="show" identifier="mealListSegue" id="24q-4G-Rlp"/>
-                                                </connections>
-                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6Yd-K1-PJ4">
-                                                <rect key="frame" x="16" y="995.66666666666686" width="361" height="256.33333333333337"/>
+                                                <rect key="frame" x="16" y="925.66666666666686" width="361" height="256.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOu-wp-ZJc">
                                                         <rect key="frame" x="0.0" y="8" width="361" height="14.333333333333336"/>
@@ -455,7 +439,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chart.line.uptrend.xyaxis" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jAa-2K-pqu">
-                                                                <rect key="frame" x="8" y="21.333333333333332" width="30" height="27.333333333333353"/>
+                                                                <rect key="frame" x="8" y="21.333333333333332" width="30" height="27.333333333333339"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="9wi-DE-0QV"/>
@@ -485,7 +469,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fork.knife.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mQF-yh-7j9">
-                                                                <rect key="frame" x="8" y="20.666666666666668" width="30" height="28.666666666666675"/>
+                                                                <rect key="frame" x="8" y="20.666666666666664" width="30" height="28.666666666666664"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="dIj-Pa-8U2"/>
@@ -515,7 +499,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ghu-lS-ac1">
-                                                                <rect key="frame" x="8" y="20.666666666666668" width="30" height="28.666666666666675"/>
+                                                                <rect key="frame" x="8" y="20.666666666666664" width="30" height="28.666666666666664"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="MPo-aL-8AI"/>
@@ -596,6 +580,7 @@
                         <outlet property="tipTwoLabel" destination="gye-Ac-Odw" id="mAN-Oy-M4R"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c10-1Y-jJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2516.7938931297708" y="-224.64788732394368"/>
         </scene>
@@ -888,7 +873,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJX-Cd-0Wd">
-                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pNR-g6-w17">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="809"/>
@@ -1136,40 +1121,6 @@
             </objects>
             <point key="canvasLocation" x="4311" y="-225"/>
         </scene>
-        <!--Meal Data View Controller-->
-        <scene sceneID="LIh-mu-Yyd">
-            <objects>
-                <tableViewController id="B2L-17-APl" customClass="MealDataViewController" customModule="PHR_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="fVB-nm-Sjm">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <color key="sectionIndexBackgroundColor" systemColor="systemGray6Color"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="meal_cell" id="Btl-0b-lYD">
-                                <rect key="frame" x="20" y="55.333332061767578" width="353" height="51"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Btl-0b-lYD" id="1hN-Ol-nCb">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="51"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                <connections>
-                                    <segue destination="yME-rt-RRZ" kind="show" id="G0T-Z3-ujm"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="B2L-17-APl" id="8hd-hm-irO"/>
-                            <outlet property="delegate" destination="B2L-17-APl" id="cn7-fh-qF6"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="a8A-iy-kJ3"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fG5-J0-Xwt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3315" y="-225"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rwx-Vj-OSg">
             <objects>
@@ -1194,7 +1145,6 @@
         <image name="bolt.square.fill" catalog="system" width="128" height="114"/>
         <image name="camera.fill" catalog="system" width="128" height="93"/>
         <image name="chart.line.uptrend.xyaxis" catalog="system" width="128" height="102"/>
-        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="fork.knife.circle" catalog="system" width="128" height="123"/>
         <image name="fork.knife.circle.fill" catalog="system" width="128" height="123"/>

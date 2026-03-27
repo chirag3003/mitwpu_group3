@@ -518,7 +518,7 @@ class MealViewController: UIViewController, FamilyMemberDataScreen,
 extension MealViewController: UICollectionViewDataSource,
     UICollectionViewDelegate
 {
-
+    
     //Return number of sections (4 meal types or 1 for dates)
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == mealCollectionView {
@@ -526,7 +526,7 @@ extension MealViewController: UICollectionViewDataSource,
         }
         return 1
     }
-
+    
     //Return item count per section
     func collectionView(
         _ collectionView: UICollectionView,
@@ -535,40 +535,40 @@ extension MealViewController: UICollectionViewDataSource,
         if collectionView == dateCollectionView {
             return dates.getDays().count
         }
-
+        
         if familyMember != nil {
             let count = mealsForSharedSection(section, date: selectedDate).count
             return count == 0 ? 1 : count
         }
-
+        
         let count = MealService.shared.getMeals(
             forSection: section,
             on: selectedDate
         ).count
         return count == 0 ? 1 : count
     }
-
+    
     //Configure and return cells for dates or meals
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-
+        
         // Date cells
         if collectionView == dateCollectionView {
             let cell =
-                collectionView.dequeueReusableCell(
-                    withReuseIdentifier: CellIdentifiers.dateCell,
-                    for: indexPath
-                ) as! DatesCollectionViewCell
-
+            collectionView.dequeueReusableCell(
+                withReuseIdentifier: CellIdentifiers.dateCell,
+                for: indexPath
+            ) as! DatesCollectionViewCell
+            
             let date = dates.getDays()[indexPath.row]
             cell.configureCell(date: date)
             cell.isToday = (indexPath.row == 15)
-
+            
             return cell
         }
-
+        
         // Meal cells
         let mealsInSection: [Meal]
         if familyMember != nil {
@@ -582,26 +582,26 @@ extension MealViewController: UICollectionViewDataSource,
                 on: selectedDate
             )
         }
-
+        
         if mealsInSection.isEmpty {
             let cell =
-                collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "NoMealsCell",
-                    for: indexPath
-                ) as! NoMealsCollectionViewCell
+            collectionView.dequeueReusableCell(
+                withReuseIdentifier: "NoMealsCell",
+                for: indexPath
+            ) as! NoMealsCollectionViewCell
             return cell
         }
-
+        
         let cell =
-            collectionView.dequeueReusableCell(
-                withReuseIdentifier: CellIdentifiers.mealCell,
-                for: indexPath
-            ) as! MealItemCollectionViewCell
+        collectionView.dequeueReusableCell(
+            withReuseIdentifier: CellIdentifiers.mealCell,
+            for: indexPath
+        ) as! MealItemCollectionViewCell
         let meal = mealsInSection[indexPath.row]
         cell.setup(with: meal)
         return cell
     }
-
+    
     //Handle date selection and meal selection
     func collectionView(
         _ collectionView: UICollectionView,
@@ -615,7 +615,7 @@ extension MealViewController: UICollectionViewDataSource,
                 animated: true
             )
             updateMonthLabel(for: indexPath.row)
-
+            
             // Update selected date
             let daysOffset = indexPath.row - 15
             if let date = Calendar.current.date(
@@ -641,15 +641,15 @@ extension MealViewController: UICollectionViewDataSource,
                     on: selectedDate
                 )
             }
-
+            
             // Don't navigate if it's the empty state cell
             guard !mealsInSection.isEmpty else { return }
-
+            
             let selectedMeal = mealsInSection[indexPath.row]
             navigateToMealDetail(meal: selectedMeal)
         }
     }
-
+    
     private func loadSharedMeals(for member: FamilyMember) {
         SharedDataService.shared.fetchMeals(for: member.userId) {
             [weak self] result in
@@ -663,7 +663,7 @@ extension MealViewController: UICollectionViewDataSource,
             }
         }
     }
-
+    
     private func mealsForSharedSection(_ section: Int, date: Date) -> [Meal] {
         let category: String
         switch section {
@@ -679,18 +679,18 @@ extension MealViewController: UICollectionViewDataSource,
             return calendar.isDate(meal.dateRecorded, inSameDayAs: date)
         }
     }
-
+    
     private func mealStats(from meals: [Meal], on date: Date) -> MealStats {
         let calendar = Calendar.current
         let filtered = meals.filter { meal in
             calendar.isDate(meal.dateRecorded, inSameDayAs: date)
         }
-
+        
         let totalCalories = filtered.reduce(0) { $0 + $1.calories }
         let totalCarbs = filtered.reduce(0) { $0 + $1.carbs }
         let totalProtein = filtered.reduce(0) { $0 + $1.protein }
         let totalFiber = filtered.reduce(0) { $0 + $1.fiber }
-
+        
         return MealStats(
             totalCalories: totalCalories,
             totalCarbs: totalCarbs,
@@ -698,7 +698,7 @@ extension MealViewController: UICollectionViewDataSource,
             totalFiber: totalFiber
         )
     }
-
+    
     //Provide section headers for meal types
     func collectionView(
         _ collectionView: UICollectionView,
@@ -706,23 +706,23 @@ extension MealViewController: UICollectionViewDataSource,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
         let header =
-            collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: CellIdentifiers.sectionHeader,
-                for: indexPath
-            ) as! MealSectionHeaderView
-
+        collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: CellIdentifiers.sectionHeader,
+            for: indexPath
+        ) as! MealSectionHeaderView
+        
         header.sectionLabel.text = sectionTitles[indexPath.section]
         return header
     }
-
+    
     // MARK: - Navigation
-
+    
     //Navigate to meal detail screen
     private func navigateToMealDetail(meal: Meal) {
         guard familyMember == nil else { return }
         let storyboard = UIStoryboard(name: "Meals", bundle: nil)
-
+        
         if let detailVC = storyboard.instantiateViewController(
             withIdentifier: "MealDetailViewController"
         ) as? MealDetailViewController {
@@ -730,53 +730,49 @@ extension MealViewController: UICollectionViewDataSource,
             navigationController?.pushViewController(detailVC, animated: true)
         }
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController,
-            let addMealVC = navController.topViewController
-                as? AddMealModalViewController
-        {
-            addMealVC.familyMember = familyMember
-            addMealVC.canEditSharedData = canEditSharedData
-        } else if let addMealVC = segue.destination
+           let addMealVC = navController.topViewController
             as? AddMealModalViewController
         {
             addMealVC.familyMember = familyMember
             addMealVC.canEditSharedData = canEditSharedData
-        } else if let mealListVC = segue.destination as? MealDataViewController
+        } else if let addMealVC = segue.destination
+                    as? AddMealModalViewController
         {
-            mealListVC.familyMember = familyMember
-            mealListVC.canEditSharedData = canEditSharedData
+            addMealVC.familyMember = familyMember
+            addMealVC.canEditSharedData = canEditSharedData
         }
     }
-}
-
-// MARK: - Empty State Cell
-
-class NoMealsCollectionViewCell: UICollectionViewCell {
-    let label = UILabel()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    //Center the placeholder text
-    private func setupView() {
-        label.text = "No meals logged yet"
-        label.textColor = .secondaryLabel
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        ])
+    
+    // MARK: - Empty State Cell
+    
+    class NoMealsCollectionViewCell: UICollectionViewCell {
+        let label = UILabel()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupView()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        //Center the placeholder text
+        private func setupView() {
+            label.text = "No meals logged yet"
+            label.textColor = .secondaryLabel
+            label.font = .systemFont(ofSize: 15, weight: .semibold)
+            label.textAlignment = .center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.addSubview(label)
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            ])
+        }
     }
 }
