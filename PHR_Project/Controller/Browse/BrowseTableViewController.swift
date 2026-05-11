@@ -20,7 +20,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
         ),
         Category(
             name: "Glucose",
-            icon: "heart.fill",
+            icon: "waveform.path.ecg",
             color: .systemRed,
             segueIdentifier: "glucoseSegue"
         ),
