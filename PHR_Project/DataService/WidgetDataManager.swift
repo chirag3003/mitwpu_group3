@@ -22,6 +22,11 @@ class WidgetDataManager {
         self.suiteName = appGroupID
     }
 
+    /// Returns true if the App Group is properly provisioned on this device.
+    var isAppGroupAvailable: Bool {
+        return UserDefaults(suiteName: suiteName) != nil
+    }
+
     private var store: UserDefaults? {
         return UserDefaults(suiteName: suiteName)
     }
@@ -43,6 +48,10 @@ class WidgetDataManager {
     // MARK: - Public Methods
 
     func saveGlucose(value: Int, date: Date, trend: String = "flat") {
+        guard isAppGroupAvailable else {
+            print("WidgetDataManager: App Group not available, skipping widget update.")
+            return
+        }
         store?.set(value, forKey: Keys.latestGlucose)
         store?.set(date, forKey: Keys.glucoseDate)
         store?.set(trend, forKey: Keys.glucoseTrend)
@@ -50,6 +59,10 @@ class WidgetDataManager {
     }
 
     func saveWater(count: Int, date: Date = Date(), source: String = "app") {
+        guard isAppGroupAvailable else {
+            print("WidgetDataManager: App Group not available, skipping widget update.")
+            return
+        }
         store?.set(count, forKey: Keys.waterCount)
         store?.set(date, forKey: Keys.waterDate)
         store?.set(source, forKey: Keys.waterSource)
@@ -57,6 +70,10 @@ class WidgetDataManager {
     }
 
     func saveSteps(count: Int, date: Date = Date()) {
+        guard isAppGroupAvailable else {
+            print("WidgetDataManager: App Group not available, skipping widget update.")
+            return
+        }
         store?.set(count, forKey: Keys.stepCount)
         store?.set(date, forKey: Keys.stepDate)
         reloadWidgets()
