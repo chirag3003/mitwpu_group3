@@ -55,7 +55,7 @@ class ContactsService {
                 CNContactGivenNameKey as CNKeyDescriptor,
                 CNContactFamilyNameKey as CNKeyDescriptor,
                 CNContactPhoneNumbersKey as CNKeyDescriptor,
-                CNContactThumbnailImageDataKey as CNKeyDescriptor,
+                CNContactThumbnailImageDataKey as CNKeyDescriptor
             ]
 
             let request = CNContactFetchRequest(keysToFetch: keysToFetch)

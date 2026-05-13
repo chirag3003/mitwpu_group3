@@ -65,8 +65,7 @@ class MobileNoViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "otpSegue",
             let otpVC = segue.destination as? OTPViewController,
-            let phoneNumber = sender as? String
-        {
+            let phoneNumber = sender as? String {
             otpVC.phoneNumber = phoneNumber
         }
     }

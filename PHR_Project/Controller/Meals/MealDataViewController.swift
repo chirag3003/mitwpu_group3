@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-class MealDataViewController: UITableViewController
-{
-
+class MealDataViewController: UITableViewController {
 
     private var mealData: [Meal] = []
     private var isDeleting = false
@@ -25,11 +23,11 @@ class MealDataViewController: UITableViewController
 
         fetchMeals()
 
-        //setting up table view
+        // setting up table view
         tableView.dataSource = self
         tableView.delegate = self
         tableView.addRoundedCorner()
-        
+
         // Setting up title
         if let familyMemberName = familyMember?.name {
             title = "\(familyMemberName)'s Meals"
@@ -73,8 +71,7 @@ class MealDataViewController: UITableViewController
 
         if let detailVC = segue.destination as? MealDetailViewController,
             let cell = sender as? UITableViewCell,
-            let indexPath = tableView.indexPath(for: cell)
-        {
+            let indexPath = tableView.indexPath(for: cell) {
             // We ensure we don't crash if the arrays have different lengths
             if indexPath.row < mealData.count {
                 let selectedMeal = mealData[indexPath.row]
@@ -91,8 +88,7 @@ class MealDataViewController: UITableViewController
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return mealData.count
     }
 
@@ -109,8 +105,7 @@ class MealDataViewController: UITableViewController
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "meal_cell",
             for: indexPath
@@ -131,12 +126,12 @@ class MealDataViewController: UITableViewController
     ) {
         if editingStyle == .delete {
             let mealToDelete = mealData[indexPath.row]
-            
+
             isDeleting = true
-            
+
             mealData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+
             if let member = familyMember {
                  if let apiID = mealToDelete.apiID {
                     SharedDataService.shared.deleteMeal(

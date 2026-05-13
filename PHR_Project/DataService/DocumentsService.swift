@@ -48,8 +48,7 @@ class DocumentService {
 
         for doc in prescriptions {
             if let doctorId = doc.docDoctor?.apiID,
-                !seenDoctors.contains(doctorId)
-            {
+                !seenDoctors.contains(doctorId) {
                 seenDoctors.insert(doctorId)
                 doctorList.append(doc.asLegacyDocumentsModel)
             }
@@ -95,8 +94,7 @@ class DocumentService {
         )
 
         struct EmptyResponse: Decodable {}
-        APIService.shared.request(endpoint: "/documents/\(id)", method: .delete)
-        { (result: Result<EmptyResponse, Error>) in
+        APIService.shared.request(endpoint: "/documents/\(id)", method: .delete) { (result: Result<EmptyResponse, Error>) in
             if case .failure(let error) = result {
                 print("Error deleting document: \(error)")
             }

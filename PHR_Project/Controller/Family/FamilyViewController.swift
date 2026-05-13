@@ -1,8 +1,7 @@
 import UIKit
 
 class FamilyViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
-{
+    UITableViewDataSource {
 
     // MARK: - Outlets
 
@@ -66,14 +65,12 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
     // MARK: - Table View Data Source & Delegate
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return familyData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "familyMember_cell",
             for: indexPath
@@ -103,7 +100,7 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
 
         // load profile image
         if !member.imageName.isEmpty, let url = URL(string: member.imageName) {
-            URLSession.shared.dataTask(with: url) { data, response, error in
+            URLSession.shared.dataTask(with: url) { data, _, error in
                 guard let data = data, error == nil,
                     let loadedImage = UIImage(data: data)
                 else { return }
@@ -153,8 +150,7 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
             self.setupData()
             self.tableView.reloadData()
 
-            if success, let familyId = FamilyService.shared.getCurrentFamilyId()
-            {
+            if success, let familyId = FamilyService.shared.getCurrentFamilyId() {
                 FamilyService.shared.fetchFamilyMembers(familyId: familyId) {
                     _ in
                     self.setupData()
@@ -222,8 +218,7 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueIdentifiers.goToMemberDetails {
             if let destinationVC = segue.destination
-                as? FamilyMemberViewController
-            {
+                as? FamilyMemberViewController {
                 let selectedMember = sender as? FamilyMember
                 destinationVC.familyMember = selectedMember
             }
@@ -231,8 +226,7 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
 
         if segue.identifier == "familySwitchSegue" {
             if let destinationVC = segue.destination
-                as? FamilySwitchTableViewController
-            {
+                as? FamilySwitchTableViewController {
                 if let sheet = destinationVC.sheetPresentationController {
                     sheet.detents = [.medium(), .large()]
                     sheet.prefersGrabberVisible = true

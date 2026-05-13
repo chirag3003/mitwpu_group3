@@ -27,8 +27,7 @@ class MealService {
     func addMeal(_ meal: Meal) {
         allMeals.append(meal)
 
-        APIService.shared.request(endpoint: "/meals", method: .post, body: meal)
-        { [weak self] (result: Result<Meal, Error>) in
+        APIService.shared.request(endpoint: "/meals", method: .post, body: meal) { [weak self] (result: Result<Meal, Error>) in
             switch result {
             case .success(let savedMeal):
                 print("Meal saved to API: \(savedMeal.name)")

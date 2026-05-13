@@ -16,7 +16,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewDateCell: UIView!
     @IBOutlet weak var dayCell: UILabel!
-    
+
     // Progress layer for water intake visualization
     private var progressView: UIView?
     var cellMode: DateCellMode = .normal {
@@ -24,7 +24,7 @@ class DatesCollectionViewCell: UICollectionViewCell {
             updateAppearance()
         }
     }
-    
+
     var waterProgress: Float = 0.0 {
         didSet {
             if cellMode == .waterIntake {
@@ -32,19 +32,19 @@ class DatesCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
+
     var isToday: Bool = false {
         didSet {
             updateAppearance()
         }
     }
-    
+
     override var isSelected: Bool {
         didSet {
             updateAppearance()
         }
     }
-    
+
     private func updateAppearance() {
         // Define the dynamic color for unselected state
         let lightBlueColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
@@ -55,8 +55,6 @@ class DatesCollectionViewCell: UICollectionViewCell {
             }
         }
 
-
-        
         viewDateCell.backgroundColor = lightBlueColor
 
         if isSelected {
@@ -65,14 +63,13 @@ class DatesCollectionViewCell: UICollectionViewCell {
             viewDateCell.layer.borderColor = UIColor.label.cgColor
             dateLabel.textColor = .label
             dayCell.textColor = .label
-        }
-        else if isToday {
+        } else if isToday {
             // Today (but not selected): Light blue + thin border
             viewDateCell.layer.borderWidth = 1
             viewDateCell.layer.borderColor = UIColor.label.cgColor
             dateLabel.textColor = .label
             dayCell.textColor = .label
-            
+
         } else {
             // Normal state: Light blue, no border
             viewDateCell.layer.borderWidth = 0
@@ -80,13 +77,12 @@ class DatesCollectionViewCell: UICollectionViewCell {
             dayCell.textColor = .secondaryLabel
         }
 
-        
         // Update progress layer if in water mode
         if cellMode == .waterIntake {
             updateProgressView()
         }
     }
-    
+
     func configureCell(date: CalendarDay, mode: DateCellMode = .normal) {
         self.cellMode = mode
         dayCell.text = date.day
@@ -106,17 +102,17 @@ class DatesCollectionViewCell: UICollectionViewCell {
     private func setupProgressView() {
         // Remove existing if any
         progressView?.removeFromSuperview()
-        
+
         // Create a simple UIView for progress
         let pView = UIView()
         pView.backgroundColor = UIColor(red: 101/255, green: 181/255, blue: 255/255, alpha: 1.0)
         pView.layer.cornerRadius = 18
         pView.clipsToBounds = true
-        
+
         // Add to viewDateCell at the bottom (index 0)
         viewDateCell.insertSubview(pView, at: 0)
         progressView = pView
-        
+
         // Set initial frame
         updateProgressView()
     }
@@ -126,24 +122,23 @@ class DatesCollectionViewCell: UICollectionViewCell {
             progressView = nil
             return
         }
-        
+
         // Ensure we have a progress view
         if progressView == nil {
             setupProgressView()
         }
-        
+
         guard let pView = progressView else { return }
-        
+
         // Calculate progress percentage (clamped between 0 and 1)
         let progress = CGFloat(min(max(waterProgress, 0.0), 1.0))
-        
-        
+
         // Calculate height based on progress (fill from bottom)
         let totalHeight = viewDateCell.bounds.height
         let progressHeight = totalHeight * progress
         // Position the progress view at the bottom
         let yPosition = totalHeight - progressHeight
-        
+
         pView.frame = CGRect(
             x: 0,
             y: yPosition,
@@ -152,37 +147,33 @@ class DatesCollectionViewCell: UICollectionViewCell {
         )
         // Hide if no progress
         pView.isHidden = (progress <= 0)
-        
+
         // Ensure labels are on top
         viewDateCell.bringSubviewToFront(dateLabel)
         viewDateCell.bringSubviewToFront(dayCell)
     }
-    
-    
+
     // MARK: - Water Progress Visualization
-    
-    
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         // Update progress view frame when cell resizes
         if cellMode == .waterIntake {
             updateProgressView()
         }
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         // Reset all properties to avoid visual glitches
         isToday = false
         isSelected = false  // ← NEW: Critical fix!
         waterProgress = 0.0
         cellMode = .normal
         viewDateCell.layer.borderWidth = 0
-        
+
         // Remove and nil out progress view
         progressView?.removeFromSuperview()
         progressView = nil

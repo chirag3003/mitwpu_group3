@@ -46,8 +46,7 @@ final class FamilyService {
 
     func getCurrentFamily() -> Family? {
         if let currentId = currentFamilyId,
-            let family = families.first(where: { $0.apiID == currentId })
-        {
+            let family = families.first(where: { $0.apiID == currentId }) {
             return family
         }
         return families.first
@@ -74,8 +73,7 @@ final class FamilyService {
             case .success(let fetched):
                 self?.families = fetched
                 if let currentId = self?.currentFamilyId,
-                    fetched.contains(where: { $0.apiID == currentId })
-                {
+                    fetched.contains(where: { $0.apiID == currentId }) {
                     self?.currentFamilyId = currentId
                 } else {
                     self?.currentFamilyId = fetched.first?.apiID

@@ -32,8 +32,7 @@ class WaterIntakeService {
         // 1. Check if we have a pending update from the Widget for today
         if Calendar.current.isDateInToday(date),
             let widgetData = WidgetDataManager.shared.getWater(),
-            widgetData.source == "widget"
-        {
+            widgetData.source == "widget" {
 
             // Sync this widget value TO the server immediately
             // This prevents the server's old value from overwriting the widget's new value

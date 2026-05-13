@@ -1,8 +1,7 @@
 import UIKit
 
 class AllergyViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving
-{
+    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving {
 
     var allergies: [Allergy] = []
     var familyMember: FamilyMember?
@@ -67,22 +66,19 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
     @objc private func refreshSharedData(_ notification: Notification) {
         guard let member = familyMember else { return }
         if let userId = notification.userInfo?["userId"] as? String,
-            userId != member.userId
-        {
+            userId != member.userId {
             return
         }
         loadSharedAllergies(for: member)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return allergies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell =
             tableView.dequeueReusableCell(
                 withIdentifier: CellIdentifiers.allergyCell,
@@ -134,13 +130,11 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController,
             let addVC = navController.topViewController
-                as? AddAllergyTableViewController
-        {
+                as? AddAllergyTableViewController {
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
         } else if let addVC = segue.destination
-            as? AddAllergyTableViewController
-        {
+            as? AddAllergyTableViewController {
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
         }

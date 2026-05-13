@@ -1,8 +1,7 @@
 import UIKit
 
 class AddFamilyViewController: UIViewController, UITableViewDataSource,
-    UITableViewDelegate, UISearchBarDelegate
-{
+    UITableViewDelegate, UISearchBarDelegate {
 
     private var contacts: [Contact] = []
 
@@ -105,14 +104,12 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return contacts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell =
             tableView.dequeueReusableCell(
                 withIdentifier: "contact_cell",
@@ -136,7 +133,6 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
                 sender: selectedContact
             )
         }
-    
 
     private func showErrorAlert(message: String) {
         let alert = UIAlertController(
@@ -152,12 +148,10 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
         if segue.identifier == "confirmAddFamilySegue" {
             if let navVC = segue.destination as? UINavigationController,
                 let destination = navVC.topViewController
-                    as? ConfirmAddFamilyController
-            {
+                    as? ConfirmAddFamilyController {
                 destination.selectedContact = sender as? Contact
             } else if let destination = segue.destination
-                as? ConfirmAddFamilyController
-            {
+                as? ConfirmAddFamilyController {
                 destination.selectedContact = sender as? Contact
             }
         }

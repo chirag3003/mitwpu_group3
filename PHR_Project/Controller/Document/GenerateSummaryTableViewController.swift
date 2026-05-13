@@ -1,8 +1,7 @@
 import UIKit
 
 class GenerateSummaryTableViewController: UITableViewController,
-    FamilyMemberDataScreen
-{
+    FamilyMemberDataScreen {
 
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -61,7 +60,7 @@ class GenerateSummaryTableViewController: UITableViewController,
             titleLabel.topAnchor.constraint(
                 equalTo: headerView.topAnchor,
                 constant: 15
-            ),
+            )
         ])
 
         return headerView

@@ -1,22 +1,22 @@
 import UIKit
 
 extension UIViewController {
-    
+
     // MARK: - Loader
-    
+
     private var loaderTag: Int { 999999 }
-    
+
     func showLoader(_ show: Bool) {
         if show {
             // Avoid adding double loaders
             if view.viewWithTag(loaderTag) != nil { return }
-            
+
             let activityIndicator = UIActivityIndicatorView(style: .large)
             activityIndicator.center = view.center
             activityIndicator.tag = loaderTag
             activityIndicator.hidesWhenStopped = true
             activityIndicator.startAnimating()
-            
+
             // Add background dimming if desired, for now just the spinner
             view.addSubview(activityIndicator)
             view.isUserInteractionEnabled = false
@@ -28,12 +28,12 @@ extension UIViewController {
             view.isUserInteractionEnabled = true
         }
     }
-    
-    //Keyboard
-    @objc func dissmissKeyboard(){
+
+    // Keyboard
+    @objc func dissmissKeyboard() {
         view.endEditing(true)
     }
-    
+
     func addKeyboardDisapperanceGesture() {
         let tap = UITapGestureRecognizer(
             target: self,
@@ -41,15 +41,15 @@ extension UIViewController {
         )
         view.addGestureRecognizer(tap)
     }
-    
-    //Alerts
+
+    // Alerts
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-    
-    //Haptics
+
+    // Haptics
     func provideHapticFeedback() {
         let generator = UIImpactFeedbackGenerator(style: .light)
         generator.impactOccurred()

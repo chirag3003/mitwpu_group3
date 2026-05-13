@@ -8,19 +8,18 @@
 import UIKit
 
 class AddDetailsTableViewController: UITableViewController {
-    
-    
+
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
     var familyMember: FamilyMember?
     var canEditSharedData = false
-    
+
     @IBAction func doneButton(_ sender: Any) {
         if familyMember != nil && !canEditSharedData {
             dismiss(animated: true)
             return
         }
-        
+
         guard let firstName = firstName.text, !firstName.isEmpty else {
             self.showAlert(
                 title: "Missing info",
@@ -28,7 +27,7 @@ class AddDetailsTableViewController: UITableViewController {
             )
             return
         }
-        
+
         guard let lastName = lastName.text, !lastName.isEmpty else {
             self.showAlert(
                 title: "Missing info",
@@ -36,10 +35,10 @@ class AddDetailsTableViewController: UITableViewController {
             )
             return
         }
-        
+
         // Combine first and last name for doctor's full name
         let fullName = "Dr. \(firstName) \(lastName)"
-        
+
         if let member = familyMember {
             SharedDataService.shared.createDocDoctor(
                 for: member.userId,
@@ -61,7 +60,7 @@ class AddDetailsTableViewController: UITableViewController {
 
         // Create doctor via API (global list)
         DocDoctorService.shared.createDoctor(name: fullName)
-        
+
         view.endEditing(true)
         dismiss(animated: true)
     }

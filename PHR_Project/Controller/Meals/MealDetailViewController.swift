@@ -43,7 +43,7 @@ class MealDetailViewController: UIViewController {
         setupComponentStyles()
         populateMealDetails()
 
-        //setting up title
+        // setting up title
         if let familyMemberName = familyMember?.name {
             title = "\(familyMemberName)'s Meal"
         }
@@ -77,8 +77,7 @@ class MealDetailViewController: UIViewController {
 
         // Set meal image if valid URL exists
         if let imagePath = meal.image, !imagePath.isEmpty,
-            imagePath.lowercased().hasPrefix("https")
-        {
+            imagePath.lowercased().hasPrefix("https") {
             mealImage.setImageFromURL(url: imagePath)
         }
 
@@ -102,15 +101,13 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return 2
     }
 
     // Configure cells for meal metadata (Date and Contributor)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell =
             tableView.dequeueReusableCell(
                 withIdentifier: "meal_detail_cell",

@@ -25,7 +25,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var caloriesCard: CircularProgressView!
     @IBOutlet weak var caloriesLabel: UILabel!
 
-    //Nutrients
+    // Nutrients
     @IBOutlet weak var nutrientStack: UIStackView!
     @IBOutlet weak var carbsCard: SemicircularProgressView!
     @IBOutlet weak var proteinCard: SemicircularProgressView!
@@ -156,7 +156,7 @@ final class HomeViewController: UIViewController {
 // MARK: - Data Loading
 extension HomeViewController {
 
-    //Refreshes all dashboard UI elements with latest data
+    // Refreshes all dashboard UI elements with latest data
     private func updateAllUI() {
         updateGreeting()
         updateProfileImage()
@@ -189,8 +189,7 @@ extension HomeViewController {
         }
 
         if let imagePath = profile.profileImage,
-            let url = URL(string: imagePath)
-        {
+            let url = URL(string: imagePath) {
             URLSession.shared.dataTask(with: url) { data, _, _ in
                 if let data = data, let image = UIImage(data: data) {
                     updateButton(image)
@@ -466,7 +465,7 @@ extension HomeViewController {
 extension HomeViewController {
 
     private func setupGestures() {
-        //Glucose
+        // Glucose
         setupCardNavigation(
             for: glucoseCard,
             action: #selector(glucoseCardTapped)
@@ -519,9 +518,9 @@ extension HomeViewController {
     }
 }
 
-//let mealSections = ["Breakfast", "Lunch", "Snacks", "Dinner"]
+// let mealSections = ["Breakfast", "Lunch", "Snacks", "Dinner"]
 //
-//extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+// extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 //
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 1
@@ -596,4 +595,4 @@ extension HomeViewController {
 //        let actualSectionIndex = loggedSectionIndices[indexPath.row]
 //        print("\(mealSections[actualSectionIndex]) tapped")
 //    }
-//}
+// }

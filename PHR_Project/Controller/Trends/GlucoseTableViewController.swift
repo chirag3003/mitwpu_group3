@@ -8,8 +8,7 @@
 import UIKit
 
 class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     var readings: [GlucoseReading] = [] {
         didSet {

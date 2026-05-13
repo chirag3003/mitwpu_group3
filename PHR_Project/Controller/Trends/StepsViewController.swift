@@ -57,7 +57,7 @@ class StepsViewController: UIViewController {
         addChild(hostingController)
         hostingController.view.frame = chartContainerView.bounds
         hostingController.view.autoresizingMask = [
-            .flexibleWidth, .flexibleHeight,
+            .flexibleWidth, .flexibleHeight
         ]
         hostingController.view.backgroundColor = .clear
 

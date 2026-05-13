@@ -1,8 +1,7 @@
 import UIKit
 
 class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
     var familyMember: FamilyMember?
 
     // MARK: - Outlets
@@ -11,13 +10,13 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
     @IBOutlet weak var outOfGlassesLabel: UILabel!
     @IBOutlet weak var dateCollectionView: UICollectionView!
 
-    //glass value changes
+    // glass value changes
     @IBOutlet weak var glassValue: UILabel!
     @IBOutlet weak var increment: UIImageView!
     @IBOutlet weak var decrement: UIImageView!
 
     @IBOutlet weak var mlLabel: UILabel!
-    //insights
+    // insights
     @IBOutlet weak var insight1: UIView!
     @IBOutlet weak var insight2: UIView!
 
@@ -119,7 +118,7 @@ class WaterIntakeViewController: UIViewController, FamilyMemberDataScreen,
     // MARK: - Layout Creation
     private func createDateLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout {
-            (sectionIndex, env) -> NSCollectionLayoutSection? in
+            (_, _) -> NSCollectionLayoutSection? in
 
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -444,8 +443,7 @@ extension WaterIntakeViewController {
 
 // MARK: - CollectionView Protocols
 extension WaterIntakeViewController: UICollectionViewDataSource,
-    UICollectionViewDelegate
-{
+    UICollectionViewDelegate {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -575,8 +573,7 @@ extension WaterIntakeViewController: UICollectionViewDataSource,
             y: dateCollectionView.bounds.height / 2
         )
 
-        if let indexPath = dateCollectionView.indexPathForItem(at: centerPoint)
-        {
+        if let indexPath = dateCollectionView.indexPathForItem(at: centerPoint) {
             // Select the centered cell
             dateCollectionView.selectItem(
                 at: indexPath,

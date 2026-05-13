@@ -21,17 +21,17 @@ struct Meal: Codable {
     let image: String?
     let type: String      // "Breakfast", "Lunch", "Dinner", "Snack"
     let dateRecorded: Date
-    
+
     // Nutritional Info
     let calories: Int
     let protein: Int
     let carbs: Int
     let fiber: Int
-    
+
     // Extra
     let addedBy: String
     let notes: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case apiID = "_id"
         case userId
@@ -48,7 +48,7 @@ struct Meal: Codable {
         case addedBy
         case notes
     }
-    
+
     // Custom init for manual creation (optional, helps dealing with non-optional let properties)
     init(id: UUID = UUID(), apiID: String? = nil, userId: String? = nil, name: String, detail: String?, time: String, image: String?, type: String, dateRecorded: Date, calories: Int, protein: Int, carbs: Int, fiber: Int, addedBy: String, notes: String?) {
         self.id = id
@@ -67,7 +67,7 @@ struct Meal: Codable {
         self.addedBy = addedBy
         self.notes = notes
     }
-    
+
     // Decodable init
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -83,14 +83,14 @@ struct Meal: Codable {
         protein = Int(try container.decode(Double.self, forKey: .protein))
         carbs = Int(try container.decode(Double.self, forKey: .carbs))
         fiber = Int(try container.decode(Double.self, forKey: .fiber))
-        
+
         addedBy = try container.decode(String.self, forKey: .addedBy)
         notes = try container.decodeIfPresent(String.self, forKey: .notes)
-        
+
         // Ensure id is set locally
-        id = UUID() 
+        id = UUID()
     }
-    
+
     // Encodable
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)

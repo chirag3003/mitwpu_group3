@@ -9,7 +9,7 @@ struct AuthRequest: Codable {
 struct AuthUser: Codable {
     let id: String
     let phoneNumber: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case phoneNumber

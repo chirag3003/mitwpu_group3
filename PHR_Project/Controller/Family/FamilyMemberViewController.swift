@@ -31,7 +31,7 @@ class FamilyMemberViewController: UIViewController {
 
     // Data Models
     let accessOptions = [
-        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water",
+        "Documents", "Meal Logs", "Symptom Logs", "Glucose", "Water"
     ]
 
     override func viewDidLoad() {
@@ -65,20 +65,17 @@ class FamilyMemberViewController: UIViewController {
 
         if segue.identifier == "familyAllergiesSegue" {
             if let navController = segue.destination as? UINavigationController,
-                let allergyVC = navController.topViewController as? AllergyViewController
-            {
+                let allergyVC = navController.topViewController as? AllergyViewController {
                 allergyVC.canEditSharedData = sharedWriteAccess
             } else if let allergyVC = segue.destination as? AllergyViewController {
                 allergyVC.canEditSharedData = sharedWriteAccess
             }
         } else if let navController = segue.destination as? UINavigationController,
             var destination = navController.topViewController
-                as? SharedWriteAccessReceiving
-        {
+                as? SharedWriteAccessReceiving {
             destination.canEditSharedData = canWriteSharedData
         } else if var destination = segue.destination
-            as? SharedWriteAccessReceiving
-        {
+            as? SharedWriteAccessReceiving {
             destination.canEditSharedData = canWriteSharedData
         }
     }
@@ -114,8 +111,7 @@ class FamilyMemberViewController: UIViewController {
     }
 
     private func buildSharedOptions(from permission: FamilyPermission?)
-        -> [(title: String, segue: String)]
-    {
+        -> [(title: String, segue: String)] {
         var options: [(title: String, segue: String)] = []
 
         if let flags = permission?.permissions {
@@ -206,15 +202,13 @@ class FamilyMemberViewController: UIViewController {
 }
 
 // MARK: Table View
-extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
-{
+extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3  // Section 0: Allow Access To, Section 1: Shared With You
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         if section == 0 {
             return accessOptions.count
         } else if section == 1 {
@@ -270,7 +264,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
             titleLabel.bottomAnchor.constraint(
                 equalTo: headerView.bottomAnchor,
                 constant: -8
-            ),
+            )
         ])
 
         return headerView
@@ -301,8 +295,7 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
     // MARK: - Cell Configuration
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         if indexPath.section == 0 {
             let cell =
                 tableView.dequeueReusableCell(

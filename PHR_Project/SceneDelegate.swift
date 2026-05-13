@@ -153,8 +153,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
                     // Access the root VC to set delegate/launch camera if needed
                     if let addMealVC = navVC.topViewController
-                        as? AddMealModalViewController
-                    {
+                        as? AddMealModalViewController {
 
                         // Configure presentation style
                         if let sheet = navVC.sheetPresentationController {
@@ -166,8 +165,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         // Present from the top-most view controller (which should be the Tab Bar now)
                         var topController = window.rootViewController
                         while let presented = topController?
-                            .presentedViewController
-                        {
+                            .presentedViewController {
                             topController = presented
                         }
 
@@ -240,8 +238,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     }
 
                     var topController = window.rootViewController
-                    while let presented = topController?.presentedViewController
-                    {
+                    while let presented = topController?.presentedViewController {
                         topController = presented
                     }
 

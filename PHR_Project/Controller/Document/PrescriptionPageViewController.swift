@@ -2,8 +2,7 @@ import QuickLook
 import UIKit
 
 final class PrescriptionPageViewController: UIViewController,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -12,7 +11,7 @@ final class PrescriptionPageViewController: UIViewController,
     var selectedDoctorName: String?  // Legacy compatibility
     var familyMember: FamilyMember?
     var canEditSharedData = false
-    
+
      // MARK: - Properties
      private var prescriptions: [PrescriptionModel] = []
      private var previewURL: URL?
@@ -22,7 +21,7 @@ final class PrescriptionPageViewController: UIViewController,
           super.viewDidLoad()
           setupTableView()
           loadData()
-         
+
           // Set navigation title to doctor name
           if let doctor = selectedDoctor {
               self.title = doctor.name
@@ -35,7 +34,7 @@ final class PrescriptionPageViewController: UIViewController,
           if familyMember != nil && !canEditSharedData {
               navigationItem.rightBarButtonItem = nil
           }
-         
+
           // Listen for document updates
           NotificationCenter.default.addObserver(
               self,
@@ -61,8 +60,7 @@ final class PrescriptionPageViewController: UIViewController,
                   switch result {
                   case .success(let docs):
                       if let doctor = self?.selectedDoctor,
-                          let doctorId = doctor.apiID
-                      {
+                          let doctorId = doctor.apiID {
                           self?.prescriptions = docs.filter {
                               $0.documentType == .prescription
                                   && ($0.docDoctor?.apiID ?? $0.docDoctorId)
@@ -107,30 +105,30 @@ final class PrescriptionPageViewController: UIViewController,
      @objc private func refreshData() {
          loadData()
      }
-    
+
      @IBAction func didTapFilterButton(_ sender: Any) {
         isNewestFirst.toggle()
-            
+
             // 2. Sort the data
             sortData()
-            
+
             // 3. Haptic feedback
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
     }
     private func sortData() {
         prescriptions.sort { (p1: PrescriptionModel, p2: PrescriptionModel) -> Bool in
-                
+
                 // Convert the strings like "4 Feb 2026" into real Date objects
                 let date1 = dateFormatter.date(from: p1.lastUpdatedAt) ?? Date.distantPast
                 let date2 = dateFormatter.date(from: p2.lastUpdatedAt) ?? Date.distantPast
-                
+
                 // Return newest first (date1 > date2) or oldest first (date1 < date2)
                 return isNewestFirst ? date1 > date2 : date1 < date2
             }
             tableView.reloadData()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController,
            let uploadVC = navController.topViewController as? PrescriptionUploadTableViewController {
@@ -138,30 +136,26 @@ final class PrescriptionPageViewController: UIViewController,
             uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
-        }
-        else if let uploadVC = segue.destination as? PrescriptionUploadTableViewController {
+        } else if let uploadVC = segue.destination as? PrescriptionUploadTableViewController {
             uploadVC.selectedDoctor = selectedDoctor
             uploadVC.doctorName = selectedDoctor?.name ?? selectedDoctorName
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         }
     }
-    
-    
+
  }
 
  // MARK: - UITableViewDataSource
  extension PrescriptionPageViewController: UITableViewDataSource {
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-         -> Int
-     {
+         -> Int {
          return prescriptions.count
      }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-         -> UITableViewCell
-     {
+         -> UITableViewCell {
          guard
              let cell = tableView.dequeueReusableCell(
                  withIdentifier: PrescriptionTableViewCell.reuseIdentifier,
@@ -187,7 +181,7 @@ extension PrescriptionPageViewController: UITableViewDelegate {
           tableView.deselectRow(at: indexPath, animated: true)
 
           let prescription = prescriptions[indexPath.row]
-          
+
           // Validate PDF URL exists
           guard let urlString = prescription.pdfUrl, !urlString.isEmpty else {
               showAlert(
@@ -214,8 +208,7 @@ extension PrescriptionPageViewController: UITableViewDelegate {
                   switch result {
                   case .success(let docs):
                       if let doc = docs.first(where: { $0.fileUrl == fileUrl }),
-                          let apiId = doc.apiID
-                      {
+                          let apiId = doc.apiID {
                           SharedDataService.shared.deleteDocument(
                               for: member.userId,
                               documentId: apiId

@@ -41,7 +41,7 @@ final class HealthKitService {
         let typesToRead: Set<HKObjectType> = [
             HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKQuantityType.quantityType(forIdentifier: .bloodGlucose)!,
+            HKQuantityType.quantityType(forIdentifier: .bloodGlucose)!
         ]
 
         healthStore.requestAuthorization(toShare: nil, read: typesToRead) {

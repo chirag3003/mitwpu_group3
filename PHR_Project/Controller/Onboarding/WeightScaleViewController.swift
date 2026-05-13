@@ -82,12 +82,12 @@ class WeightScaleViewController: UIViewController {
             if self.isKgSelected {
                 self.weightInKg = value
                 self.valueLabel.text = "\(Int(value))"
-                //print("Selected weight: \(Int(value)) kg")
+                // print("Selected weight: \(Int(value)) kg")
             } else {
                 // Value is in lbs, convert to kg for storage
                 self.weightInKg = value / 2.20462
                 self.valueLabel.text = "\(Int(value))"
-                //print("Selected weight: \(Int(value)) lbs (\(Int(self.weightInKg)) kg)")
+                // print("Selected weight: \(Int(value)) lbs (\(Int(self.weightInKg)) kg)")
             }
         }
 
@@ -103,7 +103,7 @@ class WeightScaleViewController: UIViewController {
             reconfigureScaleForUnit()
 
             _ = isKgSelected ? "kg" : "lbs"
-            //print("Unit changed to: \(unit)")
+            // print("Unit changed to: \(unit)")
             printCurrentWeight()
         }
     }
@@ -175,8 +175,7 @@ class WeightScaleViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the updated array to the next screen (e.g., SummaryViewController)
         saveDataToArray()
-        if let diabetesTypeVC = segue.destination as? DiabetesTypeViewController
-        {
+        if let diabetesTypeVC = segue.destination as? DiabetesTypeViewController {
             diabetesTypeVC.profileDataArray = profileDataArray
         }
     }

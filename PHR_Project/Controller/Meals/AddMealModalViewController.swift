@@ -26,7 +26,7 @@ class AddMealModalViewController: UITableViewController {
     var canEditSharedData = true
 
     // MARK: Lifecycle
-    //Initial setup when view loads
+    // Initial setup when view loads
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +37,7 @@ class AddMealModalViewController: UITableViewController {
     }
 
     // MARK: Setup
-    //Configure meal type dropdown menu
+    // Configure meal type dropdown menu
     func setupMealMenu() {
         let options = ["Breakfast", "Lunch", "Dinner"]
         var actions: [UIAction] = []
@@ -94,23 +94,23 @@ class AddMealModalViewController: UITableViewController {
     }
 
     // MARK: Stepper Control
-    //Update quantity when stepper changes
+    // Update quantity when stepper changes
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         updateStepperLabel()
     }
 
-    //Display current stepper value
+    // Display current stepper value
     func updateStepperLabel() {
         stepperValue.text = "\(Int(qtyStepper.value))"
     }
 
     // MARK: Actions
-    //Validate inputs and save meal
+    // Validate inputs and save meal
     @IBAction func doneButton(_ sender: Any) {
         saveMeal()
     }
 
-    //Close modal without saving
+    // Close modal without saving
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true)
     }

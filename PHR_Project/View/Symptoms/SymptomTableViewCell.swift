@@ -23,9 +23,9 @@ class SymptomTableViewCell: UITableViewCell {
     }
 
     func setupStyle() {
-        
+
         // Styling
-        
+
         cardView.layer.cornerRadius = UIConstants.CornerRadius.large
         cardView.layer.shadowColor = UIColor.black.cgColor
         cardView.layer.shadowOpacity = UIConstants.Shadow.defaultOpacity

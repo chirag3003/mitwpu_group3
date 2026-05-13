@@ -72,6 +72,4 @@ class AddFamilyTableViewController: UITableViewController {
         present(alert, animated: true)
     }
 
-
-
 }

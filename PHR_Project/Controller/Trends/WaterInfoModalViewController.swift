@@ -7,11 +7,11 @@
 
 import UIKit
 
-//This is just an Information modal, the info is added through storyboard
+// This is just an Information modal, the info is added through storyboard
 
 class WaterInfoModalViewController: UIViewController {
 
-    //To close the modal
+    // To close the modal
     @IBAction func dismiss(_ sender: Any) {
         dismiss(animated: true)
 

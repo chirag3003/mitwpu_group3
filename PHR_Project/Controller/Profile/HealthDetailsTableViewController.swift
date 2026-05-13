@@ -3,8 +3,7 @@ import UIKit
 
 class HealthDetailsTableViewController: UITableViewController,
     UITextFieldDelegate, UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
-{
+    UINavigationControllerDelegate {
 
     // MARK: - Outlets
 
@@ -56,7 +55,7 @@ class HealthDetailsTableViewController: UITableViewController,
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         allTextFields = [
-            firstNameField, lastNameField, heightTextField, weightTextField,
+            firstNameField, lastNameField, heightTextField, weightTextField
         ]
         allButtons = [sexSelectButton, bloodTypeButton, typeSelectButton]
 
@@ -210,7 +209,7 @@ class HealthDetailsTableViewController: UITableViewController,
             print("Diabetes Type Selected: \(action.title)")
         }
         let allDiabetesTypes = [
-            "Type 1", "Type 2", "Gestational", "Prediabetes", "None",
+            "Type 1", "Type 2", "Gestational", "Prediabetes", "None"
         ]
 
         let actions: [UIAction] = allDiabetesTypes.map { typeTitle in
@@ -399,7 +398,7 @@ class HealthDetailsTableViewController: UITableViewController,
         return true
     }
 
-    //Custom section headers
+    // Custom section headers
 
     override func tableView(
         _ tableView: UITableView,
@@ -447,7 +446,7 @@ class HealthDetailsTableViewController: UITableViewController,
             titleLabel.topAnchor.constraint(
                 equalTo: headerView.topAnchor,
                 constant: 15
-            ),
+            )
         ])
 
         return headerView

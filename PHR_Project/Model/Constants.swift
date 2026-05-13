@@ -10,25 +10,25 @@ import UIKit
 // MARK: - UI Constants
 
 enum UIConstants {
-    
+
     enum CornerRadius {
         static let small: CGFloat = 10
         static let medium: CGFloat = 16
         static let large: CGFloat = 20
         static let huge: CGFloat = 30
     }
-    
+
     enum Spacing {
         static let extraSmall: CGFloat = 4
         static let small: CGFloat = 8
         static let medium: CGFloat = 16
         static let large: CGFloat = 24
     }
-    
+
     enum Padding {
         static let medium: CGFloat = 10
     }
-    
+
     enum Shadow {
         static let defaultOpacity: Float = 0.08
         static let mediumOpacity: Float = 0.15
@@ -36,20 +36,20 @@ enum UIConstants {
         static let defaultOffset = CGSize(width: 0, height: 2)
         static let mediumOffset = CGSize(width: 0, height: 3)
     }
-    
+
     enum ProgressThickness {
         static let thin: CGFloat = 12
         static let thick: CGFloat = 25
     }
-    
+
     enum CollectionLayout {
         static let oneThirdWidth: CGFloat = 1.0 / 3.0
         static let fullWidth: CGFloat = 1.0
-        
+
         static let memberItemHeight: CGFloat = 150
         static let headerHeight: CGFloat = 80
     }
-    
+
     enum AnimationDuration {
         static let medium: TimeInterval = 0.5
     }

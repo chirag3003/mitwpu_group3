@@ -1,19 +1,16 @@
 import UIKit
 
 class SymptomViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving
-{
+    UITableViewDataSource, FamilyMemberDataScreen, SharedWriteAccessReceiving {
 
     var symptomsData: [Symptom] = []
     var isDeleting = false
     var familyMember: FamilyMember?
     var canEditSharedData = false
-    
-    // MARK: - Outlets
-    
-    @IBOutlet weak var symptomTableView: UITableView!
 
-    
+    // MARK: - Outlets
+
+    @IBOutlet weak var symptomTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +48,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     func setupLongPressGesture() {
             let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
             symptomTableView.addGestureRecognizer(longPress)
@@ -63,9 +60,9 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             if gestureRecognizer.state == .began {
                 let touchPoint = gestureRecognizer.location(in: symptomTableView)
                 if let indexPath = symptomTableView.indexPathForRow(at: touchPoint) {
-                    
+
                     let selectedSymptom = symptomsData[indexPath.row]
-                    
+
                     // Assuming you have a Segue from this VC to AddSymptomTableViewController
                     // You need to ensure the Segue Identifier matches your storyboard.
                     // If you don't have a segue identifier yet, name it "ShowAddSymptom" in Storyboard.
@@ -80,7 +77,7 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
             if segue.identifier == "ShowAddSymptom" {
                 if let navVC = segue.destination as? UINavigationController,
                    let destVC = navVC.topViewController as? AddSymptomTableViewController {
-                    
+
                     // If sender is a Symptom, we are editing
                     destVC.familyMember = familyMember
                     destVC.canEditSharedData = canEditSharedData
@@ -101,22 +98,19 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     // MARK: - TableView Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         return symptomsData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        
+        -> UITableViewCell {
+
         let cell =
             tableView.dequeueReusableCell(
                 withIdentifier: CellIdentifiers.symptomCell,
                 for: indexPath
             ) as! SymptomTableViewCell
 
-     
         let currentSymptom = symptomsData[indexPath.row]
 
         // Configure cell
@@ -178,24 +172,24 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
                 // 1. Get the latest reference from the Service
                 // Since 'symptoms' is a Value Type (Array), we must re-assign it.
                 symptomsData = SymptomService.shared.getSymptoms()
-                
+
                 // 2. Reload the table view
                 DispatchQueue.main.async {
                     self.symptomTableView.reloadData()
                 }
             }
         }
-        
+
         // Also add this to ensure the view stays fresh
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             reloadData()
         }
-    
+
         @objc func updateSymptoms() {
         // If we are currently deleting a row, don't reload to avoid animation conflicts
         if isDeleting { return }
-        
+
         // Otherwise, refresh the list
         reloadData()
     }
