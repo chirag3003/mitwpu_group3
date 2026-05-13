@@ -20,6 +20,13 @@
 			remoteGlobalIDString = 19E3EECC2F5C22A3007E93C5;
 			remoteInfo = "Diabetease WidgetsExtension";
 		};
+		65062A0A2FB4540B00EEC020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19E0D17A2E8A8F9E00A6E73C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19E0D1812E8A8F9E00A6E73C;
+			remoteInfo = PHR_Project;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +49,7 @@
 		19E3EECF2F5C22A3007E93C5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		19E3EED12F5C22A3007E93C5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		19E3EEE92F5C2338007E93C5 /* Diabetease WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Diabetease WidgetsExtension.entitlements"; sourceTree = "<group>"; };
+		65062A042FB4540B00EEC020 /* PHR_ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PHR_ProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -94,6 +102,11 @@
 			path = "Diabetease Widgets";
 			sourceTree = "<group>";
 		};
+		65062A052FB4540B00EEC020 /* PHR_ProjectUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PHR_ProjectUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +126,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65062A012FB4540B00EEC020 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -122,6 +142,7 @@
 				19E3EEE92F5C2338007E93C5 /* Diabetease WidgetsExtension.entitlements */,
 				19E0D1842E8A8F9E00A6E73C /* PHR_Project */,
 				19E3EED32F5C22A3007E93C5 /* Diabetease Widgets */,
+				65062A052FB4540B00EEC020 /* PHR_ProjectUITests */,
 				19E3EECE2F5C22A3007E93C5 /* Frameworks */,
 				19E0D1832E8A8F9E00A6E73C /* Products */,
 			);
@@ -132,6 +153,7 @@
 			children = (
 				19E0D1822E8A8F9E00A6E73C /* PHR_Project.app */,
 				19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */,
+				65062A042FB4540B00EEC020 /* PHR_ProjectUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,6 +216,29 @@
 			productReference = 19E3EECD2F5C22A3007E93C5 /* Diabetease WidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		65062A032FB4540B00EEC020 /* PHR_ProjectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65062A0E2FB4540B00EEC020 /* Build configuration list for PBXNativeTarget "PHR_ProjectUITests" */;
+			buildPhases = (
+				65062A002FB4540B00EEC020 /* Sources */,
+				65062A012FB4540B00EEC020 /* Frameworks */,
+				65062A022FB4540B00EEC020 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65062A0B2FB4540B00EEC020 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				65062A052FB4540B00EEC020 /* PHR_ProjectUITests */,
+			);
+			name = PHR_ProjectUITests;
+			packageProductDependencies = (
+			);
+			productName = PHR_ProjectUITests;
+			productReference = 65062A042FB4540B00EEC020 /* PHR_ProjectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -210,6 +255,10 @@
 					};
 					19E3EECC2F5C22A3007E93C5 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					65062A032FB4540B00EEC020 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 19E0D1812E8A8F9E00A6E73C;
 					};
 				};
 			};
@@ -229,6 +278,7 @@
 			targets = (
 				19E0D1812E8A8F9E00A6E73C /* PHR_Project */,
 				19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */,
+				65062A032FB4540B00EEC020 /* PHR_ProjectUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,6 +292,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		19E3EECB2F5C22A3007E93C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65062A022FB4540B00EEC020 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,6 +322,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65062A002FB4540B00EEC020 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -272,6 +336,11 @@
 			isa = PBXTargetDependency;
 			target = 19E3EECC2F5C22A3007E93C5 /* Diabetease WidgetsExtension */;
 			targetProxy = 19E3EEE12F5C22A4007E93C5 /* PBXContainerItemProxy */;
+		};
+		65062A0B2FB4540B00EEC020 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19E0D1812E8A8F9E00A6E73C /* PHR_Project */;
+			targetProxy = 65062A0A2FB4540B00EEC020 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -545,6 +614,46 @@
 			};
 			name = Release;
 		};
+		65062A0C2FB4540B00EEC020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "codes.ved.phrios.PHR-ProjectUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PHR_Project;
+			};
+			name = Debug;
+		};
+		65062A0D2FB4540B00EEC020 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "codes.ved.phrios.PHR-ProjectUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PHR_Project;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -571,6 +680,15 @@
 			buildConfigurations = (
 				19E3EEE52F5C22A4007E93C5 /* Debug */,
 				19E3EEE62F5C22A4007E93C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65062A0E2FB4540B00EEC020 /* Build configuration list for PBXNativeTarget "PHR_ProjectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65062A0C2FB4540B00EEC020 /* Debug */,
+				65062A0D2FB4540B00EEC020 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
