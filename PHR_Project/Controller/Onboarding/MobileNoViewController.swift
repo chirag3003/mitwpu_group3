@@ -9,11 +9,14 @@ import UIKit
 
 class MobileNoViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var getOtpButton: UIButton!
     @IBOutlet weak var numberField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        numberField.accessibilityIdentifier = "numberField"
+        getOtpButton.accessibilityIdentifier = "getOtpButton"
         numberField.keyboardType = .phonePad
         setupTextField()
     }
