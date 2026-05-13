@@ -39,12 +39,12 @@ class DocumentService {
     // MARK: - Legacy Compatibility Methods
 
     /// Returns list of unique doctors from prescriptions (for UI doctor list)
-    func getAllPrescriptions() -> [documentsModel] {
+    func getAllPrescriptions() -> [DocumentsModel] {
         let prescriptions = getPrescriptions()
 
         // Group by doctor and get unique doctors
         var seenDoctors = Set<String>()
-        var doctorList: [documentsModel] = []
+        var doctorList: [DocumentsModel] = []
 
         for doc in prescriptions {
             if let doctorId = doc.docDoctor?.apiID,
