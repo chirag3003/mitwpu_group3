@@ -32,9 +32,8 @@ final class PHR_ProjectUITests: XCTestCase {
     // these login-flow tests are skipped gracefully.
 
     private var isOnLoginFlow: Bool {
-        // Check for button OR text field — whichever your login screen uses
-        return app.buttons.firstMatch.waitForExistence(timeout: 10)
-            && !app.tabBars.firstMatch.waitForExistence(timeout: 3)
+        // App lands on welcome screen first, not directly on phone field
+        return app.buttons["Continue with Phone"].waitForExistence(timeout: 10)
     }
 
     // MARK: - Test 1: App launches successfully
@@ -60,127 +59,85 @@ final class PHR_ProjectUITests: XCTestCase {
         guard isOnLoginFlow else {
             throw XCTSkip("Already logged in — phone screen not visible.")
         }
+        app.buttons["Continue with Phone"].tap()  // ✅ ADD THIS
 
-        // There should be at least one text field (the phone number field).
         XCTAssertTrue(
-            app.textFields.firstMatch.exists,
+            app.textFields["numberField"].waitForExistence(timeout: 5), // also change .exists to waitForExistence
             "Phone number text field should be visible on the login screen."
         )
-
-        // There should be at least one button (the 'Get OTP' button).
-        XCTAssertTrue(
-            app.buttons.firstMatch.exists,
-            "At least one button should be visible on the login screen."
-        )
+        let getOtpBtn = app.buttons["getOtpButton"]
+        XCTAssertTrue(getOtpBtn.exists, "Get OTP button should be visible.")
     }
-
-    // MARK: - Test 3: Entering a phone number enables navigation to OTP screen
 
     func testEnteringPhoneNumberAndTappingGetOTP() throws {
         guard isOnLoginFlow else {
             throw XCTSkip("Already logged in — phone screen not visible.")
         }
+        app.buttons["Continue with Phone"].tap()  // ✅ ADD THIS
 
-        let phoneField = app.textFields.firstMatch
+        let phoneField = app.textFields["numberField"]
         phoneField.tap()
-        phoneField.typeText("9876543210")  // 10-digit dummy number
+        phoneField.typeText("9876543210")
+        app.buttons["getOtpButton"].tap()
 
-        // Tap the first (and only) button — "Get OTP"
-        app.buttons.firstMatch.tap()
-
-        // After tapping, the OTP screen should appear.
-        // The OTP screen has 4 single-character text fields.
         let otpFieldAppeared =
             app.textFields.count >= 4
             || app.textFields.firstMatch.waitForExistence(timeout: 3)
-        XCTAssertTrue(
-            otpFieldAppeared,
-            "OTP input screen should appear after submitting a phone number."
-        )
+        XCTAssertTrue(otpFieldAppeared, "OTP input screen should appear after submitting a phone number.")
     }
-
-    // MARK: - Test 4: Short phone number shows a validation alert
 
     func testShortPhoneNumberShowsAlert() throws {
         guard isOnLoginFlow else {
             throw XCTSkip("Already logged in — phone screen not visible.")
         }
+        app.buttons["Continue with Phone"].tap()  // ✅ ADD THIS
 
-        let phoneField = app.textFields.firstMatch
+        let phoneField = app.textFields["numberField"]
         phoneField.tap()
-        phoneField.typeText("123")  // Too short (< 10 digits)
+        phoneField.typeText("123")
+        app.buttons["getOtpButton"].tap()
 
-        app.buttons.firstMatch.tap()
-
-        // An alert should appear with a validation message.
         let alert = app.alerts.firstMatch
         let alertAppeared = alert.waitForExistence(timeout: 3)
-        XCTAssertTrue(
-            alertAppeared,
-            "A validation alert should appear for a phone number shorter than 10 digits."
-        )
-
-        // Dismiss the alert.
-        if alertAppeared {
-            alert.buttons.firstMatch.tap()
-        }
+        XCTAssertTrue(alertAppeared, "A validation alert should appear for a phone number shorter than 10 digits.")
+        if alertAppeared { alert.buttons.firstMatch.tap() }
     }
-
-    // MARK: - Test 5: Empty phone number shows a validation alert
 
     func testEmptyPhoneNumberShowsAlert() throws {
         guard isOnLoginFlow else {
             throw XCTSkip("Already logged in — phone screen not visible.")
         }
+        app.buttons["Continue with Phone"].tap()  // ✅ ADD THIS
 
-        // Tap the button without entering any text.
-        app.buttons.firstMatch.tap()
+        app.buttons["getOtpButton"].tap()
 
         let alert = app.alerts.firstMatch
         let alertAppeared = alert.waitForExistence(timeout: 3)
-        XCTAssertTrue(
-            alertAppeared,
-            "A validation alert should appear when the phone number field is empty."
-        )
-
-        if alertAppeared {
-            alert.buttons.firstMatch.tap()
-        }
+        XCTAssertTrue(alertAppeared, "A validation alert should appear when the phone number field is empty.")
+        if alertAppeared { alert.buttons.firstMatch.tap() }
     }
-
-    // MARK: - Test 6: OTP screen accepts exactly 4 digits
 
     func testOTPScreenAcceptsInput() throws {
         guard isOnLoginFlow else {
             throw XCTSkip("Already logged in — phone screen not visible.")
         }
+        app.buttons["Continue with Phone"].tap()  // ✅ ADD THIS
 
-        // Navigate to the OTP screen first.
-        let phoneField = app.textFields.firstMatch
+        let phoneField = app.textFields["numberField"]
         phoneField.tap()
         phoneField.typeText("9876543210")
-        app.buttons.firstMatch.tap()
+        app.buttons["getOtpButton"].tap()
 
-        // Wait for OTP screen (it should have 4 text fields).
         let firstOTPField = app.textFields.element(boundBy: 0)
         let otpScreenLoaded = firstOTPField.waitForExistence(timeout: 5)
         guard otpScreenLoaded else {
-            throw XCTSkip(
-                "OTP screen did not appear — possibly a network issue in test environment."
-            )
+            throw XCTSkip("OTP screen did not appear — possibly a network issue in test environment.")
         }
-
-        // Type one digit into the first OTP field.
         firstOTPField.tap()
         firstOTPField.typeText("1")
 
-        // After typing '1', focus should auto-advance to the second field.
-        // Verify the second field exists.
         let secondOTPField = app.textFields.element(boundBy: 1)
-        XCTAssertTrue(
-            secondOTPField.exists,
-            "Second OTP field should exist after the first."
-        )
+        XCTAssertTrue(secondOTPField.exists, "Second OTP field should exist after the first.")
     }
 
     // MARK: - Test 7: Main tab bar is visible when already logged in
