@@ -105,11 +105,12 @@ class SymptomViewController: UIViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
 
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: CellIdentifiers.symptomCell,
-                for: indexPath
-            ) as! SymptomTableViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifiers.symptomCell,
+            for: indexPath
+        ) as? SymptomTableViewCell else {
+            return UITableViewCell()
+        }
 
         let currentSymptom = symptomsData[indexPath.row]
 

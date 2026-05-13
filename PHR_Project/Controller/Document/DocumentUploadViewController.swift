@@ -63,6 +63,7 @@ class DocumentUploadViewController: UITableViewController,
         uploadReport()
     }
 
+    // swiftlint:disable:next identifier_name
     @IBAction func CloseModalButton(_ sender: Any) {
         dismiss(animated: true)
     }

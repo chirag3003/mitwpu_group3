@@ -562,13 +562,13 @@ extension MealViewController: UICollectionViewDataSource,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
 
-        // Date cells
         if collectionView == dateCollectionView {
-            let cell =
-                collectionView.dequeueReusableCell(
-                    withReuseIdentifier: CellIdentifiers.dateCell,
-                    for: indexPath
-                ) as! DatesCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CellIdentifiers.dateCell,
+                for: indexPath
+            ) as? DatesCollectionViewCell else {
+                return UICollectionViewCell()
+            }
 
             let date = dates.getDays()[indexPath.row]
             cell.configureCell(date: date)
@@ -592,19 +592,21 @@ extension MealViewController: UICollectionViewDataSource,
         }
 
         if mealsInSection.isEmpty {
-            let cell =
-                collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "NoMealsCell",
-                    for: indexPath
-                ) as! NoMealsCollectionViewCell
-            return cell
+            guard let emptyCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "NoMealsCell",
+                for: indexPath
+            ) as? NoMealsCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            return emptyCell
         }
 
-        let cell =
-            collectionView.dequeueReusableCell(
-                withReuseIdentifier: CellIdentifiers.mealCell,
-                for: indexPath
-            ) as! MealItemCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CellIdentifiers.mealCell,
+            for: indexPath
+        ) as? MealItemCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         let meal = mealsInSection[indexPath.row]
         cell.setup(with: meal)
         return cell
@@ -713,12 +715,13 @@ extension MealViewController: UICollectionViewDataSource,
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
-        let header =
-            collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: CellIdentifiers.sectionHeader,
-                for: indexPath
-            ) as! MealSectionHeaderView
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: CellIdentifiers.sectionHeader,
+            for: indexPath
+        ) as? MealSectionHeaderView else {
+            return UICollectionReusableView()
+        }
 
         header.sectionLabel.text = sectionTitles[indexPath.section]
         return header

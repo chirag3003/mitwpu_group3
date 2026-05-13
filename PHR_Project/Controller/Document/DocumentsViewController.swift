@@ -351,25 +351,26 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        // Configure cell based on segment
         if dataSegment.selectedSegmentIndex == 0 {
             // Doctors cell
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: CellIdentifiers.doctorCell,
-                    for: indexPath
-                ) as! DocumentTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.doctorCell,
+                for: indexPath
+            ) as? DocumentTableViewCell else {
+                return UITableViewCell()
+            }
             let doctor = doctorsData[indexPath.row]
             cell.configure(with: doctor)
             cell.selectionStyle = .none
             return cell
         } else {
             // Reports cell
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: CellIdentifiers.reportCell,
-                    for: indexPath
-                ) as! ReportsTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.reportCell,
+                for: indexPath
+            ) as? ReportsTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(with: reportsData[indexPath.row])
             cell.selectionStyle = .none
             return cell

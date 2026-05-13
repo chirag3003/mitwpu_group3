@@ -108,11 +108,12 @@ extension MealDetailViewController: UITableViewDataSource, UITableViewDelegate {
     // Configure cells for meal metadata (Date and Contributor)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: "meal_detail_cell",
-                for: indexPath
-            ) as! MealDetailTableViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "meal_detail_cell",
+            for: indexPath
+        ) as? MealDetailTableViewCell else {
+            return UITableViewCell()
+        }
 
         guard let meal = selectedMeal else { return cell }
 

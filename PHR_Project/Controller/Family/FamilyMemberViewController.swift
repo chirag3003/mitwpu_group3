@@ -297,11 +297,12 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: "switch_cell",
-                    for: indexPath
-                ) as! MemberSwitchTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "switch_cell",
+                for: indexPath
+            ) as? MemberSwitchTableViewCell else {
+                return UITableViewCell()
+            }
             cell.titleLabel.text = accessOptions[indexPath.row]
             cell.permissionSwitch.removeTarget(
                 nil,
@@ -333,11 +334,12 @@ extension FamilyMemberViewController: UITableViewDelegate, UITableViewDataSource
 
         } else if indexPath.section == 1 {
             // Reusing your existing switch cell for the new section!
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: "switch_cell",
-                    for: indexPath
-                ) as! MemberSwitchTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: "switch_cell",
+                for: indexPath
+            ) as? MemberSwitchTableViewCell else {
+                return UITableViewCell()
+            }
             cell.titleLabel.text = "Write Access"
             cell.permissionSwitch.removeTarget(
                 nil,

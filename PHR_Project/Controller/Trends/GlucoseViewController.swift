@@ -413,9 +413,9 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             let min = values.min() ?? 0
             let max = values.max() ?? 0
 
-            if let l = averageLabel { l.text = "\(avg)" }
-            if let l = minLabel { l.text = "\(min)" }
-            if let l = maxLabel { l.text = "\(max)" }
+            if let avgLbl = averageLabel { avgLbl.text = "\(avg)" }
+            if let minLbl = minLabel { minLbl.text = "\(min)" }
+            if let maxLbl = maxLabel { maxLbl.text = "\(max)" }
         }
     }
 

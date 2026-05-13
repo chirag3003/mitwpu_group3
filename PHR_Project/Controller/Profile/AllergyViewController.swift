@@ -79,11 +79,12 @@ class AllergyViewController: UIViewController, UITableViewDelegate,
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: CellIdentifiers.allergyCell,
-                for: indexPath
-            ) as! AllergyTableViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifiers.allergyCell,
+            for: indexPath
+        ) as? AllergyTableViewCell else {
+            return UITableViewCell()
+        }
         cell.configureCell(with: allergies[indexPath.row])
 
         cell.selectionStyle = .none

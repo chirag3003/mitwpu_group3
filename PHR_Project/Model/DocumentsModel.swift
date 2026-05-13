@@ -97,9 +97,9 @@ extension Document {
         return formatter.string(from: date)
     }
 
-    /// For legacy UI: Convert to documentsModel (doctor list item)
-    var asLegacyDocumentsModel: documentsModel {
-        return documentsModel(
+    /// For legacy UI: Convert to DocumentsModel (doctor list item)
+    var asLegacyDocumentsModel: DocumentsModel {
+        return DocumentsModel(
             id: UUID(),
             title: docDoctor?.name ?? "Unknown Doctor",
             lastUpdatedAt: formattedDate
@@ -132,7 +132,7 @@ extension Document {
 
 // MARK: - Legacy Models (kept for UI compatibility)
 
-struct documentsModel: Codable {
+struct DocumentsModel: Codable {
     let id: UUID
     let title: String
     let lastUpdatedAt: String

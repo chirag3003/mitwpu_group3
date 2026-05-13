@@ -456,11 +456,12 @@ extension WaterIntakeViewController: UICollectionViewDataSource,
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let cell =
-            collectionView.dequeueReusableCell(
-                withReuseIdentifier: CellIdentifiers.dateCell,
-                for: indexPath
-            ) as! DatesCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CellIdentifiers.dateCell,
+            for: indexPath
+        ) as? DatesCollectionViewCell else {
+            return UICollectionViewCell()
+        }
 
         let date = dates.getDays()[indexPath.row]
 

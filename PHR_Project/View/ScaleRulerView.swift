@@ -176,8 +176,8 @@ class ScaleRulerView: UIView {
         var xPosition: CGFloat = bounds.width / 2
 
         // Draw tick marks for each unit
-        for i in Int(minValue)...Int(maxValue) {
-            drawTick(at: xPosition, value: i)
+        for tickValue in Int(minValue)...Int(maxValue) {
+            drawTick(at: xPosition, value: tickValue)
             xPosition += pixelsPerUnit
         }
 

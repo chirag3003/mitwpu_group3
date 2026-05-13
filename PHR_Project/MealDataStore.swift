@@ -20,8 +20,8 @@ class MealDataStore {
         let today = Date()
         let dateFormatter = DateFormatter()
 
-        for i in -15...15 {
-            if let date = calendar.date(byAdding: .day, value: i, to: today) {
+        for offset in -15...15 {
+            if let date = calendar.date(byAdding: .day, value: offset, to: today) {
 
                 dateFormatter.dateFormat = "EEEEE"
                 let dayString = dateFormatter.string(from: date)

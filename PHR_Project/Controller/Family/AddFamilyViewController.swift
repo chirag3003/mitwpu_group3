@@ -110,11 +110,12 @@ class AddFamilyViewController: UIViewController, UITableViewDataSource,
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: "contact_cell",
-                for: indexPath
-            ) as! ContactTableViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "contact_cell",
+            for: indexPath
+        ) as? ContactTableViewCell else {
+            return UITableViewCell()
+        }
         let contact = contacts[indexPath.row]
         cell.configure(with: contact)
         cell.selectionStyle = .none
