@@ -9,8 +9,7 @@ import QuickLook
 import UIKit
 
 class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     // MARK: - IBOutlets
 
@@ -106,13 +105,13 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     // Toggle sort order
     @IBAction func didTapFilterButton() {
         isNewestFirst.toggle()
-            
+
         sortData()
-            
+
             // 3. Keep the icon as the three-line horizontal symbol
             // (Instead of changing it to arrow.up or arrow.down)
             sortButton.image = UIImage(systemName: "line.3.horizontal.decrease")
-            
+
             // Haptic feedback
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
@@ -133,7 +132,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
 
     @IBAction func didTapPlusButton(_ sender: Any) {
         if familyMember != nil && !canEditSharedData { return }
-        
+
         if dataSegment.selectedSegmentIndex == 0 {
             // Prescriptions segment - Show Add Details modal
             showAddDetailsModal()
@@ -142,8 +141,6 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
             showDocumentUploadModal()
         }
     }
-   
-
 
     // MARK: - Navigation
 
@@ -154,8 +151,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
             withIdentifier: "AddDetailsNavViewController"
         ) as? UINavigationController {
             if let addVC = navController.topViewController
-                as? AddDetailsTableViewController
-            {
+                as? AddDetailsTableViewController {
                 addVC.familyMember = familyMember
                 addVC.canEditSharedData = canEditSharedData
             }
@@ -171,8 +167,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
             withIdentifier: "DocumentUploadNavViewController"
         ) as? UINavigationController {
             if let docVC = uploadVC.topViewController
-                as? DocumentUploadViewController
-            {
+                as? DocumentUploadViewController {
                 docVC.familyMember = familyMember
                 docVC.canEditSharedData = canEditSharedData
             }
@@ -244,8 +239,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     }
 
     private func compareByDate(_ date1String: String, _ date2String: String)
-        -> Bool
-    {
+        -> Bool {
         let date1 = dateFormatter.date(from: date1String) ?? Date.distantPast
         let date2 = dateFormatter.date(from: date2String) ?? Date.distantPast
         return isNewestFirst ? date1 > date2 : date1 < date2
@@ -278,7 +272,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
                 equalTo: loadingAlert.view.leadingAnchor,
                 constant: 20
             ),
-            loadingAlert.view.heightAnchor.constraint(equalToConstant: 80),
+            loadingAlert.view.heightAnchor.constraint(equalToConstant: 80)
         ])
 
         present(loadingAlert, animated: true)
@@ -342,8 +336,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
 extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int
-    {
+        -> Int {
         // Return count based on selected segment
         return dataSegment.selectedSegmentIndex == 0
             ? doctorsData.count : reportsData.count
@@ -357,27 +350,27 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
-        // Configure cell based on segment
+        -> UITableViewCell {
         if dataSegment.selectedSegmentIndex == 0 {
             // Doctors cell
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: CellIdentifiers.doctorCell,
-                    for: indexPath
-                ) as! DocumentTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.doctorCell,
+                for: indexPath
+            ) as? DocumentTableViewCell else {
+                return UITableViewCell()
+            }
             let doctor = doctorsData[indexPath.row]
             cell.configure(with: doctor)
             cell.selectionStyle = .none
             return cell
         } else {
             // Reports cell
-            let cell =
-                tableView.dequeueReusableCell(
-                    withIdentifier: CellIdentifiers.reportCell,
-                    for: indexPath
-                ) as! ReportsTableViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellIdentifiers.reportCell,
+                for: indexPath
+            ) as? ReportsTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(with: reportsData[indexPath.row])
             cell.selectionStyle = .none
             return cell
@@ -449,8 +442,7 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "prescriptionsSegue" {
             if let destinationVC = segue.destination
-                as? PrescriptionPageViewController
-            {
+                as? PrescriptionPageViewController {
                 if familyMember != nil {
                     destinationVC.familyMember = familyMember
                     destinationVC.canEditSharedData = canEditSharedData
@@ -464,24 +456,20 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
         if let navController = segue.destination as? UINavigationController,
             let uploadVC = navController.topViewController
-                as? DocumentUploadViewController
-        {
+                as? DocumentUploadViewController {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         } else if let uploadVC = segue.destination
-            as? DocumentUploadViewController
-        {
+            as? DocumentUploadViewController {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         } else if let navController = segue.destination as? UINavigationController,
             let uploadVC = navController.topViewController
-                as? PrescriptionUploadTableViewController
-        {
+                as? PrescriptionUploadTableViewController {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         } else if let uploadVC = segue.destination
-            as? PrescriptionUploadTableViewController
-        {
+            as? PrescriptionUploadTableViewController {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         }

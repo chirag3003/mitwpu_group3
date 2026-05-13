@@ -5,25 +5,17 @@ class AllergyTableViewCell: UITableViewCell {
     @IBOutlet weak var allergyColor: UIView!
     @IBOutlet weak var allergyLabel: UILabel!
     @IBOutlet weak var allergyDescLabel: UILabel!
-    @IBOutlet weak var mainView: UIView! //Main card view holding the cell
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+    @IBOutlet weak var mainView: UIView! // Main card view holding the cell
 
     func configureCell(with allergy: Allergy) {
-        //Configure UI
+        // Configure UI
 //        contentView.applyLiquidGlassEffect()
         mainView.addRoundedSides()
-        
-        //Configuring Data
+
+        // Configuring Data
         allergyLabel.text = allergy.name
         allergyDescLabel.text = allergy.notes
-        
+
         switch allergy.severity {
         case "High":
             allergyColor.backgroundColor = .red

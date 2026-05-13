@@ -84,8 +84,8 @@ class CustomDocumentScannerViewController: UIViewController {
         return button
     }()
 
-    // MARK: -View Lifecycle
-    //using this for one-time set up like background colors
+    // MARK: - View Lifecycle
+    // using this for one-time set up like background colors
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -104,8 +104,8 @@ class CustomDocumentScannerViewController: UIViewController {
         return true
     }
 
-    // MARK: -Setup Functions
-    //Initialize and adding UI components
+    // MARK: - Setup Functions
+    // Initialize and adding UI components
     private func setupUI() {
         // Add subviews
         view.addSubview(closeButton)
@@ -130,7 +130,7 @@ class CustomDocumentScannerViewController: UIViewController {
         // Disable Auto Layout masks
         [
             closeButton, titleLabel, bracketImageView, overlayImageView,
-            bottomBarView, shutterButton,
+            bottomBarView, shutterButton
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -138,7 +138,7 @@ class CustomDocumentScannerViewController: UIViewController {
         // Constraints  forb CustomDocumentScannerViewController's
         NSLayoutConstraint.activate([
             // Top Bar
-            //Close Button
+            // Close Button
             closeButton.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor,
                 constant: 16
@@ -147,14 +147,14 @@ class CustomDocumentScannerViewController: UIViewController {
                 equalTo: view.leadingAnchor,
                 constant: 16
             ),
-            //title Label
+            // title Label
             titleLabel.centerYAnchor.constraint(
                 equalTo: closeButton.centerYAnchor
             ),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             // Center Overlay
-            //bracket ImageView
+            // bracket ImageView
             bracketImageView.centerXAnchor.constraint(
                 equalTo: view.centerXAnchor
             ),
@@ -164,7 +164,7 @@ class CustomDocumentScannerViewController: UIViewController {
             ),
             bracketImageView.widthAnchor.constraint(equalToConstant: 250),
             bracketImageView.heightAnchor.constraint(equalToConstant: 250),
-            //overlay ImageView
+            // overlay ImageView
             overlayImageView.centerXAnchor.constraint(
                 equalTo: bracketImageView.centerXAnchor
             ),
@@ -175,14 +175,14 @@ class CustomDocumentScannerViewController: UIViewController {
             overlayImageView.heightAnchor.constraint(equalToConstant: 80),
 
             // Bottom Bar
-            //Bottom BarView
+            // Bottom BarView
             bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomBarView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor
             ),
             bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomBarView.heightAnchor.constraint(equalToConstant: 150),
-            //ShutterButton
+            // ShutterButton
             shutterButton.centerXAnchor.constraint(
                 equalTo: bottomBarView.centerXAnchor
             ),
@@ -190,11 +190,11 @@ class CustomDocumentScannerViewController: UIViewController {
                 equalTo: bottomBarView.centerYAnchor
             ),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
-            shutterButton.heightAnchor.constraint(equalToConstant: 70),
+            shutterButton.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
-    //MARK: - CAMERA SETUP
-    //Configure the camera session
+    // MARK: - CAMERA SETUP
+    // Configure the camera session
     private func setupCamera() {
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
@@ -211,8 +211,7 @@ class CustomDocumentScannerViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
 
             if captureSession.canAddInput(input)
-                && captureSession.canAddOutput(photoOutput)
-            {
+                && captureSession.canAddOutput(photoOutput) {
                 captureSession.addInput(input)
                 captureSession.addOutput(photoOutput)
 
@@ -239,8 +238,8 @@ class CustomDocumentScannerViewController: UIViewController {
             )
         }
     }
-    //MARK: - CAMERA CONTROLS
-    //Begin to capture
+    // MARK: - CAMERA CONTROLS
+    // Begin to capture
     private func startCamera() {
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -266,7 +265,7 @@ class CustomDocumentScannerViewController: UIViewController {
             print("Simulating capture on Simulator...")
 
             let renderer = UIGraphicsImageRenderer(size: view.bounds.size)
-            let fakeImage = renderer.image { ctx in
+            let fakeImage = renderer.image { _ in
                 view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
             }
             delegate?.didCaptureDocument(fakeImage)

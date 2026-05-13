@@ -458,8 +458,7 @@ final class SharedDataService {
                     userInfo: ["userId": userId]
                 )
             case .failure(let error):
-                if case APIError.httpError(let statusCode, let message) = error
-                {
+                if case APIError.httpError(let statusCode, let message) = error {
                     print(
                         "Shared allergy add failed (\(statusCode)): \(message)"
                     )
@@ -490,8 +489,7 @@ final class SharedDataService {
                     userInfo: ["userId": userId]
                 )
             case .failure(let error):
-                if case APIError.httpError(let statusCode, let message) = error
-                {
+                if case APIError.httpError(let statusCode, let message) = error {
                     print(
                         "Shared allergy delete failed (\(statusCode)): \(message)"
                     )

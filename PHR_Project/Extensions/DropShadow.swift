@@ -6,9 +6,8 @@
 //
 import UIKit
 
-
 extension UIView {
-    
+
     func addDropShadow(
             color: UIColor = .black,
             opacity: Float = UIConstants.Shadow.mediumOpacity,
@@ -21,5 +20,5 @@ extension UIView {
             self.layer.shadowRadius = radius
             self.layer.masksToBounds = false
         }
-    
+
     }

@@ -73,8 +73,7 @@ class APIService {
 
             // Check for success status code (200-299)
             if let httpResponse = response as? HTTPURLResponse,
-                !(200...299).contains(httpResponse.statusCode)
-            {
+                !(200...299).contains(httpResponse.statusCode) {
                 // Try to parse server error message
                 let errorMessage =
                     String(data: data, encoding: .utf8)
@@ -173,8 +172,7 @@ class APIService {
 
             // Check for success status code (200-299)
             if let httpResponse = response as? HTTPURLResponse,
-                !(200...299).contains(httpResponse.statusCode)
-            {
+                !(200...299).contains(httpResponse.statusCode) {
                 let errorMessage =
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"
@@ -281,8 +279,7 @@ class APIService {
             }
 
             if let httpResponse = response as? HTTPURLResponse,
-                !(200...299).contains(httpResponse.statusCode)
-            {
+                !(200...299).contains(httpResponse.statusCode) {
                 let errorMessage =
                     String(data: data, encoding: .utf8)
                     ?? "Unknown Server Error"

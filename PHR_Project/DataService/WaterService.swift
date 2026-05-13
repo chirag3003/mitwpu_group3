@@ -5,16 +5,14 @@ class WaterService {
 
     private init() {}
 
-    func fetchAll(completion: @escaping (Result<[WaterRecord], Error>) -> Void)
-    {
+    func fetchAll(completion: @escaping (Result<[WaterRecord], Error>) -> Void) {
         APIService.shared.request(endpoint: "/water", method: .get) {
             (result: Result<[WaterRecord], Error>) in
             completion(result)
         }
     }
 
-    func fetchLatest(completion: @escaping (Result<WaterRecord, Error>) -> Void)
-    {
+    func fetchLatest(completion: @escaping (Result<WaterRecord, Error>) -> Void) {
         APIService.shared.request(endpoint: "/water/latest", method: .get) {
             (result: Result<WaterRecord, Error>) in
             completion(result)

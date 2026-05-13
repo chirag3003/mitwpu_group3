@@ -3,8 +3,7 @@ import SwiftUI
 import UIKit
 
 class GlucoseViewController: UIViewController, AddGlucoseDelegate,
-    FamilyMemberDataScreen, SharedWriteAccessReceiving
-{
+    FamilyMemberDataScreen, SharedWriteAccessReceiving {
 
     @IBOutlet weak var chartSegmentControl: UISegmentedControl!
     @IBOutlet weak var glucoseValueStack: UIStackView!
@@ -20,17 +19,17 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         return label
     }()
 
-    //Pattern2
+    // Pattern2
     @IBOutlet weak var pattern2Description: UILabel!
     @IBOutlet weak var pattern2Title: UILabel!
     @IBOutlet weak var pattern2View: UIView!
 
-    //Pattern
+    // Pattern
     @IBOutlet weak var pattern1Description: UILabel!
     @IBOutlet weak var pattern1Title: UILabel!
     @IBOutlet weak var pattern1View: UIView!
 
-    //Highlights
+    // Highlights
     @IBOutlet weak var highlight1Description: UILabel!
     @IBOutlet weak var highlight1Title: UILabel!
     @IBOutlet weak var hightlight1View: UIView!
@@ -87,7 +86,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         // Fetch AI insights from API
         fetchGlucoseInsights()
 
-        //Setting up family member details
+        // Setting up family member details
         if familyMember != nil {
             self.title = "\(familyMember!.name)'s Glucose"
             navigationItem.rightBarButtonItem?.isEnabled = canEditSharedData
@@ -172,7 +171,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             ),
             noDataLabel.centerYAnchor.constraint(
                 equalTo: graphView.centerYAnchor
-            ),
+            )
         ])
         noDataLabel.isHidden = true
     }
@@ -371,23 +370,20 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Check if the destination is the Add Controller (or a Nav Controller holding it)
         if let nav = segue.destination as? UINavigationController,
-            let addVC = nav.topViewController as? AddGlucoseModalViewController
-        {
+            let addVC = nav.topViewController as? AddGlucoseModalViewController {
             addVC.delegate = self
             addVC.view.isUserInteractionEnabled =
                 familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
         } else if let addVC = segue.destination
-            as? AddGlucoseModalViewController
-        {
+            as? AddGlucoseModalViewController {
             addVC.delegate = self
             addVC.view.isUserInteractionEnabled =
                 familyMember == nil || canEditSharedData
             addVC.familyMember = familyMember
             addVC.canEditSharedData = canEditSharedData
-        } else if var destination = segue.destination as? FamilyMemberDataScreen
-        {
+        } else if var destination = segue.destination as? FamilyMemberDataScreen {
             destination.familyMember = familyMember
         }
     }
@@ -415,9 +411,9 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
             let min = values.min() ?? 0
             let max = values.max() ?? 0
 
-            if let l = averageLabel { l.text = "\(avg)" }
-            if let l = minLabel { l.text = "\(min)" }
-            if let l = maxLabel { l.text = "\(max)" }
+            if let avgLbl = averageLabel { avgLbl.text = "\(avg)" }
+            if let minLbl = minLabel { minLbl.text = "\(min)" }
+            if let maxLbl = maxLabel { maxLbl.text = "\(max)" }
         }
     }
 
@@ -437,7 +433,7 @@ class GlucoseViewController: UIViewController, AddGlucoseDelegate,
         addChild(hostingController)
         hostingController.view.frame = chartContainerView.bounds
         hostingController.view.autoresizingMask = [
-            .flexibleWidth, .flexibleHeight,
+            .flexibleWidth, .flexibleHeight
         ]
         hostingController.view.backgroundColor = UIColor.clear
 

@@ -8,8 +8,7 @@
 import UIKit
 
 class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     var readings: [GlucoseReading] = [] {
         didSet {
@@ -74,11 +73,12 @@ class GlucoseTableViewController: UITableViewController, FamilyMemberDataScreen,
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell =
-            tableView.dequeueReusableCell(
-                withIdentifier: "glucoseCell",
-                for: indexPath
-            ) as! GlucoseTableViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "glucoseCell",
+            for: indexPath
+        ) as? GlucoseTableViewCell else {
+            return UITableViewCell()
+        }
 
         let reading = readings[indexPath.row]
 

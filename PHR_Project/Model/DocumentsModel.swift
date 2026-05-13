@@ -12,12 +12,12 @@ import Foundation
 struct DocDoctor: Codable {
     var apiID: String?
     var name: String
-    
+
     enum CodingKeys: String, CodingKey {
         case apiID = "_id"
         case name
     }
-    
+
     init(apiID: String? = nil, name: String) {
         self.apiID = apiID
         self.name = name
@@ -40,7 +40,7 @@ struct Document: Codable {
     var date: Date
     var fileUrl: String
     var fileSize: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case apiID = "_id"
         case documentType
@@ -50,7 +50,7 @@ struct Document: Codable {
         case fileUrl
         case fileSize
     }
-    
+
     init(apiID: String? = nil, documentType: DocumentType, docDoctor: DocDoctor? = nil, docDoctorId: String? = nil, title: String? = nil, date: Date, fileUrl: String, fileSize: String? = nil) {
         self.apiID = apiID
         self.documentType = documentType
@@ -61,18 +61,18 @@ struct Document: Codable {
         self.fileUrl = fileUrl
         self.fileSize = fileSize
     }
-    
+
     // Custom decoder to handle both populated object and string ID
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         self.apiID = try container.decodeIfPresent(String.self, forKey: .apiID)
         self.documentType = try container.decode(DocumentType.self, forKey: .documentType)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.date = try container.decode(Date.self, forKey: .date)
         self.fileUrl = try container.decode(String.self, forKey: .fileUrl)
         self.fileSize = try container.decodeIfPresent(String.self, forKey: .fileSize)
-        
+
         // Handle docDoctorId as either object or string
         if let doctor = try? container.decode(DocDoctor.self, forKey: .docDoctor) {
             self.docDoctor = doctor
@@ -96,16 +96,16 @@ extension Document {
         formatter.dateFormat = "d MMM yyyy"
         return formatter.string(from: date)
     }
-    
-    /// For legacy UI: Convert to documentsModel (doctor list item)
-    var asLegacyDocumentsModel: documentsModel {
-        return documentsModel(
+
+    /// For legacy UI: Convert to DocumentsModel (doctor list item)
+    var asLegacyDocumentsModel: DocumentsModel {
+        return DocumentsModel(
             id: UUID(),
             title: docDoctor?.name ?? "Unknown Doctor",
             lastUpdatedAt: formattedDate
         )
     }
-    
+
     /// For legacy UI: Convert to PrescriptionModel (prescription detail)
     var asLegacyPrescriptionModel: PrescriptionModel {
         return PrescriptionModel(
@@ -117,7 +117,7 @@ extension Document {
             pdfUrl: fileUrl
         )
     }
-    
+
     /// For legacy UI: Convert to ReportModel
     var asLegacyReportModel: ReportModel {
         return ReportModel(
@@ -132,7 +132,7 @@ extension Document {
 
 // MARK: - Legacy Models (kept for UI compatibility)
 
-struct documentsModel: Codable {
+struct DocumentsModel: Codable {
     let id: UUID
     let title: String
     let lastUpdatedAt: String

@@ -41,8 +41,7 @@ class InsightsService {
     ) {
         // Check cache first
         if !forceRefresh, let cached = cachedMealInsights,
-            let cacheTime = mealInsightsCacheTime
-        {
+            let cacheTime = mealInsightsCacheTime {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return
@@ -73,8 +72,7 @@ class InsightsService {
     ) {
         if !forceRefresh,
             let cached = cachedMealInsights,
-            let cacheTime = mealInsightsCacheTime
-        {
+            let cacheTime = mealInsightsCacheTime {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return
@@ -109,8 +107,7 @@ class InsightsService {
     ) {
         // Check cache first
         if !forceRefresh, let cached = cachedGlucoseInsights,
-            let cacheTime = glucoseInsightsCacheTime
-        {
+            let cacheTime = glucoseInsightsCacheTime {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return
@@ -141,8 +138,7 @@ class InsightsService {
     ) {
         if !forceRefresh,
             let cached = cachedSharedGlucoseInsights[userId],
-            let cacheTime = sharedGlucoseInsightsCacheTime[userId]
-        {
+            let cacheTime = sharedGlucoseInsightsCacheTime[userId] {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return
@@ -176,8 +172,7 @@ class InsightsService {
         completion: @escaping (WaterInsightsResponse?) -> Void
     ) {
         if !forceRefresh, let cached = cachedWaterInsights,
-            let cacheTime = waterInsightsCacheTime
-        {
+            let cacheTime = waterInsightsCacheTime {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return
@@ -207,8 +202,7 @@ class InsightsService {
     ) {
         if !forceRefresh,
             let cached = cachedSharedWaterInsights[userId],
-            let cacheTime = sharedWaterInsightsCacheTime[userId]
-        {
+            let cacheTime = sharedWaterInsightsCacheTime[userId] {
             if Date().timeIntervalSince(cacheTime) < cacheDuration {
                 completion(cached)
                 return

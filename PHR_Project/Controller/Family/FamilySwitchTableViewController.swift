@@ -8,8 +8,7 @@
 import UIKit
 
 class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource
-{
+    UITableViewDataSource {
 
     // MARK: - Outlets
     @IBOutlet var tableView: UITableView!
@@ -58,8 +57,7 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell
-    {
+        -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "family_cell",
             for: indexPath
@@ -67,10 +65,10 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
 
         // Configure the cell text
         cell.textLabel?.text = families[indexPath.row].name
-        
+
         // Adds the little '>' arrow on the right
         cell.accessoryType = .disclosureIndicator
-        
+
         return cell
     }
 
@@ -86,20 +84,20 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
     }
 
     // MARK: - Context Menu (Long Press)
-        
+
         func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-            
+
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-                
+
                 // Create the Exit action
                 let exitAction = UIAction(
                     title: "Exit Family",
                     image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
                     attributes: .destructive // Makes the text and icon red!
                 ) { [weak self] _ in
-                    
+
                     guard let self = self else { return }
-                    
+
                     let family = self.families[indexPath.row]
                     if let familyId = family.apiID {
                         FamilyService.shared.leaveFamily(familyId: familyId) { success in
@@ -111,7 +109,7 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
                         }
                     }
                 }
-                
+
                 // Return the menu containing our action
                 return UIMenu(title: "", children: [exitAction])
             }

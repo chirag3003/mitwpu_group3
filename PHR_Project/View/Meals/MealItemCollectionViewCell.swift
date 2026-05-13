@@ -26,8 +26,7 @@ class MealItemCollectionViewCell: UICollectionViewCell {
         mealQty.text = meal.detail ?? ""
         mealTime.text = meal.time
         if let imagePath = meal.image, !imagePath.isEmpty,
-            imagePath.hasPrefix("http")
-        {
+            imagePath.hasPrefix("http") {
             mealImage.setImageFromURL(url: imagePath)
         }
     }

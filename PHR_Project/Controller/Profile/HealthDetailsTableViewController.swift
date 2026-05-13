@@ -3,8 +3,7 @@ import UIKit
 
 class HealthDetailsTableViewController: UITableViewController,
     UITextFieldDelegate, UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
-{
+    UINavigationControllerDelegate {
 
     // MARK: - Outlets
 
@@ -56,7 +55,7 @@ class HealthDetailsTableViewController: UITableViewController,
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         allTextFields = [
-            firstNameField, lastNameField, heightTextField, weightTextField,
+            firstNameField, lastNameField, heightTextField, weightTextField
         ]
         allButtons = [sexSelectButton, bloodTypeButton, typeSelectButton]
 
@@ -98,13 +97,13 @@ class HealthDetailsTableViewController: UITableViewController,
         // Men: (10 × weight) + (6.25 × height) - (5 × age) + 5
         // Women: (10 × weight) + (6.25 × height) - (5 × age) - 161
 
-        var s_variable: Double = 5.0  // Default for Male
+        var sexConstant: Double = 5.0  // Default for Male (Mifflin-St Jeor)
         if sex == "Female" {
-            s_variable = -161.0
+            sexConstant = -161.0
         }
 
         let bmr =
-            (10.0 * weightVal) + (6.25 * heightVal) - (5.0 * age) + s_variable
+            (10.0 * weightVal) + (6.25 * heightVal) - (5.0 * age) + sexConstant
 
         // Format to 0 decimal places
         if bmr > 0 {
@@ -210,7 +209,7 @@ class HealthDetailsTableViewController: UITableViewController,
             print("Diabetes Type Selected: \(action.title)")
         }
         let allDiabetesTypes = [
-            "Type 1", "Type 2", "Gestational", "Prediabetes", "None",
+            "Type 1", "Type 2", "Gestational", "Prediabetes", "None"
         ]
 
         let actions: [UIAction] = allDiabetesTypes.map { typeTitle in
@@ -400,7 +399,7 @@ class HealthDetailsTableViewController: UITableViewController,
         return true
     }
 
-    //Custom section headers
+    // Custom section headers
 
     override func tableView(
         _ tableView: UITableView,
@@ -448,7 +447,7 @@ class HealthDetailsTableViewController: UITableViewController,
             titleLabel.topAnchor.constraint(
                 equalTo: headerView.topAnchor,
                 constant: 15
-            ),
+            )
         ])
 
         return headerView

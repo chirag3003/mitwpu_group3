@@ -14,22 +14,12 @@ class ReportsTableViewCell: UITableViewCell {
     @IBOutlet weak var fileSize: UILabel!
     @IBOutlet weak var lastUpdatedAt: UILabel!
     @IBOutlet weak var reportName: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     func configure(
         with report: ReportModel) {
             mainView.addRoundedCorner(radius: 15)
             fileImage.addRoundedCorner(radius: 15)
-            
+
         reportName.text = report.title
         // TODO: Wire up correct file size property from ReportModel (e.g., sizeInBytes, formattedSize, etc.)
         fileSize.text = ""

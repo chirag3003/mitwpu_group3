@@ -48,7 +48,7 @@ class HelpNSupportViewController: UIViewController {
             (
                 "bubble.left.and.bubble.right.fill", "AI Chat",
                 "Available 24/7", 2
-            ),
+            )
         ]
 
     // MARK: - Lifecycle
@@ -110,7 +110,7 @@ class HelpNSupportViewController: UIViewController {
             mainStackView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
                 constant: -20
-            ),
+            )
         ])
     }
 
@@ -149,7 +149,7 @@ class HelpNSupportViewController: UIViewController {
             (
                 "checkmark.shield.fill", "Terms of Service",
                 "Our terms and conditions"
-            ),
+            )
         ]
         for link in links {
             let linkCard = createQuickLinkCard(
@@ -185,8 +185,7 @@ class HelpNSupportViewController: UIViewController {
     }
 
     private func createFAQCard(question: String, answer: String, index: Int)
-        -> UIView
-    {
+        -> UIView {
         let card = UIView()
         card.translatesAutoresizingMaskIntoConstraints = false
         card.backgroundColor = .systemBackground
@@ -239,7 +238,7 @@ class HelpNSupportViewController: UIViewController {
             stackView.bottomAnchor.constraint(
                 equalTo: card.bottomAnchor,
                 constant: -16
-            ),
+            )
         ])
 
         return card
@@ -359,7 +358,7 @@ class HelpNSupportViewController: UIViewController {
                 equalTo: card.centerYAnchor
             ),
             chevronImageView.widthAnchor.constraint(equalToConstant: 12),
-            chevronImageView.heightAnchor.constraint(equalToConstant: 20),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
 
         card.addTarget(
@@ -465,7 +464,7 @@ class HelpNSupportViewController: UIViewController {
                 equalTo: card.centerYAnchor
             ),
             chevronImageView.widthAnchor.constraint(equalToConstant: 10),
-            chevronImageView.heightAnchor.constraint(equalToConstant: 16),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 16)
         ])
 
         card.addTarget(
@@ -548,7 +547,7 @@ class HelpNSupportViewController: UIViewController {
             stackView.bottomAnchor.constraint(
                 equalTo: container.bottomAnchor,
                 constant: -20
-            ),
+            )
         ])
 
         return container

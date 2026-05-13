@@ -63,7 +63,7 @@ class BloodTypeViewController: UIViewController {
     private func setupUI() {
         let cards = [
             viewOne, viewTwo, viewThree, viewFour, viewFive, viewSix, viewSeven,
-            viewEight,
+            viewEight
         ]
         cards.forEach { $0?.addRoundedCorner(radius: 10) }
     }
@@ -71,7 +71,7 @@ class BloodTypeViewController: UIViewController {
     private func setupCardViews() {
         let cards = [
             viewOne, viewTwo, viewThree, viewFour, viewFive, viewSix, viewSeven,
-            viewEight,
+            viewEight
         ]
 
         for card in cards {

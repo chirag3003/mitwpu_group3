@@ -157,15 +157,14 @@ class OTPViewController: UIViewController {
             ),
             alert.view.heightAnchor.constraint(
                 greaterThanOrEqualToConstant: 80
-            ),
+            )
         ])
         present(alert, animated: true)
     }
 
     private func dismissLoader(completion: (() -> Void)? = nil) {
         if let presented = presentedViewController as? UIAlertController,
-            presented.title == nil
-        {
+            presented.title == nil {
             presented.dismiss(animated: true, completion: completion)
         } else {
             completion?()

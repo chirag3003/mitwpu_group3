@@ -12,28 +12,21 @@ class DocumentTableViewCell: UITableViewCell {
     @IBOutlet weak var folderImage: UIImageView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var doctorLabel: UILabel!
-    
+
     @IBOutlet weak var updatedLable: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
 //        documentButton.addRoundedCorner(radius:30)
         mainView.addRoundedCorner(radius: 15)
-        folderImage.addRoundedCorner(radius:16)
-        
-    }
+        folderImage.addRoundedCorner(radius: 16)
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     // Configure with DocDoctor from API
     func configure(with doctor: DocDoctor) {
         doctorLabel.text = doctor.name
         updatedLable.text = ""  // No date info in DocDoctor model
     }
-    
 
 }

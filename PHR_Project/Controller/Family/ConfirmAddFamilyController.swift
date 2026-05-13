@@ -71,8 +71,7 @@ class ConfirmAddFamilyController: UITableViewController {
             case .failure(let error):
                 self?.hideLoading()
                 if case APIError.httpError(let statusCode, _) = error,
-                    statusCode == 404
-                {
+                    statusCode == 404 {
                     self?.showErrorAlert(
                         message:
                             "Given phone number doesn't have an account with us."
@@ -105,7 +104,7 @@ class ConfirmAddFamilyController: UITableViewController {
             indicator.bottomAnchor.constraint(
                 equalTo: alert.view.bottomAnchor,
                 constant: -20
-            ),
+            )
         ])
 
         present(alert, animated: true)

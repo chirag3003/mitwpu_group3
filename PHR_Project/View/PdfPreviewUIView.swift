@@ -22,11 +22,11 @@ class PdfPreviewUIView: UIView {
         // Load the Document from cloud url
         if url.hasPrefix("http://") || url.hasPrefix("https://") {
             guard let remoteURL = URL(string: url) else { return }
-            
+
             URLSession.shared.dataTask(with: remoteURL) { [weak self] data, _, error in
                 guard let data = data, error == nil,
                       let document = PDFDocument(data: data) else { return }
-                
+
                 DispatchQueue.main.async {
                     self?.pdfView?.document = document
                 }

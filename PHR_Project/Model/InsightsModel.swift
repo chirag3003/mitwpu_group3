@@ -23,7 +23,7 @@ enum InsightType: String, Codable {
     case positive
     case warning
     case info
-    
+
     var color: UIColor {
         switch self {
         case .positive: return .systemGreen
@@ -65,7 +65,7 @@ enum GlucoseInsightType: String, Codable {
     case warning
     case info
     case critical
-    
+
     var color: UIColor {
         switch self {
         case .positive: return .systemGreen
@@ -80,7 +80,7 @@ enum TipPriority: String, Codable {
     case high
     case medium
     case low
-    
+
     var color: UIColor {
         switch self {
         case .high: return .systemRed

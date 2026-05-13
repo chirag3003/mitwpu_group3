@@ -1,8 +1,7 @@
 import UIKit
 
 class AddAllergyTableViewController: UITableViewController,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     // MARK: - Outlets
 
@@ -160,8 +159,7 @@ class AddAllergyTableViewController: UITableViewController,
         _ tableView: UITableView,
         editingStyleForRowAt indexPath: IndexPath
     )
-        -> UITableViewCell.EditingStyle
-    {
+        -> UITableViewCell.EditingStyle {
         return .none
     }
 

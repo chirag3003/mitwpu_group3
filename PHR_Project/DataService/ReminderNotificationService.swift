@@ -28,7 +28,7 @@ final class ReminderNotificationService {
             water14,
             water16,
             water18,
-            water20,
+            water20
         ]
     }
 

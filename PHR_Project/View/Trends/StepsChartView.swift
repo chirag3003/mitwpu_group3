@@ -4,28 +4,28 @@ import Charts
 struct StepsChartView: View {
     @ObservedObject var viewModel: StepsViewModel
     @State private var selectedDate: Date?
-    
+
     var body: some View {
         if #available(iOS 16.0, *) {
             GeometryReader { geometry in
                 ScrollViewReader { scrollProxy in
                     ScrollView(.horizontal, showsIndicators: false) {
                         ZStack(alignment: .leading) {
-                            
+
                             // so that the chart bars align correctly while scrolling, goes to the current record
                             HStack(spacing: 0) {
-                                ForEach(Array(viewModel.dataPoints.enumerated()), id: \.offset) { index, point in
+                                ForEach(Array(viewModel.dataPoints.enumerated()), id: \.offset) { index, _ in
                                     Color.clear
                                         .frame(width: getSingleBarWidth(availableWidth: geometry.size.width))
                                         .id(index) // <--- ID is now a simple Integer (0, 1, 2...)
                                 }
                             }
                             .frame(height: 1) // Minimal height, just needs to exist
-                            
+
                         // The Actual Chart
                             Chart {
                                 ForEach(viewModel.dataPoints) { point in
-                                    
+
                                     let barUnit: Calendar.Component = {
                                         switch viewModel.currentRange {
                                         case .day: return .hour
@@ -34,14 +34,14 @@ struct StepsChartView: View {
                                         case .year: return .month
                                         }
                                     }()
-                                    
+
                                     BarMark(
                                         x: .value("Time", point.date, unit: barUnit),
                                         y: .value("Steps", point.count)
                                     )
                                     .foregroundStyle(Color.blue)
                                     .cornerRadius(4)
-                                    
+
                                     if let selectedDate, selectedDate == point.date {
                                         RuleMark(x: .value("Selected", selectedDate))
                                             .foregroundStyle(Color.gray.opacity(0.5))
@@ -83,7 +83,7 @@ struct StepsChartView: View {
             Text("iOS 16+ Required")
         }
     }
-    
+
     // Scroll to the last available data point (Current Time)
     func scrollToEnd(proxy: ScrollViewProxy) {
         // Slight delay to ensure the view is rendered before we try to scroll
@@ -91,7 +91,7 @@ struct StepsChartView: View {
             withAnimation {
                 let count = viewModel.dataPoints.count
                 if count > 0 {
-                    
+
                     // This is necessary alignment adjusted for the chart to look better
                     // Scroll to the last index (count - 1)
                     // anchor: .trailing aligns the "Now" bar to the right side of the screen
@@ -101,7 +101,7 @@ struct StepsChartView: View {
             }
         }
     }
-    
+
     func xAxisFormat() -> Date.FormatStyle {
         switch viewModel.currentRange {
         case .day: return .dateTime.hour()
@@ -110,7 +110,7 @@ struct StepsChartView: View {
         case .year: return .dateTime.month(.abbreviated)
         }
     }
-    
+
     func getSingleBarWidth(availableWidth: CGFloat) -> CGFloat {
         switch viewModel.currentRange {
         case .day: return 40
@@ -120,11 +120,11 @@ struct StepsChartView: View {
         case .year: return availableWidth / 12
         }
     }
-    
+
     func calculateTotalWidth(availableWidth: CGFloat) -> CGFloat {
         let count = CGFloat(viewModel.dataPoints.count)
         if count == 0 { return availableWidth }
-        
+
         switch viewModel.currentRange {
         case .day: return count * 40
         case .week: return availableWidth

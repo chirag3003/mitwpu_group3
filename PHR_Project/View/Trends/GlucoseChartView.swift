@@ -20,7 +20,7 @@ struct GlucoseChartView: View {
                         LinearGradient(
                             gradient: Gradient(colors: [
                                 Color.blue.opacity(0.3),
-                                Color.blue.opacity(0.05),
+                                Color.blue.opacity(0.05)
                             ]),
                             startPoint: .top,
                             endPoint: .bottom
@@ -39,10 +39,10 @@ struct GlucoseChartView: View {
             }
             .chartYScale(domain: .automatic)
 
-            //Label format
+            // Label format
 
             .chartXAxis {
-                AxisMarks(values: .automatic) { value in
+                AxisMarks(values: .automatic) { _ in
                     AxisGridLine()
                     AxisTick()
 

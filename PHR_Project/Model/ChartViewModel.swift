@@ -8,6 +8,6 @@ enum ChartTimeRange {
 
 class ChartViewModel: ObservableObject {
     @Published var dataPoints: [GlucoseDataPoint] = []
-    
+
     @Published var currentRange: ChartTimeRange = .week
 }

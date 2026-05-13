@@ -1,13 +1,12 @@
 import UIKit
 
 class AddSymptomTableViewController: UITableViewController,
-    SharedWriteAccessReceiving
-{
+    SharedWriteAccessReceiving {
 
     private let symptomsOptions = [
         "Migraine", "Fatigue", "Dizziness", "Nausea", "Polyuria",
         "Blurred Vision", "Irritability", "Swelling", "Extreme Hunger", "Dry Mouth",
-        "Sweating",
+        "Sweating"
     ]
 
     // MARK: - Outlets
@@ -41,25 +40,25 @@ class AddSymptomTableViewController: UITableViewController,
         configureNotesTextViewInsets()
         checkForEditMode()
 
-        //Removing table lines
+        // Removing table lines
         tableView.separatorStyle = .singleLine
     }
-    
+
     private func checkForEditMode() {
             if let symptom = symptomToEdit {
                 self.title = "Edit Symptom"
-                
+
                 // 1. Set Type
                 selectedType = symptom.symptomName
                 typeButton.setTitle(symptom.symptomName, for: .normal)
-                
+
                 // 2. Set Intensity
                 selectedIntensity = symptom.intensity
                 intensityButton.setTitle(symptom.intensity, for: .normal)
-                
+
                 // 3. Set Date
                 datePicker.date = symptom.dateRecorded
-                
+
                 // 4. Set Time (Reconstruct Date from components)
                 let calendar = Calendar.current
                 var timeComponents = DateComponents()
@@ -68,11 +67,11 @@ class AddSymptomTableViewController: UITableViewController,
                 if let timeDate = calendar.date(from: timeComponents) {
                     timePicker.date = timeDate
                 }
-                
+
                 // 5. Set Notes
                 notesTextView.text = symptom.notes
                 placeholderLabel.isHidden = !(notesTextView.text?.isEmpty ?? true)
-                
+
                 // Note: Image handling isn't in your Symptom model provided, so skipping image pre-fill.
             }
         }
@@ -141,8 +140,6 @@ class AddSymptomTableViewController: UITableViewController,
 
     // MARK: - Actions
 
-   
-
     @IBAction func cancelButtonTapped(_ sender: Any) {
 
         dismiss(animated: true)
@@ -170,7 +167,7 @@ class AddSymptomTableViewController: UITableViewController,
                 dateComponents.minute = timeComponents.minute
 
                 let recordedDate: Foundation.Date = calendar.date(from: dateComponents) ?? datePicker.date
-                
+
                 self.showLoader(true)
 
                 if var existingSymptom = symptomToEdit {
@@ -179,15 +176,14 @@ class AddSymptomTableViewController: UITableViewController,
                     existingSymptom.intensity = intensity
                     existingSymptom.dateRecorded = recordedDate
                     existingSymptom.notes = notesTextView.text ?? ""
-                    
+
                     var newTime = DateComponents()
                     newTime.hour = timeComponents.hour
                     newTime.minute = timeComponents.minute
                     existingSymptom.time = newTime
-                    
+
                     if let member = familyMember,
-                        let apiId = existingSymptom.apiID
-                    {
+                        let apiId = existingSymptom.apiID {
                         SharedDataService.shared.updateSymptom(
                             for: member.userId,
                             symptomId: apiId,

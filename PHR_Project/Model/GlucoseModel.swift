@@ -32,7 +32,7 @@ struct GlucoseReading: Codable {
     let time: TimeOfDay
     let mealContext: String?
     let notes: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userId
@@ -43,7 +43,7 @@ struct GlucoseReading: Codable {
         case mealContext
         case notes
     }
-    
+
     // Custom Init for creating new readings
     init(value: Int, unit: GlucoseUnit = .mgdL, dateRecorded: Date, time: TimeOfDay, mealContext: MealContext?, notes: String?) {
         self.id = nil
@@ -55,7 +55,7 @@ struct GlucoseReading: Codable {
         self.mealContext = mealContext?.rawValue
         self.notes = notes
     }
-    
+
     // Helper to combine dateRecorded with time
     var combinedDate: Date {
         let calendar = Calendar.current

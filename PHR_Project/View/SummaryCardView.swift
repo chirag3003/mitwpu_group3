@@ -2,19 +2,16 @@ import UIKit
 
 class SummaryCardView: UIView {
 
-    
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
+
     private func setupView() {
         layer.cornerRadius = UIConstants.CornerRadius.huge
         layer.masksToBounds = true

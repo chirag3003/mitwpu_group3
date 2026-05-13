@@ -158,7 +158,7 @@ class CustomCameraViewController: UIViewController {
     private func addSubviews() {
         [
             closeButton, titleLabel, bracketImageView, overlayImageView,
-            bottomBarView,
+            bottomBarView
         ].forEach { view.addSubview($0) }
         [shutterButton, manuallyLogButton].forEach {
             bottomBarView.addSubview($0)
@@ -235,7 +235,7 @@ class CustomCameraViewController: UIViewController {
             ),
             manuallyLogButton.centerXAnchor.constraint(
                 equalTo: bottomBarView.centerXAnchor
-            ),
+            )
         ])
     }
 
@@ -274,8 +274,7 @@ class CustomCameraViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
 
             if captureSession.canAddInput(input)
-                && captureSession.canAddOutput(photoOutput)
-            {
+                && captureSession.canAddOutput(photoOutput) {
                 captureSession.addInput(input)
                 captureSession.addOutput(photoOutput)
                 setupPreviewLayer()
