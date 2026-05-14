@@ -9,7 +9,8 @@ import QuickLook
 import UIKit
 
 class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving {
+    SharedWriteAccessReceiving
+{
 
     // MARK: - IBOutlets
 
@@ -108,17 +109,18 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
 
         sortData()
 
-            // 3. Keep the icon as the three-line horizontal symbol
-            // (Instead of changing it to arrow.up or arrow.down)
-            sortButton.image = UIImage(systemName: "line.3.horizontal.decrease")
+        // 3. Keep the icon as the three-line horizontal symbol
+        // (Instead of changing it to arrow.up or arrow.down)
+        sortButton.image = UIImage(systemName: "line.3.horizontal.decrease")
 
-            // Haptic feedback
-            let generator = UIImpactFeedbackGenerator(style: .medium)
-            generator.impactOccurred()
+        // Haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
     }
     private func updateNavigationButtons() {
         if familyMember != nil {
-            navigationItem.rightBarButtonItems = canEditSharedData ? [plusButton] : []
+            navigationItem.rightBarButtonItems =
+                canEditSharedData ? [plusButton] : []
             return
         }
         if dataSegment.selectedSegmentIndex == 0 {
@@ -151,7 +153,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
             withIdentifier: "AddDetailsNavViewController"
         ) as? UINavigationController {
             if let addVC = navController.topViewController
-                as? AddDetailsTableViewController {
+                as? AddDetailsTableViewController
+            {
                 addVC.familyMember = familyMember
                 addVC.canEditSharedData = canEditSharedData
             }
@@ -167,7 +170,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
             withIdentifier: "DocumentUploadNavViewController"
         ) as? UINavigationController {
             if let docVC = uploadVC.topViewController
-                as? DocumentUploadViewController {
+                as? DocumentUploadViewController
+            {
                 docVC.familyMember = familyMember
                 docVC.canEditSharedData = canEditSharedData
             }
@@ -177,10 +181,13 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     }
 
     private func loadSharedDocuments(for member: FamilyMember) {
-        SharedDataService.shared.fetchDocuments(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchDocuments(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let docs):
-                let prescriptions = docs.filter { $0.documentType == .prescription }
+                let prescriptions = docs.filter {
+                    $0.documentType == .prescription
+                }
                 let reports = docs.filter { $0.documentType == .report }
 
                 var seenDoctors = Set<String>()
@@ -191,7 +198,9 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
                     let key = doctorId ?? doctorName
                     guard !seenDoctors.contains(key) else { continue }
                     seenDoctors.insert(key)
-                    doctorList.append(DocDoctor(apiID: doctorId, name: doctorName))
+                    doctorList.append(
+                        DocDoctor(apiID: doctorId, name: doctorName)
+                    )
                 }
 
                 self?.reportsData = reports.map { $0.asLegacyReportModel }
@@ -203,7 +212,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     }
 
     private func loadSharedDoctors(for member: FamilyMember) {
-        SharedDataService.shared.fetchDocDoctors(for: member.userId) { [weak self] result in
+        SharedDataService.shared.fetchDocDoctors(for: member.userId) {
+            [weak self] result in
             switch result {
             case .success(let doctors):
                 self?.doctorsData = doctors
@@ -239,7 +249,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
     }
 
     private func compareByDate(_ date1String: String, _ date2String: String)
-        -> Bool {
+        -> Bool
+    {
         let date1 = dateFormatter.date(from: date1String) ?? Date.distantPast
         let date2 = dateFormatter.date(from: date2String) ?? Date.distantPast
         return isNewestFirst ? date1 > date2 : date1 < date2
@@ -272,7 +283,7 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
                 equalTo: loadingAlert.view.leadingAnchor,
                 constant: 20
             ),
-            loadingAlert.view.heightAnchor.constraint(equalToConstant: 80)
+            loadingAlert.view.heightAnchor.constraint(equalToConstant: 80),
         ])
 
         present(loadingAlert, animated: true)
@@ -336,7 +347,8 @@ class DocumentsViewController: UIViewController, FamilyMemberDataScreen,
 extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int {
+        -> Int
+    {
         // Return count based on selected segment
         return dataSegment.selectedSegmentIndex == 0
             ? doctorsData.count : reportsData.count
@@ -350,13 +362,16 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
+        -> UITableViewCell
+    {
         if dataSegment.selectedSegmentIndex == 0 {
             // Doctors cell
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: CellIdentifiers.doctorCell,
-                for: indexPath
-            ) as? DocumentTableViewCell else {
+            guard
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: CellIdentifiers.doctorCell,
+                    for: indexPath
+                ) as? DocumentTableViewCell
+            else {
                 return UITableViewCell()
             }
             let doctor = doctorsData[indexPath.row]
@@ -365,10 +380,12 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             // Reports cell
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: CellIdentifiers.reportCell,
-                for: indexPath
-            ) as? ReportsTableViewCell else {
+            guard
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: CellIdentifiers.reportCell,
+                    for: indexPath
+                ) as? ReportsTableViewCell
+            else {
                 return UITableViewCell()
             }
             cell.configure(with: reportsData[indexPath.row])
@@ -442,7 +459,8 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "prescriptionsSegue" {
             if let destinationVC = segue.destination
-                as? PrescriptionPageViewController {
+                as? PrescriptionPageViewController
+            {
                 if familyMember != nil {
                     destinationVC.familyMember = familyMember
                     destinationVC.canEditSharedData = canEditSharedData
@@ -456,26 +474,34 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
 
         if let navController = segue.destination as? UINavigationController,
             let uploadVC = navController.topViewController
-                as? DocumentUploadViewController {
+                as? DocumentUploadViewController
+        {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         } else if let uploadVC = segue.destination
-            as? DocumentUploadViewController {
+            as? DocumentUploadViewController
+        {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
-        } else if let navController = segue.destination as? UINavigationController,
+        } else if let navController = segue.destination
+            as? UINavigationController,
             let uploadVC = navController.topViewController
-                as? PrescriptionUploadTableViewController {
+                as? PrescriptionUploadTableViewController
+        {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         } else if let uploadVC = segue.destination
-            as? PrescriptionUploadTableViewController {
+            as? PrescriptionUploadTableViewController
+        {
             uploadVC.familyMember = familyMember
             uploadVC.canEditSharedData = canEditSharedData
         }
     }
 
-    private func deleteSharedDocument(for member: FamilyMember, documentId: String) {
+    private func deleteSharedDocument(
+        for member: FamilyMember,
+        documentId: String
+    ) {
         SharedDataService.shared.deleteDocument(
             for: member.userId,
             documentId: documentId
@@ -489,8 +515,12 @@ extension DocumentsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func deleteSharedDoctor(for member: FamilyMember, doctorId: String) {
-        SharedDataService.shared.deleteDocDoctor(for: member.userId, doctorId: doctorId) {
+    private func deleteSharedDoctor(for member: FamilyMember, doctorId: String)
+    {
+        SharedDataService.shared.deleteDocDoctor(
+            for: member.userId,
+            doctorId: doctorId
+        ) {
             [weak self] result in
             switch result {
             case .success:

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 // This page only provides information, which is already written through storyboard
 class CalorieInfoViewController: UIViewController {
 

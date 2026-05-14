@@ -26,7 +26,8 @@ class HealthReportViewController: UIViewController {
     // MARK: - Report Loading
 
     private func loadReport() {
-        guard let urlString = remotePDFURL, let url = URL(string: urlString) else {
+        guard let urlString = remotePDFURL, let url = URL(string: urlString)
+        else {
             showAlert(title: "Error", message: "No report URL provided.")
             return
         }
@@ -40,7 +41,10 @@ class HealthReportViewController: UIViewController {
                 self.showLoader(false)
 
                 if let error = error {
-                    self.showAlert(title: "Download Failed", message: error.localizedDescription)
+                    self.showAlert(
+                        title: "Download Failed",
+                        message: error.localizedDescription
+                    )
                     return
                 }
 
@@ -51,14 +55,20 @@ class HealthReportViewController: UIViewController {
 
                 // Save to temp directory and display
                 let tempURL = FileManager.default.temporaryDirectory
-                    .appendingPathComponent("HealthReport_\(UUID().uuidString).pdf")
+                    .appendingPathComponent(
+                        "HealthReport_\(UUID().uuidString).pdf"
+                    )
 
                 do {
                     try data.write(to: tempURL)
                     self.localPDFURL = tempURL
                     self.pdfPreviewView.setPdf(url: tempURL.path)
                 } catch {
-                    self.showAlert(title: "Error", message: "Could not save PDF: \(error.localizedDescription)")
+                    self.showAlert(
+                        title: "Error",
+                        message:
+                            "Could not save PDF: \(error.localizedDescription)"
+                    )
                 }
             }
         }.resume()
@@ -78,7 +88,10 @@ class HealthReportViewController: UIViewController {
 
     private func presentShareSheet() {
         guard let pdfURL = localPDFURL else {
-            showAlert(title: "Not Ready", message: "Please wait for the report to finish loading.")
+            showAlert(
+                title: "Not Ready",
+                message: "Please wait for the report to finish loading."
+            )
             return
         }
 
@@ -92,10 +105,14 @@ class HealthReportViewController: UIViewController {
             // Fall back to original URL
         }
 
-        let finalURL = FileManager.default.fileExists(atPath: shareURL.path) ? shareURL : pdfURL
+        let finalURL =
+            FileManager.default.fileExists(atPath: shareURL.path)
+            ? shareURL : pdfURL
 
         let activityVC = UIActivityViewController(
-            activityItems: [finalURL, MailSubjectProvider(subject: "Health Report")],
+            activityItems: [
+                finalURL, MailSubjectProvider(subject: "Health Report"),
+            ],
             applicationActivities: nil
         )
 
@@ -117,15 +134,23 @@ final class MailSubjectProvider: NSObject, UIActivityItemSource {
         self.subject = subject
     }
 
-    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+    func activityViewControllerPlaceholderItem(
+        _ activityViewController: UIActivityViewController
+    ) -> Any {
         return ""
     }
 
-    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+    func activityViewController(
+        _ activityViewController: UIActivityViewController,
+        itemForActivityType activityType: UIActivity.ActivityType?
+    ) -> Any? {
         return ""
     }
 
-    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+    func activityViewController(
+        _ activityViewController: UIActivityViewController,
+        subjectForActivityType activityType: UIActivity.ActivityType?
+    ) -> String {
         return subject
     }
 }

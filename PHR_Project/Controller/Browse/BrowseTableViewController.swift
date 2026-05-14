@@ -1,6 +1,7 @@
 import UIKit
 
-class BrowseTableViewController: UITableViewController, UISearchResultsUpdating {
+class BrowseTableViewController: UITableViewController, UISearchResultsUpdating
+{
 
     struct Category {
         let name: String
@@ -64,7 +65,7 @@ class BrowseTableViewController: UITableViewController, UISearchResultsUpdating 
             icon: "waveform.path.ecg.text.page",
             color: .systemYellow,
             segueIdentifier: "browseSymptomsSegue"
-        )
+        ),
     ]
 
     // Filtered data for search

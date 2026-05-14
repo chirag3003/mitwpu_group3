@@ -9,7 +9,8 @@ import UIKit
 import UniformTypeIdentifiers
 
 class PrescriptionUploadTableViewController: UITableViewController,
-    SharedWriteAccessReceiving {
+    SharedWriteAccessReceiving
+{
 
     // MARK: - IBOutlets
     @IBOutlet weak var uploadFileButton: UIButton!
@@ -89,7 +90,9 @@ class PrescriptionUploadTableViewController: UITableViewController,
 
     private func presentDocumentPicker() {
         let supportedTypes: [UTType] = [.pdf]
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes)
+        let picker = UIDocumentPickerViewController(
+            forOpeningContentTypes: supportedTypes
+        )
         picker.delegate = self
         picker.allowsMultipleSelection = false
         present(picker, animated: true)
@@ -100,13 +103,19 @@ class PrescriptionUploadTableViewController: UITableViewController,
     private func validateInputs() -> Bool {
         // Validate doctor is selected
         guard selectedDoctor != nil else {
-            showAlert(title: "No Doctor Selected", message: "Please select a doctor for this prescription.")
+            showAlert(
+                title: "No Doctor Selected",
+                message: "Please select a doctor for this prescription."
+            )
             return false
         }
 
         // Validate file selection
         guard selectedFileData != nil else {
-            showAlert(title: "No File Selected", message: "Please select a PDF file to upload.")
+            showAlert(
+                title: "No File Selected",
+                message: "Please select a PDF file to upload."
+            )
             return false
         }
 
@@ -117,28 +126,42 @@ class PrescriptionUploadTableViewController: UITableViewController,
         guard validateInputs() else { return }
 
         guard let doctorId = selectedDoctor?.apiID else {
-            showAlert(title: "Error", message: "Doctor ID not found. Please try again.")
+            showAlert(
+                title: "Error",
+                message: "Doctor ID not found. Please try again."
+            )
             return
         }
 
         guard let fileData = selectedFileData,
-              let fileName = selectedFileName else {
+            let fileName = selectedFileName
+        else {
             return
         }
 
         let prescriptionDate = prescriptionDatePicker.date
 
         // Show loading indicator
-        let loadingAlert = UIAlertController(title: nil, message: "Uploading...", preferredStyle: .alert)
+        let loadingAlert = UIAlertController(
+            title: nil,
+            message: "Uploading...",
+            preferredStyle: .alert
+        )
         let loadingIndicator = UIActivityIndicatorView(style: .medium)
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         loadingIndicator.startAnimating()
         loadingAlert.view.addSubview(loadingIndicator)
         NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: loadingAlert.view.centerXAnchor),
-            loadingIndicator.bottomAnchor.constraint(equalTo: loadingAlert.view.bottomAnchor, constant: -20)
+            loadingIndicator.centerXAnchor.constraint(
+                equalTo: loadingAlert.view.centerXAnchor
+            ),
+            loadingIndicator.bottomAnchor.constraint(
+                equalTo: loadingAlert.view.bottomAnchor,
+                constant: -20
+            ),
         ])
-        loadingAlert.view.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        loadingAlert.view.heightAnchor.constraint(equalToConstant: 80)
+            .isActive = true
         present(loadingAlert, animated: true)
 
         if let member = familyMember {
@@ -184,7 +207,11 @@ class PrescriptionUploadTableViewController: UITableViewController,
                     if success {
                         self?.dismiss(animated: true)
                     } else {
-                        self?.showAlert(title: "Upload Failed", message: "Could not upload the prescription. Please try again.")
+                        self?.showAlert(
+                            title: "Upload Failed",
+                            message:
+                                "Could not upload the prescription. Please try again."
+                        )
                     }
                 }
             }
@@ -196,12 +223,18 @@ class PrescriptionUploadTableViewController: UITableViewController,
 
 extension PrescriptionUploadTableViewController: UIDocumentPickerDelegate {
 
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+    func documentPicker(
+        _ controller: UIDocumentPickerViewController,
+        didPickDocumentsAt urls: [URL]
+    ) {
         guard let selectedURL = urls.first else { return }
 
         // Start accessing security-scoped resource
         guard selectedURL.startAccessingSecurityScopedResource() else {
-            showAlert(title: "Access Denied", message: "Could not access the selected file.")
+            showAlert(
+                title: "Access Denied",
+                message: "Could not access the selected file."
+            )
             return
         }
 
@@ -213,11 +246,17 @@ extension PrescriptionUploadTableViewController: UIDocumentPickerDelegate {
             self.selectedFileName = selectedURL.lastPathComponent
             updateUploadButtonState()
         } catch {
-            showAlert(title: "Error", message: "Could not read the selected file: \(error.localizedDescription)")
+            showAlert(
+                title: "Error",
+                message:
+                    "Could not read the selected file: \(error.localizedDescription)"
+            )
         }
     }
 
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+    func documentPickerWasCancelled(
+        _ controller: UIDocumentPickerViewController
+    ) {
         // User cancelled - do nothing
     }
 }

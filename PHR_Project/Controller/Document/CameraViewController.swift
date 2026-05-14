@@ -130,7 +130,7 @@ class CustomDocumentScannerViewController: UIViewController {
         // Disable Auto Layout masks
         [
             closeButton, titleLabel, bracketImageView, overlayImageView,
-            bottomBarView, shutterButton
+            bottomBarView, shutterButton,
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -190,7 +190,7 @@ class CustomDocumentScannerViewController: UIViewController {
                 equalTo: bottomBarView.centerYAnchor
             ),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
-            shutterButton.heightAnchor.constraint(equalToConstant: 70)
+            shutterButton.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
     // MARK: - CAMERA SETUP
@@ -211,7 +211,8 @@ class CustomDocumentScannerViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
 
             if captureSession.canAddInput(input)
-                && captureSession.canAddOutput(photoOutput) {
+                && captureSession.canAddOutput(photoOutput)
+            {
                 captureSession.addInput(input)
                 captureSession.addOutput(photoOutput)
 

@@ -8,7 +8,8 @@
 import UIKit
 
 class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
-    UITableViewDataSource {
+    UITableViewDataSource
+{
 
     // MARK: - Outlets
     @IBOutlet var tableView: UITableView!
@@ -52,12 +53,15 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
     }
 
     // MARK: - Table View Data Source
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int
+    {
         return families.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
+        -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "family_cell",
             for: indexPath
@@ -85,33 +89,41 @@ class FamilySwitchTableViewController: UIViewController, UITableViewDelegate,
 
     // MARK: - Context Menu (Long Press)
 
-        func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
 
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil)
+        { _ in
 
-                // Create the Exit action
-                let exitAction = UIAction(
-                    title: "Exit Family",
-                    image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
-                    attributes: .destructive // Makes the text and icon red!
-                ) { [weak self] _ in
+            // Create the Exit action
+            let exitAction = UIAction(
+                title: "Exit Family",
+                image: UIImage(
+                    systemName: "rectangle.portrait.and.arrow.right"
+                ),
+                attributes: .destructive  // Makes the text and icon red!
+            ) { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    let family = self.families[indexPath.row]
-                    if let familyId = family.apiID {
-                        FamilyService.shared.leaveFamily(familyId: familyId) { success in
-                            guard success else { return }
-                            self.families = FamilyService.shared.getFamilies()
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
+                let family = self.families[indexPath.row]
+                if let familyId = family.apiID {
+                    FamilyService.shared.leaveFamily(familyId: familyId) {
+                        success in
+                        guard success else { return }
+                        self.families = FamilyService.shared.getFamilies()
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
                         }
                     }
                 }
-
-                // Return the menu containing our action
-                return UIMenu(title: "", children: [exitAction])
             }
+
+            // Return the menu containing our action
+            return UIMenu(title: "", children: [exitAction])
         }
+    }
 }

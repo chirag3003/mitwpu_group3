@@ -30,7 +30,10 @@ class AddFamilyTableViewController: UITableViewController {
     }
 
     @IBAction func tickButtonTapped(_ sender: Any) {
-        guard let name = familyNameTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+        guard
+            let name = familyNameTextfield.text?.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            ),
             !name.isEmpty
         else {
             showErrorAlert(message: "Please enter a family name.")
