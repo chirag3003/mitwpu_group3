@@ -5,6 +5,8 @@
 	<key>com.apple.developer.healthkit</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
-	<array/>
+	<array>
+		<string>group.codes.chirag.phrios</string>
+	</array>
 </dict>
 </plist>
