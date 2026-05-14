@@ -108,7 +108,7 @@ struct Provider: TimelineProvider {
 }
 
 // MARK: - Views
-struct Diabetease_WidgetsEntryView: View {
+struct GlucoPal_WidgetsEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
 
@@ -344,12 +344,12 @@ struct MediumWidgetView: View {
 }
 
 // MARK: - Widget Configuration
-struct Diabetease_Widgets: Widget {
-    let kind: String = "Diabetease_Widgets"
+struct GlucoPal_Widgets: Widget {
+    let kind: String = "GlucoPal_Widgets"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            Diabetease_WidgetsEntryView(entry: entry)
+            GlucoPal_WidgetsEntryView(entry: entry)
         }
         .configurationDisplayName("Daily Vitals")
         .description("Track your Glucose, Water, and Steps at a glance.")
@@ -358,7 +358,7 @@ struct Diabetease_Widgets: Widget {
 }
 
 #Preview(as: .systemMedium) {
-    Diabetease_Widgets()
+    GlucoPal_Widgets()
 } timeline: {
     HealthEntry(
         date: .now,

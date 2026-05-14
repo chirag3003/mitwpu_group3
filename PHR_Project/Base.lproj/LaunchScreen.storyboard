@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DiabetEase" translatesAutoresizingMaskIntoConstraints="NO" id="foT-j7-FK6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GlucoPal" translatesAutoresizingMaskIntoConstraints="NO" id="foT-j7-FK6">
                                 <rect key="frame" x="71.666666666666686" y="280" width="250" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="moy-WS-OHN"/>
@@ -39,7 +39,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="DiabetEase" width="497" height="497"/>
+        <image name="GlucoPal" width="497" height="497"/>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
