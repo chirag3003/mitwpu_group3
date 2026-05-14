@@ -7,9 +7,9 @@
 
 import XCTest
 
-final class PHR_ProjectUITestsLaunchTests: XCTestCase {
+final class PHRProjectUITestsLaunchTests: XCTestCase {
 
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+    override static var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
 
