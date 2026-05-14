@@ -7,6 +7,7 @@
 
 import UIKit
 
+// swiftlint:disable:next type_body_length
 class HelpNSupportViewController: UIViewController {
 
     // MARK: - UI Components
@@ -38,7 +39,8 @@ class HelpNSupportViewController: UIViewController {
     private let faqItems: [(question: String, answer: String)] = [
         (
             "Why can't I see my step count?",
-            "To view your steps, you need to grant permission to access Apple HealthKit. Go to Settings > Privacy & Security > Health > PHR App and enable 'Steps'. Then return to the app and your step count will appear on the home screen."
+            "To view your steps, grant HealthKit permission. Go to Settings > Privacy & Security > Health > PHR App," +
+            " enable 'Steps', then return to the app."
         )
     ]
 

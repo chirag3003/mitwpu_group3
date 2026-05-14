@@ -144,6 +144,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5RU-0O-SV0">
                                                 <rect key="frame" x="100" y="0.0" width="138" height="50"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="getOtpButton"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="9gS-pm-uVy"/>
                                                 </constraints>
