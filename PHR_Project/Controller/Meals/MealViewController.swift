@@ -13,7 +13,8 @@ class SectionBackground: UICollectionReusableView {
 }
 
 class MealViewController: UIViewController, FamilyMemberDataScreen,
-    SharedWriteAccessReceiving {
+    SharedWriteAccessReceiving
+{
 
     // MARK: IB OUTLETS
     @IBOutlet weak var caloriebgCard: UIView!
@@ -69,11 +70,11 @@ class MealViewController: UIViewController, FamilyMemberDataScreen,
     private let defaultTips: [String] = [
         "Loading Tips...",
         "Loading Tips...",
-        "Loading Tips..."
+        "Loading Tips...",
     ]
     private let defaultInsights: [String] = [
         "Loading Insights...",
-        "Loading Insights..."
+        "Loading Insights...",
     ]
 
     // MARK: Lifecycle
@@ -526,7 +527,8 @@ class MealViewController: UIViewController, FamilyMemberDataScreen,
 // MARK: - Collection View
 
 extension MealViewController: UICollectionViewDataSource,
-    UICollectionViewDelegate {
+    UICollectionViewDelegate
+{
 
     // Return number of sections (4 meal types or 1 for dates)
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -564,10 +566,12 @@ extension MealViewController: UICollectionViewDataSource,
     ) -> UICollectionViewCell {
 
         if collectionView == dateCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CellIdentifiers.dateCell,
-                for: indexPath
-            ) as? DatesCollectionViewCell else {
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CellIdentifiers.dateCell,
+                    for: indexPath
+                ) as? DatesCollectionViewCell
+            else {
                 return UICollectionViewCell()
             }
 
@@ -593,19 +597,23 @@ extension MealViewController: UICollectionViewDataSource,
         }
 
         if mealsInSection.isEmpty {
-            guard let emptyCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "NoMealsCell",
-                for: indexPath
-            ) as? NoMealsCollectionViewCell else {
+            guard
+                let emptyCell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "NoMealsCell",
+                    for: indexPath
+                ) as? NoMealsCollectionViewCell
+            else {
                 return UICollectionViewCell()
             }
             return emptyCell
         }
 
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CellIdentifiers.mealCell,
-            for: indexPath
-        ) as? MealItemCollectionViewCell else {
+        guard
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CellIdentifiers.mealCell,
+                for: indexPath
+            ) as? MealItemCollectionViewCell
+        else {
             return UICollectionViewCell()
         }
         let meal = mealsInSection[indexPath.row]
@@ -716,11 +724,13 @@ extension MealViewController: UICollectionViewDataSource,
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
-        guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: CellIdentifiers.sectionHeader,
-            for: indexPath
-        ) as? MealSectionHeaderView else {
+        guard
+            let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: CellIdentifiers.sectionHeader,
+                for: indexPath
+            ) as? MealSectionHeaderView
+        else {
             return UICollectionReusableView()
         }
 
@@ -746,14 +756,17 @@ extension MealViewController: UICollectionViewDataSource,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navController = segue.destination as? UINavigationController,
             let addMealVC = navController.topViewController
-                as? AddMealModalViewController {
+                as? AddMealModalViewController
+        {
             addMealVC.familyMember = familyMember
             addMealVC.canEditSharedData = canEditSharedData
         } else if let addMealVC = segue.destination
-            as? AddMealModalViewController {
+            as? AddMealModalViewController
+        {
             addMealVC.familyMember = familyMember
             addMealVC.canEditSharedData = canEditSharedData
-        } else if let mealListVC = segue.destination as? MealDataViewController {
+        } else if let mealListVC = segue.destination as? MealDataViewController
+        {
             mealListVC.familyMember = familyMember
             mealListVC.canEditSharedData = canEditSharedData
         }
@@ -785,7 +798,7 @@ class NoMealsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(label)
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
 }

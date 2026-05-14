@@ -43,7 +43,8 @@ class MealDataViewController: UITableViewController {
 
     private func fetchMeals() {
         if let member = familyMember {
-            SharedDataService.shared.fetchMeals(for: member.userId) { [weak self] result in
+            SharedDataService.shared.fetchMeals(for: member.userId) {
+                [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let meals):
@@ -71,7 +72,8 @@ class MealDataViewController: UITableViewController {
 
         if let detailVC = segue.destination as? MealDetailViewController,
             let cell = sender as? UITableViewCell,
-            let indexPath = tableView.indexPath(for: cell) {
+            let indexPath = tableView.indexPath(for: cell)
+        {
             // We ensure we don't crash if the arrays have different lengths
             if indexPath.row < mealData.count {
                 let selectedMeal = mealData[indexPath.row]
@@ -87,12 +89,19 @@ class MealDataViewController: UITableViewController {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int {
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    )
+        -> Int
+    {
         return mealData.count
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(
+        _ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
         if familyMember != nil {
             return canEditSharedData
         }
@@ -104,8 +113,12 @@ class MealDataViewController: UITableViewController {
         tableView.setEditing(editing, animated: animated)
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    )
+        -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "meal_cell",
             for: indexPath
@@ -133,7 +146,7 @@ class MealDataViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
 
             if let member = familyMember {
-                 if let apiID = mealToDelete.apiID {
+                if let apiID = mealToDelete.apiID {
                     SharedDataService.shared.deleteMeal(
                         for: member.userId,
                         mealId: apiID
@@ -143,13 +156,15 @@ class MealDataViewController: UITableViewController {
                         }
                     }
                 } else {
-                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        [weak self] in
                         self?.isDeleting = false
                     }
                 }
             } else {
                 MealService.shared.deleteMeal(mealToDelete)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    [weak self] in
                     self?.isDeleting = false
                 }
             }

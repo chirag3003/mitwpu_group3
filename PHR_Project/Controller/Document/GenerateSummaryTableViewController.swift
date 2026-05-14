@@ -1,7 +1,8 @@
 import UIKit
 
 class GenerateSummaryTableViewController: UITableViewController,
-    FamilyMemberDataScreen {
+    FamilyMemberDataScreen
+{
 
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
@@ -60,7 +61,7 @@ class GenerateSummaryTableViewController: UITableViewController,
             titleLabel.topAnchor.constraint(
                 equalTo: headerView.topAnchor,
                 constant: 15
-            )
+            ),
         ])
 
         return headerView
@@ -140,8 +141,10 @@ class GenerateSummaryTableViewController: UITableViewController,
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let navController = segue.destination as? UINavigationController,
-              let vc = navController.topViewController as? HealthReportViewController,
-              let pdfURL = sender as? String else { return }
+            let vc = navController.topViewController
+                as? HealthReportViewController,
+            let pdfURL = sender as? String
+        else { return }
         vc.remotePDFURL = pdfURL
     }
 }
