@@ -43,7 +43,7 @@ class StepsViewModel: ObservableObject {
         }
         guard HKHealthStore.isHealthDataAvailable() else { return }
         let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-        healthStore.requestAuthorization(toShare: [], read: [stepType]) { success, error in
+        healthStore.requestAuthorization(toShare: [], read: [stepType]) { success, _ in
             if success {
                 DispatchQueue.main.async {
                     self.updateData(for: .day)
@@ -138,7 +138,7 @@ class StepsViewModel: ObservableObject {
             intervalComponents: interval
         )
         
-        query.initialResultsHandler = { query, results, error in
+        query.initialResultsHandler = { _, results, _ in
             guard let statsCollection = results else { return }
             
           
@@ -146,7 +146,7 @@ class StepsViewModel: ObservableObject {
             var newPoints: [StepDataPoint] = []
             var totalStepsInPeriod: Double = 0
 
-            statsCollection.enumerateStatistics(from: startDate, to: now) { statistics, stop in
+            statsCollection.enumerateStatistics(from: startDate, to: now) { statistics, _ in
                 let count = statistics.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0
                 
                 // Keep 'count' as a Double for the running total

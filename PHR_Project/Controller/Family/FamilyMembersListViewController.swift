@@ -81,7 +81,7 @@ class FamilyMembersListViewController: UIViewController, UITableViewDelegate, UI
 
             // Load profile image
             if !member.imageName.isEmpty, let url = URL(string: member.imageName) {
-                URLSession.shared.dataTask(with: url) { data, response, error in
+                URLSession.shared.dataTask(with: url) { data, _, error in
                     guard let data = data, error == nil, let loadedImage = UIImage(data: data) else { return }
 
                     DispatchQueue.main.async {
@@ -158,7 +158,7 @@ class FamilyMembersListViewController: UIViewController, UITableViewDelegate, UI
                     FamilyService.shared.removeMember(familyId: familyId, userId: userIdToRemove) { result in
                         DispatchQueue.main.async {
                             switch result {
-                            case .success(_):
+                            case .success:
                                 // Successfully removed from backend, update UI
                                 self.familyData.remove(at: indexPath.section)
                                 self.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .left)

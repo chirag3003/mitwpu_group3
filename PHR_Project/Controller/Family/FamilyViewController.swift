@@ -119,7 +119,7 @@ class FamilyViewController: UIViewController, UITableViewDelegate,
         func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             
             // Create the swipe action
-            let leaveAction = UIContextualAction(style: .destructive, title: "Leave") { [weak self] (action, view, completionHandler) in
+            let leaveAction = UIContextualAction(style: .destructive, title: "Leave") { [weak self] (_, _, completionHandler) in
                 guard let self = self else { return }
                 
                 let familyToLeave = self.families[indexPath.section]
