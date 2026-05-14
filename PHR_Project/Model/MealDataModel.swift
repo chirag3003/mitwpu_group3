@@ -50,7 +50,13 @@ struct Meal: Codable {
     }
 
     // Custom init for manual creation (optional, helps dealing with non-optional let properties)
-    init(id: UUID = UUID(), apiID: String? = nil, userId: String? = nil, name: String, detail: String?, time: String, image: String?, type: String, dateRecorded: Date, calories: Int, protein: Int, carbs: Int, fiber: Int, addedBy: String, notes: String?) {
+    init(
+        id: UUID = UUID(), apiID: String? = nil, userId: String? = nil,
+        name: String, detail: String?, time: String, image: String?,
+        type: String, dateRecorded: Date,
+        calories: Int, protein: Int, carbs: Int, fiber: Int,
+        addedBy: String, notes: String?
+    ) {
         self.id = id
         self.apiID = apiID
         self.userId = userId

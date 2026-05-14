@@ -171,59 +171,21 @@ class AddSymptomTableViewController: UITableViewController,
                 self.showLoader(true)
 
                 if var existingSymptom = symptomToEdit {
-                    // EDIT MODE
                     existingSymptom.symptomName = type
                     existingSymptom.intensity = intensity
                     existingSymptom.dateRecorded = recordedDate
                     existingSymptom.notes = notesTextView.text ?? ""
-
                     var newTime = DateComponents()
                     newTime.hour = timeComponents.hour
                     newTime.minute = timeComponents.minute
                     existingSymptom.time = newTime
 
-                    if let member = familyMember,
-                        let apiId = existingSymptom.apiID {
-                        SharedDataService.shared.updateSymptom(
-                            for: member.userId,
-                            symptomId: apiId,
-                            symptom: existingSymptom
-                        ) { [weak self] result in
-                            guard let self = self else { return }
-                            DispatchQueue.main.async {
-                                self.showLoader(false)
-                                switch result {
-                                case .success:
-                                    self.onSave?()
-                                    self.dismiss(animated: true)
-                                case .failure(let error):
-                                    self.showAlert(
-                                        title: "Error",
-                                        message:
-                                            "Failed to update: \(error.localizedDescription)"
-                                    )
-                                }
-                            }
-                        }
-                        return
-                    }
-
-                    SymptomService.shared.updateSymptom(existingSymptom) { [weak self] result in
-                        guard let self = self else { return }
-                        DispatchQueue.main.async {
-                            self.showLoader(false)
-                            switch result {
-                            case .success:
-                                // NEW: Trigger the refresh in the parent controller
-                                self.onSave?()
-                                self.dismiss(animated: true)
-                            case .failure(let error):
-                                self.showAlert(title: "Error", message: "Failed to update: \(error.localizedDescription)")
-                            }
-                        }
+                    if let member = familyMember, let apiId = existingSymptom.apiID {
+                        saveEditedSymptom(existingSymptom, for: member, apiId: apiId)
+                    } else {
+                        saveEditedSymptomLocally(existingSymptom)
                     }
                 } else {
-                    // ADD MODE
                     let newSymptom = Symptom(
                         id: UUID(),
                         symptomName: type,
@@ -234,45 +196,91 @@ class AddSymptomTableViewController: UITableViewController,
                     )
 
                     if let member = familyMember {
-                        SharedDataService.shared.addSymptom(
-                            for: member.userId,
-                            symptom: newSymptom
-                        ) { [weak self] result in
-                            guard let self = self else { return }
-                            DispatchQueue.main.async {
-                                self.showLoader(false)
-                                switch result {
-                                case .success:
-                                    self.onSave?()
-                                    self.dismiss(animated: true)
-                                case .failure(let error):
-                                    self.showAlert(
-                                        title: "Error",
-                                        message:
-                                            "Failed to add: \(error.localizedDescription)"
-                                    )
-                                }
-                            }
-                        }
-                        return
-                    }
-
-                    SymptomService.shared.addSymptom(newSymptom) { [weak self] result in
-                        guard let self = self else { return }
-                        DispatchQueue.main.async {
-                            self.showLoader(false)
-                            switch result {
-                            case .success:
-                                // NEW: Trigger the refresh in the parent controller
-                                self.onSave?()
-                                self.dismiss(animated: true)
-                            case .failure(let error):
-                                self.showAlert(title: "Error", message: "Failed to add: \(error.localizedDescription)")
-                            }
-                        }
+                        saveNewSymptom(newSymptom, for: member)
+                    } else {
+                        saveNewSymptomLocally(newSymptom)
                     }
                 }
             }
+
+    private func saveEditedSymptom(
+        _ symptom: Symptom, for member: FamilyMember, apiId: String
+    ) {
+        SharedDataService.shared.updateSymptom(
+            for: member.userId,
+            symptomId: apiId,
+            symptom: symptom
+        ) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showLoader(false)
+                switch result {
+                case .success:
+                    self.onSave?()
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    self.showAlert(
+                        title: "Error",
+                        message: "Failed to update: \(error.localizedDescription)"
+                    )
+                }
+            }
+        }
+    }
+
+    private func saveEditedSymptomLocally(_ symptom: Symptom) {
+        SymptomService.shared.updateSymptom(symptom) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showLoader(false)
+                switch result {
+                case .success:
+                    self.onSave?()
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: "Failed to update: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
+    private func saveNewSymptom(_ symptom: Symptom, for member: FamilyMember) {
+        SharedDataService.shared.addSymptom(
+            for: member.userId,
+            symptom: symptom
+        ) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showLoader(false)
+                switch result {
+                case .success:
+                    self.onSave?()
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    self.showAlert(
+                        title: "Error",
+                        message: "Failed to add: \(error.localizedDescription)"
+                    )
+                }
+            }
+        }
+    }
+
+    private func saveNewSymptomLocally(_ symptom: Symptom) {
+        SymptomService.shared.addSymptom(symptom) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showLoader(false)
+                switch result {
+                case .success:
+                    self.onSave?()
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: "Failed to add: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 
     // MARK: - Table View Config
     override func tableView(

@@ -21,7 +21,6 @@ class ReportsTableViewCell: UITableViewCell {
             fileImage.addRoundedCorner(radius: 15)
 
         reportName.text = report.title
-        // TODO: Wire up correct file size property from ReportModel (e.g., sizeInBytes, formattedSize, etc.)
         fileSize.text = ""
         lastUpdatedAt.text = "\(report.lastUpdatedAt)"
     }

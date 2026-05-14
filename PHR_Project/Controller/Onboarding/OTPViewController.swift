@@ -58,10 +58,10 @@ class OTPViewController: UIViewController {
 
     @IBAction func onVerifyClick(_ sender: Any) {
         // Validate that all OTP fields have a digit
-        guard let d1 = otp1.text, !d1.isEmpty,
-            let d2 = otp2.text, !d2.isEmpty,
-            let d3 = otp3.text, !d3.isEmpty,
-            let d4 = otp4.text, !d4.isEmpty
+        guard let dig1 = otp1.text, !dig1.isEmpty,
+            let dig2 = otp2.text, !dig2.isEmpty,
+            let dig3 = otp3.text, !dig3.isEmpty,
+            let dig4 = otp4.text, !dig4.isEmpty
         else {
             showAlert(
                 title: "Incomplete OTP",
