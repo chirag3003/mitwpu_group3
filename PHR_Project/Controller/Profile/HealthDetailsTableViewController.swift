@@ -412,7 +412,7 @@ class HealthDetailsTableViewController: UITableViewController,
 
         // Create the label
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
 
         titleLabel.textColor = .label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -436,7 +436,7 @@ class HealthDetailsTableViewController: UITableViewController,
 
             titleLabel.leadingAnchor.constraint(
                 equalTo: headerView.leadingAnchor,
-                constant: 20
+                constant: 16
             ),
 
             titleLabel.bottomAnchor.constraint(
