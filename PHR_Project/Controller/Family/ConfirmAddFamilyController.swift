@@ -41,7 +41,7 @@ class ConfirmAddFamilyController: UITableViewController {
                 FamilyService.shared.addMember(familyId: familyId, phoneNumber: phoneNumber) { [weak self] result in
                     DispatchQueue.main.async {
                         switch result {
-                        case .success(_):
+                        case .success:
                             // SUCCESS! Dismiss the modal and go back to the list
                             self?.dismiss(animated: true, completion: nil)
                             
