@@ -16,6 +16,7 @@ class ProfileTableViewController: UITableViewController {
         profileImage.addFullRoundedCorner()
 
         profileImage.contentMode = .scaleAspectFill
+        logoutButton.tintColor = .systemRed
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,12 +44,33 @@ class ProfileTableViewController: UITableViewController {
     // MARK: - Actions
 
     @IBAction func onLogOut(_ sender: UIButton) {
-        AuthService.shared.logout()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let onboarding = storyboard.instantiateViewController(
-            withIdentifier: "onboardingNavController"
+        let alert = UIAlertController(
+            title: "Logout?",
+            message: "Are you sure you want to log out of your account?",
+            preferredStyle: .actionSheet
         )
-        resetRootViewController(to: onboarding)
+
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { [weak self] _ in
+            AuthService.shared.logout()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let onboarding = storyboard.instantiateViewController(
+                withIdentifier: "onboardingNavController"
+            )
+            self?.resetRootViewController(to: onboarding)
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alert.addAction(logoutAction)
+        alert.addAction(cancelAction)
+
+        // iPad support
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+        }
+
+        present(alert, animated: true)
     }
     @IBAction func onDoneClick(_ sender: Any) {
         self.dismiss(animated: true)
