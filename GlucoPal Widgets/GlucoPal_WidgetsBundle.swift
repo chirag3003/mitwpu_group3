@@ -9,8 +9,8 @@ import SwiftUI
 import WidgetKit
 
 @main
-struct GlucoPal_WidgetsBundle: WidgetBundle {
+struct GlucoPalWidgetsBundle: WidgetBundle {
     var body: some Widget {
-        GlucoPal_Widgets()
+        GlucoPalWidgets()
     }
 }

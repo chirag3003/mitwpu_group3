@@ -10,7 +10,7 @@
 
 import XCTest
 
-final class PHR_ProjectUITests: XCTestCase {
+final class PHRProjectUITests: XCTestCase {
 
     let app = XCUIApplication()
 
